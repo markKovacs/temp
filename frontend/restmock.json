@@ -1,0 +1,147 @@
+{
+  "endpoints":
+      [
+          /* ------------- DASHBOARD-LOCATIONS --------------- */
+          {
+            "endpoint": "http://demo1286808.mockable.io/api/locations",
+            "response":
+                [
+                    {
+                        "id": "BUD",
+                        "name": "Budapest (Hungary)"
+                    },
+                    {
+                        "id": "MSC",
+                        "name": "Miskolc (Hungary)"
+                    },
+                    {
+                        "id": "WRS",
+                        "name": "Warsaw (Poland)"
+                    },
+                    {
+                        "id": "KRK",
+                        "name": "Krakow (Poland)"
+                    }
+                ]
+          },
+
+          /* ------------- DASHBOARD-MOTIVATION --------------- */
+          {
+            "endpoint": "http://demo1286808.mockable.io/api/dashboard/motivation?location=BUD",
+            "response":
+                [
+                    {
+                        "id": 137,
+                        "name": "Kovács Baltazár"
+                    },
+                    {
+                        "id": 25,
+                        "name": "Varga Ottokár"
+                    },
+                    {
+                        "id": 54,
+                        "name": "Kiss Jeremiás"
+                    }
+                ]
+          },
+          {
+            "endpoint": "http://demo1286808.mockable.io/api/dashboard/motivation?location=MSC",
+            "response":
+                [
+                    {
+                        "id": 122,
+                        "name": "Lakatos Krisztiánóronaldó"
+                    }
+                ]
+          },
+          {
+            "endpoint": "http://demo1286808.mockable.io/api/dashboard/motivation?location=WRS",
+            "response":
+                [
+                    {
+                        "id": 745,
+                        "name": "Prlzsmw Krychowskyzk"
+                    },
+                    {
+                        "id": 581,
+                        "name": "Myrzskw Lrkow"
+                    }
+                ]
+          },
+          {
+            "endpoint": "http://demo1286808.mockable.io/api/dashboard/motivation?location=KRK",
+            "response":
+                [
+
+                ]
+          },
+
+          /* ------------- DASHBOARD-SCREENING --------------- */
+          {
+            "endpoint": "http://demo1286808.mockable.io/api/dashboard/screening?location=BUD",
+            "response":
+                [
+                    {
+                        "id": 111,
+                        "name": "Magyar Atanáz",
+                        "date": "2017-09-10",
+                        "team": "10:00-12:00",
+                        "solo": "13:00-14:00",
+                        "replied": true
+                    },
+                    {
+                        "id": 191,
+                        "name": "Horváth Ödön",
+                        "date": "2017-09-10",
+                        "team": "10:00-12:00",
+                        "solo": "14:00-15:00",
+                        "replied": true
+                    }
+                ]
+          },
+          {
+            "endpoint": "http://demo1286808.mockable.io/api/dashboard/screening?location=MSC",
+            "response":
+                [
+                    {
+                        "id": 222,
+                        "name": "Kolompár Shakira",
+                        "date": "2017-09-10",
+                        "team": "10:00-12:00",
+                        "solo": "13:00-14:00",
+                        "replied": true
+                    },
+                    {
+                        "id": 345,
+                        "name": "Orbán Viktor",
+                        "date": "2017-09-10",
+                        "team": "14:00-16:00",
+                        "solo": "16:00-17:00",
+                        "replied": false
+                    },
+                    {
+                        "id": 191,
+                        "name": "Farkas Nintendo",
+                        "date": "2017-09-10",
+                        "team": "14:00-16:00",
+                        "solo": "17:00-18:00",
+                        "replied": true
+                    }
+                ]
+          },
+          {
+            "endpoint": "http://demo1286808.mockable.io/api/dashboard/screening?location=WRS",
+            "response":
+                [
+
+                ]
+          },
+          {
+            "endpoint": "http://demo1286808.mockable.io/api/dashboard/screening?location=KRK",
+            "response":
+                [
+
+                ]
+          }
+      ]
+}
