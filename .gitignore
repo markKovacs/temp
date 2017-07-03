@@ -27,3 +27,6 @@ nbdist/
 .nb-gradle/
 /mvnw
 /mvnw.cmd
+
+/frontend/node/
+/frontend/node_modules/
