@@ -7,7 +7,8 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class HttpClient {
 
-    private urlPrefix: string = 'http://localhost:8080';
+    // private urlPrefix: string = 'http://localhost:8080';
+    private urlPrefix: string = 'http://demo1286808.mockable.io/';
     private headers = new Headers({'Content-Type': 'application/json'});
 
     constructor(private _http: Http) {  }

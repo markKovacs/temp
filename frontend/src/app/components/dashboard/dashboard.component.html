@@ -1,3 +1,21 @@
 <div class="container">
-  Dashboard
+  <div class="row loc-buttons">
+    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 loc-button-place" *ngFor="let loc of locations">
+      <button (click)="chooseLocation(loc.id)" class="btn btn-info {{isChosen(loc.id)}}">{{loc.name}}</button>
+    </div>
+  </div>
+  <div class="row" *ngIf="locationChosen()">
+    <div class="col-md-6 col-sm-12">
+      <h4>Motivation videos to grade</h4>
+      <div *ngFor="let user of usersWithVideo">
+        <a>{{user.givenName}}&nbsp;{{user.familyName}}</a>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+      <h4>Screenings to attend</h4>
+      <div *ngFor="let user of usersWithScreening">
+        <a>{{user.givenName}}&nbsp;{{user.familyName}}</a>
+      </div>
+    </div>
+  </div>
 </div>

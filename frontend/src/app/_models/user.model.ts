@@ -1,6 +1,7 @@
 export class User {
 
   success: boolean;
+  id: number;
   givenName: string;
   familyName: string;
   middleName: string;
@@ -12,5 +13,8 @@ export class User {
   locationId: string;
   gender: string;
   phoneNumber: string;
+  team: string;
+  solo: string;
+  replied: boolean;
 
 }
