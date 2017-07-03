@@ -39,6 +39,7 @@ create table online_app_system.applications
   final_result boolean,
   contract_signed boolean,
   active BOOLEAN,
+  status VARCHAR(200),
   utm_source VARCHAR(255),
   utm_medium VARCHAR(255),
   utm_campaign VARCHAR(255)

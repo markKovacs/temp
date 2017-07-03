@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @EqualsAndHashCode(of = "id")
-//@Table(name = "applications")
+@Table(name = "applications")
 @AllArgsConstructor
 @Builder
 @ToString
