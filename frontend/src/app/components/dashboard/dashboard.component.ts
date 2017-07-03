@@ -21,13 +21,15 @@ export class DashboardComponent {
         private eventsManager: GlobalEventsManager) {
             this.eventsManager.showNavBar(true);
             this.getLocations();
-            this.getUsersWithVideo();
-            this.getUsersWithScreening();
+            if (localStorage.chosenLocation) {
+              this.getUsersWithVideo();
+              this.getUsersWithScreening();
+            }
     }
 
     getLocations() {
         this.client.get('api/locations').subscribe(
-            (locations: Location[]) => { for (let location of locations) { this.locations.push(location) }},
+            (locations: Location[]) => this.locations = locations,
             (error) => { console.log(error); },
             () => { console.log("GET - api/locations"); }
         )
@@ -63,7 +65,13 @@ export class DashboardComponent {
     }
 
     isChosen(id) {
-      return id == JSON.parse(localStorage.chosenLocation).id ? "selected-location" : "unselected-location";
+      if (!localStorage.chosenLocation) {
+        return "unselected-location";
+      }
+      if (JSON.parse(localStorage.chosenLocation).id != id) {
+        return "unselected-location";
+      }
+      return "selected-location";
     }
 
 }
