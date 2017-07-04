@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ApplicationScreeningInfoRepository extends JpaRepository<ApplicationScreeningInfo, String> {
 
     ApplicationScreeningInfo findFirstByApplicationIdOrderByScreeningGroupTimeDesc(String appId);
+    ApplicationScreeningInfo findByApplicationId(String id);
 
 }

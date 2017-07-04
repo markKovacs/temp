@@ -28,7 +28,8 @@ VALUES ('1', '1', 'yesno','come come come', 'reminder1', 'deadline', 'failed', '
 INSERT INTO online_app_system.application_screening_info (id, application_id,
                                                           screening_day, screening_group_time, screening_personal_time,
                                                           schedule_signed_back)
-VALUES ('1', '1', '2018.01.01', '2018.01.01', '2018.01.01' , true);
+VALUES ('1', '1', '2018-12-31', '11:00', '12:00' , true),
+  ('2', '2', '2018-12-31', '13:00', '15:00' , false);
 
 
 INSERT INTO online_app_system.tests (id, location_id, name, form_url,
