@@ -1,26 +1,17 @@
-package com.codecool.appsystem.admin.model;
+package com.codecool.appsystem.admin.model.dto;
+
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @Data
-@Entity
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-@EqualsAndHashCode(of = "id")
-@ToString
-public class ApplicationScreeningInfo {
+public class ScreeningDTO extends RestResponseDTO{
 
-    @Id
-    private String id;
-
-    private String applicationId;
+    private Integer adminId;
+    private String name;
     private String screeningDay;
     private String screeningGroupTime;
     private String screeningPersonalTime;
