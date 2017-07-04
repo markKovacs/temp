@@ -29,7 +29,7 @@ public class ApplicationScreeningService {
 
     public List<ScreeningDTO> find(String locationId) {
 
-        return buildScreeningDTO(locationId);
+        return buildScreeningDTO(locationId.toUpperCase());
     }
 
 
@@ -84,11 +84,18 @@ public class ApplicationScreeningService {
             screeningDto.setName(findUserName(asci.getApplicationId()));
             screeningDto.setScreeningDay(asci.getScreeningDay());
 
+            screeningDto.setSuccess(true);
             dtoList.add(screeningDto);
         }
+
         if (dtoList.isEmpty()) {
-            return Collections.emptyList();
+            ScreeningDTO notFound = new ScreeningDTO();
+            notFound.setSuccess(false);
+            notFound.setMessage("No appointments found");
+            return Collections.singletonList(notFound);
         }
+
+
         return dtoList;
     }
 }
