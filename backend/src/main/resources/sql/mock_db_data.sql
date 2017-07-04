@@ -1,7 +1,7 @@
-﻿INSERT INTO online_app_system.system_user (id, given_name, family_name, middle_name, registered_at, gender, birth_date, photo_url, phone_number, can_apply, gmail_account)
+﻿INSERT INTO online_app_system.system_user (id, given_name, family_name, middle_name, location_id, registered_at, gender, birth_date, photo_url, phone_number, can_apply, gmail_account)
 VALUES
-  ('old@gmail.com','janos', 'toth','','2017.06.01','male', 1983 ,'','06701234567',true,true),
-  ('middle@gmail.com','Anna', '','Kovacs','2017.06.11','female',1999,'','06701234567',true,true);
+  ('old@gmail.com','janos', 'toth','','BUD','2017.06.01','male', 1983 ,'','06701234567',true,true),
+  ('middle@gmail.com','Anna', '','Kovacs','MSC','2017.06.11','female',1999,'','06701234567',true,true);
 -- girhes.cc.2016@gmail.com
 -- Girhes2016
 -- InternOldApp@gmail.COM
@@ -16,8 +16,8 @@ INSERT INTO online_app_system.applications (id, applicant_id, course_id,
                                             location_id, process_started_at,final_result,
                                             contract_signed)
 VALUES
-  ('1', 'old@gmail.com', 1, 1, CURRENT_DATE, false, false ),
-  ('2', 'middle@gmail.com', 2, 2, CURRENT_DATE, false, false );
+  ('1', 'old@gmail.com', 1, 'BUD', CURRENT_DATE, false, false ),
+  ('2', 'middle@gmail.com', 2, 'MSC', CURRENT_DATE, false, false );
 
 
 INSERT INTO online_app_system.sent_emails (id, application_id, initial,
@@ -30,26 +30,24 @@ INSERT INTO online_app_system.application_screening_info (id, application_id,
                                                           schedule_signed_back)
 VALUES ('1', '1', '2018.01.01', '2018.01.01', '2018.01.01' , true);
 
-INSERT INTO online_app_system.location_types (id, name, course_type)
-VALUES ('1', 'Budapest', 'GENERAL'), ('2', 'Miskolc', 'GENERAL');
 
 INSERT INTO online_app_system.tests (id, location_id, name, form_url,
                                      max_points, threshold, enabled, order_in_bundle, estimated_time, form_as_json, motivation_video)
 VALUES
-  ('1', '1', 'introduction', 'www', 100, 60, true,1,20,'{"language":"en","gender":"male"}',false),
-  ('2', '2', 'introduction', 'www', 100, 60, true,1,20,'{"language":"en","gender":"male"}',false),
-  ('3', '2', 'english', 'www', 100, 60, true,2,40,'{"language":"en","gender":"male"}',false),
-  ('4', '1', 'english', 'www', 100, 60, true,2,40,'{"language":"en","gender":"male"}',false),
-  ('5', '1', 'test', 'www', 100, 60, true,3,50,'{"language":"en","gender":"male"}',false),
-  ('english', '1', 'english', 'www', 100,2, true,2,2,'{"language":"en","gender":"male"}',false),
-  ('6', '2', 'test', 'www', 100, 60, true,3,50,'{"language":"en","gender":"male"}',false),
-  ('7', '1', 'motivation', 'www', 100, 60, true,4,60,'{"language":"en","gender":"male"}',true),
-  ('8', '2', 'motivation', 'www', 100, 60, true,4,60,'{"language":"en","gender":"male"}',true);
+  ('1', 'BUD', 'introduction', 'www', 100, 60, true,1,20,'{"language":"en","gender":"male"}',false),
+  ('2', 'MSC', 'introduction', 'www', 100, 60, true,1,20,'{"language":"en","gender":"male"}',false),
+  ('3', 'MSC', 'english', 'www', 100, 60, true,2,40,'{"language":"en","gender":"male"}',false),
+  ('4', 'BUD', 'english', 'www', 100, 60, true,2,40,'{"language":"en","gender":"male"}',false),
+  ('5', 'KRK', 'test', 'www', 100, 60, true,3,50,'{"language":"en","gender":"male"}',false),
+  ('english', 'BUD', 'english', 'www', 100,2, true,2,2,'{"language":"en","gender":"male"}',false),
+  ('6', 'BUD', 'test', 'www', 100, 60, true,3,50,'{"language":"en","gender":"male"}',false),
+  ('7', 'WRS', 'motivation', 'www', 100, 60, true,4,60,'{"language":"en","gender":"male"}',true),
+  ('8', 'BUD', 'motivation', 'www', 100, 60, true,4,60,'{"language":"en","gender":"male"}',true);
 
 INSERT INTO online_app_system.courses (id, location_id, name, open, start_date, filled, enabled)
 VALUES
-  (1, '1','GENERAL', 'yes', '2017.09.19', 'false', 'true'),
-  (2, '2', 'GENERAL', 'yes', '2017.09.19', 'false', 'true');
+  (1, 'BUD','GENERAL', 'yes', '2017.09.19', 'false', 'true'),
+  (2, 'KRK', 'GENERAL', 'yes', '2017.09.19', 'false', 'true');
 
 INSERT INTO online_app_system.test_results (id, application_id, test_id, started, finished, points, percent, passed, comment)
 VALUES

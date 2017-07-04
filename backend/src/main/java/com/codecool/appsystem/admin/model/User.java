@@ -7,10 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Data
@@ -25,6 +22,9 @@ public class User {
     @Id
     @JsonIgnore
     private String id;
+
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private Integer adminId;
 
     private String givenName;
     private String familyName;

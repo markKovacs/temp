@@ -1,4 +1,4 @@
-﻿﻿DROP TABLE IF EXISTS online_app_system.courses;
+﻿DROP TABLE IF EXISTS online_app_system.courses;
 DROP TABLE IF EXISTS online_app_system.sent_emails;
 DROP TABLE IF EXISTS online_app_system.application_screening_info;
 DROP TABLE IF EXISTS online_app_system.test_results;
@@ -14,6 +14,7 @@ CREATE TABLE online_app_system.system_user
 (
   id VARCHAR(40) PRIMARY KEY NOT NULL,
   auth0user_id VARCHAR (80),
+  admin_id SERIAL,
   given_name VARCHAR (255),
   family_name VARCHAR (255),
   middle_name VARCHAR (255),
