@@ -6,15 +6,28 @@
   </div>
   <div class="row" *ngIf="locationChosen()">
     <div class="col-md-6 col-sm-12">
-      <h4>Motivation videos to grade</h4>
-      <div *ngFor="let user of usersWithVideo">
-        <a>{{user.givenName}}&nbsp;{{user.familyName}}</a>
+      <div class="dashboard-card">
+        <h4>Motivation videos to grade</h4>
+        <div *ngFor="let user of usersWithVideo">
+          <button>
+            {{user.givenName}}&nbsp;{{user.familyName}}
+            <i class="material-icons icon-align">play_circle_outline</i>
+          </button>
+        </div>
       </div>
     </div>
     <div class="col-md-6 col-sm-12">
-      <h4>Screenings to attend</h4>
-      <div *ngFor="let user of usersWithScreening">
-        <a>{{user.givenName}}&nbsp;{{user.familyName}}</a>
+      <div class="dashboard-card">
+        <h4>Screenings to attend</h4>
+        <div *ngFor="let user of usersWithScreening">
+          <p>
+            {{user.date}} Team: {{user.team}} / Solo:{{user.solo}}
+            <button>
+              {{user.givenName}}&nbsp;{{user.familyName}}
+              <i class="material-icons">contacts</i>
+            </button>
+          </p>
+        </div>
       </div>
     </div>
   </div>
