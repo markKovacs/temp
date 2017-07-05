@@ -9,7 +9,7 @@
       <div class="dashboard-card">
         <h4>Motivation videos to grade</h4>
         <div *ngFor="let user of usersWithVideo">
-          <button>
+          <button (click)="getApplicant(user.id)">
             {{user.givenName}}&nbsp;{{user.familyName}}
             <i class="material-icons icon-align">play_circle_outline</i>
           </button>
@@ -22,7 +22,7 @@
         <div *ngFor="let user of usersWithScreening">
           <p>
             {{user.date}} Team: {{user.team}} / Solo:{{user.solo}}
-            <button>
+            <button (click)="getApplicant(user.id)">
               {{user.givenName}}&nbsp;{{user.familyName}}
               <i class="material-icons">contacts</i>
             </button>
