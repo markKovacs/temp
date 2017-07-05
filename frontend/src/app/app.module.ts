@@ -8,7 +8,8 @@ import {HttpClient} from './_httpclient/httpclient';
 import {AppComponent} from './app.component';
 import {
   NavBarComponent,
-  DashboardComponent
+  DashboardComponent,
+  ApplicantComponent
 } from './components/index';
 import { AuthGuard } from './guards/index';
 
@@ -22,7 +23,8 @@ import { AuthGuard } from './guards/index';
     declarations: [
         AppComponent,
         NavBarComponent,
-        DashboardComponent
+        DashboardComponent,
+        ApplicantComponent
     ],
     providers: [
         AuthGuard,
