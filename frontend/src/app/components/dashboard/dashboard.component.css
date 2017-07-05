@@ -1,5 +1,6 @@
 body {
   background-color: beige;
+  font-family: 'Montserrat', sans-serif;
 }
 
 h1 {
@@ -37,4 +38,50 @@ p {
 .selected-location {
   background-color: #428bca;
   border-color: #428bca;
+}
+
+.dashboard-card {
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  box-shadow: 0 0 3px 3px #999;
+  border-radius: 3px;
+  padding: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.dashboard-card h4 {
+  color: #d9534f;
+  font-size: 2.0em;
+  margin-bottom: 30px;
+  text-decoration: underline;
+}
+
+.dashboard-card button {
+  margin: 7px;
+  padding: 7px;
+  border-radius: 3px;
+  background-color: white;
+  color: black;
+  border: 1px solid white;
+}
+
+.dashboard-card button:hover {
+  box-shadow: 0 0 2px 2px #5bc0de;
+  background-color: #5bc0de;
+  color: white;
+  border: 1px solid #5bc0de;
+}
+
+.dashboard-card button:active {
+  box-shadow: 0 0 1px 1px #5bc0de;
+  background-color: #5bc0de;
+  color: white;
+  border: 1px solid #5bc0de;
+}
+
+.icon-align {
+  vertical-align: bottom;
+  margin-left: 5px;
+  margin-right: 5px;
 }

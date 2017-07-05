@@ -74,4 +74,9 @@ export class DashboardComponent {
       return "selected-location";
     }
 
+    getApplicant(id) {
+      let destination = '/applicant/' + id;
+      this.router.navigate([destination]);
+    }
+
 }
