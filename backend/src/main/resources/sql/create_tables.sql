@@ -33,7 +33,7 @@ CREATE TABLE online_app_system.system_user
 create table online_app_system.applications
 (
   id VARCHAR(40) PRIMARY KEY NOT NULL,
-  applicant_id VARCHAR(40) UNIQUE REFERENCES online_app_system.system_user(id),
+  applicant_id VARCHAR(40) REFERENCES online_app_system.system_user(id),
   course_id INT,
   location_id varchar(40),
   process_started_at TIMESTAMP,

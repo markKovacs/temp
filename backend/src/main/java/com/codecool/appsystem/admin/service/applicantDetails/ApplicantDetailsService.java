@@ -31,8 +31,10 @@ public class ApplicantDetailsService
 
 
     public ApplicantDetailsDTO provideInfo(Integer id) {
+
         User user = userRepo.findByAdminId(id);
-        Application application = applicationRepo.findByApplicantId(user.getId());
+        Application application = applicationRepo.findByApplicantIdAndActive(user.getId(),true);
+
 
         UserApplicantDTO userApplicationDto = userAppUtil.getApplicantInfo(user,application);
 
@@ -61,6 +63,7 @@ public class ApplicantDetailsService
         result.setScreeningGroupTime(appScrInf.getScreeningGroupTime());
         result.setScreeningPersonalTime(appScrInf.getScreeningPersonalTime());
         result.setScheduleSignedBack(appScrInf.getScheduleSignedBack());
+        result.setSuccess(true);
 
         return result;
     }
