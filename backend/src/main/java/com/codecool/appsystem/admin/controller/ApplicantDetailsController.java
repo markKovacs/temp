@@ -1,7 +1,7 @@
 package com.codecool.appsystem.admin.controller;
 
-import com.codecool.appsystem.admin.model.dto.ApplicantDetailsDTO;
-import com.codecool.appsystem.admin.service.ApplicantDetailsService;
+import com.codecool.appsystem.admin.model.dto.applicantDetails.ApplicantDetailsDTO;
+import com.codecool.appsystem.admin.service.applicantDetails.ApplicantDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
