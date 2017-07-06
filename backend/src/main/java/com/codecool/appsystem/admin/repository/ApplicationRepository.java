@@ -9,4 +9,6 @@ public interface ApplicationRepository extends JpaRepository<Application, String
 
     Application findByApplicantId(String id);
 
+    Long countByApplicantId(String id);
+
 }
