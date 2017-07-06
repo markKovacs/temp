@@ -15,8 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ApplicantDetailsService
-{
+public class ApplicantDetailsService {
 
     @Autowired
     private UserRepository userRepo;
@@ -46,8 +45,7 @@ public class ApplicantDetailsService
     }
 
 
-    public ApplicantDetailsDTO provideDTO(UserApplicantDTO userApplicationDto, List<TestResultDTO> tests, ApplicationScreeningInfo appScrInf)
-    {
+    public ApplicantDetailsDTO provideDTO(UserApplicantDTO userApplicationDto, List<TestResultDTO> tests, ApplicationScreeningInfo appScrInf) {
         ApplicantDetailsDTO result = new ApplicantDetailsDTO();
 
         result.setFamilyName(userApplicationDto.getFamilyName());
@@ -59,10 +57,19 @@ public class ApplicantDetailsService
         result.setTimesApplied(userApplicationDto.getTimesApplied());
         result.setDateOfBirth(userApplicationDto.getDateOfBirth());
         result.setTestResults(tests);
-        result.setScreeningDay(appScrInf.getScreeningDay());
-        result.setScreeningGroupTime(appScrInf.getScreeningGroupTime());
-        result.setScreeningPersonalTime(appScrInf.getScreeningPersonalTime());
-        result.setScheduleSignedBack(appScrInf.getScheduleSignedBack());
+        // TODO = REFACTOR
+
+        if (appScrInf != null) {
+            result.setScreeningDay(appScrInf.getScreeningDay() == null ? " " : appScrInf.getScreeningDay());
+            result.setScreeningGroupTime(appScrInf.getScreeningGroupTime() == null ? " " : appScrInf.getScreeningGroupTime());
+            result.setScreeningPersonalTime(appScrInf.getScreeningPersonalTime() == null ? " " : appScrInf.getScreeningPersonalTime());
+            result.setScheduleSignedBack(appScrInf.getScheduleSignedBack() == null ? false : appScrInf.getScheduleSignedBack());
+        } else {
+            result.setScreeningDay("");
+            result.setScreeningGroupTime("");
+            result.setScreeningPersonalTime("");
+            result.setScheduleSignedBack(false);
+        }
         result.setSuccess(true);
 
         return result;

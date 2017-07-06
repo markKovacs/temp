@@ -8,6 +8,8 @@ import com.codecool.appsystem.admin.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class UserApplicantUtilService {
 
@@ -24,15 +26,15 @@ public class UserApplicantUtilService {
         Long timesApplied = applicationRepo.countByApplicantId(user.getId());
 
         UserApplicantDTO details = new UserApplicantDTO();
-
+        // TODO = REFACTOR
         details.setAdminId(user.getAdminId());
         details.setApplyingTo(school);
-        details.setDateOfBirth(user.getBirthDate());
-        details.setFamilyName(user.getFamilyName());
-        details.setGivenName(user.getGivenName());
+        details.setDateOfBirth(user.getBirthDate() == null ? 0000 : user.getBirthDate());
+        details.setFamilyName(user.getFamilyName() == null ? " " : user.getFamilyName());
+        details.setGivenName(user.getFamilyName() == null ? " " : user.getFamilyName());
         details.setTimesApplied(timesApplied);
-        details.setProcessStarted(application.getProcessStartedAt());
-        details.setCourseId(application.getCourseId());
+        details.setProcessStarted(application.getProcessStartedAt() == null ? new Date() : application.getProcessStartedAt());
+        details.setCourseId(application.getCourseId() == null ? 0 : application.getCourseId());
 
         return details;
     }

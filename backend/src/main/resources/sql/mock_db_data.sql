@@ -2,7 +2,7 @@
 VALUES
   ('old@gmail.com',1,'janos', 'toth','','BUD','2017.06.01','male', 1983 ,'','06701234567',true,true),
   ('middle@gmail.com',2,'Anna', '','Kovacs','MSC','2017.06.11','female',1999,'','06701234567',true,true),
-  ('appdet@gmail.com',6,'Applicationkktek', 'Details','Test','BUD','2017.06.11','female',1999,'','06701234567',true,true);
+  ('appdet@gmail.com',6,'Application', 'Details','Test','BUD','2017.06.11','female',1999,'','06701234567',true,true);
 -- girhes.cc.2016@gmail.com
 -- Girhes2016
 -- InternOldApp@gmail.COM
@@ -10,8 +10,8 @@ VALUES
 
 
 
-INSERT INTO online_app_system.system_user (id, registered_at, can_apply, gmail_account)
-VALUES ('new@gmail.com','2017.06.21',false,true);
+INSERT INTO online_app_system.system_user (id, admin_id,location_id,registered_at, can_apply, gmail_account)
+VALUES ('new@gmail.com',4, 'BUD','2017.06.21',false,true);
 
 INSERT INTO online_app_system.applications (id, applicant_id, course_id,
                                             location_id, process_started_at,final_result,
@@ -20,7 +20,7 @@ VALUES
   ('1', 'old@gmail.com', 1, 'BUD', CURRENT_DATE, false, false,TRUE ),
   ('2', 'middle@gmail.com', 2, 'MSC', CURRENT_DATE, false, false,TRUE ),
   ('3', 'appdet@gmail.com', 1, 'BUD', CURRENT_DATE, false, false,TRUE ),
-  ('4', 'appdet@gmail.com', 1, 'BUD', CURRENT_DATE, false, false,FALSE );
+  ('4', 'new@gmail.com', 1, 'BUD', CURRENT_DATE, false, false,TRUE);
 
 INSERT INTO online_app_system.sent_emails (id, application_id, initial,
                                            info, reminder, deadline_reminder, schedule_or_failed,
@@ -62,9 +62,9 @@ VALUES
   ('5','2', '3',CURRENT_DATE,CURRENT_DATE, 76,76, false, 'comment'),
   ('6','3', '3',CURRENT_DATE,CURRENT_DATE, 76,76, false, 'comment');
 
-INSERT INTO online_app_system.test_results (id, application_id, test_id, started, passed, comment)
+INSERT INTO online_app_system.test_results (id, application_id, test_id, started, finished, points, percent, passed, comment)
 VALUES
-  ('8','2', '3',CURRENT_DATE, false,'comment');
+  ('8','2', '3',CURRENT_DATE,CURRENT_DATE, 76,76, false, 'comment');
 
 INSERT INTO online_app_system.test_answers (question_id, correct_answer)
 VALUES ('english_1','b,c'),

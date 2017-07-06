@@ -1,13 +1,14 @@
 package com.codecool.appsystem.admin.model.dto.applicantDetails;
 
+import com.codecool.appsystem.admin.model.dto.RestResponseDTO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class TestResultDTO {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class TestResultDTO extends RestResponseDTO{
 
     private String name;
     private boolean passed;
