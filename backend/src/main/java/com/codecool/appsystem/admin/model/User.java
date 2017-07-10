@@ -47,6 +47,8 @@ public class User {
 
     private String auth0UserId;
 
+    private Boolean isBlacklisted;
+
     @Column(length = 80)
     private String userHash;
 

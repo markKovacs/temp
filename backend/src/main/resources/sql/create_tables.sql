@@ -26,6 +26,7 @@ CREATE TABLE online_app_system.system_user
   location_id VARCHAR (255),
   user_hash VARCHAR (80),
   adminuuid INT,
+  is_blacklisted BOOLEAN,
   can_apply boolean,
   gmail_account boolean
 );

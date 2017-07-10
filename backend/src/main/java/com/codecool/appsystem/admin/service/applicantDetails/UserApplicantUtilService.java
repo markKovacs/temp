@@ -29,7 +29,7 @@ public class UserApplicantUtilService {
         // TODO = REFACTOR
         details.setAdminId(user.getAdminId());
         details.setApplyingTo(school);
-        details.setDateOfBirth(user.getBirthDate() == null ? 0000 : user.getBirthDate());
+        details.setDateOfBirth(user.getBirthDate() == null ? 0 : user.getBirthDate());
         details.setFamilyName(user.getFamilyName() == null ? " " : user.getFamilyName());
         details.setGivenName(user.getFamilyName() == null ? " " : user.getFamilyName());
         details.setTimesApplied(timesApplied);

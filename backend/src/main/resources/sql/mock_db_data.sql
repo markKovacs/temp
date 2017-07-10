@@ -1,8 +1,8 @@
-﻿INSERT INTO online_app_system.system_user (id, admin_id, given_name, family_name, middle_name, location_id, registered_at, gender, birth_date, photo_url, phone_number, can_apply, gmail_account)
+﻿INSERT INTO online_app_system.system_user (id, admin_id, given_name, family_name, middle_name, location_id, registered_at, gender, birth_date, photo_url, phone_number, can_apply, gmail_account, is_blacklisted)
 VALUES
-  ('old@gmail.com',1,'janos', 'toth','','BUD','2017.06.01','male', 1983 ,'','06701234567',true,true),
-  ('middle@gmail.com',2,'Anna', '','Kovacs','MSC','2017.06.11','female',1999,'','06701234567',true,true),
-  ('appdet@gmail.com',6,'Application', 'Details','Test','BUD','2017.06.11','female',1999,'','06701234567',true,true);
+  ('old@gmail.com',1,'janos', 'toth','','BUD','2017.06.01','male', 1983 ,'','06701234567',true,true,false),
+  ('middle@gmail.com',2,'Anna', '','Kovacs','MSC','2017.06.11','female',1999,'','06701234567',true,true,false),
+  ('appdet@gmail.com',6,'Application', 'Details','Test','BUD','2017.06.11','female',1999,'','06701234567',true,true,false);
 -- girhes.cc.2016@gmail.com
 -- Girhes2016
 -- InternOldApp@gmail.COM
@@ -10,8 +10,8 @@ VALUES
 
 
 
-INSERT INTO online_app_system.system_user (id, admin_id,location_id,registered_at, can_apply, gmail_account)
-VALUES ('new@gmail.com',4, 'BUD','2017.06.21',false,true);
+-- INSERT INTO online_app_system.system_user (id, admin_id,location_id,registered_at, is_blacklisted, can_apply, gmail_account)
+-- VALUES ('new@gmail.com',4, 'BUD','2017.06.21',false,false,true);
 
 INSERT INTO online_app_system.applications (id, applicant_id, course_id,
                                             location_id, process_started_at,final_result,
@@ -19,8 +19,8 @@ INSERT INTO online_app_system.applications (id, applicant_id, course_id,
 VALUES
   ('1', 'old@gmail.com', 1, 'BUD', CURRENT_DATE, false, false,TRUE ),
   ('2', 'middle@gmail.com', 2, 'MSC', CURRENT_DATE, false, false,TRUE ),
-  ('3', 'appdet@gmail.com', 1, 'BUD', CURRENT_DATE, false, false,TRUE ),
-  ('4', 'new@gmail.com', 1, 'BUD', CURRENT_DATE, false, false,TRUE);
+  ('3', 'appdet@gmail.com', 1, 'BUD', CURRENT_DATE, false, false,TRUE );
+--   ('4', 'new@gmail.com', 1, 'BUD', CURRENT_DATE, false, false,TRUE);
 
 INSERT INTO online_app_system.sent_emails (id, application_id, initial,
                                            info, reminder, deadline_reminder, schedule_or_failed,
@@ -60,6 +60,7 @@ VALUES
   ('3','1', '5',CURRENT_DATE,CURRENT_DATE, 10,10, true, 'comment'),
   ('4','2', '2',CURRENT_DATE,CURRENT_DATE, 99,99, true, 'comment'),
   ('5','2', '3',CURRENT_DATE,CURRENT_DATE, 76,76, false, 'comment'),
+--   ('7','4', '3',CURRENT_DATE,CURRENT_DATE, 76,76, false, 'comment'),
   ('6','3', '3',CURRENT_DATE,CURRENT_DATE, 76,76, false, 'comment');
 
 INSERT INTO online_app_system.test_results (id, application_id, test_id, started, finished, points, percent, passed, comment)

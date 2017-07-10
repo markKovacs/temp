@@ -12,4 +12,6 @@ public interface TestResultRepository extends JpaRepository<TestResult, String> 
     TestResult findFirstByTestIdAndApplicationIdOrderByFinishedDesc(String testId, String appId);
 
     List<TestResult> findByApplicationId(String id);
+
+    List<TestResult> findByApplicationIdAndPassed(String id, boolean passed);
 }
