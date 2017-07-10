@@ -73,12 +73,7 @@ public class ApplicantListingService {
         List<TestResult> applicantsTests;
         List<TestResult> passed = new ArrayList<>();
 
-
-        if (testResultRepo.findByApplicationId(application.getId()) != null) {
-            applicantsTests = testResultRepo.findByApplicationId(application.getId());
-        } else {
-            applicantsTests = Collections.emptyList();
-        }
+        applicantsTests = testResultRepo.findByApplicationId(application.getId());
 
         if (!applicantsTests.isEmpty()) {
             passed = applicantsTests.stream().filter(TestResult::isPassed).collect(Collectors.toList());
