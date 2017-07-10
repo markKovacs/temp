@@ -23,7 +23,6 @@ public class AllApplicantsRestController {
         //not sure how the location info will travel, so for now
         // i use this dummy data
         String locationId = "BUD";
-        System.out.println(applicantListingService.addApplicationData(locationId));
 
         return applicantListingService.addApplicationData(locationId);
     }

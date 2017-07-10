@@ -57,11 +57,12 @@ INSERT INTO online_app_system.test_results (id, application_id, test_id, started
 VALUES
   ('1','1', '1',CURRENT_DATE,CURRENT_DATE, 87,87, true, 'comment'),
   ('2','1', '4',CURRENT_DATE,CURRENT_DATE, 87,87, true, 'comment'),
-  ('3','1', '5',CURRENT_DATE,CURRENT_DATE, 10,10, true, 'comment'),
+  ('3','1', '5',CURRENT_DATE,CURRENT_DATE, 10,10, TRUE , 'comment'),
   ('4','2', '2',CURRENT_DATE,CURRENT_DATE, 99,99, true, 'comment'),
-  ('5','2', '3',CURRENT_DATE,CURRENT_DATE, 76,76, false, 'comment'),
+  ('5','2', '3',CURRENT_DATE,CURRENT_DATE, 76,76, true, 'comment'),
 --   ('7','4', '3',CURRENT_DATE,CURRENT_DATE, 76,76, false, 'comment'),
-  ('6','3', '3',CURRENT_DATE,CURRENT_DATE, 76,76, false, 'comment');
+  ('6','3', '3',CURRENT_DATE,CURRENT_DATE, 76,76, TRUE , 'comment'),
+  ('7','3', '3',CURRENT_DATE,CURRENT_DATE, 76,76, false, 'comment');
 
 INSERT INTO online_app_system.test_results (id, application_id, test_id, started, finished, points, percent, passed, comment)
 VALUES

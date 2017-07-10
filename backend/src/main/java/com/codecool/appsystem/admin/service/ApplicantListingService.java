@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ApplicantListingService {
@@ -68,13 +69,19 @@ public class ApplicantListingService {
 
         Application application = applicationRepository.findByApplicantId(id);
 
-        int noOfPassedTests = 0;
+        int noOfPassedTests;
+        List<TestResult> applicantsTests;
         List<TestResult> passed = new ArrayList<>();
 
+
         if (testResultRepo.findByApplicationId(application.getId()) != null) {
-            passed = testResultRepo.findByApplicationId(application.getId());
+            applicantsTests = testResultRepo.findByApplicationId(application.getId());
         } else {
-            passed = Collections.emptyList();
+            applicantsTests = Collections.emptyList();
+        }
+
+        if (!applicantsTests.isEmpty()) {
+            passed = applicantsTests.stream().filter(TestResult::isPassed).collect(Collectors.toList());
         }
 
         noOfPassedTests = passed.size();
