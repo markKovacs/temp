@@ -27,8 +27,8 @@ public class ApplicantListingService {
 
     private static final Map<Integer, String> upcomingTest  = createMap();
 
-    private static final Map<Integer, String> createMap()
-    {
+    private static final Map<Integer, String> createMap() {
+
         Map<Integer, String> upcomingTest  = new HashMap<>();
         upcomingTest.put(0, "Prerequisites");
         upcomingTest.put(1, "Introduction");
@@ -70,14 +70,18 @@ public class ApplicantListingService {
         Application application = applicationRepository.findByApplicantId(id);
 
         int noOfPassedTests;
-        List<TestResult> applicantsTests;
         List<TestResult> passed = new ArrayList<>();
 
-        applicantsTests = testResultRepo.findByApplicationId(application.getId());
+        List<TestResult> applicantsTests = testResultRepo.findByApplicationId(application.getId());
 
         if (!applicantsTests.isEmpty()) {
-            passed = applicantsTests.stream().filter(TestResult::isPassed).collect(Collectors.toList());
+
+            passed = applicantsTests
+                    .stream()
+                    .filter(TestResult::isPassed)
+                    .collect(Collectors.toList());
         }
+
 
         noOfPassedTests = passed.size();
 
