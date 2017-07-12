@@ -44,12 +44,15 @@ public class ApplicationScreeningService {
     private ScreeningDTO transformScreeningInfo(ApplicationScreeningInfo asci){
         ScreeningDTO screeningDto = new ScreeningDTO();
 
+        screeningDto.setAdminId(findUserAdminId(asci.getApplicationId()));
+        screeningDto.setName(findUserName(asci.getApplicationId()));
+
+        // HAShMAP ScrDetails
         screeningDto.setScreeningPersonalTime(asci.getScreeningPersonalTime());
         screeningDto.setScreeningGroupTime(asci.getScreeningGroupTime());
         screeningDto.setScheduleSignedBack(asci.getScheduleSignedBack());
-        screeningDto.setAdminId(findUserAdminId(asci.getApplicationId()));
-        screeningDto.setName(findUserName(asci.getApplicationId()));
         screeningDto.setScreeningDay(asci.getScreeningDay());
+        //
 
         return screeningDto;
     }

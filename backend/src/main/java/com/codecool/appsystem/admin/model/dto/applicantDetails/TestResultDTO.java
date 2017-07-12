@@ -14,5 +14,6 @@ public class TestResultDTO extends RestResponseDTO{
     private boolean passed;
     private int points;
     private String comment;
+    private Boolean isPending;
     private String motivation;
 }

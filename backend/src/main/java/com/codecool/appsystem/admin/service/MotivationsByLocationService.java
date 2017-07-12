@@ -10,16 +10,22 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UsersByLocationService {
+public class MotivationsByLocationService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private MotivationsUtilService motivationsUtilService;
 
     public List<UserDTO> applicantsByLocation(String locationId) {
 
         List<User> userList = userRepository.findByLocationId(locationId);
 
-        return userList
+        List<User> ungradedMotivations = motivationsUtilService.getUngradedUsers(userList);
+
+        // pass user list to a service where those without graded mot-vid gets selected and returned
+
+        return ungradedMotivations
                 .stream()
                 .map(this::transform)
                 .collect(Collectors.toList());

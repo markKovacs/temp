@@ -3,7 +3,7 @@ package com.codecool.appsystem.admin.controller;
 import com.codecool.appsystem.admin.model.dto.ScreeningDTO;
 import com.codecool.appsystem.admin.model.dto.UserDTO;
 import com.codecool.appsystem.admin.service.ApplicationScreeningService;
-import com.codecool.appsystem.admin.service.UsersByLocationService;
+import com.codecool.appsystem.admin.service.MotivationsByLocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,19 +14,22 @@ import java.util.List;
 public class DashboardRestController {
 
     @Autowired
-    private UsersByLocationService userLocationService;
+    private MotivationsByLocationService userMotivationService;
 
     @Autowired
     private ApplicationScreeningService screeningService;
 
+    // has motivation video, but not graded
     @RequestMapping(value = "/motivation", method = RequestMethod.GET)
     public List<UserDTO> applicantsByLocation(@RequestParam("location") String locationId) {
-        return userLocationService.applicantsByLocation(locationId);
+        return userMotivationService.applicantsByLocation(locationId);
     }
 
     @RequestMapping(value = "/screening", method = RequestMethod.GET)
     public List<ScreeningDTO> scheduledScreenings(@RequestParam("location") String locationId) throws Exception{
         return screeningService.find(locationId);
     }
+
+    // /api/motivation/evaluate POST( adminId, bool)
 
 }
