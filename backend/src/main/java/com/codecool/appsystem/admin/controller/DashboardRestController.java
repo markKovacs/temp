@@ -19,17 +19,13 @@ public class DashboardRestController {
     @Autowired
     private ApplicationScreeningService screeningService;
 
-
-    @RequestMapping(value = "/motivation", method = RequestMethod.GET, params = {"locationId"})
-    public @ResponseBody List<UserDTO> applicantsByLocation(@RequestParam String locationId) {
-
+    @RequestMapping(value = "/motivation", method = RequestMethod.GET)
+    public List<UserDTO> applicantsByLocation(@RequestParam("location") String locationId) {
         return userLocationService.applicantsByLocation(locationId);
     }
 
-
-    @RequestMapping(value = "/screening", method = RequestMethod.GET, params = {"locationId"})
-    public @ResponseBody List<ScreeningDTO> scheduledScreenings(@RequestParam String locationId) throws Exception{
-
+    @RequestMapping(value = "/screening", method = RequestMethod.GET)
+    public List<ScreeningDTO> scheduledScreenings(@RequestParam("location") String locationId) throws Exception{
         return screeningService.find(locationId);
     }
 

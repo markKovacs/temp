@@ -10,4 +10,8 @@ public interface UserRepository extends JpaRepository<User, String> {
     User findByUserHash(String userHash);
 
     List<User> findByLocationId(String id);
+
+    User findByAdminId(Integer id);
+
+    List<User> findAllByLocationId(String locationId);
 }

@@ -23,7 +23,6 @@ public class User {
     @JsonIgnore
     private String id;
 
-    @GeneratedValue(strategy = GenerationType.TABLE)
     private Integer adminId;
 
     private String givenName;
@@ -47,6 +46,8 @@ public class User {
 
     private String auth0UserId;
 
+    private Boolean isBlacklisted;
+
     @Column(length = 80)
     private String userHash;
 
@@ -55,7 +56,7 @@ public class User {
     }
 
     public String getFullName() {
-        if (middleName.length() > 0){
+        if (middleName != null){
             return givenName + " " + middleName + " " + familyName;
         }
         return givenName + " " + familyName;

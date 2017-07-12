@@ -17,5 +17,6 @@ export class User {
   team: string;
   solo: string;
   replied: boolean;
+  date: string;
 
 }

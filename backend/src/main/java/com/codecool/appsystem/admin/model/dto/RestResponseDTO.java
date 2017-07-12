@@ -7,7 +7,7 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class RestResponseDTO {
 
-    private boolean success;
+    private Boolean success;
     private String message;
 
     private String location;

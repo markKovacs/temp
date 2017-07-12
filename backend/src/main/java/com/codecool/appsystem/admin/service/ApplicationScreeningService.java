@@ -2,7 +2,6 @@ package com.codecool.appsystem.admin.service;
 
 import com.codecool.appsystem.admin.model.Application;
 import com.codecool.appsystem.admin.model.ApplicationScreeningInfo;
-import com.codecool.appsystem.admin.model.User;
 import com.codecool.appsystem.admin.model.dto.ScreeningDTO;
 import com.codecool.appsystem.admin.repository.ApplicationRepository;
 import com.codecool.appsystem.admin.repository.ApplicationScreeningInfoRepository;
@@ -11,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ApplicationScreeningService {
@@ -26,30 +25,38 @@ public class ApplicationScreeningService {
     @Autowired
     private ApplicationScreeningInfoRepository appScrRepo;
 
-
+    /**
+     * Returns all the current application screening info
+     * for the given location
+     * @param locationId
+     * @return
+     */
     public List<ScreeningDTO> find(String locationId) {
 
-        return buildScreeningDTO(locationId.toUpperCase());
+        List<ApplicationScreeningInfo> screeningInfo = findScrInfo(locationId);
+
+        return screeningInfo
+                .stream()
+                .map(this::transformScreeningInfo)
+                .collect(Collectors.toList());
     }
 
+    private ScreeningDTO transformScreeningInfo(ApplicationScreeningInfo asci){
+        ScreeningDTO screeningDto = new ScreeningDTO();
 
-    private List<Application> applicationsByLocation(String locationId) {
+        screeningDto.setScreeningPersonalTime(asci.getScreeningPersonalTime());
+        screeningDto.setScreeningGroupTime(asci.getScreeningGroupTime());
+        screeningDto.setScheduleSignedBack(asci.getScheduleSignedBack());
+        screeningDto.setAdminId(findUserAdminId(asci.getApplicationId()));
+        screeningDto.setName(findUserName(asci.getApplicationId()));
+        screeningDto.setScreeningDay(asci.getScreeningDay());
 
-        List<User> users = userRepository.findByLocationId(locationId);
-        List<Application> applications = new ArrayList<>();
-
-        for (User user: users) {
-            Application application = appRepository.findByApplicantId(user.getId());
-            applications.add(application);
-        }
-
-        return applications;
+        return screeningDto;
     }
-
 
     private List<ApplicationScreeningInfo> findScrInfo(String locationId){
 
-        List<Application> applicationsByLocation = applicationsByLocation(locationId);
+        List<Application> applicationsByLocation = appRepository.findByLocationId(locationId);
         List<ApplicationScreeningInfo> screeningInfo = new ArrayList<>();
 
         for (Application application: applicationsByLocation) {
@@ -68,34 +75,5 @@ public class ApplicationScreeningService {
     private String findUserName(String id){
         Application application = appRepository.findOne(id);
         return userRepository.findOne(application.getApplicantId()).getFullName();
-    }
-
-    private List<ScreeningDTO> buildScreeningDTO(String locationId) {
-        List<ApplicationScreeningInfo> screeningInfo = findScrInfo(locationId);
-        List<ScreeningDTO> dtoList = new ArrayList<>();
-
-        for (ApplicationScreeningInfo asci: screeningInfo) {
-            ScreeningDTO screeningDto = new ScreeningDTO();
-
-            screeningDto.setScreeningPersonalTime(asci.getScreeningPersonalTime());
-            screeningDto.setScreeningGroupTime(asci.getScreeningGroupTime());
-            screeningDto.setScheduleSignedBack(asci.getScheduleSignedBack());
-            screeningDto.setAdminId(findUserAdminId(asci.getApplicationId()));
-            screeningDto.setName(findUserName(asci.getApplicationId()));
-            screeningDto.setScreeningDay(asci.getScreeningDay());
-
-            screeningDto.setSuccess(true);
-            dtoList.add(screeningDto);
-        }
-
-        if (dtoList.isEmpty()) {
-            ScreeningDTO notFound = new ScreeningDTO();
-            notFound.setSuccess(false);
-            notFound.setMessage("No appointments found");
-            return Collections.singletonList(notFound);
-        }
-
-
-        return dtoList;
     }
 }

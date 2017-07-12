@@ -6,8 +6,8 @@ import com.codecool.appsystem.admin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UsersByLocationService {
@@ -18,17 +18,20 @@ public class UsersByLocationService {
     public List<UserDTO> applicantsByLocation(String locationId) {
 
         List<User> userList = userRepository.findByLocationId(locationId);
-        List<UserDTO> userDtoList = new ArrayList<>();
 
-        for (User user: userList) {
-            UserDTO uDto = UserDTO.buildSuccess();
-            uDto.setAdminId(user.getAdminId());
-            uDto.setGivenName(user.getGivenName());
-            uDto.setMiddleName(user.getMiddleName());
-            uDto.setFamilyName(user.getFamilyName());
-            userDtoList.add(uDto);
-        }
+        return userList
+                .stream()
+                .map(this::transform)
+                .collect(Collectors.toList());
 
-        return userDtoList;
+    }
+
+    private UserDTO transform(User user){
+        return UserDTO.builder()
+                .adminId(user.getAdminId())
+                .givenName(user.getGivenName())
+                .middleName(user.getMiddleName())
+                .familyName(user.getFamilyName())
+                .build();
     }
 }
