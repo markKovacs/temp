@@ -38,3 +38,38 @@ p {
   background-color: #428bca;
   border-color: #428bca;
 }
+
+.dashboard-users {
+  margin: 20px;
+  text-align: center;
+  box-shadow: 0 0 10px #428bca;
+  border-radius: 3px;
+  padding: 20px;
+}
+
+.dashboard-users h3 {
+  font-weight: bold;
+  margin-bottom: 40px;
+  text-decoration: underline;
+  color: #428bca;
+}
+
+.dashboard-user {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid green;
+  border-radius: 3px;
+}
+
+.screening-details p {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+.screening-date {
+  color: red;
+  font-size: 0.8em;
+}

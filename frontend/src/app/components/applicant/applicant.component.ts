@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { GlobalEventsManager } from "../../global.eventsmanager";
 import { HttpClient } from "../../_httpclient/httpclient";
 import { Location, User } from "../../_models/index";
+// import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 
 @Component({
     moduleId: module.id,
@@ -11,26 +12,40 @@ import { Location, User } from "../../_models/index";
 })
 export class ApplicantComponent {
 
-    public user: User;
+    public user: any;
     public usersLocation: Location;
 
     constructor(
-        private route: ActivatedRoute,
-        private client: HttpClient,
-        private router: Router,
-        private eventsManager: GlobalEventsManager) {
-            this.eventsManager.showNavBar(true);
-            this.route.params.subscribe(
-                (id) => this.getUser(id).subscribe(
-                    (user: User) => this.user = user,
-                    (error) => console.log(error),
-                    () => console.log("User set")
-                )
-            )
+      // private sanitizer: DomSanitizer,
+      private route: ActivatedRoute,
+      private client: HttpClient,
+      private router: Router,
+      private eventsManager: GlobalEventsManager)
+    {
+      this.eventsManager.showNavBar(true);
+      this.route.params.subscribe(
+        (params) => {
+          console.log(params.id);
+          let replaceIdForMock = 15;
+          this.getUser(replaceIdForMock).subscribe(
+            (user: any) => {this.user = user; console.log(user)},
+            (error) => console.log(error),
+            () => console.log("User set")
+          )
+        }
+      )
     }
 
     getUser(id) {
-        return this.client.get('api/applicant/' + id)
+      return this.client.get('api/applicants/' + id)
+    }
+
+    getMotivationVideo(){
+      let videoUrl = this.user.testResults.find( testResult => testResult.name == "motivation" ).motivation;
+      let videoID = videoUrl.split("watch?v=")[1];
+      let embedCode = "https://www.youtube.com/embed/" + videoID;
+      // return this.sanitizer.bypassSecurityTrustUrl(embedCode);
+      return embedCode;
     }
 
 }

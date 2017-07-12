@@ -38,7 +38,7 @@ export class DashboardComponent {
     getUsersWithVideo() {
         let id = JSON.parse(localStorage.chosenLocation).id
         this.client.get('api/dashboard/motivation?location=' + id).subscribe(
-          (users: User[]) => this.usersWithVideo = users,
+          (users: User[]) => {this.usersWithVideo = users;},
           (error) => { console.log(error); },
           () => { console.log("GET - api/dashboard/motivation") }
         )
@@ -47,7 +47,7 @@ export class DashboardComponent {
     getUsersWithScreening() {
         let id = JSON.parse(localStorage.chosenLocation).id
         this.client.get('api/dashboard/screening?location=' + id).subscribe(
-          (users: User[]) => this.usersWithScreening = users,
+          (users: User[]) => {this.usersWithScreening = users;},
           (error) => { console.log(error); },
           () => { console.log("GET - api/dashboard/screening") }
         )
@@ -72,6 +72,10 @@ export class DashboardComponent {
         return "unselected-location";
       }
       return "selected-location";
+    }
+
+    getApplicant(id) {
+      this.router.navigate(['applicants/' + id])
     }
 
 }
