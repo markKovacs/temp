@@ -98,6 +98,7 @@ create table online_app_system.test_results
   started TIMESTAMP ,
   finished TIMESTAMP ,
   points INT,
+  motivation_text TEXT,
   percent DOUBLE PRECISION,
   passed boolean,
   comment VARCHAR(255)

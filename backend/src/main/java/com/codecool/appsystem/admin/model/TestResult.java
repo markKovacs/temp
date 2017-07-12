@@ -33,6 +33,8 @@ public class TestResult {
 
     private Double percent;
 
+    private String motivationText;
+
     private boolean passed;
 
     private String comment;

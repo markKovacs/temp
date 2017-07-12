@@ -2,11 +2,11 @@ package com.codecool.appsystem.admin.model.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 
 @Data
-@NoArgsConstructor
 @Builder
+@EqualsAndHashCode(callSuper = false)
 public class ApplicantInfoDTO extends RestResponseDTO {
 
     private String name;

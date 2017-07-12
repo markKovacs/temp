@@ -34,6 +34,7 @@ public class Test {
     private String locationId;
     private Integer orderInBundle;
     private Integer estimatedTime;
+    private Boolean motivationVideo;
 
     @Column(columnDefinition = "TEXT")
     private String formAsJson;
