@@ -15,6 +15,7 @@ public class UserDTO extends RestResponseDTO {
 
     private boolean success;
     private String message;
+    private String fullName;
     private String givenName;
     private String familyName;
     private String middleName;

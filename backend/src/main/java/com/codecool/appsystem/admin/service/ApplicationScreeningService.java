@@ -34,7 +34,7 @@ public class ApplicationScreeningService {
     public List<ScreeningDTO> find(String locationId) {
 
         List<ApplicationScreeningInfo> screeningInfo = findScrInfo(locationId);
-
+        System.out.println("find");
         return screeningInfo
                 .stream()
                 .map(this::transformScreeningInfo)
@@ -44,6 +44,7 @@ public class ApplicationScreeningService {
     private ScreeningDTO transformScreeningInfo(ApplicationScreeningInfo asci){
         ScreeningDTO screeningDto = new ScreeningDTO();
 
+        System.out.println("transform src info ,ethod");
         screeningDto.setAdminId(findUserAdminId(asci.getApplicationId()));
         screeningDto.setName(findUserName(asci.getApplicationId()));
 
@@ -61,7 +62,7 @@ public class ApplicationScreeningService {
 
         List<Application> applicationsByLocation = appRepository.findByLocationId(locationId);
         List<ApplicationScreeningInfo> screeningInfo = new ArrayList<>();
-
+        System.out.println("find scr info");
         for (Application application: applicationsByLocation) {
             ApplicationScreeningInfo appScreeningInfo = appScrRepo.findByApplicationId(application.getId());
             screeningInfo.add(appScreeningInfo);
@@ -77,6 +78,7 @@ public class ApplicationScreeningService {
 
     private String findUserName(String id){
         Application application = appRepository.findOne(id);
+        System.out.println("full name");
         return userRepository.findOne(application.getApplicantId()).getFullName();
     }
 }

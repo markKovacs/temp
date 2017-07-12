@@ -34,7 +34,13 @@ INSERT INTO online_app_system.application_screening_info (id, application_id,
                                                           schedule_signed_back)
 VALUES ('1', '1', '2018-12-31', '11:00', '12:00' , true),
   ('2', '2', '2018-12-31', '13:00', '15:00' , false),
+  ('4', '4', '2018-12-31', '13:00', '15:00' , false),
   ('3', '3', '2018-12-31', '13:02', '15:07' , false);
+
+INSERT INTO online_app_system.application_screening_info (id, application_id,
+                                                          screening_day, screening_personal_time)
+VALUES
+  ('5', '5', '2018-12-31', '15:07');
 
 
 INSERT INTO online_app_system.tests (id, location_id, name, form_url,
@@ -46,9 +52,13 @@ VALUES
   ('4', 'BUD', 'english', 'www', 100, 60, true,2,40,'{"language":"en","gender":"male"}',false),
   ('5', 'KRK', 'test', 'www', 100, 60, true,3,50,'{"language":"en","gender":"male"}',false),
   ('english', 'BUD', 'english', 'www', 100,2, true,2,2,'{"language":"en","gender":"male"}',false),
-  ('6', 'BUD', 'test', 'www', 100, 60, true,3,50,'{"language":"en","gender":"male"}',false),
-  ('7', 'WRS', 'motivation', 'www', 100, 60, true,4,60,'{"language":"en","gender":"male"}',true),
-  ('8', 'BUD', 'motivation', 'www', 100, 60, true,4,60,'{"language":"en","gender":"male"}',true);
+  ('6', 'BUD', 'test', 'www', 100, 60, true,3,50,'{"language":"en","gender":"male"}',false);
+--   ('7', 'WRS', 'motivation', 'www', 100, 60, true,4,60,'{"language":"en","gender":"male"}',true),
+
+INSERT INTO online_app_system.tests (id, name, form_url,
+                                     max_points, threshold, enabled, order_in_bundle, estimated_time, form_as_json, motivation_video)
+VALUES
+  ('8', 'motivation', 'www', 100, 60, true,4,60,'{"language":"en","gender":"male"}',true);
 
 INSERT INTO online_app_system.courses (id, location_id, name, open, start_date, filled, enabled)
 VALUES
@@ -66,9 +76,9 @@ VALUES
   ('6','3', '3',CURRENT_DATE,CURRENT_DATE, 76,76, TRUE , 'comment'),
   ('7','3', '3',CURRENT_DATE,CURRENT_DATE, 76,76, false, 'comment');
 
--- INSERT INTO online_app_system.test_results (id, application_id, test_id, started, finished, points, percent, passed, comment)
--- VALUES
---   ('8','2', '3',CURRENT_DATE,CURRENT_DATE, 76,76, false, 'comment');
+INSERT INTO online_app_system.test_results (id, application_id, test_id, started, finished, points, percent, passed, comment, is_pending)
+VALUES
+  ('9','1', '8',CURRENT_DATE,CURRENT_DATE, 1,100, FALSE , 'comment',TRUE );
 
 INSERT INTO online_app_system.test_answers (question_id, correct_answer)
 VALUES ('english_1','b,c'),

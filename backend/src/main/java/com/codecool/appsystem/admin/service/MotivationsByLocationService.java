@@ -35,9 +35,7 @@ public class MotivationsByLocationService {
     private UserDTO transform(User user){
         return UserDTO.builder()
                 .adminId(user.getAdminId())
-                .givenName(user.getGivenName())
-                .middleName(user.getMiddleName())
-                .familyName(user.getFamilyName())
+                .fullName(user.getFullName())
                 .build();
     }
 }
