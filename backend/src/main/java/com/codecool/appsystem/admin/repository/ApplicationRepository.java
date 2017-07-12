@@ -7,8 +7,6 @@ public interface ApplicationRepository extends JpaRepository<Application, String
 
     Application findByApplicantIdAndActive(String email, Boolean active);
 
-    Application findByApplicantId(String id);
-
     Long countByApplicantId(String id);
 
 }

@@ -19,23 +19,13 @@ public class ApplicantsController {
     @Autowired
     private ApplicantListingService applicantListingService;
 
-
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody
-    List<ApplicantInfoDTO> getAllApplicants(){
-
-        //not sure how the location info will travel, so for now
-        // i use this dummy data
-        String locationId = "BUD";
-
-        return applicantListingService.addApplicationData(locationId);
+    public List<ApplicantInfoDTO> getAllApplicants(@RequestParam("location") String locationId){
+        return applicantListingService.getApplicationData(locationId);
     }
 
-
     @RequestMapping(value = "/{id}")
-    public @ResponseBody
-    ApplicantDetailsDTO getSingleApplicantInfo(@PathVariable("id") Integer id) {
-        
+    public ApplicantDetailsDTO getSingleApplicantInfo(@PathVariable("id") Integer id) {
         return detailsService.provideInfo(id);
     }
 }

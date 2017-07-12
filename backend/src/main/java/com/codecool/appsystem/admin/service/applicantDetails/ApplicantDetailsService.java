@@ -2,78 +2,85 @@ package com.codecool.appsystem.admin.service.applicantDetails;
 
 import com.codecool.appsystem.admin.model.Application;
 import com.codecool.appsystem.admin.model.ApplicationScreeningInfo;
+import com.codecool.appsystem.admin.model.TestResult;
 import com.codecool.appsystem.admin.model.User;
+import com.codecool.appsystem.admin.model.dto.ApplicantDetailsDTOBuilder;
 import com.codecool.appsystem.admin.model.dto.applicantDetails.ApplicantDetailsDTO;
 import com.codecool.appsystem.admin.model.dto.applicantDetails.TestResultDTO;
-import com.codecool.appsystem.admin.model.dto.applicantDetails.UserApplicantDTO;
-import com.codecool.appsystem.admin.repository.ApplicationRepository;
-import com.codecool.appsystem.admin.repository.ApplicationScreeningInfoRepository;
-import com.codecool.appsystem.admin.repository.UserRepository;
+import com.codecool.appsystem.admin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ApplicantDetailsService {
 
     @Autowired
     private UserRepository userRepo;
+
     @Autowired
     private ApplicationRepository applicationRepo;
-    @Autowired
-    private TestUtilService testUtil;
-    @Autowired
-    private UserApplicantUtilService userAppUtil;
+
     @Autowired
     private ApplicationScreeningInfoRepository appScrInfoRepo;
+
+    @Autowired
+    private TestResultRepository testResRepository;
+
+    @Autowired
+    private TestRepository testRepo;
 
 
     public ApplicantDetailsDTO provideInfo(Integer id) {
 
         User user = userRepo.findByAdminId(id);
+
         Application application = applicationRepo.findByApplicantIdAndActive(user.getId(),true);
-
-
-        UserApplicantDTO userApplicationDto = userAppUtil.getApplicantInfo(user,application);
-
-        List<TestResultDTO> tests = testUtil.getTestInfo(application);
 
         ApplicationScreeningInfo appScrInf = appScrInfoRepo.findByApplicationId(application.getId());
 
-        return provideDTO(userApplicationDto,tests,appScrInf);
+        return provideDTO(user, application, appScrInf);
     }
 
 
-    public ApplicantDetailsDTO provideDTO(UserApplicantDTO userApplicationDto, List<TestResultDTO> tests, ApplicationScreeningInfo appScrInf) {
-        ApplicantDetailsDTO result = new ApplicantDetailsDTO();
+    private ApplicantDetailsDTO provideDTO(User user, Application application, ApplicationScreeningInfo appScrInf) {
 
-        result.setFamilyName(userApplicationDto.getFamilyName());
-        result.setGivenName(userApplicationDto.getGivenName());
-        result.setAdminId(userApplicationDto.getAdminId());
-        result.setApplyingTo(userApplicationDto.getApplyingTo());
-        result.setCourseId(userApplicationDto.getCourseId());
-        result.setProcessStartedAt(userApplicationDto.getProcessStarted());
-        result.setTimesApplied(userApplicationDto.getTimesApplied());
-        result.setDateOfBirth(userApplicationDto.getDateOfBirth());
-        result.setTestResults(tests);
-        // TODO = REFACTOR
+        return new ApplicantDetailsDTOBuilder()
+                .fromUser(user)
+                .timesApplied(applicationRepo.countByApplicantId(user.getId()))
+                .fromApplication(application)
+                .testResults(getTestInfo(application))
+                .fromAppScrInfo(appScrInf)
+                .build();
 
-        if (appScrInf != null) {
-            result.setScreeningDay(appScrInf.getScreeningDay() == null ? " " : appScrInf.getScreeningDay());
-            result.setScreeningGroupTime(appScrInf.getScreeningGroupTime() == null ? " " : appScrInf.getScreeningGroupTime());
-            result.setScreeningPersonalTime(appScrInf.getScreeningPersonalTime() == null ? " " : appScrInf.getScreeningPersonalTime());
-            result.setScheduleSignedBack(appScrInf.getScheduleSignedBack() == null ? false : appScrInf.getScheduleSignedBack());
-        } else {
-            result.setScreeningDay("");
-            result.setScreeningGroupTime("");
-            result.setScreeningPersonalTime("");
-            result.setScheduleSignedBack(false);
-        }
-        result.setSuccess(true);
-
-        return result;
     }
 
+    private List<TestResultDTO> getTestInfo(Application application) {
+
+        List<TestResult> tests = testResRepository.findByApplicationId(application.getId());
+
+        return tests
+                .stream()
+                .map(this::transformTestResult)
+                .collect(Collectors.toList());
+
+    }
+
+    private TestResultDTO transformTestResult(TestResult testResult){
+
+        String name = testRepo.findOne(testResult.getTestId()).getName();
+
+        TestResultDTO TDto = new TestResultDTO();
+        TDto.setName(name);
+        TDto.setComment(testResult.getComment());
+        TDto.setMotivation(testResult.getComment());
+        TDto.setPassed(testResult.isPassed());
+        TDto.setPoints(testResult.getPoints());
+
+        return TDto;
+
+    }
 
 }

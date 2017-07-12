@@ -18,8 +18,7 @@ public class ApplicantDetailsDTO extends RestResponseDTO {
     private Integer dateOfBirth;
     private Integer adminId;
     private Long timesApplied;
-    private String applyingTo;
-    private Integer courseId;
+    private String location;
     private Date processStartedAt;
     private List<TestResultDTO> testResults;
     private String screeningDay;

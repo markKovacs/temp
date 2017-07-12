@@ -25,72 +25,61 @@ public class ApplicantListingService {
     @Autowired
     private TestResultRepository testResultRepo;
 
-    private static final Map<Integer, String> upcomingTest  = createMap();
+    private final Map<Long, String> upcomingTest = new HashMap<>();
 
-    private static final Map<Integer, String> createMap() {
-
-        Map<Integer, String> upcomingTest  = new HashMap<>();
-        upcomingTest.put(0, "Prerequisites");
-        upcomingTest.put(1, "Introduction");
-        upcomingTest.put(2, "English");
-        upcomingTest.put(3, "Logic");
-        upcomingTest.put(4, "Motivation");
-        return upcomingTest;
+    public ApplicantListingService(){
+        upcomingTest.put(0L, "Prerequisites");
+        upcomingTest.put(1L, "Introduction");
+        upcomingTest.put(2L, "English");
+        upcomingTest.put(3L, "Logic");
+        upcomingTest.put(4L, "Motivation");
     }
 
-
-    public List<ApplicantInfoDTO> addApplicationData(String locationId) {
-
+    public List<ApplicantInfoDTO> getApplicationData(String locationId) {
 
         List<User> userList = userRepository.findAllByLocationId(locationId);
-        List<ApplicantInfoDTO> dtoResultList = new ArrayList<>();
 
-        for (User user: userList) {
+        return userList
+                .stream()
+                .map(this::transform)
+                .collect(Collectors.toList());
 
-            ApplicantInfoDTO dto = new ApplicantInfoDTO();
+    }
 
+    private ApplicantInfoDTO transform(User user){
 
-            dto.setName(user.getFullName());
-            dto.setAdminId(user.getAdminId());
-            dto.setBlacklisted(user.getIsBlacklisted());
-            dto.setLocation(user.getLocationId());
+        return ApplicantInfoDTO.builder()
+                .name(user.getFullName())
+                .adminId(user.getAdminId())
+                .blacklisted(user.getIsBlacklisted())
+                .location(user.getLocationId())
+                .attempts(getAttempts(user))
+                .lastPassedTest(getLastPassedTest(user.getId()))
+                .build();
 
-            dto.setAttempts(getAttempts(user));
-            dto.setLastPassedTest(getLastPassedTest(user.getId()));
-            dto.setSuccess(true);
-
-            dtoResultList.add(dto);
-        }
-
-        return dtoResultList;
     }
 
     private String getLastPassedTest(String id) {
 
-        Application application = applicationRepository.findByApplicantId(id);
-
-        int noOfPassedTests;
-        List<TestResult> passed = new ArrayList<>();
+        Application application = applicationRepository.findByApplicantIdAndActive(id, Boolean.TRUE);
 
         List<TestResult> applicantsTests = testResultRepo.findByApplicationId(application.getId());
 
-        if (!applicantsTests.isEmpty()) {
-
-            passed = applicantsTests
+        long noOfPassedTests = applicantsTests
                     .stream()
                     .filter(TestResult::isPassed)
-                    .collect(Collectors.toList());
-        }
-
-
-        noOfPassedTests = passed.size();
+                    .count();
 
         return upcomingTest.get(noOfPassedTests);
     }
 
 
+    /**
+     * Counts all the application for the given user.
+     * @param user
+     * @return no. of applications in total
+     */
     private long getAttempts(User user) {
-
         return applicationRepository.countByApplicantId(user.getId());
     }
 }

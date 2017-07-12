@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserApplicantDTO extends RestResponseDTO{
+public class UserApplicationDTO extends RestResponseDTO{
 
     private String givenName;
     private String familyName;

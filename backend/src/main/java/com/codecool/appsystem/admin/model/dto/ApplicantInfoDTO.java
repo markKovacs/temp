@@ -1,10 +1,12 @@
 package com.codecool.appsystem.admin.model.dto;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@Builder
 public class ApplicantInfoDTO extends RestResponseDTO {
 
     private String name;
