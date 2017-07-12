@@ -23,7 +23,6 @@ public class User {
     @JsonIgnore
     private String id;
 
-    @GeneratedValue(strategy = GenerationType.TABLE)
     private Integer adminId;
 
     private String givenName;
