@@ -14,16 +14,22 @@ export class NavBarComponent {
     public showNavBar: boolean = false;
 
     constructor(
-                private router: Router,
-                private globalEventsManager: GlobalEventsManager) {
+      private router: Router,
+      private globalEventsManager: GlobalEventsManager) {
         this.globalEventsManager.showNavBarEmitter.subscribe((mode) => {
+          if (mode !== null) {
+            this.showNavBar = mode;
+          }
+        }
+      );
+    }
 
-            if (mode !== null) {
-                this.showNavBar = mode;
-            }
+    getDashboard(){
+      this.router.navigate(['dashboard'])
+    }
 
-        });
-
+    getApplicants(){
+      this.router.navigate(['applicants'])
     }
 
     logout() {

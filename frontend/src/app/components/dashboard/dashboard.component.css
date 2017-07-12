@@ -40,48 +40,37 @@ p {
   border-color: #428bca;
 }
 
-.dashboard-card {
-  font-family: 'Montserrat', sans-serif;
+.dashboard-users {
+  margin: 20px;
   text-align: center;
-  box-shadow: 0 0 3px 3px #999;
+  box-shadow: 0 0 10px #428bca;
   border-radius: 3px;
   padding: 20px;
-  margin-top: 30px;
-  margin-bottom: 30px;
 }
 
-.dashboard-card h4 {
-  color: #d9534f;
-  font-size: 2.0em;
-  margin-bottom: 30px;
+.dashboard-users h3 {
+  font-weight: bold;
+  margin-bottom: 40px;
   text-decoration: underline;
+  color: #428bca;
 }
 
-.dashboard-card button {
-  margin: 7px;
-  padding: 7px;
+.dashboard-user {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid green;
   border-radius: 3px;
-  background-color: white;
-  color: black;
-  border: 1px solid white;
 }
 
-.dashboard-card button:hover {
-  box-shadow: 0 0 2px 2px #5bc0de;
-  background-color: #5bc0de;
-  color: white;
-  border: 1px solid #5bc0de;
+.screening-details p {
+  text-align: left;
+  margin: 0;
+  padding: 0;
 }
 
-.dashboard-card button:active {
-  box-shadow: 0 0 1px 1px #5bc0de;
-  background-color: #5bc0de;
-  color: white;
-  border: 1px solid #5bc0de;
-}
-
-.icon-align {
-  vertical-align: bottom;
-  margin-left: 5px;
-  margin-right: 5px;
+.screening-date {
+  color: red;
+  font-size: 0.8em;
 }

@@ -4,25 +4,6 @@
   min-height: 500px;
 }
 
-.applicant-profile {
-  border: 1px solid #999;
-  border-radius: 3px;
-  margin: 20px;
-  padding: 10px;
-  background-color: beige;
-}
-
-.applicant-profile-details {
-  box-shadow: inset 0 0 10px 10px beige;
-  background-color: white;
-  padding: 15px;
-  border-radius: 3px;
-}
-
-.applicant-profile-details p {
-  display: flex;
-  justify-content: space-between;
-}
 
 .material-icons.md-240 {
   font-size: 240px;

@@ -13,6 +13,7 @@ export class User {
   locationId: string;
   gender: string;
   phoneNumber: string;
+  date: string;
   team: string;
   solo: string;
   replied: boolean;
