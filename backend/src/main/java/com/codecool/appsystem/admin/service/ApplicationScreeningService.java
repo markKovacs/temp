@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,7 +36,6 @@ public class ApplicationScreeningService {
     public List<ScreeningDTO> find(String locationId) {
 
         List<ApplicationScreeningInfo> screeningInfo = findScrInfo(locationId);
-        System.out.println("find");
         return screeningInfo
                 .stream()
                 .map(this::transformScreeningInfo)
@@ -44,16 +45,16 @@ public class ApplicationScreeningService {
     private ScreeningDTO transformScreeningInfo(ApplicationScreeningInfo asci){
         ScreeningDTO screeningDto = new ScreeningDTO();
 
-        System.out.println("transform src info ,ethod");
+        Map<String,Object> screeningInfo = new HashMap<>();
+        screeningInfo.put("screeningDay", asci.getScreeningDay());
+        screeningInfo.put("screeningPersonalTime", asci.getScreeningPersonalTime());
+        screeningInfo.put("screeningGroupTime", asci.getScreeningGroupTime());
+        screeningInfo.put("scheduleSignedBack", asci.getScheduleSignedBack());
+
         screeningDto.setAdminId(findUserAdminId(asci.getApplicationId()));
         screeningDto.setName(findUserName(asci.getApplicationId()));
 
-        // HAShMAP ScrDetails
-        screeningDto.setScreeningPersonalTime(asci.getScreeningPersonalTime());
-        screeningDto.setScreeningGroupTime(asci.getScreeningGroupTime());
-        screeningDto.setScheduleSignedBack(asci.getScheduleSignedBack());
-        screeningDto.setScreeningDay(asci.getScreeningDay());
-        //
+        screeningDto.setScreeningInfo(screeningInfo);
 
         return screeningDto;
     }
@@ -62,7 +63,7 @@ public class ApplicationScreeningService {
 
         List<Application> applicationsByLocation = appRepository.findByLocationId(locationId);
         List<ApplicationScreeningInfo> screeningInfo = new ArrayList<>();
-        System.out.println("find scr info");
+
         for (Application application: applicationsByLocation) {
             ApplicationScreeningInfo appScreeningInfo = appScrRepo.findByApplicationId(application.getId());
             screeningInfo.add(appScreeningInfo);
@@ -78,7 +79,6 @@ public class ApplicationScreeningService {
 
     private String findUserName(String id){
         Application application = appRepository.findOne(id);
-        System.out.println("full name");
         return userRepository.findOne(application.getApplicantId()).getFullName();
     }
 }
