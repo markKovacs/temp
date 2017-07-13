@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GlobalEventsManager } from "../../global.eventsmanager";
 import { HttpClient } from "../../_httpclient/httpclient";
-import { Location, User } from "../../_models/index";
+import { UserInList } from "../../_models/index";
 
 @Component({
     moduleId: module.id,
@@ -11,8 +11,7 @@ import { Location, User } from "../../_models/index";
 })
 export class ApplicantListComponent {
 
-    public users: any;
-    public usersLocation: Location;
+    public users: UserInList[];
 
     constructor(
       private route: ActivatedRoute,
@@ -21,10 +20,15 @@ export class ApplicantListComponent {
       private eventsManager: GlobalEventsManager)
     {
       this.eventsManager.showNavBar(true);
+      this.client.get("/api/applicants?location=BUD").subscribe(
+        (users: UserInList[]) => this.users = users,
+        (error) => console.log(error),
+        () => console.log("users fetched for applicant list", this.users)
+      );
     }
 
-    getUser(id) {
-      return this.client.get('api/applicants/' + id)
+    checkApplicant(e){
+      this.router.navigate(['applicants/' + e.data.adminId]);
     }
 
 }

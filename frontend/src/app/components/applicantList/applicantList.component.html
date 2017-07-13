@@ -2,7 +2,30 @@
   <div *ngIf="!users" class="applicant-loading-container">
     <i class="material-icons md-240 applicant-loading">cloud_download</i>
   </div>
-  <div *ngIf="user" class="applicant-list-conatiner">
+  <div *ngIf="users" class="applicant-list-conatiner">
+    <p-dataTable [value]="users" [rows]="1" [paginator]="true" (onRowClick)="checkApplicant($event)">
 
+      <p-column
+        field="name"
+        header="Name"
+        [filter]="true"
+        filterMatchMode="contains"
+        [sortable]="true">
+      </p-column>
+
+      <p-column
+        field="lastPassedTest"
+        header="Last Passed Test"
+        [filter]="true"
+        filterMatchMode="startsWith">
+      </p-column>
+
+      <p-column
+        field="attempts"
+        header="Number of attempts"
+        [sortable]="true">
+      </p-column>
+
+    </p-dataTable>
   </div>
 </div>
