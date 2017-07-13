@@ -30,11 +30,11 @@ public class MotivationsUtilService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> getUngradedUsers(List<User> userList) {
+    public List<User> getUngradedUsers(List<User> userList, String id) {
 
         List<Application> applications = new ArrayList<>();
 
-        Test motivationTest = testRepo.findByMotivationVideo(true);
+        Test motivationTest = testRepo.findByMotivationVideoAndLocationId(true, id);
 
         for (User u: userList) {
             Application application = applicationRepository.findByApplicantIdAndActive(u.getId(), true);

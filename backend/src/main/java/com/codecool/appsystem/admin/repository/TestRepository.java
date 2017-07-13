@@ -11,5 +11,5 @@ public interface TestRepository extends JpaRepository<Test, String> {
 
     List<Test> findByLocationIdOrderByOrderInBundleAsc(String locationId);
 
-    Test findByMotivationVideo(Boolean bool);
+    Test findByMotivationVideoAndLocationId(Boolean bool,String id);
 }

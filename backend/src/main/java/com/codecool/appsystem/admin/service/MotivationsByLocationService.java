@@ -21,7 +21,7 @@ public class MotivationsByLocationService {
 
         List<User> userList = userRepository.findByLocationId(locationId);
 
-        List<User> ungradedMotivations = motivationsUtilService.getUngradedUsers(userList);
+        List<User> ungradedMotivations = motivationsUtilService.getUngradedUsers(userList, locationId);
 
         // pass user list to a service where those without graded mot-vid gets selected and returned
 

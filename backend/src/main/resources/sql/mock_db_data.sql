@@ -52,13 +52,13 @@ VALUES
   ('4', 'BUD', 'english', 'www', 100, 60, true,2,40,'{"language":"en","gender":"male"}',false),
   ('5', 'KRK', 'test', 'www', 100, 60, true,3,50,'{"language":"en","gender":"male"}',false),
   ('english', 'BUD', 'english', 'www', 100,2, true,2,2,'{"language":"en","gender":"male"}',false),
+  ('7', 'WRS', 'motivation', 'www', 100, 60, true,4,60,'{"language":"en","gender":"male"}',true),
   ('6', 'BUD', 'test', 'www', 100, 60, true,3,50,'{"language":"en","gender":"male"}',false);
---   ('7', 'WRS', 'motivation', 'www', 100, 60, true,4,60,'{"language":"en","gender":"male"}',true),
 
-INSERT INTO online_app_system.tests (id, name, form_url,
+INSERT INTO online_app_system.tests (id,location_id, name, form_url,
                                      max_points, threshold, enabled, order_in_bundle, estimated_time, form_as_json, motivation_video)
 VALUES
-  ('8', 'motivation', 'www', 100, 60, true,4,60,'{"language":"en","gender":"male"}',true);
+  ('8', 'BUD', 'motivation', 'www', 100, 60, true,4,60,'{"language":"en","gender":"male"}',true);
 
 INSERT INTO online_app_system.courses (id, location_id, name, open, start_date, filled, enabled)
 VALUES
