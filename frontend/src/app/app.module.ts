@@ -6,7 +6,7 @@ import {HttpModule} from '@angular/http';
 import {routing} from './app.routing';
 import { DataTableModule, InputTextareaModule, PanelModule, DropdownModule } from 'primeng/primeng';
 import {SharedModule} from 'primeng/primeng';
-// import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import {GlobalEventsManager} from './global.eventsmanager';
 import {HttpClient} from './_httpclient/httpclient';
 import {AppComponent} from './app.component';
