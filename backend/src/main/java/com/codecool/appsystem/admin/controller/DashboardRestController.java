@@ -1,11 +1,14 @@
 package com.codecool.appsystem.admin.controller;
 
+import com.codecool.appsystem.admin.model.dto.MotivationDTO;
 import com.codecool.appsystem.admin.model.dto.ScreeningDTO;
-import com.codecool.appsystem.admin.model.dto.UserDTO;
 import com.codecool.appsystem.admin.service.ApplicationScreeningService;
 import com.codecool.appsystem.admin.service.MotivationsByLocationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -19,9 +22,8 @@ public class DashboardRestController {
     @Autowired
     private ApplicationScreeningService screeningService;
 
-    // has motivation video, but not graded
     @RequestMapping(value = "/motivation", method = RequestMethod.GET)
-    public List<UserDTO> applicantsByLocation(@RequestParam("location") String locationId) {
+    public List<MotivationDTO> applicantsByLocation(@RequestParam("location") String locationId) {
         return userMotivationService.applicantsByLocation(locationId);
     }
 
@@ -30,6 +32,6 @@ public class DashboardRestController {
         return screeningService.find(locationId);
     }
 
-    // /api/motivation/evaluate POST( adminId, bool)
+    //  TODO: /api/motivation/evaluate POST( adminId, bool)
 
 }

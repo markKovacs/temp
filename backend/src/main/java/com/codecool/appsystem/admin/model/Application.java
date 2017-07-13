@@ -39,5 +39,5 @@ public class Application {
     private String utmSource;
     private String utmMedium;
     private String utmCampaign;
-    private String status;
+    private String comment;
 }

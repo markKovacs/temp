@@ -39,5 +39,8 @@ public class Test {
     @Column(columnDefinition = "TEXT")
     private String formAsJson;
 
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
 
 }

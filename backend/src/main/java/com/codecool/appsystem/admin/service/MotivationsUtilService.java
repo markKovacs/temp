@@ -4,10 +4,10 @@ import com.codecool.appsystem.admin.model.Application;
 import com.codecool.appsystem.admin.model.Test;
 import com.codecool.appsystem.admin.model.TestResult;
 import com.codecool.appsystem.admin.model.User;
+import com.codecool.appsystem.admin.model.dto.MotivationDTO;
 import com.codecool.appsystem.admin.repository.ApplicationRepository;
 import com.codecool.appsystem.admin.repository.TestRepository;
 import com.codecool.appsystem.admin.repository.TestResultRepository;
-import com.codecool.appsystem.admin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,12 +27,9 @@ public class MotivationsUtilService {
     @Autowired
     private TestRepository testRepo;
 
-    @Autowired
-    private UserRepository userRepository;
+    public List<MotivationDTO> getUngradedUsers(List<User> userList, String id) {
 
-    public List<User> getUngradedUsers(List<User> userList, String id) {
-
-        List<Application> applications = new ArrayList<>();
+        List<MotivationDTO> motivation = new ArrayList<>();
 
         Test motivationTest = testRepo.findByMotivationVideoAndLocationId(true, id);
 
@@ -44,22 +41,19 @@ public class MotivationsUtilService {
             if (testResults.size() == 4) {
                 for (TestResult tr : testResults) {
                     if (tr.getTestId().equals(motivationTest.getId()) && tr.getIsPending()){
-                        Application applicant = applicationRepository.findOne(tr.getApplicationId());
-                        applications.add(applicant);
+                        MotivationDTO userMotivation = new MotivationDTO();
+
+                        userMotivation.setAdminId(u.getAdminId());
+                        userMotivation.setIsVideo(tr.getMotivationText().length() < 30);
+                        userMotivation.setName(u.getFullName());
+                        motivation.add(userMotivation);
                     }
                 }
             }
-
         }
 
-        List<User> result = new ArrayList<>();
-
-        if (!applications.isEmpty()) {
-            for (Application app : applications) {
-                User user = userRepository.findOne(app.getApplicantId());
-                result.add(user);
-            }
-            return result;
+        if (!motivation.isEmpty()) {
+            return motivation;
         }
 
         return Collections.emptyList();

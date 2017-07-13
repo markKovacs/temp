@@ -76,9 +76,9 @@ VALUES
   ('6','3', '3',CURRENT_DATE,CURRENT_DATE, 76,76, TRUE , 'comment'),
   ('7','3', '3',CURRENT_DATE,CURRENT_DATE, 76,76, false, 'comment');
 
-INSERT INTO online_app_system.test_results (id, application_id, test_id, started, finished, points, percent, passed, comment, is_pending)
+INSERT INTO online_app_system.test_results (id, application_id, test_id, started, finished, points, percent, passed, comment, is_pending,motivation_text)
 VALUES
-  ('9','1', '8',CURRENT_DATE,CURRENT_DATE, 1,100, FALSE , 'comment',TRUE );
+  ('9','1', '8',CURRENT_DATE,CURRENT_DATE, 1,100, FALSE , 'comment',TRUE,'bitches, coke & cream' );
 
 INSERT INTO online_app_system.test_answers (question_id, correct_answer)
 VALUES ('english_1','b,c'),

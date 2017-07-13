@@ -56,7 +56,7 @@ public class User {
     }
 
     public String getFullName() {
-        if (middleName != null){
+        if (middleName != null && middleName.length() > 1){
             return givenName + " " + middleName + " " + familyName;
         }
         return givenName + " " + familyName;

@@ -46,10 +46,10 @@ public class ApplicationScreeningService {
         ScreeningDTO screeningDto = new ScreeningDTO();
 
         Map<String,Object> screeningInfo = new HashMap<>();
-        screeningInfo.put("screeningDay", asci.getScreeningDay());
-        screeningInfo.put("screeningPersonalTime", asci.getScreeningPersonalTime());
-        screeningInfo.put("screeningGroupTime", asci.getScreeningGroupTime());
-        screeningInfo.put("scheduleSignedBack", asci.getScheduleSignedBack());
+        screeningInfo.put("day", asci.getScreeningDay());
+        screeningInfo.put("personalTime", asci.getScreeningPersonalTime());
+        screeningInfo.put("groupTime", asci.getScreeningGroupTime());
+        screeningInfo.put("signedBack", asci.getScheduleSignedBack());
 
         screeningDto.setAdminId(findUserAdminId(asci.getApplicationId()));
         screeningDto.setName(findUserName(asci.getApplicationId()));

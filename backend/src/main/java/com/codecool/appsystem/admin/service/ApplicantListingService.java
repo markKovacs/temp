@@ -67,7 +67,7 @@ public class ApplicantListingService {
 
         long noOfPassedTests = applicantsTests
                     .stream()
-                    .filter(TestResult::isPassed)
+                    .filter(TestResult::getPassed)
                     .count();
 
         return upcomingTest.get(noOfPassedTests);

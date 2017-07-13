@@ -8,6 +8,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -19,10 +20,12 @@ import java.util.Date;
 public class TestResult {
 
     @Id
-    private String id;
+    @Column(name = "id", length = 40)
+    private String id = UUID.randomUUID().toString();
     // FKs
     private String applicationId;
     private String testId;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date started;
 
@@ -35,9 +38,9 @@ public class TestResult {
 
     private Double percent;
 
-    private String motivationText;
+    private Boolean passed;
 
-    private boolean passed;
+    private String motivationText;
 
     private String comment;
 

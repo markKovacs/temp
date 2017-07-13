@@ -75,9 +75,9 @@ public class ApplicantDetailsService {
         TestResultDTO TDto = new TestResultDTO();
         TDto.setName(name);
         TDto.setComment(testResult.getComment());
-        TDto.setMotivation(testResult.getComment());
+        TDto.setMotivation(testResult.getMotivationText());
         TDto.setIsPending(testResult.getIsPending());
-        TDto.setPassed(testResult.isPassed());
+        TDto.setPassed(testResult.getPassed());
         TDto.setPoints(testResult.getPoints());
 
         return TDto;
