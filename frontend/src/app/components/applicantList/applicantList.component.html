@@ -3,7 +3,7 @@
     <i class="material-icons md-240 applicant-loading">cloud_download</i>
   </div>
   <div *ngIf="users" class="applicant-list-conatiner">
-    <p-dataTable [value]="users" [rows]="1" [paginator]="true" (onRowClick)="checkApplicant($event)">
+    <p-dataTable [value]="users" [rows]="20" [paginator]="true" (onRowClick)="checkApplicant($event)">
 
       <p-column
         field="name"

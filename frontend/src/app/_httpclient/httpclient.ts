@@ -24,7 +24,7 @@ export class HttpClient {
     }
 
     private enrich(): void {
-        const token = localStorage.getItem("authToken") == 'null'  ? undefined : localStorage.getItem("authToken");
+        const token = localStorage.getItem("adminAuthToken") == 'null'  ? undefined : localStorage.getItem("adminAuthToken");
         this.headers.set('Authorization', 'Bearer ' + token);
     }
 
