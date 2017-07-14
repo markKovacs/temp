@@ -2,16 +2,22 @@ import {
   NavBarComponent,
   DashboardComponent,
   ApplicantComponent,
-  ApplicantListComponent
+  ApplicantListComponent,
+  StartComponent
 } from './components/index';
 import { Routes, RouterModule } from '@angular/router';
 import {AuthGuard} from './guards/index';
 
 const appRoutes: Routes = [
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'applicants', component: ApplicantListComponent },
-  { path: 'applicants/:id', component: ApplicantComponent },
+  // routes - all for logged in user only
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'applicants', component: ApplicantListComponent, canActivate: [AuthGuard] },
+  { path: 'applicants/:id', component: ApplicantComponent, canActivate: [AuthGuard] },
 
+  // redirects to auth0 login
+  { path: 'login', component: StartComponent },
+
+  //
   { path: '**', redirectTo: 'dashboard' }
 ];
 

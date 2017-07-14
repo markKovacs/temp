@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // allow /api/login
         RequestMatcher notLogin = new NegatedRequestMatcher(
-                new AntPathRequestMatcher("/")
+                new AntPathRequestMatcher("/api/login")
         );
 
         // allow /api/login/callback

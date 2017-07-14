@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { GlobalEventsManager } from "../../global.eventsmanager";
 import { HttpClient } from "../../_httpclient/httpclient";
 import { Location, User } from "../../_models/index";
-// import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     moduleId: module.id,
@@ -16,7 +16,7 @@ export class ApplicantComponent {
     public usersLocation: Location;
 
     constructor(
-      // private sanitizer: DomSanitizer,
+      private sanitizer: DomSanitizer,
       private route: ActivatedRoute,
       private client: HttpClient,
       private router: Router,
@@ -43,9 +43,15 @@ export class ApplicantComponent {
     getMotivationVideo(){
       let videoUrl = this.user.testResults.find( testResult => testResult.name == "motivation" ).motivation;
       let videoID = videoUrl.split("watch?v=")[1];
+      if (!this.isValidVideoId(videoID)) { videoID = ""; }
       let embedCode = "https://www.youtube.com/embed/" + videoID;
-      // return this.sanitizer.bypassSecurityTrustUrl(embedCode);
-      return embedCode;
+      let safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(embedCode);
+      return safeUrl;
+    }
+
+    isValidVideoId(id){
+      let pattern = new RegExp(/^[a-z0-9]+$/i);
+      return pattern.test(id)
     }
 
 }
