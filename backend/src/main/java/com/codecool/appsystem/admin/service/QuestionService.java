@@ -28,7 +28,7 @@ public class QuestionService {
         test.setThreshold(question.getQuestions().size());
         test.setEnabled(true);
         test.setEstimatedTime(5);
-        test.setName("prerequisite");
+        test.setName("Prerequisite");
         test.setOrderInBundle(0);
         test.setFormUrl(question.getFormUrl());
         test.setLocationId(question.getLocationId());
