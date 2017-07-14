@@ -87,7 +87,8 @@ create table online_app_system.tests
   order_in_bundle INT,
   estimated_time INT,
   motivation_video boolean,
-  form_as_json TEXT
+  form_as_json TEXT,
+  description TEXT
 );
 
 create table online_app_system.test_results

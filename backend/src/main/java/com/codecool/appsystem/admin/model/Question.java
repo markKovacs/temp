@@ -14,5 +14,9 @@ public class Question {
     private String id;
     private String surveyContent;
     private List<QuestionContent> questions;
+    private Integer estimatedTime;
+    private String formUrl;
+    private String locationId;
+    private String description;
 
 }

@@ -22,17 +22,18 @@ public class QuestionService {
 
         Test test = new Test();
         test.setId(question.getId());
+
         test.setFormAsJson(mapper.writeValueAsString(question));
         test.setMaxPoints(question.getQuestions().size());
         test.setThreshold(question.getQuestions().size());
         test.setEnabled(true);
-        //// FIXME: 2017.07.14. what is the right data?
         test.setEstimatedTime(5);
         test.setName("prerequisite");
         test.setOrderInBundle(0);
-        //// FIXME: 2017.07.14. missing description
-        //test.setFormUrl();
-        //test.setLocationId();
+        test.setFormUrl(question.getFormUrl());
+        test.setLocationId(question.getLocationId());
+        test.setDescription(question.getDescription());
+
         testRepository.save(test);
     }
 

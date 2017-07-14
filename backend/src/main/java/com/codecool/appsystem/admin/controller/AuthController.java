@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api/login")
 public class AuthController {
 
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);
@@ -41,7 +41,7 @@ public class AuthController {
         );
     }
 
-    @RequestMapping("/api/login/callback")
+    @RequestMapping("/callback")
     public void callback(
             @RequestParam(value = "code", required = false) String code,
             @RequestParam(value = "state", required = false) String state,

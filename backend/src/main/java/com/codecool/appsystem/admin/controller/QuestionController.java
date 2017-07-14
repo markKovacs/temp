@@ -3,7 +3,6 @@ package com.codecool.appsystem.admin.controller;
 
 import com.codecool.appsystem.admin.model.Question;
 import com.codecool.appsystem.admin.model.dto.RestResponseDTO;
-import com.codecool.appsystem.admin.repository.TestAnswerRepository;
 import com.codecool.appsystem.admin.service.QuestionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
