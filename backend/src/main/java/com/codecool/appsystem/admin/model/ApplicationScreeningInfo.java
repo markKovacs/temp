@@ -25,5 +25,6 @@ public class ApplicationScreeningInfo {
     private String screeningGroupTime;
     private String screeningPersonalTime;
     private Boolean scheduleSignedBack;
+    private String mapLocation;
 
 }

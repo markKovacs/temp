@@ -1,11 +1,14 @@
 package com.codecool.appsystem.admin.controller;
 
+import com.codecool.appsystem.admin.model.dto.MotivationDTO;
 import com.codecool.appsystem.admin.model.dto.ScreeningDTO;
-import com.codecool.appsystem.admin.model.dto.UserDTO;
 import com.codecool.appsystem.admin.service.ApplicationScreeningService;
-import com.codecool.appsystem.admin.service.UsersByLocationService;
+import com.codecool.appsystem.admin.service.MotivationsByLocationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -14,19 +17,21 @@ import java.util.List;
 public class DashboardRestController {
 
     @Autowired
-    private UsersByLocationService userLocationService;
+    private MotivationsByLocationService userMotivationService;
 
     @Autowired
     private ApplicationScreeningService screeningService;
 
     @RequestMapping(value = "/motivation", method = RequestMethod.GET)
-    public List<UserDTO> applicantsByLocation(@RequestParam("location") String locationId) {
-        return userLocationService.applicantsByLocation(locationId);
+    public List<MotivationDTO> applicantsByLocation(@RequestParam("location") String locationId) {
+        return userMotivationService.applicantsByLocation(locationId);
     }
 
     @RequestMapping(value = "/screening", method = RequestMethod.GET)
     public List<ScreeningDTO> scheduledScreenings(@RequestParam("location") String locationId) throws Exception{
         return screeningService.find(locationId);
     }
+
+    //  TODO: /api/motivation/evaluate POST( adminId, bool)
 
 }

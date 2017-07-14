@@ -2,7 +2,7 @@
 VALUES
   ('old@gmail.com',1,'janos', 'toth','','BUD','2017.06.01','male', 1983 ,'','06701234567',true,true,false),
   ('middle@gmail.com',2,'Anna', '','Kovacs','MSC','2017.06.11','female',1999,'','06701234567',true,true,false),
-  ('appdet@gmail.com',6,'Application', 'Details','Test','BUD','2017.06.11','female',1999,'','06701234567',true,true,false),
+  ('appdet@gmail.com',3,'Application', 'Details','Test','BUD','2017.06.11','female',1999,'','06701234567',true,true,false),
   ('whatwho@gmail.com',5,'Application', 'Details','Test','BUD','2017.06.11','female',1999,'','06701234567',true,true,false);
 -- girhes.cc.2016@gmail.com
 -- Girhes2016
@@ -34,7 +34,13 @@ INSERT INTO online_app_system.application_screening_info (id, application_id,
                                                           schedule_signed_back)
 VALUES ('1', '1', '2018-12-31', '11:00', '12:00' , true),
   ('2', '2', '2018-12-31', '13:00', '15:00' , false),
+  ('4', '4', '2018-12-31', '13:00', '15:00' , false),
   ('3', '3', '2018-12-31', '13:02', '15:07' , false);
+
+INSERT INTO online_app_system.application_screening_info (id, application_id,
+                                                          screening_day, screening_personal_time)
+VALUES
+  ('5', '5', '2018-12-31', '15:07');
 
 
 INSERT INTO online_app_system.tests (id, location_id, name, form_url,
@@ -46,8 +52,8 @@ VALUES
   ('4', 'BUD', 'english', 'www', 100, 60, true,2,40,'{"language":"en","gender":"male"}',false),
   ('5', 'KRK', 'test', 'www', 100, 60, true,3,50,'{"language":"en","gender":"male"}',false),
   ('english', 'BUD', 'english', 'www', 100,2, true,2,2,'{"language":"en","gender":"male"}',false),
-  ('6', 'BUD', 'test', 'www', 100, 60, true,3,50,'{"language":"en","gender":"male"}',false),
   ('7', 'WRS', 'motivation', 'www', 100, 60, true,4,60,'{"language":"en","gender":"male"}',true),
+  ('6', 'BUD', 'test', 'www', 100, 60, true,3,50,'{"language":"en","gender":"male"}',false),
   ('8', 'BUD', 'motivation', 'www', 100, 60, true,4,60,'{"language":"en","gender":"male"}',true);
 
 INSERT INTO online_app_system.courses (id, location_id, name, open, start_date, filled, enabled)
@@ -66,9 +72,9 @@ VALUES
   ('6','3', '3',CURRENT_DATE,CURRENT_DATE, 76,76, TRUE , 'comment'),
   ('7','3', '3',CURRENT_DATE,CURRENT_DATE, 76,76, false, 'comment');
 
--- INSERT INTO online_app_system.test_results (id, application_id, test_id, started, finished, points, percent, passed, comment)
--- VALUES
---   ('8','2', '3',CURRENT_DATE,CURRENT_DATE, 76,76, false, 'comment');
+INSERT INTO online_app_system.test_results (id, application_id, test_id, started, finished, points, percent, comment,motivation_text, passed)
+VALUES
+  ('9','1', '8',CURRENT_DATE,CURRENT_DATE, 1,100, 'comment','https://www.youtube.com/watch?v=XRKpAUpbaDU', null );
 
 INSERT INTO online_app_system.test_answers (question_id, correct_answer)
 VALUES ('english_1','b,c'),
