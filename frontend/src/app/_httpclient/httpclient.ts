@@ -7,8 +7,8 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class HttpClient {
 
-    // private urlPrefix: string = 'http://localhost:8080';
-    private urlPrefix: string = 'http://demo1286808.mockable.io/';
+    private urlPrefix: string = 'http://localhost:8080';
+    // private urlPrefix: string = 'http://demo1286808.mockable.io/';
     private headers = new Headers({'Content-Type': 'application/json'});
 
     constructor(private _http: Http) {  }
@@ -24,7 +24,7 @@ export class HttpClient {
     }
 
     private enrich(): void {
-        const token = localStorage.getItem("authToken") == 'null'  ? undefined : localStorage.getItem("authToken");
+        const token = localStorage.getItem("adminAuthToken") == 'null'  ? undefined : localStorage.getItem("adminAuthToken");
         this.headers.set('Authorization', 'Bearer ' + token);
     }
 

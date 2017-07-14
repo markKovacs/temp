@@ -14,7 +14,8 @@ import {
   NavBarComponent,
   DashboardComponent,
   ApplicantComponent,
-  ApplicantListComponent
+  ApplicantListComponent,
+  StartComponent
 } from './components/index';
 import { AuthGuard } from './guards/index';
 
@@ -36,7 +37,8 @@ import { AuthGuard } from './guards/index';
         NavBarComponent,
         DashboardComponent,
         ApplicantComponent,
-        ApplicantListComponent
+        ApplicantListComponent,
+        StartComponent
     ],
     providers: [
         AuthGuard,
