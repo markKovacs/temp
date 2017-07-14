@@ -1,23 +1,23 @@
 import {BrowserModule} from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {routing} from './app.routing';
-import { DataTableModule, InputTextareaModule, PanelModule, DropdownModule } from 'primeng/primeng';
+import {DataTableModule, InputTextareaModule, PanelModule, DropdownModule} from 'primeng/primeng';
 import {SharedModule} from 'primeng/primeng';
-import { DomSanitizer } from '@angular/platform-browser';
+import {DomSanitizer} from '@angular/platform-browser';
 import {GlobalEventsManager} from './global.eventsmanager';
 import {HttpClient} from './_httpclient/httpclient';
 import {AppComponent} from './app.component';
 import {
-  NavBarComponent,
-  DashboardComponent,
-  ApplicantComponent,
-  ApplicantListComponent,
-  StartComponent
+    NavBarComponent,
+    DashboardComponent,
+    ApplicantComponent,
+    ApplicantListComponent,
+    StartComponent
 } from './components/index';
-import { AuthGuard } from './guards/index';
+import {AuthGuard} from './guards/index';
 
 @NgModule({
     imports: [
@@ -48,4 +48,5 @@ import { AuthGuard } from './guards/index';
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

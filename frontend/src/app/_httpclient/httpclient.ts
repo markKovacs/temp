@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response, ResponseContentType } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {Http, Headers, RequestOptions, Response, ResponseContentType} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -11,7 +11,8 @@ export class HttpClient {
     // private urlPrefix: string = 'http://demo1286808.mockable.io/';
     private headers = new Headers({'Content-Type': 'application/json'});
 
-    constructor(private _http: Http) {  }
+    constructor(private _http: Http) {
+    }
 
     get(url: string, requestOptions: RequestOptions = new RequestOptions({headers: this.headers})): Observable<any> {
         this.enrich();
@@ -24,7 +25,7 @@ export class HttpClient {
     }
 
     private enrich(): void {
-        const token = localStorage.getItem("adminAuthToken") == 'null'  ? undefined : localStorage.getItem("adminAuthToken");
+        const token = localStorage.getItem("adminAuthToken") == 'null' ? undefined : localStorage.getItem("adminAuthToken");
         this.headers.set('Authorization', 'Bearer ' + token);
     }
 

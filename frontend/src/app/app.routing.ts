@@ -1,24 +1,24 @@
 import {
-  NavBarComponent,
-  DashboardComponent,
-  ApplicantComponent,
-  ApplicantListComponent,
-  StartComponent
+    NavBarComponent,
+    DashboardComponent,
+    ApplicantComponent,
+    ApplicantListComponent,
+    StartComponent
 } from './components/index';
-import { Routes, RouterModule } from '@angular/router';
+import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from './guards/index';
 
 const appRoutes: Routes = [
-  // routes - all for logged in user only
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'applicants', component: ApplicantListComponent, canActivate: [AuthGuard] },
-  { path: 'applicants/:id', component: ApplicantComponent, canActivate: [AuthGuard] },
+    // routes - all for logged in user only
+    {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+    {path: 'applicants', component: ApplicantListComponent, canActivate: [AuthGuard]},
+    {path: 'applicants/:id', component: ApplicantComponent, canActivate: [AuthGuard]},
 
-  // redirects to auth0 login
-  { path: 'login', component: StartComponent },
+    // redirects to auth0 login
+    {path: 'login', component: StartComponent},
 
-  //
-  { path: '**', redirectTo: 'dashboard' }
+    //
+    {path: '**', redirectTo: 'dashboard'}
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

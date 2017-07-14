@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { Router, ActivatedRoute, Params} from '@angular/router';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 import {Location} from '@angular/common';
 
 
@@ -10,8 +10,7 @@ import {Location} from '@angular/common';
 })
 export class StartComponent implements OnInit {
 
-    constructor(
-                private router: Router,
+    constructor(private router: Router,
                 private location: Location,
                 private activatedRoute: ActivatedRoute) {
     }
@@ -29,7 +28,7 @@ export class StartComponent implements OnInit {
             if (!localStorage.adminAuthToken) {
                 window.location.href = 'http://localhost:8080/api/login';
             } else {
-              this.router.navigate(['dashboard']);
+                this.router.navigate(['dashboard']);
             }
         })
     }
