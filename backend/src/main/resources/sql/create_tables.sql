@@ -100,7 +100,6 @@ create table online_app_system.test_results
   finished TIMESTAMP ,
   points INT,
   motivation_text TEXT,
-  is_pending BOOLEAN,
   percent DOUBLE PRECISION,
   passed boolean,
   comment VARCHAR(255)

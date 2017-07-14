@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 public class TestResultDTO extends RestResponseDTO{
 
     private String name;
-    private boolean passed;
+    private Boolean passed;
     private int points;
     private String comment;
     private Boolean isPending;

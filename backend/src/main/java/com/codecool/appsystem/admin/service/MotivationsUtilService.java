@@ -12,8 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class MotivationsUtilService {
@@ -40,11 +41,11 @@ public class MotivationsUtilService {
 
             if (testResults.size() == 4) {
                 for (TestResult tr : testResults) {
-                    if (tr.getTestId().equals(motivationTest.getId()) && tr.getIsPending()){
+                    if (tr.getTestId().equals(motivationTest.getId()) && tr.getPassed() == null){
                         MotivationDTO userMotivation = new MotivationDTO();
 
                         userMotivation.setAdminId(u.getAdminId());
-                        userMotivation.setIsVideo(tr.getMotivationText().length() < 30);
+                        userMotivation.setIsVideo(checkMotivationText(tr.getMotivationText()));
                         userMotivation.setName(u.getFullName());
                         motivation.add(userMotivation);
                     }
@@ -52,11 +53,16 @@ public class MotivationsUtilService {
             }
         }
 
-        if (!motivation.isEmpty()) {
-            return motivation;
+        return motivation;
+
+    }
+
+    private Boolean checkMotivationText(String str){
+        Pattern regex = Pattern.compile("^(http|https)\\:\\/\\/.+$");
+        Matcher matcher = regex.matcher(str);
+        if (matcher.find()) {
+            return true;
         }
-
-        return Collections.emptyList();
-
+        return false;
     }
 }

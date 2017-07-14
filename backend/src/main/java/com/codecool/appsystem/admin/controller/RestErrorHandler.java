@@ -23,6 +23,8 @@ public class RestErrorHandler {
 
     @ExceptionHandler(Exception.class)
     public void onError(HttpServletResponse httpServletResponse, Exception e) throws IOException {
+
+        log.error(e.getMessage(),e);
         String url = UriComponentsBuilder
                 .fromUriString(serverUrl)
                 .path(errorPath)

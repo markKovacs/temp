@@ -34,8 +34,6 @@ public class TestResult {
 
     private Integer points;
 
-    private Boolean isPending;
-
     private Double percent;
 
     private Boolean passed;
