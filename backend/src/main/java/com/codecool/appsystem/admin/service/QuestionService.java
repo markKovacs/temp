@@ -44,8 +44,8 @@ public class QuestionService {
 
                 if (questionOption.getIsCorrect()){
                     TestAnswer testAnswer = new TestAnswer();
-                    testAnswer.setQuestionId(questionOption.getId());
-                    testAnswer.setCorrectAnswer(questionOption.getOptionContent());
+                    testAnswer.setQuestionId(questionContent.getId());
+                    testAnswer.setCorrectAnswer(questionOption.getId());
 
                     testAnswerRepository.save(testAnswer);
                 }
