@@ -48,9 +48,8 @@ public class QuestionService {
                     testAnswer.setCorrectAnswer(questionOption.getOptionContent());
 
                     testAnswerRepository.save(testAnswer);
-
-                    questionOption.setIsCorrect(null);
                 }
+                    questionOption.setIsCorrect(null);
             }
         }
     }
