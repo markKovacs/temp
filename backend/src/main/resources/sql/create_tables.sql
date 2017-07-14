@@ -41,7 +41,7 @@ create table online_app_system.applications
   final_result boolean,
   contract_signed boolean,
   active BOOLEAN,
-  status VARCHAR(200),
+  comment VARCHAR(255),
   utm_source VARCHAR(255),
   utm_medium VARCHAR(255),
   utm_campaign VARCHAR(255)
@@ -99,6 +99,7 @@ create table online_app_system.test_results
   started TIMESTAMP ,
   finished TIMESTAMP ,
   points INT,
+  motivation_text TEXT,
   percent DOUBLE PRECISION,
   passed boolean,
   comment VARCHAR(255)
@@ -117,7 +118,8 @@ create table online_app_system.courses
 );
 
 create table online_app_system.test_answers (
-  question_id VARCHAR(40) PRIMARY KEY NOT NULL,
+  id VARCHAR(40) PRIMARY KEY DEFAULT random() NOT NULL ,
+  question_id VARCHAR(40) NOT NULL,
   correct_answer VARCHAR(255)
 );
 

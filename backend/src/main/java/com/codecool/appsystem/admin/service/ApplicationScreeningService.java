@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,7 +36,6 @@ public class ApplicationScreeningService {
     public List<ScreeningDTO> find(String locationId) {
 
         List<ApplicationScreeningInfo> screeningInfo = findScrInfo(locationId);
-
         return screeningInfo
                 .stream()
                 .map(this::transformScreeningInfo)
@@ -44,12 +45,16 @@ public class ApplicationScreeningService {
     private ScreeningDTO transformScreeningInfo(ApplicationScreeningInfo asci){
         ScreeningDTO screeningDto = new ScreeningDTO();
 
-        screeningDto.setScreeningPersonalTime(asci.getScreeningPersonalTime());
-        screeningDto.setScreeningGroupTime(asci.getScreeningGroupTime());
-        screeningDto.setScheduleSignedBack(asci.getScheduleSignedBack());
+        Map<String,Object> screeningInfo = new HashMap<>();
+        screeningInfo.put("day", asci.getScreeningDay());
+        screeningInfo.put("personalTime", asci.getScreeningPersonalTime());
+        screeningInfo.put("groupTime", asci.getScreeningGroupTime());
+        screeningInfo.put("signedBack", asci.getScheduleSignedBack());
+
         screeningDto.setAdminId(findUserAdminId(asci.getApplicationId()));
         screeningDto.setName(findUserName(asci.getApplicationId()));
-        screeningDto.setScreeningDay(asci.getScreeningDay());
+
+        screeningDto.setScreeningInfo(screeningInfo);
 
         return screeningDto;
     }

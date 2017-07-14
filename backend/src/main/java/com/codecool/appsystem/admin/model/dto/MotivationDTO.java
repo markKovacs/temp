@@ -1,18 +1,15 @@
 package com.codecool.appsystem.admin.model.dto;
 
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Map;
-
 @Data
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @EqualsAndHashCode(callSuper = false)
-public class ScreeningDTO extends RestResponseDTO{
+public class MotivationDTO extends RestResponseDTO {
 
     private Integer adminId;
     private String name;
-    private Map<String,Object> screeningInfo;
+    private Boolean isVideo;
 }

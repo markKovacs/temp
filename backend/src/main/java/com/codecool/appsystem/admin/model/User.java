@@ -6,8 +6,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.util.StringUtils;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Data
@@ -56,7 +60,7 @@ public class User {
     }
 
     public String getFullName() {
-        if (middleName != null){
+        if (!StringUtils.isEmpty(middleName)) {
             return givenName + " " + middleName + " " + familyName;
         }
         return givenName + " " + familyName;

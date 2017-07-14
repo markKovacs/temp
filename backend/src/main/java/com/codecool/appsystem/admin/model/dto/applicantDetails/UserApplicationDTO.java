@@ -3,13 +3,13 @@ package com.codecool.appsystem.admin.model.dto.applicantDetails;
 import com.codecool.appsystem.admin.model.dto.RestResponseDTO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
 @Data
-@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@EqualsAndHashCode(callSuper = false)
 public class UserApplicationDTO extends RestResponseDTO{
 
     private String givenName;
