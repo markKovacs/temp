@@ -88,7 +88,7 @@ create table online_app_system.tests
   estimated_time INT,
   motivation_video boolean,
   form_as_json TEXT,
-  description text
+  description TEXT
 );
 
 create table online_app_system.test_results
