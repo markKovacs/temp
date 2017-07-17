@@ -18,7 +18,8 @@ import {
     DashboardComponent,
     ApplicantComponent,
     ApplicantListComponent,
-    StartComponent
+    StartComponent,
+    SurveyGeneratorComponent
 } from './components/index';
 import {AuthGuard} from './guards/index';
 
@@ -41,7 +42,9 @@ import {AuthGuard} from './guards/index';
         DashboardComponent,
         ApplicantComponent,
         ApplicantListComponent,
-        StartComponent
+        StartComponent,
+        SurveyGeneratorComponent
+
     ],
     providers: [
         AuthGuard,
