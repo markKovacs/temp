@@ -41,7 +41,7 @@ public class LocationsRestController {
 
 
     @RequestMapping(value="/test/{location}", method = RequestMethod.GET)
-    public List<Question> getQuestionByLocation(@PathVariable("location") String location) throws IOException {
+    public List<QuestionDTO> getQuestionByLocation(@PathVariable("location") String location) throws IOException {
         log.trace("LOCATION CONTROLLER");
 
         ObjectMapper mapper = new ObjectMapper();
@@ -69,8 +69,26 @@ public class LocationsRestController {
             }
         }
 
+        for (Test test : testsByLocation) {
+            for (Question question : questions) {
+                result.add(QuestionDTO.builder()
+                        .description(test.getDescription())
+                        .enabled(test.getEnabled())
+                        .estimatedTime(test.getEstimatedTime())
+                        .locationId(test.getLocationId())
+                        .id(test.getId())
+                        .maxPoints(test.getMaxPoints())
+                        .motivationVideo((test.getMotivationVideo() != null) ? test.getMotivationVideo(): false)
+                        .name(test.getName())
+                        .orderInBundle(test.getOrderInBundle())
+                        .threshold(test.getThreshold())
+                        .surveyContent(question.getSurveyContent())
+                        .questions(question.getQuestions())
+                        .build());
+            }
+        }
 
-        return questions;
+        return result;
     }
 
 
