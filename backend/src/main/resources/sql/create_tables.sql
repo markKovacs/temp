@@ -102,6 +102,7 @@ create table online_app_system.test_results
   motivation_text TEXT,
   percent DOUBLE PRECISION,
   passed boolean,
+  isBlacklisted boolean,
   comment VARCHAR(255)
 );
 
