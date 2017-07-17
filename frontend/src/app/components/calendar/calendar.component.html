@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+    <div class="card">
+      <h4 class="assign-title">Choose a date</h4>
+      <div *ngFor="let date of dates" class="date-button-container">
+        <button class="btn btn-info" (click)="selectDate(date)">
+          {{date}}
+        </button>
+      </div>
+      <div>
+        <button class="btn btn-danger" (click)="openDateSelector()">
+          Add a new date
+        </button>
+      </div>
+      <div *ngIf="dateSelectorOn">
+        <input type="datetime-local" class="date-input" [(ngModel)]="date"/>
+        <button class="btn btn-success" (click)="addDate()">Add date</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+    <div *ngIf="chosenDate" class="card">
+      <h4 class="assign-title">Assign the applicant to the choosen date</h4>
+      <div class="assign-container">
+        <p-pickList
+            [source]="usersWithoutScreening"
+            [target]="usersWithScreening"
+            (onMoveToTarget)="doStuff($event)">
+          <ng-template let-user pTemplate="item">
+            <div class="ui-helper-clearfix">
+              <div class="assign-applicant">
+                <span>{{user.id}}</span><span>{{user.name}}</span>
+              </div>
+            </div>
+          </ng-template>
+        </p-pickList>
+      </div>
+      <div>
+        <button class="btn btn-success">Save</button>
+      </div>
+    </div>
+    <div *ngIf="!chosenDate" class="card">
+      <h1>Choose a date first!</h1>
+    </div>
+  </div>
+</div>

@@ -31,6 +31,10 @@ export class NavBarComponent {
         this.router.navigate(['applicants'])
     }
 
+    getCalendar() {
+        this.router.navigate(['calendar'])
+    }
+
     logout() {
         localStorage.removeItem("authToken");
         this.globalEventsManager.showNavBar(false);
