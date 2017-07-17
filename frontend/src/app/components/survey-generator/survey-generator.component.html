@@ -7,8 +7,8 @@
         <h1>You must answer all questions </h1>
     </div>
 
-
     <button class="btn btn-primary" (click)="sendInfo()">Info</button>
+
     <ul class="tests">
         <li *ngFor="let test of surveys" (click)="currentTest(test)">
             <span class="badge">{{test.name}}</span> {{test.name}}
@@ -17,22 +17,8 @@
     <br><br>
     <h1>Survey Editor Component</h1>
     <survey-editor *ngFor = "let survey of surveys"
-            [survey]="survey"></survey-editor>
+            [survey]="survey">
+    </survey-editor>
     <br>
-
-    <input  placeholder="Survey Content" [(ngModel)]="surveyContent" (blur)="handleChange()"/>
-
-    <br><br>
-    <button (click)="newQuestion()">Question</button>
-    <!---->
-    <question-editor *ngFor="let questionContent of questionContents"
-                    [questionContent]="questionContent"
-                     (question) = "newQuestion($event)">
-    </question-editor>
-    <br><br>
-    <option-editor *ngFor="let optionContent of optionContents"
-                   [option]="optionContent"></option-editor>
-    <br><br>
-
 
 </div>

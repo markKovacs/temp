@@ -19,7 +19,10 @@ import {
     ApplicantComponent,
     ApplicantListComponent,
     StartComponent,
-    SurveyGeneratorComponent
+    SurveyGeneratorComponent,
+    SurveyEditorComponent,
+    OptionEditorComponent,
+    QuestionEditorComponent
 } from './components/index';
 import {AuthGuard} from './guards/index';
 
@@ -43,7 +46,10 @@ import {AuthGuard} from './guards/index';
         ApplicantComponent,
         ApplicantListComponent,
         StartComponent,
-        SurveyGeneratorComponent
+        SurveyGeneratorComponent,
+        SurveyEditorComponent,
+        QuestionEditorComponent,
+        OptionEditorComponent
 
     ],
     providers: [
