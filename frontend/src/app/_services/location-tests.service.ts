@@ -10,6 +10,8 @@ export class LocationTestService {
     constructor(private client: HttpClient){}
 
     public getTestByLocation(): Observable<Survey[]>{
-        return this.client.get('/api/locations/test');
+        location: Location = JSON.parse(localStorage.getItem("location"));
+        console.log(location);
+        return this.client.get('/api/locations/test?location=' );//+ location.id
     }
 }
