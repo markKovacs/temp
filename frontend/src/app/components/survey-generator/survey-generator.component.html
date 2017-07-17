@@ -1,9 +1,5 @@
 <div class="container">
 
-    <!--<md-card>-->
-        <!--<div class="survey" [innerHTML]="model.survey"></div>-->
-    <!--</md-card>-->
-<br><br>
 <br><br>
 <br><br>
 <br><br>
@@ -11,24 +7,17 @@
         <h1>You must answer all questions </h1>
     </div>
 
-    <!--<div *ngFor="let question of model.questions">-->
-        <!--<div *ngIf="isRadio(question)">-->
-            <!--<radio-question-component [question]="question" [wrappedAnswers]="wrappedAnswers"></radio-question-component>-->
-        <!--</div>-->
-
-        <!--<div *ngIf="isCheckbox(question)">-->
-            <!--<checkbox-question-component [question]="question" [wrappedAnswers]="wrappedAnswers"></checkbox-question-component>-->
-        <!--</div>-->
-    <!--</div>-->
 
     <button class="btn btn-primary" (click)="sendInfo()">Info</button>
     <ul class="tests">
-        <li *ngFor="let test of model" (click)="currentTest(test)">
+        <li *ngFor="let test of surveys" (click)="currentTest(test)">
             <span class="badge">{{test.name}}</span> {{test.name}}
         </li>
     </ul>
     <br><br>
-    <survey-editor [survey]="surveyContent"></survey-editor>
+    <h1>Survey Editor Component</h1>
+    <survey-editor *ngFor = "let survey of surveys"
+            [survey]="survey"></survey-editor>
     <br>
 
     <input  placeholder="Survey Content" [(ngModel)]="surveyContent" (blur)="handleChange()"/>

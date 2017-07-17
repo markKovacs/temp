@@ -27,5 +27,6 @@ export class SurveyEditorComponent implements OnInit{
     }
 
     ngOnInit(): void {
+        console.log("CHILD SURVEY " + this.survey);
     }
 }

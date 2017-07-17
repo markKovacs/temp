@@ -1,6 +1,10 @@
 <div class="survey editor">
 <h1>CHILDREN SURVEY</h1>
 <button class="btn btn-primary" (click)="newContent()">Create new Test</button>
+    <h1>{{survey.name}}</h1>
+    <h1>{{survey.locationId}}</h1>
+    <h1>{{survey.questions}}</h1>
+    <h1>{{survey.description}}</h1>
 <div *ngIf="(survey != null)">
     <input placeholder="name" [(ngModel)]="survey.name" (blur)="handleChange()"/>
     <input placeholder="order" [(ngModel)]="survey.orderInBundle" (blur)="handleChange()"/>
