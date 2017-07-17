@@ -1,0 +1,11 @@
+<div class = "option-editor-component">
+        <h1>CHILDREN OPTION</h1>
+        <button class="btn btn-primary" (click)="newOption()">Create new Option</button>
+        <div *ngIf="(option)">
+            <!--<li *ngFor="let option of option; let i = index">  name="content-{{i}}"-->
+            <input placeholder="optionContent"   [(ngModel)]="option.optionContent" />
+            <!--<input placeholder="isCorrect"   [(ngModel)]="option.isCorrect" />-->
+            <!--</li>-->
+        </div>
+
+</div>

@@ -1,0 +1,49 @@
+<div class="container">
+
+    <!--<md-card>-->
+        <!--<div class="survey" [innerHTML]="model.survey"></div>-->
+    <!--</md-card>-->
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+    <div class="try">
+        <h1>You must answer all questions </h1>
+    </div>
+
+    <!--<div *ngFor="let question of model.questions">-->
+        <!--<div *ngIf="isRadio(question)">-->
+            <!--<radio-question-component [question]="question" [wrappedAnswers]="wrappedAnswers"></radio-question-component>-->
+        <!--</div>-->
+
+        <!--<div *ngIf="isCheckbox(question)">-->
+            <!--<checkbox-question-component [question]="question" [wrappedAnswers]="wrappedAnswers"></checkbox-question-component>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <button class="btn btn-primary" (click)="sendInfo()">Info</button>
+    <ul class="tests">
+        <li *ngFor="let test of model" (click)="currentTest(test)">
+            <span class="badge">{{test.name}}</span> {{test.name}}
+        </li>
+    </ul>
+    <br><br>
+    <survey-editor [survey]="surveyContent"></survey-editor>
+    <br>
+
+    <input  placeholder="Survey Content" [(ngModel)]="surveyContent" (blur)="handleChange()"/>
+
+    <br><br>
+    <button (click)="newQuestion()">Question</button>
+    <!---->
+    <question-editor *ngFor="let questionContent of questionContents"
+                    [questionContent]="questionContent"
+                     (question) = "newQuestion($event)">
+    </question-editor>
+    <br><br>
+    <option-editor *ngFor="let optionContent of optionContents"
+                   [option]="optionContent"></option-editor>
+    <br><br>
+
+
+</div>

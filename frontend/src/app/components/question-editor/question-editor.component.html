@@ -1,0 +1,11 @@
+<div class = "question-editor-component">
+    <h1>CHILDREN Question</h1>
+    <button class="btn btn-primary" (click)="newQuestion()">Create new Question</button>
+    <div *ngIf="(question)">
+        <!--name="content-{{i}}"-->
+            <input placeholder="questionContent"   [(ngModel)]="question.questionContent" />
+            <input placeholder="type"  [(ngModel)]="question.type" />
+    </div>
+
+</div>
+
