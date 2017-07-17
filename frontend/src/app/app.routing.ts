@@ -13,6 +13,7 @@ const appRoutes: Routes = [
     {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
     {path: 'applicants', component: ApplicantListComponent, canActivate: [AuthGuard]},
     {path: 'applicants/:id', component: ApplicantComponent, canActivate: [AuthGuard]},
+    // { path: 'surveygenerator', component: TestEditorComponent},
 
     // redirects to auth0 login
     {path: 'login', component: StartComponent},

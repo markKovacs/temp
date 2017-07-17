@@ -11,6 +11,9 @@ import {GlobalEventsManager} from './global.eventsmanager';
 import {HttpClient} from './_httpclient/httpclient';
 import {AppComponent} from './app.component';
 import {
+    LocationTestService
+} from './_services/index';
+import {
     NavBarComponent,
     DashboardComponent,
     ApplicantComponent,
@@ -43,7 +46,8 @@ import {AuthGuard} from './guards/index';
     providers: [
         AuthGuard,
         GlobalEventsManager,
-        HttpClient
+        HttpClient,
+        LocationTestService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent]
