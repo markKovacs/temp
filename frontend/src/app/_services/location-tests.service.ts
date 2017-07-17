@@ -12,6 +12,6 @@ export class LocationTestService {
     public getTestByLocation(): Observable<Survey[]>{
         // location: Location = JSON.parse(localStorage.getItem("location"));
         // console.log(location);
-        return this.client.get('/api/locations/test/BUD' );//+ location.id
+        return this.client.get('/api/question/BUD' );//+ location.id
     }
 }
