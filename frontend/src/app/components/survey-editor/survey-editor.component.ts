@@ -14,23 +14,20 @@ export class SurveyEditorComponent implements OnInit{
 
     @Input() survey: Survey;
 
-    constructor(private questionService: QuestionService){}
+    //constructor(private questionService: QuestionService){}
 
     handleChange(): void{
         console.log(this.survey);
     }
 
     postSurvey(): void{
-        this.questionService.postSurvey(this.survey)
-            .subscribe(
-                // .() =>{ this.survey = null;}
-                error => console.log(error),
-                () => console.log('POST - /api/question/save')
-            );
+        // this.questionService.postSurvey(this.survey)
+        //     .subscribe(
+        //         // .() =>{ this.survey = null;}
+        //         error => console.log(error),
+        //         () => console.log('POST - /api/question/save')
+        //     );
     }
-
-
-
 
     ngOnInit(): void {
         console.log("CHILD SURVEY " + JSON.stringify(this.survey));

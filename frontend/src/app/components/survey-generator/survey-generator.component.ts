@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {LocationTestService} from "../../_services/location-tests.service";
 import {Router} from "@angular/router";
 import {Survey} from "../../_models/survey.model";
