@@ -32,3 +32,8 @@
   font-family: 'Montserrat', cursive;
   color: green;
 }
+
+.applicant-individual-container {
+  display: flex;
+  justify-content: space-between;
+}

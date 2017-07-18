@@ -2,9 +2,10 @@
   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
     <div class="card">
       <h4 class="assign-title">Choose a date</h4>
-      <div *ngFor="let date of dates" class="date-button-container">
+      <div *ngIf="!loaded">Fetching dates</div>
+      <div *ngFor="let date of dates.sort()" class="date-button-container">
         <button class="btn btn-info" (click)="selectDate(date)">
-          {{date}}
+          {{formatDate(date)}}
         </button>
       </div>
       <div>
@@ -19,25 +20,35 @@
     </div>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-    <div *ngIf="chosenDate" class="card">
+    <div *ngIf="showGroupTimes()" class="card">
       <h4 class="assign-title">Assign the applicant to the choosen date</h4>
       <div class="assign-container">
         <p-pickList
-            [source]="usersWithoutScreening"
-            [target]="usersWithScreening"
-            (onMoveToTarget)="doStuff($event)">
+            [source]="sourceList"
+            [target]="targetList">
           <ng-template let-user pTemplate="item">
             <div class="ui-helper-clearfix">
               <div class="assign-applicant">
-                <span>{{user.id}}</span><span>{{user.name}}</span>
+                <span>{{user.name}}</span><span>{{user.age}}</span>
               </div>
             </div>
           </ng-template>
         </p-pickList>
       </div>
       <div>
-        <button class="btn btn-success">Save</button>
+        <button class="btn btn-success" (click)="saveGroupTimes()">Continue</button>
       </div>
+    </div>
+    <div *ngIf="showIndividualTimes()" class="card">
+      <div *ngFor="let user of targetList" class="applicant-individual-container">
+        <div><span>{{user.name}}</span><input type="datetime-local" [(ngModel)]="user.individual"></div>
+      </div>
+      <div>
+        <button class="btn btn-success" (click)="saveIndividualTimes()">Continue</button>
+      </div>
+    </div>
+    <div *ngIf="showLoading()" class="card">
+      <h3>Please wait...</h3>
     </div>
     <div *ngIf="!chosenDate" class="card">
       <h1>Choose a date first!</h1>
