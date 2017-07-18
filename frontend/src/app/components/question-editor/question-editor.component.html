@@ -1,12 +1,18 @@
 <div class = "question-editor-component" *ngIf="question">
     <h2>Question</h2>
     <button class="btn" (click)="newQuestion()">Create new Option</button>
-    {{question.questionContent}}
-    <div >
-        <!--name="content-{{i}}"-->
-            <input placeholder="questionContent"   [(ngModel)]="question.questionContent" />
-            <input placeholder="type"  [(ngModel)]="question.type" />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                {{question.questionContent}}
+            </div>
+            <div class="col-md-9">
+                <textarea placeholder="questionContent" rows="5" cols="45" [(ngModel)]="question.questionContent" ></textarea>
+                <input placeholder="type"  [(ngModel)]="question.type" />
+            </div>
+        </div>
     </div>
+
     <h3>OPTION EDITOR</h3>
     <question-editor *ngFor="let option of question.options"
                     [option] = "option">
