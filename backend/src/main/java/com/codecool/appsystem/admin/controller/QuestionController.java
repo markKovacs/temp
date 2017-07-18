@@ -27,7 +27,7 @@ public class QuestionController {
     @Autowired
     private TestRepository testRepository;
 
-    @RequestMapping(value = "/prerequisites", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public RestResponseDTO applicantsByLocation(@RequestBody Question question) throws JsonProcessingException {
 
         questionService.saveCorrectAnswers(question);

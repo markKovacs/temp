@@ -39,8 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
 
         // match GET and POST under / for authentication.
-        RequestMatcher getRequestMatcher = new AntPathRequestMatcher("/q", HttpMethod.GET.name(), false);
-        RequestMatcher postRequestMatcher = new AntPathRequestMatcher("/q", HttpMethod.POST.name(), false);
+        RequestMatcher getRequestMatcher = new AntPathRequestMatcher("/**", HttpMethod.GET.name(), false);
+        RequestMatcher postRequestMatcher = new AntPathRequestMatcher("/**", HttpMethod.POST.name(), false);
 
         // allow /api/login
         RequestMatcher notLogin = new NegatedRequestMatcher(
