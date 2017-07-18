@@ -1,17 +1,25 @@
 <div class = "question-editor-component" *ngIf="question">
     <h2>Question</h2>
-    <button class="btn" (click)="newQuestion()">Create new Option</button>
+    <button class="btn" (click)="newQuestion()">Create new Option</button> <br/>
     <div class="container">
         <div class="row">
             <div class="col-md-3">
                 {{question.questionContent}}
             </div>
             <div class="col-md-9">
-                <textarea placeholder="questionContent" rows="5" cols="45" [(ngModel)]="question.questionContent" ></textarea>
-                <input type="radio" [(ngModel)]="question.type" />Checkbox
-                <input type="radio" [(ngModel)]="question.type" />Radio
-                <input ptype="radio" [(ngModel)]="question.type" />Motivation/Text
+                <textarea placeholder="questionContent" rows="5" cols="60" [(ngModel)]="question.questionContent" ></textarea>
             </div>
+            <form action="#" >
+                <label>
+                    <input type="radio" name="qtype" value="checkbox" [(ngModel)]="question.type"/>Checkbox
+                </label>
+                <label>
+                    <input type="radio" name="qtype" value="radio" [(ngModel)]="question.type"/>Radio
+                </label>
+                <label>
+                    <input type="radio" name="qtype" value="motivation" [(ngModel)]="question.type"/>Motivation
+                </label>
+            </form>
         </div>
     </div>
 
