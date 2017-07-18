@@ -6,6 +6,10 @@
             <input placeholder="questionContent"   [(ngModel)]="question.questionContent" />
             <input placeholder="type"  [(ngModel)]="question.type" />
     </div>
+    <h1>OPTION EDITOR</h1>
+    <question-editor *ngFor="let option of options"
+                    [option] = "option">
+    </question-editor>
 
 </div>
 

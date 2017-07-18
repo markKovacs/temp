@@ -9,4 +9,9 @@
     <input placeholder="order" [(ngModel)]="survey.orderInBundle" (blur)="handleChange()"/>
     <input placeholder="description" [(ngModel)]="survey.description" (blur)="handleChange()"/>
 </div>
+    <h1>QUESTION EDITOR</h1>
+    <question-editor *ngFor="let question of questions"
+                     [question] = "question">
+    </question-editor>
+
 </div>
