@@ -12,12 +12,10 @@ export class OptionEditorComponent implements OnInit{
 
     @Input() option: Option;
 
-
     newOption(): void{
         this.option = new Option;
         console.log(this.option);
     }
-
 
     ngOnInit(): void {
        // this.option.push({option: "string", isCorrect: true});

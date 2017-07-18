@@ -1,13 +1,14 @@
-<div class = "question-editor-component">
-    <h1>CHILDREN Question</h1>
-    <button class="btn btn-primary" (click)="newQuestion()">Create new Question</button>
-    <div *ngIf="(question)">
+<div class = "question-editor-component" *ngIf="question">
+    <h2>Question</h2>
+    <button class="btn btn-primary" (click)="newQuestion()">Create new Option</button>
+    {{question.questionContent}}
+    <div >
         <!--name="content-{{i}}"-->
             <input placeholder="questionContent"   [(ngModel)]="question.questionContent" />
             <input placeholder="type"  [(ngModel)]="question.type" />
     </div>
-    <h1>OPTION EDITOR</h1>
-    <question-editor *ngFor="let option of options"
+    <h3>OPTION EDITOR</h3>
+    <question-editor *ngFor="let option of question.options"
                     [option] = "option">
     </question-editor>
 

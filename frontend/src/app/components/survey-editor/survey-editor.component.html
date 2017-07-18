@@ -1,16 +1,16 @@
-<div class="survey editor">
-<h1>CHILDREN SURVEY</h1>
+<div class="survey editor" *ngIf="survey">
+<h1>SURVEY</h1>
     <h1>{{survey.name}}</h1>
     <h1>{{survey.locationId}}</h1>
     <h1>{{survey.questions}}</h1>
     <h1>{{survey.description}}</h1>
-<div *ngIf="(survey != null)">
+<div >
     <input placeholder="name" [(ngModel)]="survey.name" (blur)="handleChange()"/>
     <input placeholder="order" [(ngModel)]="survey.orderInBundle" (blur)="handleChange()"/>
     <input placeholder="description" [(ngModel)]="survey.description" (blur)="handleChange()"/>
-</div>
-    <h1>QUESTION EDITOR</h1>
-    <question-editor *ngFor="let question of questions"
+</div >
+    <h2>QUESTION EDITOR</h2>
+    <question-editor *ngFor="let question of survey.questions"
                      [question] = "question">
     </question-editor>
 

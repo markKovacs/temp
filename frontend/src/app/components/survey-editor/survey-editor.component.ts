@@ -13,7 +13,6 @@ import {Question} from "../../_models/question.model";
 export class SurveyEditorComponent implements OnInit{
 
     @Input() survey: Survey;
-    questions: Question [] = [];
 
     handleChange(): void{
         console.log(this.survey);
@@ -21,7 +20,6 @@ export class SurveyEditorComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        console.log("CHILD SURVEY " + this.survey);
-        this.questions = this.survey.questions;
+        console.log("CHILD SURVEY " + JSON.stringify(this.survey));
     }
 }
