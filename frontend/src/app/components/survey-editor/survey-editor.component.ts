@@ -16,7 +16,6 @@ export class SurveyEditorComponent implements OnInit{
 
     handleChange(): void{
         console.log(this.survey);
-
     }
 
     ngOnInit(): void {

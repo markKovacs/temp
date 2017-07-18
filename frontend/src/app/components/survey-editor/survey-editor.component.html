@@ -2,12 +2,12 @@
 <h1>SURVEY</h1>
     <h1>{{survey.name}}</h1>
     <h1>{{survey.locationId}}</h1>
-    <h1>{{survey.questions}}</h1>
-    <h1>{{survey.description}}</h1>
 <div >
-    <input placeholder="name" [(ngModel)]="survey.name" (blur)="handleChange()"/>
-    <input placeholder="order" [(ngModel)]="survey.orderInBundle" (blur)="handleChange()"/>
-    <input placeholder="description" [(ngModel)]="survey.description" (blur)="handleChange()"/>
+    <button class="btn btn-primary" (click)="handleChange()">CHECK SURVEY MODEL</button>
+
+    <input placeholder="name" [(ngModel)]="survey.name" />
+    <input placeholder="order" [(ngModel)]="survey.orderInBundle" />
+    <input placeholder="description" [(ngModel)]="survey.description" />
 </div >
     <h2>QUESTION EDITOR</h2>
     <question-editor *ngFor="let question of survey.questions"
