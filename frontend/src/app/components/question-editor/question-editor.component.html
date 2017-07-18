@@ -8,7 +8,9 @@
             </div>
             <div class="col-md-9">
                 <textarea placeholder="questionContent" rows="5" cols="45" [(ngModel)]="question.questionContent" ></textarea>
-                <input placeholder="type"  [(ngModel)]="question.type" />
+                <input type="radio" [(ngModel)]="question.type" />Checkbox
+                <input type="radio" [(ngModel)]="question.type" />Radio
+                <input ptype="radio" [(ngModel)]="question.type" />Motivation/Text
             </div>
         </div>
     </div>
