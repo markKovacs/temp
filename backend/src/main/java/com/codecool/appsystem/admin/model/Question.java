@@ -16,7 +16,6 @@ public class Question {
     private Integer estimatedTime;
     private String locationId;
     private String description;
-    private List<QuestionContent> questions;
 
     private String formUrl;
     private String name;
@@ -25,5 +24,8 @@ public class Question {
     private Integer threshold;
     private Boolean enabled;
     private Boolean motivationVideo;
+
+    private List<QuestionContent> questions;
+
 
 }
