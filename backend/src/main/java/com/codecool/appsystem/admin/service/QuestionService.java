@@ -23,22 +23,23 @@ public class QuestionService {
     @Autowired
     private TestAnswerRepository testAnswerRepository;
 
-    public void savePrereqTest(Question question) throws JsonProcessingException {
+    public void saveTest(Question question) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
         Test test = new Test();
         test.setId(question.getId());
 
         test.setFormAsJson(mapper.writeValueAsString(question));
-        test.setMaxPoints(question.getQuestions().size());
-        test.setThreshold(question.getQuestions().size());
-        test.setEnabled(true);
-        test.setEstimatedTime(5);
-        test.setName("Prerequisite");
-        test.setOrderInBundle(0);
+        test.setMaxPoints(question.getMaxPoints());
+        test.setThreshold(question.getThreshold());
+        test.setEnabled(question.getEnabled());
+        test.setEstimatedTime(question.getEstimatedTime());
+        test.setName(question.getName());
+        test.setOrderInBundle(question.getOrderInBundle());
         test.setFormUrl(question.getFormUrl());
         test.setLocationId(question.getLocationId());
         test.setDescription(question.getDescription());
+        test.setMotivationVideo(question.getMotivationVideo());
 
         testRepository.save(test);
     }

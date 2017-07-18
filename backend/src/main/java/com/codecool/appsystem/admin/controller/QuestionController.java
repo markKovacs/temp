@@ -27,11 +27,12 @@ public class QuestionController {
     @Autowired
     private TestRepository testRepository;
 
-    @RequestMapping(value = "/prerequisites", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public RestResponseDTO applicantsByLocation(@RequestBody Question question) throws JsonProcessingException {
 
+        log.info("new Survey Arrived");
         questionService.saveCorrectAnswers(question);
-        questionService.savePrereqTest(question);
+        questionService.saveTest(question);
 
         return RestResponseDTO.buildSuccess();
 

@@ -13,10 +13,19 @@ public class Question {
 
     private String id;
     private String surveyContent;
-    private List<QuestionContent> questions;
     private Integer estimatedTime;
-    private String formUrl;
     private String locationId;
     private String description;
+
+    private String formUrl;
+    private String name;
+    private Integer orderInBundle;
+    private Integer maxPoints;
+    private Integer threshold;
+    private Boolean enabled;
+    private Boolean motivationVideo;
+
+    private List<QuestionContent> questions;
+
 
 }
