@@ -10,14 +10,16 @@
     <button class="btn btn-primary" (click)="sendInfo()">Info</button>
 
     <ul class="tests">
-        <li *ngFor="let test of surveys" (click)="currentTest(test)">
-            <span class="badge">{{test.name}}</span> {{test.name}}
+        <li *ngFor="let test of surveys" >
+            <button class="btn btn-info" (click)="currentTest(test)">Edit {{test.name}}</button>
         </li>
     </ul>
+    <button class="btn btn-info" (click)="currentTest(null)">Add New Survey</button>
+
     <br><br>
     <h1>Survey Editor Component</h1>
-    <survey-editor *ngFor = "let survey of surveys"
-            [survey]="survey">
+    <survey-editor
+            [survey]="model">
     </survey-editor>
     <br>
 

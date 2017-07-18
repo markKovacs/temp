@@ -13,6 +13,7 @@ import {Survey} from "../../_models/survey.model";
 export class SurveyGeneratorComponent implements OnInit{
 
     surveys: Survey[] = [];
+    model: Survey;
 
     constructor(
         private testsByLocation: LocationTestService,
@@ -25,6 +26,12 @@ export class SurveyGeneratorComponent implements OnInit{
         console.log("New info recieved");
 }
     currentTest(test: Survey){
+        if (test == null){
+            this.model = new Survey();
+        } else{
+            this.model = test;
+        }
+
         console.log(test);
     }
 
