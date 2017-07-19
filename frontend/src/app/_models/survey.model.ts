@@ -15,4 +15,10 @@ export class Survey {
     surveyContent: string;
     questions: Question[] = [];
 
+    constructor(){
+        if (!this.id){
+            this.id = Math.random().toString(36).substr(2, 9);
+        }
+    }
+
 }
