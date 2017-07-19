@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {Survey} from "../../_models/survey.model";
 import {QuestionService} from "../../_services/question.service";
+import {Question} from "../../_models/question.model";
 
 
 @Component({
@@ -14,6 +15,7 @@ import {QuestionService} from "../../_services/question.service";
 export class SurveyEditorComponent implements OnInit{
 
     @Input() survey: Survey;
+    motivation: boolean;
 
     constructor(private questionService: QuestionService){}
 
@@ -28,6 +30,21 @@ export class SurveyEditorComponent implements OnInit{
                 error => console.log(error),
                 () => console.log('POST - /api/question/save')
             );
+    }
+
+    newQuestion(): void{
+        this.survey.questions.push(new Question());
+        console.log(this.survey.questions);
+    }
+
+    setMotivation(event):void{
+        console.log(event.target.checked); // true | false
+        if(event.target.checked){
+            this.survey.questions[0].type = "freetext";
+            this.motivation = true;
+        } else {
+            this.motivation = false;
+        }
     }
 
     ngOnInit(): void {

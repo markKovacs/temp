@@ -17,16 +17,20 @@
                     <input type="radio" name="qtype" value="radio" [(ngModel)]="question.type"/>Radio
                 </label>
                 <label>
-                    <input type="radio" name="qtype" value="motivation" [(ngModel)]="question.type"/>Motivation
+                    <input type="radio" name="qtype" value="freetext" [(ngModel)]="question.type"/>Motivation
                 </label>
             </form>
         </div>
     </div>
 
+   <h1>Question Motivation {{motivation}}</h1>
+    <div *ngIf="motivation">
+
     <h3>OPTION EDITOR</h3>
     <question-editor *ngFor="let option of question.options"
                     [option] = "option">
     </question-editor>
+    </div>
 
 </div>
 

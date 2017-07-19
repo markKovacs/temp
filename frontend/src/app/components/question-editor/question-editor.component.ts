@@ -11,6 +11,7 @@ import {Question} from "../../_models/question.model";
 export class QuestionEditorComponent implements OnInit{
 
     @Input() question: Question;
+    @Input() motivation: boolean;
 
     newQuestion(): void{
         this.question =new Question;
