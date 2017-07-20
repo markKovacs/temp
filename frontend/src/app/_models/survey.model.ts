@@ -11,7 +11,7 @@ export class Survey {
     maxPoint:number;
     enabled:boolean;
     estimatedTime:number;
-    motivationVideo:string;
+    motivationVideo:boolean;
     surveyContent: string;
     questions: Question[] = [];
 

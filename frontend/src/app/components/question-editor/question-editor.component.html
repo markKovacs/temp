@@ -1,6 +1,9 @@
 <div class = "question-editor-component" *ngIf="question">
-    <h2>Question</h2>
+    <h2>Question  {{motivation}}!</h2>
+
+    <div *ngIf = "!motivation">
     <button class="btn" (click)="newQuestion()">Create new Option</button> <br/>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-3">

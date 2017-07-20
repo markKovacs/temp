@@ -15,6 +15,7 @@ public class QuestionContent {
     private String id;
     private String questionContent;
     private String type;
+    private Boolean graded;
     private List<QuestionOption> options;
 
 }

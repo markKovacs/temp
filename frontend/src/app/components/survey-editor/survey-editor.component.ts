@@ -15,7 +15,7 @@ import {Question} from "../../_models/question.model";
 export class SurveyEditorComponent implements OnInit{
 
     @Input() survey: Survey;
-    motivation: boolean;
+    @Input() motivation: boolean;
 
     constructor(private questionService: QuestionService){}
 
@@ -33,21 +33,30 @@ export class SurveyEditorComponent implements OnInit{
     }
 
     newQuestion(): void{
-        this.survey.questions.push(new Question());
+
+        if (!this.survey.motivationVideo) {
+            this.survey.questions.push(new Question());
+        }
+        if (this.survey.motivationVideo && this.survey.questions.length < 1){
+            this.survey.questions.push(new Question());
+        }
         console.log(this.survey.questions);
     }
 
     setMotivation(event):void{
         console.log(event.target.checked); // true | false
         if(event.target.checked){
+            this.survey.motivationVideo = true;
             this.survey.questions[0].type = "freetext";
             this.motivation = true;
         } else {
             this.motivation = false;
+            this.survey.motivationVideo = false;
         }
     }
 
     ngOnInit(): void {
         console.log("CHILD SURVEY " + JSON.stringify(this.survey));
+
     }
 }
