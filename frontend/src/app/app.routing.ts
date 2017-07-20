@@ -3,8 +3,7 @@ import {
     DashboardComponent,
     ApplicantComponent,
     ApplicantListComponent,
-    StartComponent,
-    SurveyGeneratorComponent
+    SurveyGeneratorComponent,
     CalendarComponent,
     StartComponent
 } from './components/index';
@@ -17,7 +16,7 @@ const appRoutes: Routes = [
     {path: 'applicants', component: ApplicantListComponent, canActivate: [AuthGuard]},
     {path: 'applicants/:id', component: ApplicantComponent, canActivate: [AuthGuard]},
     {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]},
-    { path: 'surveygenerator', component: SurveyGeneratorComponent}, //, canActivate: [AuthGuard]
+    { path: 'surveygenerator', component: SurveyGeneratorComponent, canActivate: [AuthGuard]}, //
 
     // redirects to auth0 login
     {path: 'login', component: StartComponent},

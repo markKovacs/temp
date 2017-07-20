@@ -26,11 +26,10 @@ import {
     DashboardComponent,
     ApplicantComponent,
     ApplicantListComponent,
-    StartComponent,
     SurveyGeneratorComponent,
     SurveyEditorComponent,
     OptionEditorComponent,
-    QuestionEditorComponent
+    QuestionEditorComponent,
     CalendarComponent,
     StartComponent
 } from './components/index';
@@ -56,12 +55,10 @@ import {AuthGuard} from './guards/index';
         DashboardComponent,
         ApplicantComponent,
         ApplicantListComponent,
-        StartComponent,
         SurveyGeneratorComponent,
         SurveyEditorComponent,
         QuestionEditorComponent,
-        OptionEditorComponent
-
+        OptionEditorComponent,
         CalendarComponent,
         StartComponent
     ],
