@@ -1,0 +1,34 @@
+<div class="survey-generator-component">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <br><br>
+                <div class="try">
+                    <h1>You must answer all questions </h1>
+                    <h3>Your Location is: {{locationId}}</h3>
+                </div>
+                <ul class="tests">
+                    <li *ngFor="let test of surveys">
+                        <button class="btn btn-info" (click)="currentTest(test)">Edit {{test.name}}</button>
+                    </li>
+                    <br>
+                    <li>
+                        <button class="btn btn-info" (click)="currentTest(null)">Add New Survey</button>
+                    </li>
+
+                </ul>
+
+                <br>
+                <div *ngIf="model">
+                    <h1>Survey Editor Component</h1>
+                    <survey-editor
+                            [survey]="model"
+                            [motivation]="model.motivationVideo">
+                    </survey-editor>
+                </div>
+                <br>
+            </div>
+
+        </div>
+    </div>
+</div>

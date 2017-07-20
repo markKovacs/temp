@@ -1,0 +1,42 @@
+<div class="question-editor-component" *ngIf="question">
+    <div class="container">
+        <div class="row">
+            <h3>Question Editor</h3>
+            <button class="btn btn-danger" (click)="deleteQuestion()">Remove Question</button>
+            <br>
+            <div class="col-md-3">
+                <label>Question Content </label>
+            </div>
+            <div class="col-md-9">
+                <textarea placeholder="questionContent" rows="5" cols="60"
+                          [(ngModel)]="question.questionContent"></textarea>
+            </div>
+            <div class="col-md-9">
+                <form action="#">
+                    <label *ngIf="!motivation">
+                        <input type="radio" name="qtype" value="checkbox" [(ngModel)]="question.type"/>Checkbox
+                    </label>
+                    <label *ngIf="!motivation">
+                        <input type="radio" name="qtype" value="radio" [(ngModel)]="question.type"/>Radio
+                    </label>
+                    <label *ngIf="motivation">
+                        <input type="radio" name="qtype" value="freetext" [(ngModel)]="question.type"/>Motivation
+                    </label>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div *ngIf="!motivation">
+        <div *ngIf="!motivation">
+            <button class="btn btn-success" (click)="newOption()">Create new Option</button>
+            <br><br>
+        </div>
+        <br>
+        <option-editor *ngFor="let option of question.options"
+                       [option]="option">
+        </option-editor>
+    </div>
+
+</div>
+

@@ -17,10 +17,19 @@ import {GlobalEventsManager} from './global.eventsmanager';
 import {HttpClient} from './_httpclient/httpclient';
 import {AppComponent} from './app.component';
 import {
+    LocationTestService,
+    QuestionService
+
+} from './_services/index';
+import {
     NavBarComponent,
     DashboardComponent,
     ApplicantComponent,
     ApplicantListComponent,
+    SurveyGeneratorComponent,
+    SurveyEditorComponent,
+    OptionEditorComponent,
+    QuestionEditorComponent,
     CalendarComponent,
     StartComponent
 } from './components/index';
@@ -46,13 +55,19 @@ import {AuthGuard} from './guards/index';
         DashboardComponent,
         ApplicantComponent,
         ApplicantListComponent,
+        SurveyGeneratorComponent,
+        SurveyEditorComponent,
+        QuestionEditorComponent,
+        OptionEditorComponent,
         CalendarComponent,
         StartComponent
     ],
     providers: [
         AuthGuard,
         GlobalEventsManager,
-        HttpClient
+        HttpClient,
+        LocationTestService,
+        QuestionService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent]

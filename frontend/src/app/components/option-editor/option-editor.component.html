@@ -1,0 +1,23 @@
+<div class="option-editor-component" *ngIf="option">
+    <h3>Option Editor</h3>
+    <button class="btn btn-danger" (click)="deleteOption()">Remove Option</button>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <label> Option Content:</label>
+            </div>
+            <div class="col-md-9">
+                <textarea placeholder="optionContent" rows="2" cols="60" [(ngModel)]="option.optionContent"></textarea>
+            </div>
+            <div class="col-md-3">
+                <label> The answer is Correct? </label>
+            </div>
+            <div class="col-md-9">
+                <input type="checkbox" placeholder="optionContent" [(ngModel)]="option.isCorrect"/>
+            </div>
+        </div>
+    </div>
+    <div>
+    </div>
+
+</div>

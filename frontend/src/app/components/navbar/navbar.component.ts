@@ -31,6 +31,10 @@ export class NavBarComponent {
         this.router.navigate(['applicants'])
     }
 
+    getSurvey() {
+        this.router.navigate(['surveygenerator'])
+    }
+
     getCalendar() {
         this.router.navigate(['calendar'])
     }
