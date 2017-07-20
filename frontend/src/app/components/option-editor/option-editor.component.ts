@@ -18,4 +18,7 @@ export class OptionEditorComponent implements OnInit{
             this.option.isCorrect = false;
         }
     }
+    deleteOption(): void{
+        this.option = null;
+    }
 }

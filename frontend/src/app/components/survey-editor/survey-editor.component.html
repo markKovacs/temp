@@ -1,67 +1,95 @@
 <div class="survey-editor-component" *ngIf="survey">
     <div class="container">
         <div class="row">
+
+            <!--<div class="col-md-9">-->
+            <h3>EDIT SURVEY {{survey.name}}</h3>
+            <br>
             <div class="col-md-3">
+                <label>Survey Description</label>
             </div>
             <div class="col-md-9">
                 <textarea placeholder="Survey Description" rows="5" cols="60"
                           [(ngModel)]="survey.description"></textarea>
             </div>
-            <form action="#">
-                <label for="name">Name:
-                    <input type="text" id="name" name="name" value="name" [(ngModel)]="survey.name"/>
-                </label>
-                <br>
-                <label for="order"> Order In Bundle:
-                </label>
-                <input type="number" id="order" name="order" value="order_in_bundle" min=0 step=1
-                       [(ngModel)]="survey.orderInBundle"/>
-                <br>
-                <label> Threshold:
-                    <input type="number" name="threshold" value="threshold" min=0 step=1
-                           [(ngModel)]="survey.threshold"/>
-                </label>
-                <br>
-                <label> Max Point:
-                    <input type="number" name="maxpoint" value="maxpoint" min=0 step=1 [(ngModel)]="survey.maxPoints"/>
-                </label>
-                <br>
-                <label> Estimated Time:
-                    <input type="number" name="estimated_time" value="estimated_time" min=0 step=1
-                           [(ngModel)]="survey.estimatedTime"/>
-                    <br>
-                </label>
-                <br>
-                <label *ngIf="survey.questions.length == 0"> Is Motivation Video?
-                    <input type="checkbox" name="motivation" value="isMotivationVideo"
-                           [(ngModel)]="survey.motivationVideo" (click)="setMotivation($event)"/>
-                </label>
-            </form>
-        </div>
-
-
-        <h2>EDIT SURVEY {{survey.name}}</h2>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="surveyContent"></label>
-                </div>
-                <div class="col-md-9">
+            <br>
+            <div class="col-md-3">
+                <label>Survey Content</label>
+            </div>
+            <div class="col-md-9">
                     <textarea placeholder="Survey Content" id="surveyContent" rows="5" cols="60"
                               [(ngModel)]="survey.surveyContent"></textarea>
-                </div>
             </div>
-        </div>
 
-        <button class="btn btn-primary" (click)="newQuestion()">Add new Question</button>
-        <question-editor *ngFor="let question of survey.questions"
-                         [question]="question"
-                         [motivation]="motivation">
-        </question-editor>
+            <br>
 
-        <div *ngIf="!validate" class="alert alert-warning">
-            {{message}}
+            <form action="#">
+                <div class="col-md-3">
+                    <label for="name">Name: </label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" id="name" name="name" value="name" [(ngModel)]="survey.name"/>
+                </div>
+                <br>
+                <div class="col-md-3">
+                    <label for="order"> Order In Bundle:</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="number" id="order" name="order" value="order_in_bundle" min=0 step=1
+                           [(ngModel)]="survey.orderInBundle"/>
+                </div>
+                <br>
+                <div class="col-md-3">
+                    <label> Threshold:</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="number" name="threshold" value="threshold" min=0 step=1
+                           [(ngModel)]="survey.threshold"/>
+                </div>
+                <br>
+                <div class="col-md-3">
+                    <label> Max Point:</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="number" name="maxpoint" value="maxpoint" min=0 step=1 [(ngModel)]="survey.maxPoints"/>
+                </div>
+                <br>
+                <div class="col-md-3">
+                    <label> Estimated Time:
+                    </label>
+                </div>
+                <div class="col-md-9">
+                    <input type="number" name="estimated_time" value="estimated_time" min=0 step=1
+                           [(ngModel)]="survey.estimatedTime"/>
+                </div>
+                <br>
+                <br>
+                <div *ngIf="survey.questions.length == 0">
+                    <div class="col-md-3">
+                        <label> Is Motivation Video?
+                        </label>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="checkbox" name="motivation" value="isMotivationVideo"
+                               [(ngModel)]="survey.motivationVideo" (click)="setMotivation($event)"/>
+                    </div>
+                </div>
+
+            </form>
         </div>
-        <button class="btn btn-primary" (click)="postSurvey()">SAVE SURVEY</button>
-        <br><br>
     </div>
+
+    <br><br>
+    <question-editor *ngFor="let question of survey.questions"
+                     [question]="question"
+                     [motivation]="motivation">
+    </question-editor>
+    <br>
+    <button class="btn btn-success" (click)="newQuestion()">Add new Question</button>
+    <div *ngIf="!validate" class="alert alert-danger">
+        {{message}}
+    </div>
+    <button class="btn btn-primary" (click)="postSurvey()">SAVE SURVEY</button>
+    <br><br>
+</div>
+

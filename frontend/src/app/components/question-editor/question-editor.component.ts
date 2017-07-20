@@ -20,6 +20,10 @@ export class QuestionEditorComponent implements OnInit{
         console.log(this.motivation);
     }
 
+    deleteQuestion(): void{
+        this.question = null;
+    }
+
     ngOnInit(): void {
     }
 }
