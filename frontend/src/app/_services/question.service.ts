@@ -10,7 +10,6 @@ export class QuestionService {
     constructor(private client: HttpClient){}
 
     public postSurvey(survey: Survey): Observable<PostResponse>{
-        console.log(JSON.stringify(survey));
         return this.client.post('/api/question/save', JSON.stringify(survey) );
     }
 }

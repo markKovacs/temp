@@ -16,8 +16,6 @@ export class QuestionEditorComponent implements OnInit{
 
     newOption(): void{
         this.question.options.push(new Option());
-        console.log("option for question" + this.question.options);
-        console.log(this.motivation);
     }
 
     deleteQuestion(): void{

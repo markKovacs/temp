@@ -1,7 +1,7 @@
 package com.codecool.appsystem.admin.service;
 
 import com.codecool.appsystem.admin.model.*;
-import com.codecool.appsystem.admin.model.dto.QuestionDTO;
+import com.codecool.appsystem.admin.model.dto.TestDTO;
 import com.codecool.appsystem.admin.repository.TestAnswerRepository;
 import com.codecool.appsystem.admin.repository.TestRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -38,7 +38,6 @@ public class QuestionService {
         test.setEstimatedTime(question.getEstimatedTime());
         test.setName(question.getName());
         test.setOrderInBundle(question.getOrderInBundle());
-        test.setFormUrl(question.getFormUrl());
         test.setLocationId(question.getLocationId());
         test.setDescription(question.getDescription());
         test.setMotivationVideo(question.getMotivationVideo());
@@ -93,9 +92,9 @@ public class QuestionService {
         return questions;
     }
 
-    public QuestionDTO createQuestionDTO(Test test, Question question){
+    public TestDTO createQuestionDTO(Test test, Question question){
 
-        return QuestionDTO.builder()
+        return TestDTO.builder()
                 .description(test.getDescription())
                 .enabled(test.getEnabled())
                 .estimatedTime(test.getEstimatedTime())

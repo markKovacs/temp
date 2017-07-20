@@ -3,7 +3,7 @@ package com.codecool.appsystem.admin.controller;
 
 import com.codecool.appsystem.admin.model.Question;
 import com.codecool.appsystem.admin.model.Test;
-import com.codecool.appsystem.admin.model.dto.QuestionDTO;
+import com.codecool.appsystem.admin.model.dto.TestDTO;
 import com.codecool.appsystem.admin.model.dto.RestResponseDTO;
 import com.codecool.appsystem.admin.repository.TestRepository;
 import com.codecool.appsystem.admin.service.QuestionService;
@@ -39,9 +39,9 @@ public class QuestionController {
     }
 
     @RequestMapping(value="/{location}", method = RequestMethod.GET)
-    public List<QuestionDTO> getQuestionByLocation(@PathVariable("location") String locationId) throws IOException {
+    public List<TestDTO> getQuestionByLocation(@PathVariable("location") String locationId) throws IOException {
 
-        List<QuestionDTO> result = new ArrayList<>();
+        List<TestDTO> result = new ArrayList<>();
         List<Test> testsByLocation = testRepository.findByLocationIdOrderByOrderInBundleAsc(locationId);
         List<Question> questions = questionService.createQuestionsFromLocationId(testsByLocation);
 

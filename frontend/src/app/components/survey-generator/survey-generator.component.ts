@@ -22,23 +22,15 @@ export class SurveyGeneratorComponent implements OnInit{
     ){
     }
 
-    sendInfo() : void{
-        console.log(this.surveys);
-        console.log("New info recieved");
-}
     currentTest(test: Survey){
         if (test == null){
             this.model = new Survey();
             this.model.enabled = true;
             this.model.motivationVideo = false;
             this.model.locationId = this.locationId;//localStorage.
-            console.log(localStorage);
-            console.log(this.model);
         } else{
             this.model = test;
         }
-
-        console.log(test);
     }
 
 
@@ -49,7 +41,6 @@ export class SurveyGeneratorComponent implements OnInit{
                     console.log("api test2");
                     for (const test of data) {
                         this.surveys.push(test);
-                        console.log("test" + test);
                     }
                     //this.surveys = JSON.parse(data.formAsJson);
                 },

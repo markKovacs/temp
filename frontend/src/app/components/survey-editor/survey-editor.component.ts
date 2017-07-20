@@ -22,10 +22,6 @@ export class SurveyEditorComponent implements OnInit{
 
     constructor(private questionService: QuestionService){}
 
-    handleChange(): void{
-        console.log(this.survey);
-    }
-
     postSurvey(): void{
         let count = 0;
 
@@ -63,11 +59,9 @@ export class SurveyEditorComponent implements OnInit{
         if (this.survey.motivationVideo && this.survey.questions.length < 1){
             this.survey.questions.push(new Question());
         }
-        console.log(this.survey.questions);
     }
 
     setMotivation(event):void{
-        console.log(event.target.checked); // true | false
         this.newQuestion();
         if(event.target.checked){
             this.survey.motivationVideo = true;
@@ -80,7 +74,6 @@ export class SurveyEditorComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        console.log("CHILD SURVEY " + JSON.stringify(this.survey));
 
     }
 }

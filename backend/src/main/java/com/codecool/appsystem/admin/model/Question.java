@@ -17,7 +17,6 @@ public class Question {
     private String locationId;
     private String description;
 
-    private String formUrl;
     private String name;
     private Integer orderInBundle;
     private Integer maxPoints;
