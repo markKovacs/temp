@@ -5,17 +5,18 @@ export class User {
     givenName: string;
     familyName: string;
     middleName: string;
+    name: string;
     imgUrl: string;
     email: string;
     provider: string;
     token: string;
-    birthDate: number;
+    birthDate: Date;
+    age: number;
     locationId: string;
     gender: string;
     phoneNumber: string;
-    date: string;
-    team: string;
-    solo: string;
+    individual: Date;
+    group: Date;
     replied: boolean;
 
 }

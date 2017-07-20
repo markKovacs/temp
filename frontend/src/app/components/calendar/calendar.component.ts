@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
 import {Location, User} from "../../_models/index";
+import { DatePipe } from '@angular/common';
 
 @Component({
     moduleId: module.id,
@@ -11,14 +12,14 @@ import {Location, User} from "../../_models/index";
 })
 export class CalendarComponent {
 
-    public users: any[] = [];
+    public users: User[] = [];
     public dates: Date[] = [];
     public loaded: boolean = false;
     public dateSelectorOn: boolean = false;
     public date: Date;
     public chosenDate: Date;
-    public sourceList: any[] = [];
-    public targetList: any[] = [];
+    public sourceList: User[] = [];
+    public targetList: User[] = [];
     public isPostingGroupTimes: boolean = false;
     public isPostingIndividualTimes: boolean = false;
     public groupTimesSet: boolean = false;
@@ -42,12 +43,8 @@ export class CalendarComponent {
         this.loaded = true;
     }
 
-    formatDate(dateString){
-      return dateString.toString().split("T")[0] + " - " + dateString.toString().split("T")[1]
-    }
-
-    openDateSelector(){
-        this.dateSelectorOn = true;
+    toggleDateSelector(){
+        this.dateSelectorOn = !this.dateSelectorOn;
         this.date = null;
     }
 
@@ -98,23 +95,27 @@ export class CalendarComponent {
 
     fetchUsers(){
       return setTimeout(()=>{
-          this.users = [
-            {id: 1, name: "Kovács Béla", age: 18, group: null, individual: null},
-            {id: 2, name: "Varga Lajos", age: 29, group: null, individual: null},
-            {id: 3, name: "Nagy Kázmér", age: 32, group: "2017-08-20T15:00", individual: "2017-08-20T20:00"},
-            {id: 4, name: "Kis Ottokár", age: 25, group: null, individual: null},
-            {id: 5, name: "Kolompár Shakira", age: 23, group: null, individual: null},
-            {id: 6, name: "Magyar Oszkár", age: 42, group: "2017-08-20T12:00", individual: "2017-08-20T20:00"},
-            {id: 7, name: "Horváth Miklós", age: 57, group: "2017-08-20T15:00", individual: "2017-08-20T21:00"}
-          ];
+          let myDate1 = new Date(1500540616000);
+          let myDate2 = new Date(1497540616000);
+          let user1 = new User(); user1.id = 1; user1.gender = 'male'; user1.name = 'Kovács Béla'; user1.age = 18; user1.group = myDate1; user1.individual = myDate1;
+          let user2 = new User(); user2.id = 2; user2.gender = 'male'; user2.name = 'Varga Lajos'; user2.age = 25; user2.group = null; user2.individual = null;
+          let user3 = new User(); user3.id = 3; user3.gender = 'male'; user3.name = 'Nagy Kázmér'; user3.age = 22; user3.group = myDate1; user3.individual = null;
+          let user4 = new User(); user4.id = 4; user4.gender = 'male'; user4.name = 'Magyar Oszkár'; user4.age = 28; user4.group = myDate2; user4.individual = myDate2;
+          let user5 = new User(); user5.id = 5; user5.gender = 'female'; user5.name = 'Horváth Etelka'; user5.age = 16; user5.group = null; user5.individual = null;
+          let user6 = new User(); user6.id = 6; user6.gender = 'female'; user6.name = 'Lengyel Ramóna'; user6.age = 23; user6.group = null; user6.individual = null;
+          let user7 = new User(); user7.id = 7; user7.gender = 'male'; user7.name = 'Kiss Ottokár'; user7.age = 23; user7.group = null; user7.individual = null;
+          let user8 = new User(); user8.id = 8; user8.gender = 'male'; user8.name = 'Kis Kevin'; user8.age = 42; user8.group = null; user8.individual = null;
+          let user9 = new User(); user9.id = 9; user9.gender = 'female'; user9.name = 'Nagy Teréz'; user9.age = 27; user9.group = null; user9.individual = null;
+          this.users = [ user1, user2, user3, user4, user5, user6, user7, user8, user9 ];
           this.loadDates();
       }, 1000);
     }
 
     postGroupTimes(){
-        let sendData = [];
-        for (let user of this.targetList) { sendData.push({id: user.id, group: user.group}) }
-        console.log("should post this:", {groupTimes: sendData});
+        let sendData = {date: null, applicants: []};
+        sendData.date = this.chosenDate;
+        for (let user of this.targetList) { sendData.applicants.push(user.id) }
+        console.log("should post this:", sendData);
         this.isPostingGroupTimes = true;
         return setTimeout(() => {
             this.isPostingGroupTimes = false;
@@ -125,7 +126,7 @@ export class CalendarComponent {
     postIndividualTimes(){
         let sendData = [];
         for (let user of this.targetList) { sendData.push({id: user.id, individual: user.individual}) }
-        console.log("should post this:", {groupTimes: sendData});
+        console.log("should post this:", {individualTimes: sendData});
         this.isPostingIndividualTimes = true;
         this.individualTimesSet = false;
         return setTimeout(() => {
