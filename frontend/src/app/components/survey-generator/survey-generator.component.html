@@ -17,11 +17,13 @@
     <button class="btn btn-info" (click)="currentTest(null)">Add New Survey</button>
 
     <br><br>
+    <div *ngIf="model">
     <h1>Survey Editor Component</h1>
     <survey-editor
             [survey]="model"
-            >
+            [motivation]="model.motivationVideo">
     </survey-editor>
+    </div>
     <br>
 
 </div>

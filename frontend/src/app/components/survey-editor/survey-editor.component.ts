@@ -45,6 +45,8 @@ export class SurveyEditorComponent implements OnInit{
 
     setMotivation(event):void{
         console.log(event.target.checked); // true | false
+        this.newQuestion();
+        //fixme what to do in edit case
         if(event.target.checked){
             this.survey.motivationVideo = true;
             this.survey.questions[0].type = "freetext";

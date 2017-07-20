@@ -2,6 +2,7 @@ export class Option {
 
     id: string;
     optionContent: string;
+    isCorrect: boolean;
 
     constructor(){
         if (!this.id){

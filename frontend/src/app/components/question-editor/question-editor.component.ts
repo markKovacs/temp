@@ -1,5 +1,6 @@
 import {Component, OnInit, Input} from "@angular/core";
 import {Question} from "../../_models/question.model";
+import {Option} from "../../_models/option.model";
 
 @Component({
     moduleId: module.id,
@@ -13,8 +14,10 @@ export class QuestionEditorComponent implements OnInit{
     @Input() question: Question;
     @Input() motivation: boolean;
 
-    newQuestion(): void{
-        this.question =new Question;
+    newOption(): void{
+        this.question.options.push(new Option());
+        console.log("option for question" + this.question.options);
+        console.log(this.motivation);
     }
 
     ngOnInit(): void {
