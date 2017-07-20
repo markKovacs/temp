@@ -6,9 +6,6 @@
     <div class="try">
         <h1>You must answer all questions </h1>
     </div>
-
-    <button class="btn btn-primary" (click)="sendInfo()">Info</button>
-
     <ul class="tests">
         <li *ngFor="let test of surveys" >
             <button class="btn btn-info" (click)="currentTest(test)">Edit {{test.name}}</button>

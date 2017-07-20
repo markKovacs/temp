@@ -14,5 +14,8 @@ export class OptionEditorComponent implements OnInit{
 
 
     ngOnInit(): void {
+        if (this.option.isCorrect == null){
+            this.option.isCorrect = false;
+        }
     }
 }

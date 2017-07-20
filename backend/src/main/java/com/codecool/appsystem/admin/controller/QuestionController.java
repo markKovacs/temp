@@ -30,7 +30,7 @@ public class QuestionController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public RestResponseDTO applicantsByLocation(@RequestBody Question question) throws JsonProcessingException {
 
-        log.info("new Survey Arrived");
+        log.info("new Survey Arrived: " + question);
         questionService.saveCorrectAnswers(question);
         questionService.saveTest(question);
 

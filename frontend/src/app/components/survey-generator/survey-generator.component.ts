@@ -28,6 +28,10 @@ export class SurveyGeneratorComponent implements OnInit{
     currentTest(test: Survey){
         if (test == null){
             this.model = new Survey();
+            this.model.enabled = true;
+            this.model.motivationVideo = false;
+            this.model.locationId = "BUD";//localStorage.
+            console.log(this.model);
         } else{
             this.model = test;
         }

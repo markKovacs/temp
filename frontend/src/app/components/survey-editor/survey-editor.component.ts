@@ -35,32 +35,24 @@ export class SurveyEditorComponent implements OnInit{
                     count++;
                 }
             }
-            if (question.type == "checkbox"){
-                if (count < 2){
-                    this.validate = false;
-                    this.message = "CheckBox question must have more then one correct answer!"
-                }
-            }
-            if (question.type == "radio"){
-                if (count != 1){
-                    this.validate = false;
-                    this.message = "Radio box question must have one correct answer!"
-                }
-            }
-            if (question.type == "freetext"){
-                if (count != 0){
-                    this.validate = false;
-                    this.message = "Motivation question don't has a correct answer!"
-                }
+            if (count > 0){
+                this.validate = true;
+            } else {
+                this.validate = false;
+                this.message = "Questions must have one correct answer!";
+                break;
             }
             count = 0;
         }
-        this.questionService.postSurvey(this.survey)
-            .subscribe(
-                // .() =>{ this.survey = null;}
-                error => console.log(error),
-                () => console.log('POST - /api/question/save')
-            );
+        if (this.validate) {
+            this.questionService.postSurvey(this.survey)
+                .subscribe(
+                    // .() =>{ this.survey = null;}
+                    error => console.log(error),
+                    () => console.log('POST - /api/question/save')
+                );
+        this.survey = null;
+        }
     }
 
     newQuestion(): void{
@@ -77,7 +69,6 @@ export class SurveyEditorComponent implements OnInit{
     setMotivation(event):void{
         console.log(event.target.checked); // true | false
         this.newQuestion();
-        //fixme what to do in edit case
         if(event.target.checked){
             this.survey.motivationVideo = true;
             this.survey.questions[0].type = "freetext";

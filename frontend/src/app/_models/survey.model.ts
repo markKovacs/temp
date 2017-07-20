@@ -8,7 +8,7 @@ export class Survey {
     description:string;
     name:string;
     threshold:number;
-    maxPoint:number;
+    maxPoints:number;
     enabled:boolean;
     estimatedTime:number;
     motivationVideo:boolean;
