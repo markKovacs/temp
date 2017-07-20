@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from "@angular/core";
 import {Survey} from "../../_models/survey.model";
 import {QuestionService} from "../../_services/question.service";
 import {Question} from "../../_models/question.model";
+import {Option} from "../../_models/option.model";
 
 
 @Component({
@@ -16,6 +17,8 @@ export class SurveyEditorComponent implements OnInit{
 
     @Input() survey: Survey;
     @Input() motivation: boolean;
+    validate: boolean = true;
+    message: string;
 
     constructor(private questionService: QuestionService){}
 
@@ -24,6 +27,34 @@ export class SurveyEditorComponent implements OnInit{
     }
 
     postSurvey(): void{
+        let count = 0;
+
+        for (let question of this.survey.questions) {
+            for (let option of question.options){
+                if (option.isCorrect){
+                    count++;
+                }
+            }
+            if (question.type == "checkbox"){
+                if (count < 2){
+                    this.validate = false;
+                    this.message = "CheckBox question must have more then one correct answer!"
+                }
+            }
+            if (question.type == "radio"){
+                if (count != 1){
+                    this.validate = false;
+                    this.message = "Radio box question must have one correct answer!"
+                }
+            }
+            if (question.type == "freetext"){
+                if (count != 0){
+                    this.validate = false;
+                    this.message = "Motivation question don't has a correct answer!"
+                }
+            }
+            count = 0;
+        }
         this.questionService.postSurvey(this.survey)
             .subscribe(
                 // .() =>{ this.survey = null;}
