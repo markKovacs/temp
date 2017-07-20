@@ -14,6 +14,7 @@ export class SurveyGeneratorComponent implements OnInit{
 
     surveys: Survey[] = [];
     model: Survey;
+    locationId: string;
 
     constructor(
         private testsByLocation: LocationTestService,
@@ -30,7 +31,8 @@ export class SurveyGeneratorComponent implements OnInit{
             this.model = new Survey();
             this.model.enabled = true;
             this.model.motivationVideo = false;
-            this.model.locationId = "BUD";//localStorage.
+            this.model.locationId = this.locationId;//localStorage.
+            console.log(localStorage);
             console.log(this.model);
         } else{
             this.model = test;
@@ -54,5 +56,9 @@ export class SurveyGeneratorComponent implements OnInit{
                 error => console.log(error),
                 // () => console.log('getSurvey().subscribe() finished running.')
             );
+
+        if (localStorage.chosenLocation != null) {
+            this.locationId = JSON.parse(localStorage.chosenLocation).id;
+        }
     }
 }

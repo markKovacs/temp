@@ -1,64 +1,67 @@
-<div class="survey-editor" *ngIf="survey">
-<h1>SURVEY</h1>
-    <h1>{{survey.name}}</h1>
-    <h1>{{survey.locationId}}</h1>
+<div class="survey-editor-component" *ngIf="survey">
     <div class="container">
         <div class="row">
             <div class="col-md-3">
             </div>
             <div class="col-md-9">
-                <textarea placeholder="Survey Description" rows="5" cols="60" [(ngModel)]="survey.description" ></textarea>
+                <textarea placeholder="Survey Description" rows="5" cols="60"
+                          [(ngModel)]="survey.description"></textarea>
             </div>
-            <form action="#" >
-                <label for = "name">Name:
-                    <input type="text" id = "name" name="name" value="name" [(ngModel)]="survey.name"/>
+            <form action="#">
+                <label for="name">Name:
+                    <input type="text" id="name" name="name" value="name" [(ngModel)]="survey.name"/>
                 </label>
                 <br>
-                <label for ="order"> Order In Bundle:
+                <label for="order"> Order In Bundle:
                 </label>
-                    <input type="number" id ="order" name="order" value="order_in_bundle" min=0 step = 1 [(ngModel)]="survey.orderInBundle"/>
+                <input type="number" id="order" name="order" value="order_in_bundle" min=0 step=1
+                       [(ngModel)]="survey.orderInBundle"/>
                 <br>
                 <label> Threshold:
-                    <input type="number" name="threshold" value="threshold" min=0 step = 1 [(ngModel)]="survey.threshold"/>
+                    <input type="number" name="threshold" value="threshold" min=0 step=1
+                           [(ngModel)]="survey.threshold"/>
                 </label>
                 <br>
                 <label> Max Point:
-                    <input type="number" name="maxpoint" value="maxpoint" min=0 step = 1 [(ngModel)]="survey.maxPoints"/>
+                    <input type="number" name="maxpoint" value="maxpoint" min=0 step=1 [(ngModel)]="survey.maxPoints"/>
                 </label>
                 <br>
                 <label> Estimated Time:
-                    <input type="number" name="estimated_time" value="estimated_time" min=0 step = 1 [(ngModel)]="survey.estimatedTime"/>
-                <br>
+                    <input type="number" name="estimated_time" value="estimated_time" min=0 step=1
+                           [(ngModel)]="survey.estimatedTime"/>
+                    <br>
                 </label>
                 <br>
                 <label *ngIf="survey.questions.length == 0"> Is Motivation Video?
-                    <input type="checkbox" name="motivation" value="isMotivationVideo" [(ngModel)]="survey.motivationVideo" (click)="setMotivation($event)"/>
+                    <input type="checkbox" name="motivation" value="isMotivationVideo"
+                           [(ngModel)]="survey.motivationVideo" (click)="setMotivation($event)"/>
                 </label>
             </form>
         </div>
 
 
-    <h2>EDIT SURVEY {{survey.name}}</h2>
+        <h2>EDIT SURVEY {{survey.name}}</h2>
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
                     <label for="surveyContent"></label>
                 </div>
                 <div class="col-md-9">
-                    <textarea placeholder="Survey Content" id = "surveyContent" rows="5" cols="60" [(ngModel)]="survey.surveyContent" ></textarea>
+                    <textarea placeholder="Survey Content" id="surveyContent" rows="5" cols="60"
+                              [(ngModel)]="survey.surveyContent"></textarea>
                 </div>
             </div>
         </div>
 
-    <button class="btn btn-primary" (click)="newQuestion()">Add new Question</button>
-    <question-editor *ngFor="let question of survey.questions"
-                     [question] = "question"
-                     [motivation] = "motivation">
-    </question-editor>
+        <button class="btn btn-primary" (click)="newQuestion()">Add new Question</button>
+        <question-editor *ngFor="let question of survey.questions"
+                         [question]="question"
+                         [motivation]="motivation">
+        </question-editor>
 
-        <div *ngIf="!validate" class="alert alert-warning" >
+        <div *ngIf="!validate" class="alert alert-warning">
             {{message}}
         </div>
-<button class="btn btn-primary" (click)="postSurvey()">SAVE SURVEY</button>
-<br><br>
-</div>
+        <button class="btn btn-primary" (click)="postSurvey()">SAVE SURVEY</button>
+        <br><br>
+    </div>

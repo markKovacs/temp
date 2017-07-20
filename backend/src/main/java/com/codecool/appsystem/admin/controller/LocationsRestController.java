@@ -12,13 +12,13 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/locations")
+@RequestMapping("/api")
 public class LocationsRestController {
 
     @Autowired
     private LocationRepository locationRepository;
 
-    @RequestMapping(value="/", method = RequestMethod.GET)
+    @RequestMapping(value="/locations", method = RequestMethod.GET)
     public List<Location> getAllLocations() {
         return locationRepository.findAll();
     }

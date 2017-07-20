@@ -27,7 +27,7 @@ export class DashboardComponent {
     }
 
     getLocations() {
-        this.client.get('api/locations').subscribe(
+        this.client.get('/api/locations').subscribe(
             (locations: Location[]) => this.locations = locations,
             (error) => {
                 console.log(error);

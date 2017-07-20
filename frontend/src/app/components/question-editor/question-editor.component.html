@@ -1,16 +1,12 @@
-<div class = "question-editor-component" *ngIf="question">
-    <h2>Question  {{motivation}}!</h2>
-
-    <div *ngIf = "!motivation">
-    <button class="btn btn-info" (click)="newOption()">Create new Option</button> <br/>
-    </div>
+<div class="question-editor-component" *ngIf="question">
     <div class="container">
         <div class="row">
             <div class="col-md-3">
                 <label>Question Content </label>
             </div>
-            <div class="col-md-9" >
-                <textarea placeholder="questionContent" rows="5" cols="60" [(ngModel)]="question.questionContent" ></textarea>
+            <div class="col-md-9">
+                <textarea placeholder="questionContent" rows="5" cols="60"
+                          [(ngModel)]="question.questionContent"></textarea>
             </div>
             <form action="#">
                 <label *ngIf="!motivation">
@@ -25,14 +21,15 @@
             </form>
         </div>
     </div>
-
-   <h1>Question Motivation {{motivation}}</h1>
     <div *ngIf="!motivation">
-
-    <h3>OPTION EDITOR</h3>
-    <option-editor *ngFor="let option of question.options"
-                    [option] = "option">
-    </option-editor>
+        <div *ngIf="!motivation">
+            <button class="btn btn-info" (click)="newOption()">Create new Option</button>
+            <br/>
+        </div>
+        <h3>OPTION EDITOR</h3>
+        <option-editor *ngFor="let option of question.options"
+                       [option]="option">
+        </option-editor>
     </div>
 
 </div>

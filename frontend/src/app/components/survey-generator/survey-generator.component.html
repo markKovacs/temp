@@ -1,13 +1,11 @@
-<div class="container">
+<div class="survey-generator-component">
 
-<br><br>
-<br><br>
-<br><br>
     <div class="try">
         <h1>You must answer all questions </h1>
+        <h3>Your Location is: {{locationId}}</h3>
     </div>
     <ul class="tests">
-        <li *ngFor="let test of surveys" >
+        <li *ngFor="let test of surveys">
             <button class="btn btn-info" (click)="currentTest(test)">Edit {{test.name}}</button>
         </li>
     </ul>
@@ -15,11 +13,11 @@
 
     <br><br>
     <div *ngIf="model">
-    <h1>Survey Editor Component</h1>
-    <survey-editor
-            [survey]="model"
-            [motivation]="model.motivationVideo">
-    </survey-editor>
+        <h1>Survey Editor Component</h1>
+        <survey-editor
+                [survey]="model"
+                [motivation]="model.motivationVideo">
+        </survey-editor>
     </div>
     <br>
 
