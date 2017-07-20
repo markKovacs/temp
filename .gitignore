@@ -30,3 +30,4 @@ nbdist/
 
 /frontend/node/
 /frontend/node_modules/
+/frontend/npm-debug.log

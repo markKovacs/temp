@@ -4,7 +4,13 @@ import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {routing} from './app.routing';
-import {DataTableModule, InputTextareaModule, PanelModule, DropdownModule} from 'primeng/primeng';
+import {
+  DataTableModule,
+  InputTextareaModule,
+  PanelModule,
+  DropdownModule,
+  PickListModule
+} from 'primeng/primeng';
 import {SharedModule} from 'primeng/primeng';
 import {DomSanitizer} from '@angular/platform-browser';
 import {GlobalEventsManager} from './global.eventsmanager';
@@ -25,6 +31,8 @@ import {
     SurveyEditorComponent,
     OptionEditorComponent,
     QuestionEditorComponent
+    CalendarComponent,
+    StartComponent
 } from './components/index';
 import {AuthGuard} from './guards/index';
 
@@ -39,7 +47,8 @@ import {AuthGuard} from './guards/index';
         InputTextareaModule,
         PanelModule,
         DropdownModule,
-        SharedModule
+        SharedModule,
+        PickListModule
     ],
     declarations: [
         AppComponent,
@@ -53,6 +62,8 @@ import {AuthGuard} from './guards/index';
         QuestionEditorComponent,
         OptionEditorComponent
 
+        CalendarComponent,
+        StartComponent
     ],
     providers: [
         AuthGuard,

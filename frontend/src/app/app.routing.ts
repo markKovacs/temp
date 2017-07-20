@@ -5,6 +5,8 @@ import {
     ApplicantListComponent,
     StartComponent,
     SurveyGeneratorComponent
+    CalendarComponent,
+    StartComponent
 } from './components/index';
 import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from './guards/index';
@@ -14,6 +16,7 @@ const appRoutes: Routes = [
     {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
     {path: 'applicants', component: ApplicantListComponent, canActivate: [AuthGuard]},
     {path: 'applicants/:id', component: ApplicantComponent, canActivate: [AuthGuard]},
+    {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]},
     { path: 'surveygenerator', component: SurveyGeneratorComponent}, //, canActivate: [AuthGuard]
 
     // redirects to auth0 login
