@@ -44,13 +44,9 @@ public class QuestionController {
         List<QuestionDTO> result = new ArrayList<>();
         List<Test> testsByLocation = testRepository.findByLocationIdOrderByOrderInBundleAsc(locationId);
         List<Question> questions = questionService.createQuestionsFromLocationId(testsByLocation);
-        Question question = null;
-        for (Test test : testsByLocation) {
-            for (Question q : questions) {
-                log.trace("question" + test.getId());
-                question = q;
-            }
-            result.add(questionService.createQuestionDTO(test, question));
+
+        for (int i = 0; i < testsByLocation.size(); i++) {
+            result.add(questionService.createQuestionDTO(testsByLocation.get(i), questions.get(i)));
         }
 
         return result;
