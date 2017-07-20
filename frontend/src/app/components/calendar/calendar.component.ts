@@ -4,6 +4,7 @@ import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
 import {Location, User} from "../../_models/index";
 import { DatePipe } from '@angular/common';
+import {Message} from 'primeng/primeng';
 
 @Component({
     moduleId: module.id,
@@ -24,6 +25,7 @@ export class CalendarComponent {
     public isPostingIndividualTimes: boolean = false;
     public groupTimesSet: boolean = false;
     public individualTimesSet: boolean = false;
+    public messages: Message[] = [];
 
     constructor(
         private client: HttpClient,
@@ -41,6 +43,12 @@ export class CalendarComponent {
             }
         }
         this.loaded = true;
+    }
+
+    sortDates(date1, date2){
+        if (date1.getTime() > date2.getTime()) { return 1; }
+        if (date1.getTime() < date2.getTime()) { return -1; }
+        return 0;
     }
 
     toggleDateSelector(){
@@ -67,16 +75,17 @@ export class CalendarComponent {
     }
 
     showIndividualTimes(){
-        return this.groupTimesSet && !this.isPostingIndividualTimes;
+        return this.groupTimesSet && !this.isPostingIndividualTimes && this.targetList.length > 0;
     }
 
     showLoading(){
-       return this.isPostingGroupTimes || this.isPostingIndividualTimes;
+      return this.isPostingIndividualTimes || this.isPostingGroupTimes;
     }
 
     setGroupTimes(){
         for (let user of this.targetList) {
             user.group = this.chosenDate;
+            console.log(user);
         }
     }
 
@@ -120,6 +129,8 @@ export class CalendarComponent {
         return setTimeout(() => {
             this.isPostingGroupTimes = false;
             this.groupTimesSet = true;
+            this.messages.push({severity:'info', summary:'Group times saved.', detail:"(for " + this.chosenDate + ")"});
+            if (this.targetList.length == 0) { this.chosenDate = null; };
         }, 1000)
     }
 
@@ -130,6 +141,7 @@ export class CalendarComponent {
         this.isPostingIndividualTimes = true;
         this.individualTimesSet = false;
         return setTimeout(() => {
+            this.messages.push({severity:'info', summary:'Individual times saved.', detail:"(for " + this.chosenDate + ")"});
             this.isPostingIndividualTimes = false;
             this.individualTimesSet = true;
             this.chosenDate = null;

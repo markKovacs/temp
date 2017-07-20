@@ -10,7 +10,9 @@ import {
   PanelModule,
   DropdownModule,
   PickListModule,
-  CalendarModule
+  CalendarModule,
+  GrowlModule,
+  Message
 } from 'primeng/primeng';
 import {SharedModule} from 'primeng/primeng';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -41,7 +43,8 @@ import {AuthGuard} from './guards/index';
         DropdownModule,
         SharedModule,
         PickListModule,
-        CalendarModule
+        CalendarModule,
+        GrowlModule
     ],
     declarations: [
         AppComponent,

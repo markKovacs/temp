@@ -96,6 +96,12 @@
   margin: 30px;
 }
 
+.date-button {
+  width: 90%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .applicant-individual-container {
   display: flex;
   justify-content: space-between;

@@ -8,19 +8,19 @@
         <div *ngIf="!loaded" class="loading-icon-container">
           <i class="material-icons md-40 loading-icon">autorenew</i>
         </div>
-        <div *ngFor="let dateObj of dates.sort()" class="date-button-container">
-          <button class="btn btn-success" (click)="selectDate(dateObj)">
+        <div *ngFor="let dateObj of dates.sort(sortDates)" class="date-button-container">
+          <button class="btn btn-success date-button" (click)="selectDate(dateObj)">
             <i class="material-icons icon-align-left md-10">date_range</i>
             {{ dateObj | date: 'short' }}
           </button>
         </div>
       </div>
       <div class="date-button-container">
-        <button *ngIf="!dateSelectorOn" class="btn btn-success" (click)="toggleDateSelector()">
+        <button *ngIf="!dateSelectorOn" class="btn btn-success date-button" (click)="toggleDateSelector()">
           <i class="material-icons icon-align-left md-10">add_circle</i>
           Add a new date
         </button>
-        <button *ngIf="dateSelectorOn" class="btn btn-success" (click)="toggleDateSelector()">
+        <button *ngIf="dateSelectorOn" class="btn btn-success date-button" (click)="toggleDateSelector()">
           Close calendar
         </button>
       </div>
@@ -30,7 +30,7 @@
           showTime="showTime"
           hourFormat="24">
         </p-calendar>
-        <button class="btn btn-success" (click)="addDate()">
+        <button class="btn btn-success date-button" (click)="addDate()">
           Add date
           <i class="material-icons icon-align-right md-10">check_circle</i>
         </button>
@@ -91,13 +91,16 @@
         <button class="btn btn-success" (click)="saveIndividualTimes()">Continue</button>
       </div>
     </div>
-
-    <!-- Loading -->
-    <div *ngIf="showLoading()" class="card">
-      <div class="loading-icon-container">
-        <i class="material-icons md-40 loading-icon">autorenew</i>
-      </div>
-    </div>
-
   </div>
+
+  <!-- Loading -->
+  <div *ngIf="showLoading()" class="card">
+    <div class="loading-icon-container">
+      <i class="material-icons md-40 loading-icon">autorenew</i>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <p-growl [(value)]="messages" life=3000></p-growl>
+
 </div>
