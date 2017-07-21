@@ -20,13 +20,13 @@ export class StartComponent implements OnInit {
 
             // if JWT is supplied save it and delete from the history.
             if (params['jwt']) {
-                localStorage.adminAuthToken = params['jwt'];
+                localStorage.setItem('adminAuthToken', params['jwt']) ;
                 this.location.replaceState('login');
             }
 
             // if no auth token found - redirect to login.
-            if (!localStorage.adminAuthToken) {
-                window.location.href = 'http://localhost:8080/api/login';
+            if (!localStorage.getItem("adminAuthToken")) {
+                window.location.href = 'http://localhost:8090/api/login';
             } else {
                 this.router.navigate(['dashboard']);
             }
