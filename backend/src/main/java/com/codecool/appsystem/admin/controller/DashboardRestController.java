@@ -4,6 +4,7 @@ import com.codecool.appsystem.admin.model.dto.MotivationDTO;
 import com.codecool.appsystem.admin.model.dto.ScreeningDTO;
 import com.codecool.appsystem.admin.service.ApplicationScreeningService;
 import com.codecool.appsystem.admin.service.MotivationsByLocationService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@Slf4j
 @RequestMapping(value = "/api/dashboard")
 public class DashboardRestController {
 
@@ -24,11 +26,13 @@ public class DashboardRestController {
 
     @RequestMapping(value = "/motivation", method = RequestMethod.GET)
     public List<MotivationDTO> applicantsByLocation(@RequestParam("location") String locationId) {
+        log.trace("Controller Motivation" + locationId);
         return userMotivationService.applicantsByLocation(locationId);
     }
 
     @RequestMapping(value = "/screening", method = RequestMethod.GET)
     public List<ScreeningDTO> scheduledScreenings(@RequestParam("location") String locationId) throws Exception{
+        log.trace("Controller Screening" + locationId);
         return screeningService.find(locationId);
     }
 

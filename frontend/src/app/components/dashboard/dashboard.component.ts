@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
 import {Location, User} from "../../_models/index";
+import {UserMotivation} from "../../_models/user-motivation.model";
+import {UserScreening} from "../../_models/user-screening.model";
 
 @Component({
     moduleId: module.id,
@@ -12,8 +14,8 @@ import {Location, User} from "../../_models/index";
 export class DashboardComponent {
 
     public locations: Location[] = [];
-    public usersWithVideo: User[] = [];
-    public usersWithScreening: User[] = [];
+    public usersWithVideo: UserMotivation[] = [];
+    public usersWithScreening: UserScreening[] = [];
 
     constructor(private client: HttpClient,
                 private router: Router,
@@ -39,10 +41,12 @@ export class DashboardComponent {
     }
 
     getUsersWithVideo() {
-        let id = JSON.parse(localStorage.getItem("chosenLocation")).id
-        this.client.get('api/dashboard/motivation?location=' + id).subscribe(
-            (users: User[]) => {
+        let id = JSON.parse(localStorage.getItem("chosenLocation")).id;
+        console.log(id);
+        this.client.get('/api/dashboard/motivation?location=' + id).subscribe(
+            (users: UserMotivation[]) => {
                 this.usersWithVideo = users;
+                console.log(this.usersWithVideo);
             },
             (error) => {
                 console.log(error);
@@ -54,10 +58,11 @@ export class DashboardComponent {
     }
 
     getUsersWithScreening() {
-        let id = JSON.parse(localStorage.getItem("chosenLocation")).id
-        this.client.get('api/dashboard/screening?location=' + id).subscribe(
-            (users: User[]) => {
+        let id = JSON.parse(localStorage.getItem("chosenLocation")).id;
+        this.client.get('/api/dashboard/screening?location=' + id).subscribe(
+            (users: UserScreening[]) => {
                 this.usersWithScreening = users;
+                console.log(this.usersWithScreening);
             },
             (error) => {
                 console.log(error);
