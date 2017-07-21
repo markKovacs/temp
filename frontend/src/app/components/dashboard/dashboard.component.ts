@@ -20,7 +20,7 @@ export class DashboardComponent {
                 private eventsManager: GlobalEventsManager) {
         this.eventsManager.showNavBar(true);
         this.getLocations();
-        if (localStorage.chosenLocation) {
+        if (localStorage.getItem("chosenLocation")) {
             this.getUsersWithVideo();
             this.getUsersWithScreening();
         }
@@ -39,7 +39,7 @@ export class DashboardComponent {
     }
 
     getUsersWithVideo() {
-        let id = JSON.parse(localStorage.chosenLocation).id
+        let id = JSON.parse(localStorage.getItem("chosenLocation")).id
         this.client.get('api/dashboard/motivation?location=' + id).subscribe(
             (users: User[]) => {
                 this.usersWithVideo = users;
@@ -54,7 +54,7 @@ export class DashboardComponent {
     }
 
     getUsersWithScreening() {
-        let id = JSON.parse(localStorage.chosenLocation).id
+        let id = JSON.parse(localStorage.getItem("chosenLocation")).id
         this.client.get('api/dashboard/screening?location=' + id).subscribe(
             (users: User[]) => {
                 this.usersWithScreening = users;
@@ -70,20 +70,20 @@ export class DashboardComponent {
 
     chooseLocation(id) {
         let chosen = this.locations.filter((location) => location.id == id)[0];
-        localStorage.chosenLocation = JSON.stringify(chosen);
+        localStorage.setItem("chosenLocation", JSON.stringify(chosen));
         this.getUsersWithVideo();
         this.getUsersWithScreening();
     }
 
     locationChosen() {
-        return localStorage.chosenLocation != undefined;
+        return localStorage.getItem("chosenLocation") != undefined;
     }
 
     isChosen(id) {
-        if (!localStorage.chosenLocation) {
+        if (!localStorage.getItem("chosenLocation")) {
             return "unselected-location";
         }
-        if (JSON.parse(localStorage.chosenLocation).id != id) {
+        if (JSON.parse(localStorage.getItem("chosenLocation")).id != id) {
             return "unselected-location";
         }
         return "selected-location";
