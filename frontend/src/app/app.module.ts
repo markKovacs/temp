@@ -9,10 +9,14 @@ import {
   InputTextareaModule,
   PanelModule,
   DropdownModule,
-  PickListModule
+  PickListModule,
+  CalendarModule,
+  GrowlModule,
+  Message
 } from 'primeng/primeng';
 import {SharedModule} from 'primeng/primeng';
 import {DomSanitizer} from '@angular/platform-browser';
+import { DatePipe } from '@angular/common';
 import {GlobalEventsManager} from './global.eventsmanager';
 import {HttpClient} from './_httpclient/httpclient';
 import {AppComponent} from './app.component';
@@ -47,7 +51,9 @@ import {AuthGuard} from './guards/index';
         PanelModule,
         DropdownModule,
         SharedModule,
-        PickListModule
+        PickListModule,
+        CalendarModule,
+        GrowlModule
     ],
     declarations: [
         AppComponent,
