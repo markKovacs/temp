@@ -38,7 +38,8 @@ public class TestResult {
 
     private Boolean passed;
 
-    private String motivationText;
+    @Column(columnDefinition = "TEXT")
+    private String savedAnswers;
 
     private String comment;
 

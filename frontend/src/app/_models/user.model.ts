@@ -1,4 +1,4 @@
-import {TestResult} from "./test-result.model";
+import {Results} from "./results.model";
 export class User {
 
     givenName: string;
@@ -11,7 +11,7 @@ export class User {
     location: string;
     processStartedAt: number;
 
-    testResults: TestResult;
+    results: Results;
 
     // from screening info
     screeningDay: string;

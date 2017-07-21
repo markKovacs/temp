@@ -26,13 +26,11 @@ public class DashboardRestController {
 
     @RequestMapping(value = "/motivation", method = RequestMethod.GET)
     public List<MotivationDTO> applicantsByLocation(@RequestParam("location") String locationId) {
-        log.trace("Controller Motivation" + locationId);
         return userMotivationService.applicantsByLocation(locationId);
     }
 
     @RequestMapping(value = "/screening", method = RequestMethod.GET)
     public List<ScreeningDTO> scheduledScreenings(@RequestParam("location") String locationId) throws Exception{
-        log.trace("Controller Screening" + locationId);
         return screeningService.find(locationId);
     }
 

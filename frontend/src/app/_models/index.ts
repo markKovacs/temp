@@ -8,4 +8,4 @@ export * from './post-response.model';
 export * from './screening.model';
 export * from './user-motivation.model';
 export * from './user-screening.model';
-export * from './test-result.model';
+export * from './results.model';

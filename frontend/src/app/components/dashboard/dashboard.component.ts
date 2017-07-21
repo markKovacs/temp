@@ -46,7 +46,6 @@ export class DashboardComponent {
         this.client.get('/api/dashboard/motivation?location=' + id).subscribe(
             (users: UserMotivation[]) => {
                 this.usersWithVideo = users;
-                console.log(this.usersWithVideo);
             },
             (error) => {
                 console.log(error);
@@ -62,7 +61,6 @@ export class DashboardComponent {
         this.client.get('/api/dashboard/screening?location=' + id).subscribe(
             (users: UserScreening[]) => {
                 this.usersWithScreening = users;
-                console.log(this.usersWithScreening);
             },
             (error) => {
                 console.log(error);
