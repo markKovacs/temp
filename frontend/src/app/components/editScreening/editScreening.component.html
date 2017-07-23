@@ -1,57 +1,86 @@
 <div class="container">
 
-  <div>
-    <h2>Edit screening</h2>
-    <div *ngIf="changeHappened">
-      <button
-        (click)="mockPostUpdate()">
-        Save changes
-      </button>
+  <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 card-container">
+    <div class="card">
+      <div *ngIf="changeHappened" class="editor-header">
+        <div class="">Don't forget to save your changes!</div>
+        <div>
+          <button
+            (click)="mockPostUpdate()">
+            Save changes
+          </button>
+        </div>
+      </div>
+      <div *ngIf="!changeHappened" class="editor-header">
+        <div *ngIf="isPosting">Loading...</div>
+      </div>
+
+      <div *ngFor="let screeningStep of screeningSteps" class="screening-step-container">
+
+        <div class="step-container">
+          <input
+            class="screening-step-title"
+            [(ngModel)]="screeningStep.name"
+            (ngModelChange)="handleChange()"
+            placeholder="--- Name is required! ---"/>
+
+          <button
+            (click)="deleteStep(screeningStep.id)">
+            <i class="material-icons md-14 white-icon">delete_sweep</i>
+          </button>
+        </div>
+
+        <div *ngFor="let criteria of screeningStep.criterias" class="criteria-container">
+
+          <input
+            [(ngModel)]="criteria.name"
+            (ngModelChange)="handleChange()"
+            placeholder="Name is required!"/>
+
+          <button
+            (click)="deleteCriteria(criteria.id)">
+            <i class="material-icons md-14 red-icon">cancel</i>
+          </button>
+
+        </div>
+
+        <button
+          class="new-criteria-button"
+          (click)="addCriteria(screeningStep.id)">
+          <i class="material-icons md-14">add_circle</i>
+          Add new criteria
+        </button>
+
+      </div>
+      <div class="screening-step-container">
+        <button
+          class="new-step-button"
+          (click)="addStep()">
+          <i class="material-icons md-14">add_circle</i>
+          Add new step
+        </button>
+      </div>
+
     </div>
   </div>
 
-  <div *ngFor="let screeningStep of screeningSteps" class="screening-step-container">
-
-    <input
-      class="screening-step-title"
-      [(ngModel)]="screeningStep.name"
-      (ngModelChange)="handleChange()"
-      placeholder="Name is required"/>
-
-    <button
-      class="btn btn-danger"
-      (click)="deleteStep(screeningStep.id)">
-      Delete step
-    </button>
-
-    <div *ngFor="let criteria of screeningStep.criterias" class="">
-
-      <input
-        [(ngModel)]="criteria.name"
-        (ngModelChange)="handleChange()"
-        placeholder="Name is required!"/>
-
-      <button
-        class="btn btn-danger"
-        (click)="deleteCriteria(criteria.id)">
-        Delete criteria
-      </button>
-
+  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 card-container">
+    <div class="card tutorial">
+      <h2>Edit screening</h2>
+      <p>
+        - You can add, edit and delete the
+        steps and their criterias.
+      </p>
+      <p>
+        - Your modification will only affect
+        the screening of Budapest.
+      </p>
+      <p>
+        - On the evalutaion sheet, you can set
+        points and add comments to all the
+        steps and criterias defined here.
+      </p>
     </div>
-
-    <button
-      (click)="addCriteria(screeningStep.id)">
-      Add new criteria
-    </button>
-
-  </div>
-
-  <div class="screening-step-container">
-    <button
-      class="btn btn-success"
-      (click)="addStep()">
-      Add new step
-    </button>
   </div>
 
 </div>

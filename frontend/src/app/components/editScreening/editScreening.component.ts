@@ -53,13 +53,19 @@ export class EditScreeningComponent {
         )
     }
 
+    generateId(){
+      return Math.random() * 1000000000
+    }
+
     addStep(){
-        let newStep = {id: null, name: "", locationId: "BUD", criterias: []};
+        let id = this.generateId()
+        let newStep = {id: id, name: "", locationId: "BUD", criterias: []};
         this.screeningSteps.push(newStep);
     }
 
     addCriteria(stepId){
-        let newCriteria = {id: null, name: ""}
+        let id = this.generateId()
+        let newCriteria = {id: id, name: ""}
         console.log(stepId);
         for (let step of this.screeningSteps) {
             console.log(step.id);
