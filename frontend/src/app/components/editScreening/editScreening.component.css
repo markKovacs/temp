@@ -12,7 +12,12 @@ button:focus {
 .editor-header {
   display: flex;
   justify-content: space-between;
-  height: 30px;
+  height: 40px;
+}
+
+.editor-info {
+  padding: 7px;
+  color: green;
 }
 
 .card-container {
@@ -145,4 +150,18 @@ button:focus {
   font-size: 0.8em;
   padding: 5px 15px;
   text-align: justify;
+}
+
+.tutorial span {
+  color: green;
+  font-weight: bolder;
+}
+
+.save-button {
+  background-color: green;
+  border: 1px solid green;
+  border-radius: 2px;
+  color: white;
+  padding: 7px;
+  font-weight: bolder;
 }

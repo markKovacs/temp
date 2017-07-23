@@ -57,13 +57,26 @@ export class EditScreeningComponent {
       return Math.random() * 1000000000
     }
 
+    allowPost(){
+      let allowed = true;
+      for (let step of this.screeningSteps) {
+          if (step.name == "") { allowed = false; }
+          for (let criteria of step.criterias) {
+              if (criteria.name == "") { allowed = false; }
+          }
+      }
+      return allowed;
+    }
+
     addStep(){
+        this.handleChange();
         let id = this.generateId()
         let newStep = {id: id, name: "", locationId: "BUD", criterias: []};
         this.screeningSteps.push(newStep);
     }
 
     addCriteria(stepId){
+        this.handleChange();
         let id = this.generateId()
         let newCriteria = {id: id, name: ""}
         console.log(stepId);
@@ -74,12 +87,14 @@ export class EditScreeningComponent {
     }
 
     deleteStep(stepId){
+        this.handleChange();
         this.screeningSteps = this.screeningSteps.filter((step) => {
             return step.id != stepId;
         })
     }
 
     deleteCriteria(criteriaId){
+        this.handleChange();
         for (let step of this.screeningSteps) {
             step.criterias = step.criterias.filter((criteria) => {
                 return criteriaId != criteria.id
@@ -106,8 +121,14 @@ export class EditScreeningComponent {
     }
 
     mockPostUpdate(){
-        console.log("Should post this", this.screeningSteps);
-        this.changeHappened = false;
+        if (this.allowPost()){
+            console.log("Should post this", this.screeningSteps);
+            this.isPosting = true;
+            setTimeout(()=>{
+                this.isPosting = false;
+                this.changeHappened = false;
+            }, 1000)  
+        }
     }
 
 }

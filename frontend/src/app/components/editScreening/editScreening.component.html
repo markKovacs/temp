@@ -3,16 +3,18 @@
   <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 card-container">
     <div class="card">
       <div *ngIf="changeHappened" class="editor-header">
-        <div class="">Don't forget to save your changes!</div>
-        <div>
+        <div *ngIf="!isPosting" class="editor-info">Don't forget to save your changes!</div>
+        <div *ngIf="isPosting" class="editor-info">Loading...</div>
+        <div *ngIf="!isPosting">
           <button
+            class="save-button"
             (click)="mockPostUpdate()">
             Save changes
           </button>
         </div>
       </div>
       <div *ngIf="!changeHappened" class="editor-header">
-        <div *ngIf="isPosting">Loading...</div>
+        <!-- Placeholder -->
       </div>
 
       <div *ngFor="let screeningStep of screeningSteps" class="screening-step-container">
@@ -39,7 +41,7 @@
 
           <button
             (click)="deleteCriteria(criteria.id)">
-            <i class="material-icons md-14 red-icon">cancel</i>
+            <i class="material-icons md-14 red-icon">backspace</i>
           </button>
 
         </div>
@@ -73,7 +75,7 @@
       </p>
       <p>
         - Your modification will only affect
-        the screening of Budapest.
+        the screening of <span>Budapest</span>.
       </p>
       <p>
         - On the evalutaion sheet, you can set
