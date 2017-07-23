@@ -1,0 +1,40 @@
+APPLICATION
+  # id
+  # appid
+  # course
+  # location
+
+SCREENING
+  # appid (fk)
+  # groupDate
+  # individualDate
+  # isSignedBack
+  # isEvaluated
+  # isSuccessful
+
+STEP
+  # id
+  # name
+  # location (fk)
+
+CRITERIA
+  # id
+  # name
+  # stepid (fk)
+
+SCREENINGSSTEP
+  # id
+  # screenid (fk)
+  # stepid (fk)
+  # interviewer
+  # points
+  # comment
+  # status
+
+SCREENINGSSTEPSCRITERIA
+  # id
+  # critid (fk)
+  # screenstepid (fk)
+  # points
+  # comment
+  # status
