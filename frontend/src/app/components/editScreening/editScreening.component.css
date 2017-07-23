@@ -1,0 +1,15 @@
+.container {
+  padding-top: 65px;
+}
+
+.screening-step-container {
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 0 0 5px #999;
+}
+
+.screening-step-title {
+  color: green;
+  padding: 0;
+  margin: 0;
+}

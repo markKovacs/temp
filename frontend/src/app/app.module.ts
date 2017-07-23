@@ -35,7 +35,8 @@ import {
     OptionEditorComponent,
     QuestionEditorComponent,
     CalendarComponent,
-    StartComponent
+    StartComponent,
+    EditScreeningComponent
 } from './components/index';
 import {AuthGuard} from './guards/index';
 
@@ -66,6 +67,7 @@ import {AuthGuard} from './guards/index';
         QuestionEditorComponent,
         OptionEditorComponent,
         CalendarComponent,
+        EditScreeningComponent,
         StartComponent
     ],
     providers: [

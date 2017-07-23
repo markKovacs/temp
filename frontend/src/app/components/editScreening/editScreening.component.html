@@ -1,0 +1,57 @@
+<div class="container">
+
+  <div>
+    <h2>Edit screening</h2>
+    <div *ngIf="changeHappened">
+      <button
+        (click)="mockPostUpdate()">
+        Save changes
+      </button>
+    </div>
+  </div>
+
+  <div *ngFor="let screeningStep of screeningSteps" class="screening-step-container">
+
+    <input
+      class="screening-step-title"
+      [(ngModel)]="screeningStep.name"
+      (ngModelChange)="handleChange()"
+      placeholder="Name is required"/>
+
+    <button
+      class="btn btn-danger"
+      (click)="deleteStep(screeningStep.id)">
+      Delete step
+    </button>
+
+    <div *ngFor="let criteria of screeningStep.criterias" class="">
+
+      <input
+        [(ngModel)]="criteria.name"
+        (ngModelChange)="handleChange()"
+        placeholder="Name is required!"/>
+
+      <button
+        class="btn btn-danger"
+        (click)="deleteCriteria(criteria.id)">
+        Delete criteria
+      </button>
+
+    </div>
+
+    <button
+      (click)="addCriteria(screeningStep.id)">
+      Add new criteria
+    </button>
+
+  </div>
+
+  <div class="screening-step-container">
+    <button
+      class="btn btn-success"
+      (click)="addStep()">
+      Add new step
+    </button>
+  </div>
+
+</div>

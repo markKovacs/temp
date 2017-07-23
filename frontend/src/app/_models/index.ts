@@ -5,3 +5,5 @@ export * from './option.model';
 export * from './question.model';
 export * from './survey.model';
 export * from './post-response.model';
+export * from './screeningStep.model';
+export * from './criteria.model';

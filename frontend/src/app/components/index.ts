@@ -8,3 +8,4 @@ export * from './survey-generator/survey-generator.component';
 export * from './question-editor/question-editor.component';
 export * from './option-editor/option-editor.component';
 export * from './survey-editor/survey-editor.component';
+export * from './editScreening/editScreening.component';
