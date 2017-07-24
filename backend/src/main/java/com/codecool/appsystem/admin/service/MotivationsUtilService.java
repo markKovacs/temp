@@ -45,7 +45,7 @@ public class MotivationsUtilService {
                         MotivationDTO userMotivation = new MotivationDTO();
 
                         userMotivation.setAdminId(u.getAdminId());
-                        userMotivation.setIsVideo(checkMotivationText(tr.getMotivationText()));
+                        userMotivation.setIsVideo(checkMotivationText(tr.getSavedAnswers()));
                         userMotivation.setName(u.getFullName());
                         motivation.add(userMotivation);
                     }

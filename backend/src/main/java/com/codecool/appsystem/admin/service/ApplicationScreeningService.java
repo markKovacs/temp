@@ -6,6 +6,7 @@ import com.codecool.appsystem.admin.model.dto.ScreeningDTO;
 import com.codecool.appsystem.admin.repository.ApplicationRepository;
 import com.codecool.appsystem.admin.repository.ApplicationScreeningInfoRepository;
 import com.codecool.appsystem.admin.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class ApplicationScreeningService {
 
     @Autowired
@@ -34,7 +36,6 @@ public class ApplicationScreeningService {
      * @return
      */
     public List<ScreeningDTO> find(String locationId) {
-
         List<ApplicationScreeningInfo> screeningInfo = findScrInfo(locationId);
         return screeningInfo
                 .stream()
@@ -44,7 +45,6 @@ public class ApplicationScreeningService {
 
     private ScreeningDTO transformScreeningInfo(ApplicationScreeningInfo asci){
         ScreeningDTO screeningDto = new ScreeningDTO();
-
         Map<String,Object> screeningInfo = new HashMap<>();
         screeningInfo.put("day", asci.getScreeningDay());
         screeningInfo.put("personalTime", asci.getScreeningPersonalTime());
@@ -66,6 +66,7 @@ public class ApplicationScreeningService {
 
         for (Application application: applicationsByLocation) {
             ApplicationScreeningInfo appScreeningInfo = appScrRepo.findByApplicationId(application.getId());
+
             screeningInfo.add(appScreeningInfo);
         }
 
