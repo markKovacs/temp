@@ -4,6 +4,7 @@ import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
 import {Location, User} from "../../_models/index";
 import {DomSanitizer} from '@angular/platform-browser';
+import {User} from "../../_models/user.model";
 
 @Component({
     moduleId: module.id,
@@ -12,7 +13,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class ApplicantComponent {
 
-    public user: any;
+    public user: User;
     public usersLocation: Location;
 
     constructor(private sanitizer: DomSanitizer,
@@ -23,12 +24,10 @@ export class ApplicantComponent {
         this.eventsManager.showNavBar(true);
         this.route.params.subscribe(
             (params) => {
-                console.log(params.id);
                 let replaceIdForMock = 15;
                 this.getUser(replaceIdForMock).subscribe(
-                    (user: any) => {
+                    (user: User) => {
                         this.user = user;
-                        console.log(user)
                     },
                     (error) => console.log(error),
                     () => console.log("User set")
