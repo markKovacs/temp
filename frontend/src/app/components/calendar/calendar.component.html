@@ -1,57 +1,110 @@
 <div class="container">
-  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-    <div class="card">
-      <h4 class="assign-title">Choose a date</h4>
-      <div *ngIf="!loaded">Fetching dates</div>
-      <div *ngFor="let date of dates.sort()" class="date-button-container">
-        <button class="btn btn-info" (click)="selectDate(date)">
-          {{formatDate(date)}}
-        </button>
-      </div>
-      <div>
-        <button class="btn btn-danger" (click)="openDateSelector()">
-          Add a new date
-        </button>
-      </div>
-      <div *ngIf="dateSelectorOn">
-        <input type="datetime-local" class="date-input" [(ngModel)]="date"/>
-        <button class="btn btn-success" (click)="addDate()">Add date</button>
-      </div>
-    </div>
-  </div>
-  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-    <div *ngIf="showGroupTimes()" class="card">
-      <h4 class="assign-title">Assign the applicant to the choosen date</h4>
-      <div class="assign-container">
-        <p-pickList
-            [source]="sourceList"
-            [target]="targetList">
-          <ng-template let-user pTemplate="item">
-            <div class="ui-helper-clearfix">
-              <div class="assign-applicant">
-                <span>{{user.name}}</span><span>{{user.age}}</span>
-              </div>
+
+    <!-- Left side - date picker -->
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="card">
+            <h4 class="assign-title">Choose a date</h4>
+            <div class="row">
+                <div *ngIf="!loaded" class="loading-icon-container">
+                    <i class="material-icons md-40 loading-icon">autorenew</i>
+                </div>
+                <div *ngFor="let dateObj of dates.sort(sortDates)" class="date-button-container">
+                    <button class="btn btn-success date-button" (click)="selectDate(dateObj)">
+                        <i class="material-icons icon-align-left md-10">date_range</i>
+                        {{ dateObj | date: 'yyyy.MM.dd. HH:mm' }}
+                    </button>
+                </div>
             </div>
-          </ng-template>
-        </p-pickList>
-      </div>
-      <div>
-        <button class="btn btn-success" (click)="saveGroupTimes()">Continue</button>
-      </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                    <p-calendar
+                            [(ngModel)]="date"
+                            showTime="showTime"
+                            dateFormat="yy.mm.dd."
+                            [minDate]="minDate"
+                            hourFormat="24">
+                    </p-calendar>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <button class="btn btn-success" (click)="addDate()">
+                        <i class="fa fa-plus" aria-hidden="true"></i>Add
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div *ngIf="showIndividualTimes()" class="card">
-      <div *ngFor="let user of targetList" class="applicant-individual-container">
-        <div><span>{{user.name}}</span><input type="datetime-local" [(ngModel)]="user.individual"></div>
-      </div>
-      <div>
-        <button class="btn btn-success" (click)="saveIndividualTimes()">Continue</button>
-      </div>
+
+    <!-- Right side - assign applicant to group/individual -->
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+
+        <!-- Start -->
+        <div *ngIf="!chosenDate" class="card">
+            <div class="no-date-sign">
+                <i class="material-icons md-120">error_outline</i>
+                <h1>No date selected!</h1>
+            </div>
+        </div>
+
+        <!-- Group times -->
+        <div class="card" *ngIf="showGroupTimes()">
+            <h4 class="assign-title">Group screening - Assign the applicant to the choosen date</h4>
+            <div class="row assign-container">
+                <p-pickList
+                        [showSourceControls]="false"
+                        [showTargetControls]="false"
+                        [responsive]="true"
+                        [source]="sourceList"
+                        [target]="targetList"
+                        [enabled]="!showGroupTimes()"
+                >
+                    <ng-template let-user pTemplate="item">
+                        <div class="ui-helper-clearfix">
+                            <div class="assign-applicant">
+                                <i *ngIf="user.gender == 'male'" class="fa fa-mars" aria-hidden="true"></i>
+                                <i *ngIf="user.gender == 'female'" class="fa fa-venus" aria-hidden="true"></i>
+                                <span>{{user.name}}</span><span>{{user.age}}</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-pickList>
+            </div>
+            <div class="row assign-controller-container">
+                <button class="btn btn-success" (click)="saveGroupTimes()">Continue</button>
+            </div>
+        </div>
+
+        <!-- Individual times -->
+        <div *ngIf="showIndividualTimes()" class="card">
+            <h4 class="assign-title">Individual screening - Set a date for the applicant</h4>
+            <div *ngFor="let user of targetList" class="applicant-individual-container">
+                <div>
+                    <span>{{user.name}}</span>
+                    <p-calendar
+                            [(ngModel)]="user.personalTime"
+                            showTime="showTime"
+                            dateFormat="yy.mm.dd."
+                            [minDate]="minDate"
+                            hourFormat="24">
+                    </p-calendar>
+                </div>
+                <div class="assign-controller-container">
+                    <button class="btn btn-success" (click)="saveIndividualTimes()">Continue</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading -->
+        <div *ngIf="showLoading()" class="card">
+            <div class="loading-icon-container">
+                <i class="material-icons md-40 loading-icon">autorenew</i>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <p-growl [(value)]="messages"
+                 life=5000
+                 [style]="{'margin-top': '2.5em'}"
+        ></p-growl>
+
     </div>
-    <div *ngIf="showLoading()" class="card">
-      <h3>Please wait...</h3>
-    </div>
-    <div *ngIf="!chosenDate" class="card">
-      <h1>Choose a date first!</h1>
-    </div>
-  </div>
 </div>

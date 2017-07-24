@@ -5,3 +5,7 @@ export * from './option.model';
 export * from './question.model';
 export * from './survey.model';
 export * from './post-response.model';
+export * from './screening.model';
+export * from './user-motivation.model';
+export * from './user-screening.model';
+export * from './results.model';

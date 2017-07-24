@@ -6,8 +6,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -18,13 +19,19 @@ import javax.persistence.Id;
 public class ApplicationScreeningInfo {
 
     @Id
-    private String id;
+    @Column(name = "id", length = 40)
+    private String id = UUID.randomUUID().toString();
 
     private String applicationId;
-    private String screeningDay;
-    private String screeningGroupTime;
-    private String screeningPersonalTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date screeningGroupTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date screeningPersonalTime;
+
     private Boolean scheduleSignedBack;
+
     private String mapLocation;
 
 }

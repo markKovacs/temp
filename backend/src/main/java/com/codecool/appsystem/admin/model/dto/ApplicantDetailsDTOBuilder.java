@@ -25,9 +25,8 @@ public class ApplicantDetailsDTOBuilder {
     private List<TestResultDTO> testResults;
 
     // from screening info
-    private String screeningDay;
-    private String screeningGroupTime;
-    private String screeningPersonalTime;
+    private Date screeningGroupTime;
+    private Date screeningPersonalTime;
     private Boolean scheduleSignedBack;
 
 
@@ -46,7 +45,6 @@ public class ApplicantDetailsDTOBuilder {
 
     public ApplicantDetailsDTOBuilder fromAppScrInfo(ApplicationScreeningInfo applicationScreeningInfo){
         if (applicationScreeningInfo != null) {
-            this.screeningDay = applicationScreeningInfo.getScreeningDay();
             this.screeningGroupTime = applicationScreeningInfo.getScreeningGroupTime();
             this.screeningPersonalTime = applicationScreeningInfo.getScreeningPersonalTime();
             this.scheduleSignedBack = applicationScreeningInfo.getScheduleSignedBack();
@@ -84,7 +82,6 @@ public class ApplicantDetailsDTOBuilder {
 
         dto.setTestResults(testResults);
 
-        dto.setScreeningDay(screeningDay);
         dto.setScreeningGroupTime(screeningGroupTime);
         dto.setScreeningPersonalTime(screeningPersonalTime);
         dto.setScheduleSignedBack(scheduleSignedBack);
