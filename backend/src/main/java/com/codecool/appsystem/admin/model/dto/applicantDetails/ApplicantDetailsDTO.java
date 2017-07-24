@@ -21,8 +21,7 @@ public class ApplicantDetailsDTO extends RestResponseDTO {
     private String location;
     private Date processStartedAt;
     private List<TestResultDTO> testResults;
-    private String screeningDay;
-    private String screeningGroupTime;
-    private String screeningPersonalTime;
+    private Date screeningGroupTime;
+    private Date screeningPersonalTime;
     private Boolean scheduleSignedBack;
 }

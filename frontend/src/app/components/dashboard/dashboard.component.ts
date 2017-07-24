@@ -42,7 +42,7 @@ export class DashboardComponent {
 
     getUsersWithVideo() {
         let id = JSON.parse(localStorage.getItem("chosenLocation")).id;
-        console.log(id);
+
         this.client.get('/api/dashboard/motivation?location=' + id).subscribe(
             (users: UserMotivation[]) => {
                 this.usersWithVideo = users;
