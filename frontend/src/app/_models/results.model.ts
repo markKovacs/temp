@@ -1,9 +1,11 @@
 export class Results{
 
+    id: string;
     name: string;
-    motivation: string;
+    answer: string;
     passed: boolean;
     points: number;
     comment: string;
     isPending: boolean;
+    isMotivation: boolean;
 }

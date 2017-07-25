@@ -24,9 +24,9 @@
                 <div *ngFor="let user of usersWithVideo">
                     <div class="dashboard-user">
                         <div class="motivation-details">
-                            <p>{{user.givenName}}&nbsp;{{user.familyName}}</p>
+                            <p>{{user.name}}</p>
                         </div>
-                        <button class="btn btn-success" (click)="getApplicant(user.id)">
+                        <button class="btn btn-success" (click)="getApplicant(user.adminId)">
                             Grade video&nbsp;&gt;&gt;
                         </button>
                     </div>
@@ -40,11 +40,11 @@
                     <div class="dashboard-user">
                         <div class="screening-details">
                             <p class="screening-date">
-                                {{ user.date | date: short }}
+                                {{ user.screeningInfo.day | date: short }}
                             </p>
-                            <p>{{user.givenName}}&nbsp;{{user.familyName}}</p>
+                            <p>{{user.name}}</p>
                         </div>
-                        <button class="btn btn-success" (click)="getApplicant(user.id)">
+                        <button class="btn btn-success" (click)="getApplicant(user.adminId)">
                             Check applicant&nbsp;&gt;&gt;
                         </button>
                     </div>

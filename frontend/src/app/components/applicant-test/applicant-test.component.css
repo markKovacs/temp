@@ -1,0 +1,12 @@
+.card {
+    box-shadow: 0 0 10px red;
+    border-radius: 3px;
+    padding: 7px;
+    margin: 10px;
+}
+
+.success{
+    box-shadow: 0 0 10px green;
+
+}
+

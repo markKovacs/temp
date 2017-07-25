@@ -1,4 +1,5 @@
 import {Results} from "./results.model";
+
 export class User {
 
     givenName: string;
@@ -11,7 +12,7 @@ export class User {
     location: string;
     processStartedAt: number;
 
-    results: Results;
+    testResults: Results[]=[];
 
     // from screening info
     screeningDay: string;

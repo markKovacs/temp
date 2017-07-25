@@ -24,8 +24,7 @@ export class ApplicantComponent {
         this.eventsManager.showNavBar(true);
         this.route.params.subscribe(
             (params) => {
-                let replaceIdForMock = 15;
-                this.getUser(replaceIdForMock).subscribe(
+                this.getUser(params.id).subscribe(
                     (user: User) => {
                         this.user = user;
                     },
@@ -39,20 +38,6 @@ export class ApplicantComponent {
     getUser(id) {
         return this.client.get('/api/applicants/' + id)
     }
-    // getMotivationVideo() {
-    //         let videoUrl = this.user.results.motivation;//find(testResult => testResult.name == "motivation").
-    //         let videoID = videoUrl.split("watch?v=")[1];
-    //         if (!this.isValidVideoId(videoID)) {
-    //             videoID = "";
-    //         }
-    //         let embedCode = "https://www.youtube.com/embed/" + videoID;
-    //         let safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(embedCode);
-    //         return safeUrl;
-    //     }
-    //
-    // isValidVideoId(id) {
-    //     let pattern = new RegExp(/^[a-z0-9]+$/i);
-    //     return pattern.test(id)
-    // }
+
 
 }
