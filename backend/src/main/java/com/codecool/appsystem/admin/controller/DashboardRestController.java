@@ -31,7 +31,7 @@ public class DashboardRestController {
 
     @RequestMapping(value = "/screening", method = RequestMethod.GET)
     public List<ScreeningDTO> scheduledScreenings(@RequestParam("location") String locationId) throws Exception{
-        return screeningService.find(locationId);
+        return screeningService.find(locationId, null);
     }
 
     //  TODO: /api/motivation/evaluate POST( adminId, bool)
