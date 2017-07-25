@@ -1,11 +1,15 @@
 package com.codecool.appsystem.admin.service;
 
-import com.codecool.appsystem.admin.model.ScreeningStep;
-import com.codecool.appsystem.admin.model.ScreeningStepCriteria;
+import com.codecool.appsystem.admin.model.*;
+import com.codecool.appsystem.admin.model.dto.ScreeningStepEvaluationDTO;
+import com.codecool.appsystem.admin.repository.ApplicantsScreeningStepRepository;
+import com.codecool.appsystem.admin.repository.ApplicationRepository;
 import com.codecool.appsystem.admin.repository.ScreeningStepRepository;
+import com.codecool.appsystem.admin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +18,15 @@ public class ScreeningEditService {
 
     @Autowired
     private ScreeningStepRepository repository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private ApplicationRepository applicationRepository;
+
+    @Autowired
+    private ApplicantsScreeningStepRepository applicantsScreeningStepRepository;
 
     public List<ScreeningStep> findByLocationId(String locationId){
         return repository.findByLocationIdAndEnabled(locationId, true)
@@ -29,6 +42,40 @@ public class ScreeningEditService {
             }
         }
         repository.save(data);
+    }
+
+    public ScreeningStepEvaluationDTO findForApplicant(Integer adminId, String stepId){
+
+        User user = userRepository.findByAdminId(adminId);
+        Application application = applicationRepository.findByApplicantIdAndActive(user.getId(), true);
+
+        ScreeningStep step = repository.findOne(stepId);
+
+        ApplicantsScreeningStep applicantsScreeningStep = applicantsScreeningStepRepository.findByStepId(stepId);
+
+        if(applicantsScreeningStep == null){
+            applicantsScreeningStep = new ApplicantsScreeningStep(stepId, application.getId());
+
+            for(ScreeningStepCriteria criteria : step.getCriterias()){
+
+                applicantsScreeningStep.getCriterias().add(
+
+                    ApplicantsScreeningStepCriteria.builder()
+                        .applicantsScreeningStepId(applicantsScreeningStep.getId())
+                        .criteriaId(criteria.getId())
+                        .build()
+
+                );
+            }
+
+        }
+
+        return ScreeningStepEvaluationDTO.builder()
+                .screeningStep(applicantsScreeningStep)
+                .name(user.getFullName())
+                .age(LocalDate.now().getYear() - user.getBirthDate())
+                .build();
+
     }
 
 }

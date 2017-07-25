@@ -16,8 +16,8 @@ public class ScreeningController {
     private ApplicationScreeningService screeningService;
 
     @RequestMapping("/api/screening/list")
-    public List<ScreeningDTO> getScreeningInfo(@RequestParam String location){
-        return screeningService.find(location);
+    public List<ScreeningDTO> getScreeningInfo(@RequestParam String location, @RequestParam("signedback") Boolean signedBack){
+        return screeningService.find(location, signedBack);
     }
 
     @RequestMapping("/api/screening/candidates")
