@@ -8,10 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 
 
 @Data
@@ -33,7 +31,8 @@ public class User {
     private String familyName;
     private String middleName;
 
-    private String registeredAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date registeredAt;
 
     private String gender;
 

@@ -6,17 +6,17 @@
     <div class="row">
       <div class="col-md-9 col-log-9">
         <div class="applicant-motivation-video-container ">
-          <iframe
-           class="e2e-iframe-trusted-src" width="420" height="315" [src]="getMotivationVideo()">
-          </iframe>
+          <!--<iframe-->
+           <!--class="e2e-iframe-trusted-src" width="420" height="315" [src]="getMotivationVideo()">-->
+          <!--</iframe>-->
         </div>
       </div>
       <div class="col-md-3 col-log-3">
         <div class="applicant-profile-details">
           <p><span>Applicant:</span><span>{{user.givenName}} {{user.familyName}}</span></p>
           <p><span>Birthdate:</span><span>{{user.dateOfBirth}}</span></p>
-          <p><span>Location:</span><span>{{user.applyingTo}}</span></p>
-          <p><span>Course:</span><span>{{user.courseId}}</span></p>
+          <p><span>Location:</span><span>{{user.location}}</span></p>
+          <p><span>Times Applied:</span><span>{{user.timesApplied}}</span></p>
         </div>
       </div>
     </div>

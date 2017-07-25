@@ -7,4 +7,5 @@ export class UserInList {
     attempts: number;
     blacklisted: boolean;
 
+
 }
