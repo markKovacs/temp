@@ -104,11 +104,14 @@ public class ApplicationScreeningService {
      * @param locationId
      * @return
      */
-    public List<ScreeningDTO> find(String locationId) {
+    public List<ScreeningDTO> find(String locationId, Boolean signedBack) {
 
         return findScreeningInfo(locationId)
                 .stream()
                 .filter(Objects::nonNull)
+                .filter(applicationScreeningInfo ->
+                        signedBack == null ||
+                                signedBack.equals(applicationScreeningInfo.getScheduleSignedBack()))
                 .map(this::transformScreeningInfo)
                 .collect(Collectors.toList());
 
