@@ -34,7 +34,6 @@ export class ApplicantVideoComponent implements OnInit{
     }
 
     gradeMotivation(accepted: boolean): void{
-        console.log(accepted);
         this.postMotivationGrade(accepted)
             .subscribe(
                 // .() =>{ this.survey = null;}
@@ -52,7 +51,6 @@ export class ApplicantVideoComponent implements OnInit{
 
 
     getMotivationVideo() {
-            console.log("getMotivationVideo");
             let videoUrl = this.testResult.answer;
             let videoID = videoUrl.split("watch?v=")[1];
             if (!this.isValidVideoId(videoID)) {
