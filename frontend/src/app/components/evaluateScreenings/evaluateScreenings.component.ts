@@ -20,10 +20,48 @@ export class EvaluateScreeningsComponent {
         private eventsManager: GlobalEventsManager)
     {
         this.eventsManager.showNavBar(true);
+        this.getLocation();
     }
 
     editScreening(){
         this.router.navigate(['editscreening']);
+    }
+
+    getLocation(){
+        this.location = JSON.parse(localStorage.getItem("chosenLocation"));
+    }
+
+    getApplicants(){
+        this.client.get('/api/screening/list?location=' + this.location.id + '&signedback=true').subscribe(
+            (data: any) => console.log(data),
+            (error) => error,
+            () => console.log("Applicants arrived")
+        )
+    }
+
+    getSteps(){
+        this.client.get('/api/screeningsteps?location=' + this.location.id).subscribe(
+            (data: any) => console.log(data),
+            (error) => error,
+            () => console.log("Steps arrived")
+        )
+    }
+
+    getApplicantsStep(){
+        this.client.get('/api/evalscreening/101?step=d25b6c11-46d8-43f7-a390-91f25f19fdf5').subscribe(
+            (data: any) => console.log(data),
+            (error) => error,
+            () => console.log("Applicant's step arrived")
+        )
+    }
+
+    postUpdate(){
+        let data = {};
+        this.client.post('/api/evalscreening', data).subscribe(
+            (data: any) => console.log(data),
+            (error) => error,
+            () => console.log("Applicant's step updated")
+        )
     }
 
 }
