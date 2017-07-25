@@ -43,11 +43,12 @@ POST
 
 
 GET
-/api/screeningapplicantions?location=BUD
+/api/screening/list?location=BUD&signedback=true
   # get all the screenings where isEvaluated = false
   # get all the applications for screenings
   # get all the users for applications
 
+  TODO - screeningInfo.model
   # response:
     [
       { applicationid: 1, name: "bela", group: date, individual: date },
@@ -79,17 +80,18 @@ GET
     {
       name: "bela",
       age: 25,
-      location: "BUD",
       screeningsstep:
         {
           id: 1,
-          name "Group game",
+          appId: 1,
           interviewer: "lajos",
           comment: "",
+          points: "",
+          status: "",
           criterias:
             [
-              { id: 1, name: "potential", points: null, comment: "", status: null },
-              { id: 2, name: "whatever", points: null, comment: "", status: null },
+              { id: 1, points: null, comment: "", status: null },
+              { id: 2, points: null, comment: "", status: null },
             ]
         }
     }
