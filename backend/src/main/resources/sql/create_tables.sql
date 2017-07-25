@@ -1,7 +1,7 @@
 ﻿DROP TABLE IF EXISTS online_app_system.courses;
 DROP TABLE IF EXISTS online_app_system.sent_emails;
 DROP TABLE IF EXISTS online_app_system.application_screening_info;
-DROP TABLE IF EXISTS online_app_system.test_results;
+-- DROP TABLE IF EXISTS online_app_system.test_results;
 DROP TABLE IF EXISTS online_app_system.tests;
 DROP TABLE IF EXISTS online_app_system.applications;
 DROP TABLE IF EXISTS online_app_system.location_types;
@@ -65,8 +65,8 @@ CREATE TABLE online_app_system.application_screening_info
   id                      VARCHAR(40) PRIMARY KEY NOT NULL,
   application_id          VARCHAR(40) REFERENCES online_app_system.applications (id),
   screening_day           VARCHAR(255),
-  screening_group_time    VARCHAR(255),
-  screening_personal_time VARCHAR(255),
+  screening_group_time    TIMESTAMP,
+  screening_personal_time TIMESTAMP,
   schedule_signed_back    BOOLEAN,
   map_location            VARCHAR(255)
 );

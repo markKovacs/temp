@@ -1,9 +1,6 @@
 package com.codecool.appsystem.admin.service.applicantDetails;
 
-import com.codecool.appsystem.admin.model.Application;
-import com.codecool.appsystem.admin.model.ApplicationScreeningInfo;
-import com.codecool.appsystem.admin.model.TestResult;
-import com.codecool.appsystem.admin.model.User;
+import com.codecool.appsystem.admin.model.*;
 import com.codecool.appsystem.admin.model.dto.ApplicantDetailsDTOBuilder;
 import com.codecool.appsystem.admin.model.dto.applicantDetails.ApplicantDetailsDTO;
 import com.codecool.appsystem.admin.model.dto.applicantDetails.TestResultDTO;
@@ -70,15 +67,17 @@ public class ApplicantDetailsService {
 
     private TestResultDTO transformTestResult(TestResult testResult){
 
-        String name = testRepo.findOne(testResult.getTestId()).getName();
+        Test test = testRepo.findOne(testResult.getTestId());
 
         TestResultDTO TDto = new TestResultDTO();
-        TDto.setName(name);
+        TDto.setName(test.getName());
         TDto.setComment(testResult.getComment());
-        TDto.setMotivation(testResult.getSavedAnswers());
+        TDto.setAnswer(testResult.getSavedAnswers());
         TDto.setIsPending(Boolean.TRUE.equals(testResult.getPassed() == null));
         TDto.setPassed(testResult.getPassed());
         TDto.setPoints(testResult.getPoints());
+        TDto.setIsMotivation(test.getMotivationVideo());
+//        testResult.getTestId()
 
         return TDto;
 

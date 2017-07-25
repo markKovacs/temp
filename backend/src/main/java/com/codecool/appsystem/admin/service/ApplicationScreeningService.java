@@ -162,9 +162,11 @@ public class ApplicationScreeningService {
 
         for (Application application : applicationsByLocation) {
 
-            screeningInfo.add(
-                    appScrRepo.findByApplicationId(application.getId())
-            );
+            ApplicationScreeningInfo appscr =  appScrRepo.findByApplicationId(application.getId());
+
+            if (appscr != null) {
+                screeningInfo.add(appscr);
+            }
 
         }
 
