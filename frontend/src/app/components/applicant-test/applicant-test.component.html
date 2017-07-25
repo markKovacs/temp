@@ -1,5 +1,18 @@
 <div class="application-test-component" *ngIf="testResult">
 
+    <div class="col-md-9 col-log-9">
+    <div class="card" [class.success]="testResult.passed">
+
+        <div class="applicant-motivation-test-container ">
+            <p>Test Name: {{testResult.name}}</p>
+            <p>Is the test Passed: {{testResult.passed}}</p>
+            <p>Achieved points: {{testResult.points}}</p>
+        </div>
+        <br>
+        <br>
+    </div>
+    </div>
+
 
 
 </div>

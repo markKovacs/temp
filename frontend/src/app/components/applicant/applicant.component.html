@@ -10,6 +10,7 @@
                         [adminId]="user.adminId"></applicant-video>
         </div>
         </div>
+
       <div class="col-md-3 col-log-3">
         <div class="applicant-profile-details">
           <p><span>Applicant:</span><span>{{user.givenName}} {{user.familyName}}</span></p>
@@ -18,6 +19,10 @@
           <p><span>Times Applied:</span><span>{{user.timesApplied}}</span></p>
         </div>
       </div>
+      <br><br>
+      <applicant-test *ngFor="let result of user.testResults"
+                      [testResult]="result"></applicant-test>
+
     </div>
   </div>
 </div>
