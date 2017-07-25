@@ -14,12 +14,12 @@ public class ScreeningEditController {
     @Autowired
     private ScreeningEditService screeningEditService;
 
-    @RequestMapping(value = "/api/editscrening", method = RequestMethod.GET)
-    public List<ScreeningStep> findByLocation(@RequestParam("locationId") String locationId){
+    @RequestMapping(value = "/api/editscreening", method = RequestMethod.GET)
+    public List<ScreeningStep> findByLocation(@RequestParam("location") String locationId){
         return screeningEditService.findByLocationId(locationId);
     }
 
-    @RequestMapping(value = "/api/editscrening", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/editscreening", method = RequestMethod.POST)
     public RestResponseDTO saveScreening(@RequestBody List<ScreeningStep> data){
         screeningEditService.saveScreening(data);
         return RestResponseDTO.buildSuccess();

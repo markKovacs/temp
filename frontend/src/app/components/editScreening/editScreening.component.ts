@@ -24,13 +24,12 @@ export class EditScreeningComponent {
         private eventsManager: GlobalEventsManager)
     {
         this.eventsManager.showNavBar(true);
-        // this.getLocation();
-        // this.getScreening();
-        this.mockGetScreening();
+        this.getLocation();
+        this.getScreening();
     }
 
     getLocation(){
-        this.location = JSON.parse(localStorage.location);
+        this.location = JSON.parse(localStorage.getItem("chosenLocation"));
     }
 
     getScreening(){
@@ -51,15 +50,12 @@ export class EditScreeningComponent {
 
     postUpdate(){
         this.changeHappened = false;
+        console.log("should post this", this.screeningSteps);
         this.client.post("/api/editscreening", this.screeningSteps).subscribe(
             (response: any) => console.log(response),
             (error) => console.log(error),
             () => console.log("Response arrived")
         )
-    }
-
-    generateId(){
-      return Math.random() * 1000000000
     }
 
     allowPost(){
@@ -74,72 +70,32 @@ export class EditScreeningComponent {
     }
 
     addStep(){
+        this.screeningSteps.push(new ScreeningStep(this.location.id));
         this.handleChange();
-        let id = this.generateId()
-        let newStep = {id: id, name: "", locationId: "BUD", criterias: []};
-        this.screeningSteps.push(newStep);
     }
 
-    addCriteria(stepId){
+    addCriteria(step){
+        step.criterias.push(new Criteria());
         this.handleChange();
-        let id = this.generateId()
-        let newCriteria = {id: id, name: ""}
-        console.log(stepId);
-        for (let step of this.screeningSteps) {
-            console.log(step.id);
-            if (step.id == stepId) { step.criterias.push(newCriteria); }
-        }
     }
 
-    deleteStep(stepId){
-        this.handleChange();
-        this.screeningSteps = this.screeningSteps.filter((step) => {
-            return step.id != stepId;
+    deleteStep(step){
+        step.enabled = false;
+        step.criterias = step.criterias.map((entry) => {
+            let updated = Object.assign({}, entry);
+            updated.enabled = false;
+            return updated;
         })
+        this.handleChange();
     }
 
-    deleteCriteria(criteriaId){
+    deleteCriteria(criteria){
+        criteria.enabled = false;
         this.handleChange();
-        for (let step of this.screeningSteps) {
-            step.criterias = step.criterias.filter((criteria) => {
-                return criteriaId != criteria.id
-            })
-        }
     }
 
     evaluateScreenings(){
         this.router.navigate(['evaluatescreenings']);
-    }
-
-    mockGetScreening(){
-        this.isFetchingSteps = true;
-        let data = [
-            {id: 1, name: "Group Game", locationId: "BUD", criterias: [
-                {id: 1, name: "Potential"}, {id: 2, name: "Something else"}
-            ]},
-            {id: 2, name: "Mindset", locationId: "BUD", criterias: [
-                {id: 3, name: "Potential"}
-            ]},
-            {id: 3, name: "Life", locationId: "BUD", criterias: [
-                {id: 4, name: "Potential"}, {id: 5, name: "Whatever"}, {id: 6, name: "Potential"}
-            ]}
-        ]
-        setTimeout(()=>{
-            this.screeningSteps = data;
-            this.isFetchingSteps = false;
-            console.log("Screening mocked", this.screeningSteps);
-        }, 1000)
-    }
-
-    mockPostUpdate(){
-        if (this.allowPost()){
-            console.log("Should post this", this.screeningSteps);
-            this.isPosting = true;
-            setTimeout(()=>{
-                this.isPosting = false;
-                this.changeHappened = false;
-            }, 1000)
-        }
     }
 
 }

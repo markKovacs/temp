@@ -25,6 +25,7 @@ import {
     QuestionService
 
 } from './_services/index';
+import { FilterEnabled } from './_pipes/index'
 import {
     NavBarComponent,
     DashboardComponent,
@@ -72,7 +73,8 @@ import {DateFormatPipe} from "angular2-moment";
         CalendarComponent,
         EditScreeningComponent,
         EvaluateScreeningsComponent,
-        StartComponent
+        StartComponent,
+        FilterEnabled
     ],
     providers: [
         AuthGuard,

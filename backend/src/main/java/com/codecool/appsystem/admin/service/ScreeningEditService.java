@@ -1,6 +1,7 @@
 package com.codecool.appsystem.admin.service;
 
 import com.codecool.appsystem.admin.model.ScreeningStep;
+import com.codecool.appsystem.admin.model.ScreeningStepCriteria;
 import com.codecool.appsystem.admin.repository.ScreeningStepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,11 @@ public class ScreeningEditService {
     }
 
     public void saveScreening(List<ScreeningStep> data){
+        for(ScreeningStep step : data){
+            for(ScreeningStepCriteria criteria : step.getCriterias()){
+                criteria.setScreeningStepId(step.getId());
+            }
+        }
         repository.save(data);
     }
 

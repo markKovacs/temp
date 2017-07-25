@@ -5,6 +5,12 @@ export class ScreeningStep {
     id: number;
     name: string;
     locationId: string;
-    criterias: Criteria[];
+    criterias: Criteria[] = [];
+    enabled: boolean;
+
+    constructor(locationId: string){
+        this.locationId = locationId;
+        this.enabled = true;
+    }
 
 }

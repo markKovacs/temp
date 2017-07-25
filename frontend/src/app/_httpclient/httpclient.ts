@@ -8,7 +8,6 @@ import 'rxjs/add/operator/catch';
 export class HttpClient {
 
     private urlPrefix: string = 'http://localhost:8090';
-    // private urlPrefix: string = 'http://demo1286808.mockable.io/';
     private headers = new Headers({'Content-Type': 'application/json'});
 
     constructor(private _http: Http) {

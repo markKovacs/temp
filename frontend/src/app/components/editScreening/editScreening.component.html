@@ -8,7 +8,7 @@
         <div *ngIf="!isPosting">
           <button
             class="save-button"
-            (click)="mockPostUpdate()">
+            (click)="postUpdate()">
             Save changes
           </button>
         </div>
@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <div *ngFor="let screeningStep of screeningSteps" class="screening-step-container">
+      <div *ngFor="let screeningStep of screeningSteps | filterEnabled" class="screening-step-container">
 
         <div class="step-container">
           <input
@@ -33,12 +33,12 @@
             placeholder="--- Name is required! ---"/>
 
           <button
-            (click)="deleteStep(screeningStep.id)">
+            (click)="deleteStep(screeningStep)">
             <i class="material-icons md-14 white-icon">delete_sweep</i>
           </button>
         </div>
 
-        <div *ngFor="let criteria of screeningStep.criterias" class="criteria-container">
+        <div *ngFor="let criteria of screeningStep.criterias | filterEnabled" class="criteria-container">
 
           <input
             [(ngModel)]="criteria.name"
@@ -46,7 +46,7 @@
             placeholder="Name is required!"/>
 
           <button
-            (click)="deleteCriteria(criteria.id)">
+            (click)="deleteCriteria(criteria)">
             <i class="material-icons md-14 red-icon">backspace</i>
           </button>
 
@@ -54,7 +54,7 @@
 
         <button
           class="new-criteria-button"
-          (click)="addCriteria(screeningStep.id)">
+          (click)="addCriteria(screeningStep)">
           <i class="material-icons md-14">add_circle</i>
           Add new criteria
         </button>
