@@ -40,6 +40,8 @@ import {
     EditScreeningComponent
 } from './components/index';
 import {AuthGuard} from './guards/index';
+import {ScreeningService} from "./_services/screening.service";
+import {DateFormatPipe} from "angular2-moment";
 
 @NgModule({
     imports: [
@@ -77,7 +79,10 @@ import {AuthGuard} from './guards/index';
         GlobalEventsManager,
         HttpClient,
         LocationTestService,
-        QuestionService
+        QuestionService,
+        DateFormatPipe,
+        DatePipe,
+        ScreeningService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent]

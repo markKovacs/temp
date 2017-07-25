@@ -19,7 +19,7 @@ CREATE TABLE online_app_system.system_user
   given_name    VARCHAR(255),
   family_name   VARCHAR(255),
   middle_name   VARCHAR(255),
-  registered_at VARCHAR(255),
+  registered_at TIMESTAMP,
   gender        VARCHAR(255),
   birth_date    INT,
   photo_url     VARCHAR(255),
@@ -102,7 +102,7 @@ CREATE TABLE online_app_system.test_results
   points          INT,
   percent         DOUBLE PRECISION,
   passed          BOOLEAN,
-  motivation_text VARCHAR(255),
+  saved_answers   TEXT,
   comment         VARCHAR(255)
 );
 

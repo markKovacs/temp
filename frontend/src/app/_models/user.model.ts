@@ -1,22 +1,22 @@
+import {Results} from "./results.model";
 export class User {
 
-    success: boolean;
-    id: number;
     givenName: string;
     familyName: string;
-    middleName: string;
-    name: string;
-    imgUrl: string;
-    email: string;
-    provider: string;
-    token: string;
-    birthDate: Date;
-    age: number;
-    locationId: string;
-    gender: string;
-    phoneNumber: string;
-    individual: Date;
-    group: Date;
-    replied: boolean;
+    dateOfBirth: number;
+    adminId: number;
+
+    // from application info
+    timesApplied: number;
+    location: string;
+    processStartedAt: number;
+
+    results: Results;
+
+    // from screening info
+    screeningDay: string;
+    screeningGroupTime: string;
+    screeningPersonalTime: string;
+    scheduleSignedBack: boolean;
 
 }

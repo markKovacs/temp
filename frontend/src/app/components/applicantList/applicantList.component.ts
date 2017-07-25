@@ -18,7 +18,8 @@ export class ApplicantListComponent {
                 private router: Router,
                 private eventsManager: GlobalEventsManager) {
         this.eventsManager.showNavBar(true);
-        this.client.get("/api/applicants?location=BUD").subscribe(
+        let id = JSON.parse(localStorage.getItem("chosenLocation")).id;
+        this.client.get("/api/applicants?location="+id).subscribe(
             (users: UserInList[]) => this.users = users,
             (error) => console.log(error),
             () => console.log("users fetched for applicant list", this.users)
