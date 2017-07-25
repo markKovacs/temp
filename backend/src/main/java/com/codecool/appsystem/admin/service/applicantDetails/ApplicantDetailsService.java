@@ -78,7 +78,6 @@ public class ApplicantDetailsService {
         TDto.setPassed(testResult.getPassed());
         TDto.setPoints(testResult.getPoints());
         TDto.setIsMotivation(test.getMotivationVideo());
-//        testResult.getTestId()
 
         return TDto;
 
