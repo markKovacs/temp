@@ -1,13 +1,8 @@
 package com.codecool.appsystem.admin.service;
 
-import com.codecool.appsystem.admin.model.Application;
-import com.codecool.appsystem.admin.model.Test;
-import com.codecool.appsystem.admin.model.TestResult;
-import com.codecool.appsystem.admin.model.User;
+import com.codecool.appsystem.admin.model.*;
 import com.codecool.appsystem.admin.model.dto.MotivationDTO;
-import com.codecool.appsystem.admin.repository.ApplicationRepository;
-import com.codecool.appsystem.admin.repository.TestRepository;
-import com.codecool.appsystem.admin.repository.TestResultRepository;
+import com.codecool.appsystem.admin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +13,10 @@ import java.util.regex.Pattern;
 
 @Service
 public class MotivationsUtilService {
+
+
+    @Autowired
+    private TestResultRepository testResultRepository;
 
     @Autowired
     private ApplicationRepository applicationRepository;
@@ -65,4 +64,13 @@ public class MotivationsUtilService {
         }
         return false;
     }
+
+    public void gradeMotivation(MotivationGrade motivationGrade){
+        TestResult actualTestResult = testResultRepository.getOne(motivationGrade.getTestResultId());
+        actualTestResult.setComment(motivationGrade.getComment());
+        actualTestResult.setPassed(motivationGrade.getPassed());
+        testResultRepository.save(actualTestResult);
+    }
+
+
 }

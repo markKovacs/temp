@@ -16,6 +16,7 @@ export class ApplicantVideoComponent implements OnInit{
 
     @Input() testResult: Results;
     comment: string;
+    adminId: string;
 
     constructor(private sanitizer: DomSanitizer,
                 private client: HttpClient,
@@ -45,7 +46,7 @@ export class ApplicantVideoComponent implements OnInit{
 
 
     postMotivationGrade(accepeted:boolean) {
-        let grade= {passed: accepeted, comment: this.comment, id:this.testResult.id };
+        let grade= {adminId: this.adminId, passed: accepeted, comment: this.comment, testResultId:this.testResult.id };
         return this.client.post('/api/grademotivation', grade );
     }
 

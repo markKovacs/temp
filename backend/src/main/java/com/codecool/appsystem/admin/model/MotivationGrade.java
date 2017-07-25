@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MotivationGrade {
 
-    private String id;
+    private Integer adminId;
+    private String testResultId;
     private Boolean passed;
     private String comment;
 }

@@ -1,9 +1,8 @@
 package com.codecool.appsystem.admin.controller;
 
 import com.codecool.appsystem.admin.model.MotivationGrade;
-import com.codecool.appsystem.admin.model.TestResult;
 import com.codecool.appsystem.admin.model.dto.RestResponseDTO;
-import com.codecool.appsystem.admin.repository.TestResultRepository;
+import com.codecool.appsystem.admin.service.MotivationsUtilService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,18 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/grademotivation")
 public class MotivationController {
 
+
     @Autowired
-    private TestResultRepository testResultRepository;
+    private MotivationsUtilService motivationsUtilService;
+
 
 
     @RequestMapping(method = RequestMethod.POST)
     public RestResponseDTO applicantsByLocation(@RequestBody MotivationGrade motivationGrade) {
 
-        TestResult actualTestResult = testResultRepository.getOne(motivationGrade.getId());
-        actualTestResult.setComment(motivationGrade.getComment());
-        actualTestResult.setPassed(motivationGrade.getPassed());
-        testResultRepository.save(actualTestResult);
-        log.info("actual test Result: " +actualTestResult);
+        motivationsUtilService.gradeMotivation(motivationGrade);
 
         return RestResponseDTO.buildSuccess();
 

@@ -6,8 +6,8 @@
     <div class="row">
       <div *ngFor="let result of user.testResults">
         <div *ngIf="result.isMotivation">
-        {{result.answer}}
-      <applicant-video [testResult]="result"></applicant-video>
+      <applicant-video [testResult]="result"
+                        [adminId]="user.adminId"></applicant-video>
         </div>
         </div>
       <div class="col-md-3 col-log-3">
