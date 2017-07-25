@@ -70,6 +70,7 @@ public class ApplicantDetailsService {
         Test test = testRepo.findOne(testResult.getTestId());
 
         TestResultDTO TDto = new TestResultDTO();
+        TDto.setId(testResult.getId());
         TDto.setName(test.getName());
         TDto.setComment(testResult.getComment());
         TDto.setAnswer(testResult.getSavedAnswers());

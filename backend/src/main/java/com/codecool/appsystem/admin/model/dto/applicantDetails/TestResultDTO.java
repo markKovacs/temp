@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class TestResultDTO extends RestResponseDTO{
 
+    private String id;
     private String name;
     private Boolean passed;
     private int points;

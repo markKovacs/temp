@@ -1,5 +1,6 @@
 export class Results{
 
+    id: string;
     name: string;
     answer: string;
     passed: boolean;
