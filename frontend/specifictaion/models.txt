@@ -9,22 +9,22 @@ SCREENING
   # groupDate
   # individualDate
   # isSignedBack
-  # isEvaluated
-  # isSuccessful
 
 STEP
   # id
   # name
   # location (fk)
+  # enabled
 
 CRITERIA
   # id
   # name
   # stepid (fk)
+  # enabled
 
 SCREENINGSSTEP
   # id
-  # screenid (fk)
+  # appid (fk)
   # stepid (fk)
   # interviewer
   # points

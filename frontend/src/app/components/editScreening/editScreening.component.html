@@ -17,6 +17,12 @@
         <!-- Placeholder -->
       </div>
 
+      <div *ngIf="isFetchingSteps" class="screening-step-container">
+        <div *ngIf="!loaded" class="loading-icon-container">
+          <i class="material-icons md-40 loading-icon">autorenew</i>
+        </div>
+      </div>
+
       <div *ngFor="let screeningStep of screeningSteps" class="screening-step-container">
 
         <div class="step-container">
@@ -82,6 +88,11 @@
         points and add comments to all the
         steps and criterias defined here.
       </p>
+    </div>
+    <div class="router-button-container">
+      <button (click)="evaluateScreenings()" class="router-button">
+        Evaluate screenings
+      </button>
     </div>
   </div>
 

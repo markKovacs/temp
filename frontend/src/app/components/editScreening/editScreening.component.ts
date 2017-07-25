@@ -13,6 +13,7 @@ export class EditScreeningComponent {
 
     public location: Location;
     public screeningSteps: ScreeningStep[];
+    public isFetchingSteps: boolean = false;
     public changeHappened: boolean = false;
     public isPosting: boolean = false;
     public postList: any[] = [];
@@ -33,8 +34,12 @@ export class EditScreeningComponent {
     }
 
     getScreening(){
+        this.isFetchingSteps = true;
         this.client.get("/api/editscreening?location=" + this.location.id).subscribe(
-            (screeningSteps: ScreeningStep[]) => this.screeningSteps = screeningSteps,
+            (screeningSteps: ScreeningStep[]) => {
+                this.screeningSteps = screeningSteps;
+                this.isFetchingSteps = false;
+            },
             (error) => console.log(error),
             () => console.log("Screening fetched", this.screeningSteps)
         )
@@ -102,7 +107,12 @@ export class EditScreeningComponent {
         }
     }
 
+    evaluateScreenings(){
+        this.router.navigate(['evaluatescreenings']);
+    }
+
     mockGetScreening(){
+        this.isFetchingSteps = true;
         let data = [
             {id: 1, name: "Group Game", locationId: "BUD", criterias: [
                 {id: 1, name: "Potential"}, {id: 2, name: "Something else"}
@@ -116,6 +126,7 @@ export class EditScreeningComponent {
         ]
         setTimeout(()=>{
             this.screeningSteps = data;
+            this.isFetchingSteps = false;
             console.log("Screening mocked", this.screeningSteps);
         }, 1000)
     }
@@ -127,7 +138,7 @@ export class EditScreeningComponent {
             setTimeout(()=>{
                 this.isPosting = false;
                 this.changeHappened = false;
-            }, 1000)  
+            }, 1000)
         }
     }
 

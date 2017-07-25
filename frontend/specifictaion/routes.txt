@@ -4,6 +4,10 @@ GET
   # for every step
     # all criteria - fk
 
+  TODO - only array
+  TODO - no location needed
+  TODO - disabled
+  TODO - id null
   # response:
     {
       location: "BUD",
@@ -33,6 +37,9 @@ GET
 
 POST
 /api/editscreening?location=BUD
+
+  TODO - no queryparam needed
+
   # same structure
   # for every step
     # if id -> overwrite
