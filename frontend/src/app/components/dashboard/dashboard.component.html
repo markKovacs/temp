@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="locationChosen()">
+    <div class="row" *ngIf="usersWithVideo">
         <div class="col-md-6 col-sm-12">
             <div class="dashboard-users">
                 <h3>Motivation videos to grade</h3>
@@ -33,16 +33,16 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-6 col-sm-12" *ngIf="usersWithScreening">
             <div class="dashboard-users">
                 <h3>Screenings to attend</h3>
                 <div *ngFor="let user of usersWithScreening">
                     <div class="dashboard-user">
                         <div class="screening-details">
+                            <p>{{user.name}}</p>
                             <p class="screening-date">
                                 {{ user.screeningInfo.day | date: short }}
                             </p>
-                            <p>{{user.name}}</p>
                         </div>
                         <button class="btn btn-success" (click)="getApplicant(user.adminId)">
                             Check applicant&nbsp;&gt;&gt;

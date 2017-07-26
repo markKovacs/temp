@@ -23,6 +23,8 @@ export class DashboardComponent implements OnChanges{
                 private eventsManager: GlobalEventsManager) {
         this.eventsManager.showNavBar(true);
         this.getLocations();
+        this.getUsersWithVideo();
+        this.getUsersWithScreening();
 
     }
 
@@ -46,7 +48,6 @@ export class DashboardComponent implements OnChanges{
 
     getUsersWithVideo() {
         let id = JSON.parse(localStorage.getItem("chosenLocation")).id;
-
         this.client.get('/api/dashboard/motivation?location=' + id).subscribe(
             (users: UserMotivation[]) => {
                 this.usersWithVideo = users;
