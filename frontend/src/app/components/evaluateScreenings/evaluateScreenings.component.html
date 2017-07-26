@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 card-container">
       <div class="card">
-        <button class="trigger-button" (click)="getApplicantsStep()">
-          Trigger
-        </button>
+        <div *ngFor="let user of users">
+          <p>{{user.name}}</p><button (click)="chooseUser(user)">Evaluate</button>
+        </div>
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 card-container">
@@ -12,12 +12,6 @@
         <h2>Evaluate screenings</h2>
         <p>
           - You can rate the applicants based on the criterias set for <span>Budapest</span>.
-        </p>
-        <p>
-          - Some more stuff what you should do.
-        </p>
-        <p>
-          - And some other stuff comes here.
         </p>
       </div>
       <div class="router-button-container">
@@ -27,6 +21,25 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row card" *ngIf="user">
+    <p>{{user.name}}</p>
+    <p><button *ngFor="let step of screeningSteps" (click)="getApplicantsStep(step)">{{step.name}}</button></p>
+    <div *ngIf="toEvaluate" class="evaluation-container">
+      <button (click)="postUpdate()">Save {{chosenStep.name}}</button>
+      <button (click)="setStepStatus('yes')">Yes</button>
+      <button (click)="setStepStatus('no')">No</button>
+      <button (click)="setStepStatus('maybe')">Maybe</button>
+      <input type="text" placeholder="Comment" ([ngModel])="toEvaluate.screeningStep.comment"/>
+      <input type="number" min=0 max=10 ([ngModel])="toEvaluate.screeningStep.points"/>
+      <div>
+        <div *ngFor="let criteria of toEvaluate.screeningStep.criterias">
+          <button (click)="setCriteriaStatus(criteria, 'yes')">Yes</button>
+          <button (click)="setCriteriaStatus(criteria, 'no')">No</button>
+          <button (click)="setCriteriaStatus(criteria, 'maybe')">Maybe</button>
+          <input type="text" placeholder="Comment" ([ngModel])="criteria.comment"/>
+          <input type="number" min=0 max=10 ([ngModel])="criteria.points"/>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

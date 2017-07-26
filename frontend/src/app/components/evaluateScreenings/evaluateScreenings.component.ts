@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
-import {Location, ScreeningStep, Criteria} from "../../_models/index";
+import {Location, ScreeningStep, Criteria, User, UsersScreeningStep} from "../../_models/index";
 
 @Component({
     moduleId: module.id,
@@ -13,6 +13,11 @@ export class EvaluateScreeningsComponent {
 
     public location: Location;
     public screeningSteps: ScreeningStep[];
+    public users: User[];
+    public user: User;
+    public toEvaluate: UsersScreeningStep;
+    public chosenStep: ScreeningStep;
+    public chosenCriteria: Criteria;
 
     constructor(
         private client: HttpClient,
@@ -21,6 +26,8 @@ export class EvaluateScreeningsComponent {
     {
         this.eventsManager.showNavBar(true);
         this.getLocation();
+        this.getApplicants();
+        this.getSteps();
     }
 
     editScreening(){
@@ -33,7 +40,7 @@ export class EvaluateScreeningsComponent {
 
     getApplicants(){
         this.client.get('/api/screening/list?location=' + this.location.id + '&signedback=true').subscribe(
-            (data: any) => console.log(data),
+            (users: User[]) => this.users = users,
             (error) => error,
             () => console.log("Applicants arrived")
         )
@@ -41,27 +48,41 @@ export class EvaluateScreeningsComponent {
 
     getSteps(){
         this.client.get('/api/screeningsteps?location=' + this.location.id).subscribe(
-            (data: any) => console.log(data),
+            (steps: ScreeningStep[]) => this.screeningSteps = steps,
             (error) => error,
             () => console.log("Steps arrived")
         )
     }
 
-    getApplicantsStep(){
-        this.client.get('/api/evalscreening/101?step=d25b6c11-46d8-43f7-a390-91f25f19fdf5').subscribe(
-            (data: any) => console.log(data),
+    chooseUser(user){
+        this.user = user;
+    }
+
+    getApplicantsStep(step){
+        let url = '/api/evalscreening/' + this.user.adminId + '?step=' + step.id;
+        this.chosenStep = step;
+        this.client.get(url).subscribe(
+            (data: UsersScreeningStep) => this.toEvaluate = data,
             (error) => error,
             () => console.log("Applicant's step arrived")
         )
     }
 
+    setStepStatus(status){
+        this.toEvaluate.screeningStep.status = status;
+    }
+
+    setCriteriaStatus(criteria, status){
+        criteria.status = status;
+    }
+
     postUpdate(){
-        let data = {};
-        this.client.post('/api/evalscreening', data).subscribe(
-            (data: any) => console.log(data),
-            (error) => error,
-            () => console.log("Applicant's step updated")
-        )
+        console.log(this.toEvaluate.screeningStep);
+        // this.client.post('/api/evalscreening', this.toEvaluate.screeningStep).subscribe(
+        //     (data: any) => console.log(data),
+        //     (error) => error,
+        //     () => console.log("Applicant's step updated")
+        // )
     }
 
 }

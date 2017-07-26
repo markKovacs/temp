@@ -11,3 +11,4 @@ export * from './screening.model';
 export * from './user-motivation.model';
 export * from './user-screening.model';
 export * from './results.model';
+export * from './users-screening-step.model';
