@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {LocationTestService} from "../../_services/location-tests.service";
 import {Router} from "@angular/router";
 import {Survey} from "../../_models/survey.model";
+import {GlobalEventsManager} from "../../global.eventsmanager";
 
 @Component({
     moduleId: module.id,
@@ -18,8 +19,9 @@ export class SurveyGeneratorComponent implements OnInit{
 
     constructor(
         private testsByLocation: LocationTestService,
-        private router: Router
+        private eventsManager: GlobalEventsManager
     ){
+        this.eventsManager.showNavBar(true);
     }
 
     currentTest(test: Survey){
@@ -42,10 +44,8 @@ export class SurveyGeneratorComponent implements OnInit{
                     for (const test of data) {
                         this.surveys.push(test);
                     }
-                    //this.surveys = JSON.parse(data.formAsJson);
                 },
                 error => console.log(error),
-                // () => console.log('getSurvey().subscribe() finished running.')
             );
 
         if (localStorage.chosenLocation != null) {

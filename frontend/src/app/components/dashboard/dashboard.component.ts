@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnChanges} from '@angular/core';
 import {Router} from '@angular/router';
 import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
@@ -11,7 +11,8 @@ import {UserScreening} from "../../_models/user-screening.model";
     templateUrl: 'dashboard.component.html',
     styleUrls: ['dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnChanges{
+
 
     public locations: Location[] = [];
     public usersWithVideo: UserMotivation[] = [];
@@ -22,12 +23,15 @@ export class DashboardComponent {
                 private eventsManager: GlobalEventsManager) {
         this.eventsManager.showNavBar(true);
         this.getLocations();
+
+    }
+
+    ngOnChanges(): void {
         if (localStorage.getItem("chosenLocation")) {
             this.getUsersWithVideo();
             this.getUsersWithScreening();
         }
     }
-
     getLocations() {
         this.client.get('/api/locations').subscribe(
             (locations: Location[]) => this.locations = locations,

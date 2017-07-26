@@ -44,8 +44,8 @@ export class ApplicantVideoComponent implements OnInit{
     }
 
 
-    postMotivationGrade(accepeted:boolean) {
-        let grade= {adminId: this.adminId, passed: accepeted, comment: this.comment, testResultId:this.testResult.id };
+    postMotivationGrade(accepted:boolean) {
+        let grade= {adminId: this.adminId, passed: accepted, comment: this.comment, testResultId:this.testResult.id };
         return this.client.post('/api/grademotivation', grade );
     }
 
