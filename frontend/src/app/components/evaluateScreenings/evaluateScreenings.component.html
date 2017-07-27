@@ -68,17 +68,17 @@
             </div>
           </div>
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <div *ngFor="let criteria of toEvaluate.screeningStep.criterias" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div *ngFor="let criteria of toEvaluate.screeningStep.criterias" class="criterias-container">
               <h4>{{getNameForCriteria(toEvaluate.screeningStep, criteria)}}</h4>
               <div class="criteria-buttons">
                 <button (click)="setCriteriaStatus(criteria, 'yes')" class="{{isActiveCriteriaStatus(criteria, 'yes')}}">
-                  <i class="material-icons">&#xE8DC;</i>
+                  <i class="material-icons md-14 icon-align">&#xE8DC;</i>
                 </button>
                 <button (click)="setCriteriaStatus(criteria, 'maybe')" class="{{isActiveCriteriaStatus(criteria, 'maybe')}}">
-                  <i class="material-icons">&#xE8DD;</i>
+                  <i class="material-icons md-14 icon-align">&#xE8DD;</i>
                 </button>
                 <button (click)="setCriteriaStatus(criteria, 'no')" class="{{isActiveCriteriaStatus(criteria, 'no')}}">
-                  <i class="material-icons">&#xE8DB;</i>
+                  <i class="material-icons md-14 icon-align">&#xE8DB;</i>
                 </button>
                 <input type="number" min=0 max=10 ([ngModel])="criteria.points"/>
               </div>

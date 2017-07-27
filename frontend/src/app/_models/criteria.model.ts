@@ -6,5 +6,6 @@ export class Criteria {
     comment: string;
     points: number;
     status: string;
+    criteriaId: number;
 
 }

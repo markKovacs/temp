@@ -67,8 +67,7 @@ export class EvaluateScreeningsComponent {
         this.chosenStep = step;
         this.toEvaluate = null;
         this.client.get(url).subscribe(
-            // (data: UsersScreeningStep) => this.toEvaluate = data,
-            (data: any) => console.log(data),
+            (data: UsersScreeningStep) => this.toEvaluate = data,
             (error) => error,
             () => console.log("Applicant's step arrived")
         )
@@ -108,8 +107,7 @@ export class EvaluateScreeningsComponent {
 
     getNameForCriteria(step, criteria){
         let currentStep = this.screeningSteps.filter(entry => entry.id == step.stepId)[0];
-        console.log(criteria);
-        let currentCriteria = currentStep.criterias.filter(entry => entry.id == criteria.id)[0];
+        let currentCriteria = currentStep.criterias.filter(entry => entry.id == criteria.criteriaId)[0];
         return currentCriteria.name;
     }
 
