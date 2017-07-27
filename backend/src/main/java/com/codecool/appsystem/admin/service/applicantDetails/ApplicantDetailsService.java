@@ -29,20 +29,25 @@ public class ApplicantDetailsService {
     @Autowired
     private TestRepository testRepo;
 
+    @Autowired
+    private ApplicantsScreeningStepRepository applicantsScreeningStepRepository;
+
 
     public ApplicantDetailsDTO provideInfo(Integer id) {
 
         User user = userRepo.findByAdminId(id);
 
+
         Application application = applicationRepo.findByApplicantIdAndActive(user.getId(),true);
+        List<ApplicantsScreeningStep> applicantsScreeningSteps = applicantsScreeningStepRepository.findByApplicationId(application.getId());
 
         ApplicationScreeningInfo appScrInf = appScrInfoRepo.findByApplicationId(application.getId());
 
-        return provideDTO(user, application, appScrInf);
+        return provideDTO(user, application, appScrInf, applicantsScreeningSteps);
     }
 
 
-    private ApplicantDetailsDTO provideDTO(User user, Application application, ApplicationScreeningInfo appScrInf) {
+    private ApplicantDetailsDTO provideDTO(User user, Application application, ApplicationScreeningInfo appScrInf, List<ApplicantsScreeningStep> applicantsScreeningSteps) {
 
         return new ApplicantDetailsDTOBuilder()
                 .fromUser(user)
@@ -50,6 +55,7 @@ public class ApplicantDetailsService {
                 .fromApplication(application)
                 .testResults(getTestInfo(application))
                 .fromAppScrInfo(appScrInf)
+                .fromScreening(applicantsScreeningSteps)
                 .build();
 
     }

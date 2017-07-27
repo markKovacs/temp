@@ -1,5 +1,6 @@
 package com.codecool.appsystem.admin.model.dto.applicantDetails;
 
+import com.codecool.appsystem.admin.model.ApplicantsScreeningStep;
 import com.codecool.appsystem.admin.model.dto.RestResponseDTO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
@@ -24,4 +25,5 @@ public class ApplicantDetailsDTO extends RestResponseDTO {
     private Date screeningGroupTime;
     private Date screeningPersonalTime;
     private Boolean scheduleSignedBack;
+    private List<ApplicantsScreeningStep> screeningSteps;
 }

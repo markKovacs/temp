@@ -1,0 +1,104 @@
+GET
+/api/editscreening?location=BUD
+  # all step where location = BUD
+  # for every step
+    # all criteria - fk
+
+  # response:
+    {
+      location: "BUD",
+      steps:
+        [
+          {
+            id: 1,
+            name: "Group game",
+            criterias:
+              [
+                { id: 1, name: "potential" },
+                { id: 2, name: "whatever" }
+              ]
+          },
+          {
+            id: 2,
+            name: "Mindset",
+            criterias:
+              [
+                { id: 3, name: "whatever2" },
+                { id: 4, name: "whatever3" }
+              ]
+          },
+        ]
+    }
+
+
+POST
+/api/editscreening
+
+  # same structure
+  # for every step
+    # if id -> overwrite
+    # else -> create
+  # same with criterias - for every in every step
+  # check if delete is needed
+
+
+GET
+/api/screening/list?location=BUD&signedback=true
+  # get all the screenings where isEvaluated = false
+  # get all the applications for screenings
+  # get all the users for applications
+
+  TODO - screeningInfo.model
+  # response:
+    [
+      { applicationid: 1, name: "bela", group: date, individual: date },
+      { applicationid: 2, name: "lajos", group: date, individual: date },
+      { applicationid: 3, name: "kazmer", group: date, individual: date }
+    ]
+
+
+GET
+/api/screeningsteps?location=BUD
+  # get all step for the id
+
+  # response:
+    [
+      { id: 1, name: "group game" },
+      { id: 2, name: "logic" }
+      { id: 3, name: "mindset" }
+    ]
+
+
+GET
+/api/evalscreening/applicantid?step=1
+  # get user for application
+  # get screening for application
+  # createOrGet screeningsstep (fk)
+    # for every screeningsstep -> createOrGet screeningstepscriteria
+
+  # response:
+    {
+      name: "bela",
+      age: 25,
+      screeningsstep:
+        {
+          id: 1,
+          appId: 1,
+          interviewer: "lajos",
+          comment: "",
+          points: "",
+          status: "",
+          criterias:
+            [
+              { id: 1, points: null, comment: "", status: null },
+              { id: 2, points: null, comment: "", status: null },
+            ]
+        }
+    }
+
+
+POST
+/api/evalscreening/applicantid
+  # same structure
+  # update screeningsstep based on id
+  # update every criteria based on id (no delete, no create - much easier)

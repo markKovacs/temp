@@ -27,6 +27,7 @@ export class ApplicantComponent {
                 this.getUser(params.id).subscribe(
                     (user: User) => {
                         this.user = user;
+                        console.log(user.screeningStep);
                     },
                     (error) => console.log(error),
                     () => console.log("User set")

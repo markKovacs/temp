@@ -1,7 +1,5 @@
 package com.codecool.appsystem.admin.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -11,19 +9,14 @@ import java.util.UUID;
 
 @Data
 @Entity
-public class ApplicantsScreeningStepCriteria {
+public class ScreeningStepCriteria {
 
     @Id
     @Column(name = "id", length = 40)
     private String id = UUID.randomUUID().toString();
 
-    private String criteriaId;
-
-    @JsonIgnore
-    private String applicantsScreeningStepId;
-
-    private Integer points;
-    private String comment;
-    private String status;
+    private String name;
+    private String screeningStepId;
+    private Boolean enabled = Boolean.TRUE;
 
 }

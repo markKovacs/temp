@@ -25,6 +25,7 @@ import {
     QuestionService
 
 } from './_services/index';
+import { FilterEnabled } from './_pipes/index'
 import {
     NavBarComponent,
     DashboardComponent,
@@ -39,7 +40,9 @@ import {
     OptionEditorComponent,
     QuestionEditorComponent,
     CalendarComponent,
-    StartComponent
+    StartComponent,
+    EvaluateScreeningsComponent,
+    EditScreeningComponent
 } from './components/index';
 import {AuthGuard} from './guards/index';
 import {ScreeningService} from "./_services/screening.service";
@@ -77,7 +80,10 @@ import {DateFormatPipe, MomentModule} from "angular2-moment";
         QuestionEditorComponent,
         OptionEditorComponent,
         CalendarComponent,
-        StartComponent
+        EditScreeningComponent,
+        EvaluateScreeningsComponent,
+        StartComponent,
+        FilterEnabled
     ],
     providers: [
         AuthGuard,
