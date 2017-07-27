@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
 import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
 import {Location} from "../../_models/index";
@@ -11,14 +10,13 @@ import {UserScreening} from "../../_models/user-screening.model";
     templateUrl: 'dashboard.component.html',
     styleUrls: ['dashboard.component.css']
 })
-export class DashboardComponent implements OnInit{//implements OnChanges
+export class DashboardComponent implements OnInit{
 
     public locations: Location[] = [];
     public usersWithVideo: UserMotivation[] = [];
     public usersWithScreening: UserScreening[] = [];
 
     constructor(private client: HttpClient,
-                private router: Router,
                 private eventsManager: GlobalEventsManager) {
         this.eventsManager.showNavBar(true);
     }

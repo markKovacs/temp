@@ -16,7 +16,6 @@ export class DashboardMotivationComponent {
     constructor(private router: Router) {}
 
     getApplicant(id){
-        console.log(id);
         this.router.navigate(['applicants/' + id])
     }
 }

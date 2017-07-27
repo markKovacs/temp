@@ -1,8 +1,11 @@
-import {Screening} from "./screening.model";
 export class UserScreening {
 
     adminId: number;
     name: string;
-    screeningInfo: Screening;
+    groupTime: number;
+    personalTime: number;
+    scheduleSignedBack: boolean;
+    age: number;
+    gender: string;
 
 }
