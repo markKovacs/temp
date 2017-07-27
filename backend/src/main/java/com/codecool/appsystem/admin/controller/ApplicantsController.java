@@ -26,6 +26,7 @@ public class ApplicantsController {
 
     @RequestMapping(value = "/{id}")
     public ApplicantDetailsDTO getSingleApplicantInfo(@PathVariable("id") Integer id) {
+        System.out.println("NEW APP: " + detailsService.provideInfo(id));
         return detailsService.provideInfo(id);
     }
 }

@@ -54,7 +54,7 @@
         <div class="row">
           <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
             <div class="step-buttons-container">
-              <div><input type="number" min=0 max=10 ([ngModel])="toEvaluate.screeningStep.points"/></div>
+              <div><input type="number" min=0 max=10 [(ngModel)]="toEvaluate.screeningStep.points"/></div>
               <div class="step-status-buttons">
                 <button (click)="setStepStatus('yes')" class="{{isActiveStepStatus('yes')}}">Yes</button>
                 <button (click)="setStepStatus('maybe')" class="{{isActiveStepStatus('maybe')}}">Maybe</button>
@@ -63,7 +63,7 @@
               <div><button (click)="postUpdate()">Save {{chosenStep.name}}</button></div>
             </div>
             <div class="step-comment-container">
-              <textarea placeholder="Evaluation" ([ngModel])="toEvaluate.screeningStep.comment" rows="10">
+              <textarea placeholder="Evaluation" [(ngModel)]="toEvaluate.screeningStep.comment" rows="10">
               </textarea>
             </div>
           </div>
@@ -80,9 +80,9 @@
                 <button (click)="setCriteriaStatus(criteria, 'no')" class="{{isActiveCriteriaStatus(criteria, 'no')}}">
                   <i class="material-icons md-14 icon-align">&#xE8DB;</i>
                 </button>
-                <input type="number" min=0 max=10 ([ngModel])="criteria.points"/>
+                <input type="number" min=0 max=10 [(ngModel)]="criteria.points"/>
               </div>
-              <input placeholder="Leave a comment" ([ngModel])="criteria.comment"/>
+              <input placeholder="Leave a comment" [(ngModel)]="criteria.comment"/>
             </div>
           </div>
         </div>

@@ -2,8 +2,7 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
-import {Location, ScreeningStep, Criteria, User, UsersScreeningStep} from "../../_models/index";
-import {DateFormatPipe} from "angular2-moment";
+import {Criteria, Location, ScreeningStep, User, UsersScreeningStep} from "../../_models/index";
 
 @Component({
     moduleId: module.id,
