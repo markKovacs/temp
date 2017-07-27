@@ -75,6 +75,8 @@ export class DashboardComponent implements OnInit{//implements OnChanges
     chooseLocation(id) {
         let chosen = this.locations.filter((location) => location.id == id)[0];
         localStorage.setItem("chosenLocation", JSON.stringify(chosen));
+        this.usersWithScreening = [];
+        this.usersWithVideo = [];
         this.getUsersWithVideo();
         this.getUsersWithScreening();
     }
