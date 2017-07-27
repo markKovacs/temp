@@ -50,3 +50,94 @@
   border-radius: 2px;
   border: 0;
 }
+
+button {
+  background-color: #5cb85c;
+  border-radius: 2px;
+  padding: 7px;
+  color: white;
+  border: 1px solid green;
+}
+
+button:focus {
+  outline:0;
+}
+
+.active-button {
+  background-color: green;
+}
+
+.one-user-in-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-in-list-date {
+  padding: 7px;
+  border-right: 1px dashed #999;
+  color: green;
+}
+
+.user-in-list-name {
+  padding: 7px;
+  color: green;
+  font-weight: bold;
+}
+
+.user-in-list-button {
+  width: 120px;
+}
+
+.icon-align {
+  vertical-align: text-bottom;
+}
+
+.align-right {
+  margin-left: 10px;
+}
+
+.md-14 {
+  font-size: 14px;
+}
+
+.user-details-container {
+  padding: 10px;
+}
+
+.user-details {
+  text-align: center;
+  border-right: 1px solid #999;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #999;
+}
+
+.step-button {
+  width: 80%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.step-buttons-container {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.step-buttons-container input {
+  padding: 7px;
+  border: 1px solid green;
+  border-radius: 2px;
+  color: green;
+}
+
+.step-comment-container {
+  padding: 10px;
+}
+
+.step-status-buttons button {
+  width: 75px;
+}
+
+.step-comment-container textarea {
+  width: 100%;
+}

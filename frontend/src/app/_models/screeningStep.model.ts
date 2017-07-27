@@ -10,6 +10,7 @@ export class ScreeningStep {
     comment: string;
     points: number;
     status: string;
+    stepId: string;
 
     constructor(locationId: string){
         this.locationId = locationId;

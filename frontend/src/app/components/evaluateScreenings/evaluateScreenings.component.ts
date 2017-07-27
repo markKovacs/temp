@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
 import {Location, ScreeningStep, Criteria, User, UsersScreeningStep} from "../../_models/index";
+import {DateFormatPipe} from "angular2-moment";
 
 @Component({
     moduleId: module.id,
@@ -40,9 +41,11 @@ export class EvaluateScreeningsComponent {
 
     getApplicants(){
         this.client.get('/api/screening/list?location=' + this.location.id + '&signedback=true').subscribe(
-            (users: User[]) => this.users = users,
+            (users: User[]) => this.users = users.sort((one, other) => {
+                return one.screeningPersonalTime > other.screeningPersonalTime ? 1 : -1;
+            }),
             (error) => error,
-            () => console.log("Applicants arrived")
+            () => console.log("Applicants arrived", this.users)
         )
     }
 
@@ -56,11 +59,13 @@ export class EvaluateScreeningsComponent {
 
     chooseUser(user){
         this.user = user;
+        this.toEvaluate = null;
     }
 
     getApplicantsStep(step){
         let url = '/api/evalscreening/' + this.user.adminId + '?step=' + step.id;
         this.chosenStep = step;
+        this.toEvaluate = null;
         this.client.get(url).subscribe(
             (data: UsersScreeningStep) => this.toEvaluate = data,
             (error) => error,
@@ -83,6 +88,21 @@ export class EvaluateScreeningsComponent {
         //     (error) => error,
         //     () => console.log("Applicant's step updated")
         // )
+    }
+
+    isActiveStepStatus(status){
+        return this.toEvaluate.screeningStep.status == status ? "active-button" : "inactive-button";
+    }
+
+    isActiveCriteriaStatus(criteria, status){
+        return criteria.status == status ? "active-button" : "inactive-button";
+    }
+
+    isActiveStep(step){
+        if (this.toEvaluate) {
+            return this.toEvaluate.screeningStep.stepId == step.id ? "active-button" : "inactive-button";
+        }
+        return "inactive-button";
     }
 
 }
