@@ -60,10 +60,9 @@ public class ScreeningEditService {
 
             for(ScreeningStepCriteria criteria : step.getCriterias()){
 
-                ApplicantsScreeningStepCriteria screeningStepCriteria = ApplicantsScreeningStepCriteria.builder()
-                        .applicantsScreeningStepId(applicantsScreeningStep.getId())
-                        .criteriaId(criteria.getId())
-                        .build();
+                ApplicantsScreeningStepCriteria screeningStepCriteria = new ApplicantsScreeningStepCriteria();
+                screeningStepCriteria.setApplicantsScreeningStepId(applicantsScreeningStep.getId());
+                screeningStepCriteria.setCriteriaId(criteria.getId());
 
                 screeningStepCriteria = screeningStepCriteriaRepository.saveAndFlush(screeningStepCriteria);
 

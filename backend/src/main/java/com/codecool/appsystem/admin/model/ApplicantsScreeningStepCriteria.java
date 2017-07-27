@@ -11,7 +11,6 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Builder
 public class ApplicantsScreeningStepCriteria {
 
     @Id
