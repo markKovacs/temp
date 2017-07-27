@@ -82,7 +82,7 @@ export class EvaluateScreeningsComponent {
     }
 
     postUpdate(){
-        console.log(this.toEvaluate.screeningStep);
+        console.log(this.toEvaluate);
         // this.client.post('/api/evalscreening', this.toEvaluate.screeningStep).subscribe(
         //     (data: any) => console.log(data),
         //     (error) => error,
