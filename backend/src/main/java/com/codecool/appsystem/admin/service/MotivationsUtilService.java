@@ -59,10 +59,7 @@ public class MotivationsUtilService {
     private Boolean checkMotivationText(String str){
         Pattern regex = Pattern.compile("^(http|https)\\:\\/\\/.+$");
         Matcher matcher = regex.matcher(str);
-        if (matcher.find()) {
-            return true;
-        }
-        return false;
+        return matcher.find();
     }
 
     public void gradeMotivation(MotivationGrade motivationGrade){

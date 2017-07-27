@@ -25,7 +25,6 @@ public class MotivationController {
     public RestResponseDTO applicantsByLocation(@RequestBody MotivationGrade motivationGrade) {
 
         motivationsUtilService.gradeMotivation(motivationGrade);
-
         return RestResponseDTO.buildSuccess();
 
     }

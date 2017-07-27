@@ -19,10 +19,9 @@
                     <p><span>Times Applied:</span><span>{{user.timesApplied}}</span></p>
                 </div>
             </div>
-            <br><br>
-            <applicant-test *ngFor="let result of user.testResults"
-                            [testResult]="result"></applicant-test>
-
+        </div>
+        <div class="row">
+            <applicant-test *ngFor="let result of user.testResults" [testResult]="result"></applicant-test>
         </div>
     </div>
 </div>

@@ -14,15 +14,44 @@
       </p-column>
 
       <p-column
-        field="lastPassedTest"
-        header="Last Passed Test"
+        field="status"
+        header="Status"
         [filter]="true"
-        filterMatchMode="startsWith">
+        [sortable]="true"
+        filterMatchMode="contains">
+      </p-column>
+
+      <p-column
+              field="processStartedAt"
+              header="Process started at"
+              [sortable]="true"
+      >
+        <ng-template let-applicant="rowData" pTemplate="body">
+          <span *ngIf="applicant.processStartedAt">
+            {{ applicant.processStartedAt | date: 'yyyy.MM.dd. HH:mm' }}
+          </span>
+        </ng-template>
+      </p-column>
+
+      <p-column
+              field="processStartedAt"
+              header="Deadline ends"
+              filterMatchMode="contains">
+        <ng-template let-applicant="rowData" pTemplate="body">
+          <span *ngIf="applicant.processStartedAt">
+            {{ getDeadline(applicant) | amTimeAgo }}
+          </span>
+        </ng-template>
+      </p-column>
+
+      <p-column
+              field="email"
+              header="Email address">
       </p-column>
 
       <p-column
         field="attempts"
-        header="Number of attempts"
+        header="No of attempts"
         [sortable]="true">
       </p-column>
 
