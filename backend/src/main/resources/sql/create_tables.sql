@@ -68,13 +68,15 @@ CREATE TABLE online_app_system.application_screening_info
   screening_group_time    TIMESTAMP,
   screening_personal_time TIMESTAMP,
   schedule_signed_back    BOOLEAN,
-  map_location            VARCHAR(255)
+  map_location            TEXT
 );
+
 CREATE TABLE online_app_system.location_types
 (
   id          VARCHAR(40) PRIMARY KEY NOT NULL UNIQUE,
   name        VARCHAR(255),
-  course_type VARCHAR(255)
+  course_type VARCHAR(255),
+  map_location TEXT
 );
 CREATE TABLE online_app_system.tests
 (

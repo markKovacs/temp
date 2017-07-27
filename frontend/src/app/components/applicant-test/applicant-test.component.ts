@@ -16,4 +16,15 @@ export class ApplicantTestComponent implements OnInit{
 
     }
 
+    getPanelClass(): string {
+        return this.testResult.passed ? "panel-success" : "panel-danger";
+    }
+
+    getBgClass(): string {
+        return this.testResult.passed ? "bg-success" : "bg-danger";
+    }
+
+    getTextClass(): string {
+        return this.testResult.passed ? "text-success" : "text-danger";
+    }
 }

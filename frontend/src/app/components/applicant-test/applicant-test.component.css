@@ -10,3 +10,13 @@
 
 }
 
+.panel {
+    border: none;
+    box-shadow: none;
+}
+
+.panel-body {
+    padding: 5px;
+    border: 1px solid #dff0d8;
+    border-radius: 5px;
+}

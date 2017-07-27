@@ -1,14 +1,19 @@
-<div class="application-test-component" *ngIf="testResult">
+<div *ngIf="testResult">
+    <div class="col-sm-12 col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8">
 
-    <div class="col-md-9 col-log-9">
-        <div class="card" [class.success]="testResult.passed">
-            <div class="applicant-motivation-test-container ">
-                <p>Test Name: {{testResult.name}}</p>
-                <p>Is the test Passed: {{testResult.passed}}</p>
-                <p>Achieved points: {{testResult.points}}</p>
+        <div class="panel {{ getPanelClass() }}">
+            <div class="row panel-body {{ getBgClass() }}">
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <h4 class="{{ getTextClass() }}">
+                        {{ testResult.name }}
+                    </h4>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <h4 class="pull-right {{ getTextClass() }}">
+                        {{ testResult.points }} points / {{ testResult.percent }} %
+                    </h4>
+                </div>
             </div>
-            <br>
-            <br>
         </div>
     </div>
 </div>
