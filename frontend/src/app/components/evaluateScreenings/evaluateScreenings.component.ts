@@ -67,7 +67,8 @@ export class EvaluateScreeningsComponent {
         this.chosenStep = step;
         this.toEvaluate = null;
         this.client.get(url).subscribe(
-            (data: UsersScreeningStep) => this.toEvaluate = data,
+            // (data: UsersScreeningStep) => this.toEvaluate = data,
+            (data: any) => console.log(data),
             (error) => error,
             () => console.log("Applicant's step arrived")
         )
@@ -103,6 +104,13 @@ export class EvaluateScreeningsComponent {
             return this.toEvaluate.screeningStep.stepId == step.id ? "active-button" : "inactive-button";
         }
         return "inactive-button";
+    }
+
+    getNameForCriteria(step, criteria){
+        let currentStep = this.screeningSteps.filter(entry => entry.id == step.stepId)[0];
+        console.log(criteria);
+        let currentCriteria = currentStep.criterias.filter(entry => entry.id == criteria.id)[0];
+        return currentCriteria.name;
     }
 
 }

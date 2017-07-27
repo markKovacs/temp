@@ -69,6 +69,7 @@
           </div>
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div *ngFor="let criteria of toEvaluate.screeningStep.criterias" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+              <h4>{{getNameForCriteria(toEvaluate.screeningStep, criteria)}}</h4>
               <div class="criteria-buttons">
                 <button (click)="setCriteriaStatus(criteria, 'yes')" class="{{isActiveCriteriaStatus(criteria, 'yes')}}">
                   <i class="material-icons">&#xE8DC;</i>
