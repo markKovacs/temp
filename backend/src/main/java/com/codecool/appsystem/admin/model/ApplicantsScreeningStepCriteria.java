@@ -17,7 +17,6 @@ public class ApplicantsScreeningStepCriteria {
     @Column(name = "id", length = 40)
     private String id = UUID.randomUUID().toString();
 
-    @JsonIgnore
     private String criteriaId;
 
     @JsonIgnore
