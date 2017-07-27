@@ -1,0 +1,19 @@
+<div class="dashboard-screening-component">
+
+    <div *ngIf="userWithScreening">
+        <div class="dashboard-user">
+            <div class="screening-details">
+                <p>Name: {{userWithScreening.name}}</p>
+                <p class="screening-date">
+                    Group Time: {{ userWithScreening.groupTime | date: short}}
+                </p>
+                <p class="screening-date">
+                    Personal Time: {{ userWithScreening.personalTime | date: short}}
+                </p>
+            </div>
+            <button class="btn btn-success" (click)="getApplicant(userWithScreening.adminId)">
+                Check applicant&nbsp;&gt;&gt;
+            </button>
+        </div>
+    </div>
+</div>
