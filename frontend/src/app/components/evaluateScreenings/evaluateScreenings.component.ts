@@ -6,7 +6,6 @@ import {Location, ScreeningStep, Criteria, User, UsersScreeningStep} from "../..
 import {DateFormatPipe} from "angular2-moment";
 import {Message} from 'primeng/primeng';
 
-
 @Component({
     moduleId: module.id,
     templateUrl: 'evaluateScreenings.component.html',

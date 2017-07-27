@@ -7,7 +7,7 @@ export * from './survey.model';
 export * from './screeningStep.model';
 export * from './post-response.model';
 export * from './criteria.model';
-export * from './screening.model';
+// export * from './screening.model';
 export * from './user-motivation.model';
 export * from './user-screening.model';
 export * from './results.model';

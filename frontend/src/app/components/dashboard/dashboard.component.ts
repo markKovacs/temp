@@ -1,8 +1,7 @@
-import {Component} from '@angular/core';
-import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
 import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
-import {Location, User} from "../../_models/index";
+import {Location} from "../../_models/index";
 import {UserMotivation} from "../../_models/user-motivation.model";
 import {UserScreening} from "../../_models/user-screening.model";
 
@@ -11,22 +10,23 @@ import {UserScreening} from "../../_models/user-screening.model";
     templateUrl: 'dashboard.component.html',
     styleUrls: ['dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit{
 
     public locations: Location[] = [];
     public usersWithVideo: UserMotivation[] = [];
     public usersWithScreening: UserScreening[] = [];
 
     constructor(private client: HttpClient,
-                private router: Router,
                 private eventsManager: GlobalEventsManager) {
         this.eventsManager.showNavBar(true);
-        this.getLocations();
-        if (localStorage.getItem("chosenLocation")) {
-            this.getUsersWithVideo();
-            this.getUsersWithScreening();
-        }
     }
+
+    ngOnInit(): void {
+        this.getLocations();
+        this.getUsersWithVideo();
+        this.getUsersWithScreening();
+    }
+
 
     getLocations() {
         this.client.get('/api/locations').subscribe(
@@ -42,7 +42,6 @@ export class DashboardComponent {
 
     getUsersWithVideo() {
         let id = JSON.parse(localStorage.getItem("chosenLocation")).id;
-
         this.client.get('/api/dashboard/motivation?location=' + id).subscribe(
             (users: UserMotivation[]) => {
                 this.usersWithVideo = users;
@@ -74,13 +73,12 @@ export class DashboardComponent {
     chooseLocation(id) {
         let chosen = this.locations.filter((location) => location.id == id)[0];
         localStorage.setItem("chosenLocation", JSON.stringify(chosen));
+        this.usersWithScreening = [];
+        this.usersWithVideo = [];
         this.getUsersWithVideo();
         this.getUsersWithScreening();
     }
 
-    locationChosen() {
-        return localStorage.getItem("chosenLocation") != undefined;
-    }
 
     isChosen(id) {
         if (!localStorage.getItem("chosenLocation")) {
@@ -92,8 +90,5 @@ export class DashboardComponent {
         return "selected-location";
     }
 
-    getApplicant(id) {
-        this.router.navigate(['applicants/' + id])
-    }
 
 }

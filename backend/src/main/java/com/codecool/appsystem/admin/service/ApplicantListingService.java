@@ -1,19 +1,18 @@
 package com.codecool.appsystem.admin.service;
 
-import com.codecool.appsystem.admin.model.Application;
-import com.codecool.appsystem.admin.model.TestResult;
-import com.codecool.appsystem.admin.model.User;
+import com.codecool.appsystem.admin.model.*;
 import com.codecool.appsystem.admin.model.dto.ApplicantInfoDTO;
-import com.codecool.appsystem.admin.repository.ApplicationRepository;
-import com.codecool.appsystem.admin.repository.TestResultRepository;
-import com.codecool.appsystem.admin.repository.UserRepository;
+import com.codecool.appsystem.admin.repository.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class ApplicantListingService {
 
     @Autowired
@@ -23,24 +22,21 @@ public class ApplicantListingService {
     private ApplicationRepository applicationRepository;
 
     @Autowired
-    private TestResultRepository testResultRepo;
+    private TestResultRepository testResultRepository;
 
-    private final Map<Long, String> upcomingTest = new HashMap<>();
+    @Autowired
+    private TestRepository testRepository;
 
-    public ApplicantListingService(){
-        upcomingTest.put(0L, "Prerequisites");
-        upcomingTest.put(1L, "Introduction");
-        upcomingTest.put(2L, "English");
-        upcomingTest.put(3L, "Logic");
-        upcomingTest.put(4L, "Motivation");
-    }
+    @Autowired
+    private ApplicationScreeningInfoRepository screeningInfoRepository;
 
     public List<ApplicantInfoDTO> getApplicationData(String locationId) {
 
-        List<User> userList = userRepository.findAllByLocationId(locationId);
+        List<Application> applications = applicationRepository.findByLocationIdAndActive(locationId, true);
 
-        return userList
+        return applications
                 .stream()
+                .map(application -> userRepository.findOne(application.getApplicantId()))
                 .map(this::transform)
                 .collect(Collectors.toList());
 
@@ -54,23 +50,52 @@ public class ApplicantListingService {
                 .blacklisted(user.getIsBlacklisted())
                 .location(user.getLocationId())
                 .attempts(getAttempts(user))
-                .lastPassedTest(getLastPassedTest(user.getId()))
+                .status(getStatus(user.getId()))
+                .processStartedAt(getProcesssStartedAt(user))
+                .email(user.getId())
                 .build();
 
     }
 
-    private String getLastPassedTest(String id) {
+    private Date getProcesssStartedAt(User user){
+        return applicationRepository.findByApplicantIdAndActive(user.getId(), true).getProcessStartedAt();
+    }
+
+    private String getStatus(String id) {
 
         Application application = applicationRepository.findByApplicantIdAndActive(id, Boolean.TRUE);
 
-        List<TestResult> applicantsTests = testResultRepo.findByApplicationId(application.getId());
+        TestResult lastPassed = testResultRepository.findByApplicationId(application.getId())
+                .stream()
+                .sorted((o1, o2) -> o1.getStarted().before(o2.getStarted()) ? 1 : -1)
+                .findFirst().orElse(null);
 
-        long noOfPassedTests = applicantsTests
-                    .stream()
-                    .filter(testResult -> Boolean.TRUE.equals(testResult.getPassed()))
-                    .count();
+        if(lastPassed == null){
+            return "Not started yet";
+        }
 
-        return upcomingTest.get(noOfPassedTests);
+        Test test = testRepository.findOne(lastPassed.getTestId());
+
+        ApplicationScreeningInfo screeningInfo = screeningInfoRepository.findByApplicationId(application.getId());
+
+        if(screeningInfo != null && screeningInfo.getScheduleSignedBack() == null){
+            return "Screening times assigned";
+        }
+
+        if(screeningInfo != null && Boolean.TRUE.equals(screeningInfo.getScheduleSignedBack())){
+            return "Schedule accepted";
+        }
+
+        if(Boolean.TRUE.equals(test.getMotivationVideo()) && lastPassed.getPassed() == null){
+            return test.getName() + " submitted";
+        }
+
+        if(Boolean.FALSE.equals(lastPassed.getPassed())){
+            return test.getName() + " failed";
+        }
+
+        return test.getName() + " passed";
+
     }
 
 

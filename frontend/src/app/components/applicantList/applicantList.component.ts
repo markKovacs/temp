@@ -26,6 +26,12 @@ export class ApplicantListComponent {
         );
     }
 
+    getDeadline(applicant: UserInList){
+        let deadline = new Date();
+        deadline.setDate(new Date(applicant.processStartedAt).getDate() + 7);
+        return deadline;
+    }
+
     checkApplicant(e) {
         this.router.navigate(['applicants/' + e.data.adminId]);
     }

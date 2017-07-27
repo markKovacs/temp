@@ -1,5 +1,6 @@
 import {Results} from "./results.model";
 import {ScreeningInfo} from "./screeninginfo.model"
+import {ScreeningStep} from "./screeningStep.model";
 export class User {
 
     givenName: string;
@@ -12,14 +13,13 @@ export class User {
     location: string;
     processStartedAt: number;
 
-    results: Results;
+    testResults: Results[]=[];
 
     // from screening info
-    screeningDay: string;
-    screeningGroupTime: string;
     screeningPersonalTime: string;
-    scheduleSignedBack: boolean;
 
     screeningInfo: ScreeningInfo;
+
+    screeningStep: ScreeningStep;
 
 }
