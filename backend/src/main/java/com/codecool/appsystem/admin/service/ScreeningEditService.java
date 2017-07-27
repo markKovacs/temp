@@ -2,10 +2,7 @@ package com.codecool.appsystem.admin.service;
 
 import com.codecool.appsystem.admin.model.*;
 import com.codecool.appsystem.admin.model.dto.ScreeningStepEvaluationDTO;
-import com.codecool.appsystem.admin.repository.ApplicantsScreeningStepRepository;
-import com.codecool.appsystem.admin.repository.ApplicationRepository;
-import com.codecool.appsystem.admin.repository.ScreeningStepRepository;
-import com.codecool.appsystem.admin.repository.UserRepository;
+import com.codecool.appsystem.admin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +24,9 @@ public class ScreeningEditService {
 
     @Autowired
     private ApplicantsScreeningStepRepository applicantsScreeningStepRepository;
+
+    @Autowired
+    private ApplicantsScreeningStepCriteriaRepository screeningStepCriteriaRepository;
 
     public List<ScreeningStep> findByLocationId(String locationId){
         return repository.findByLocationIdAndEnabled(locationId, true)
@@ -56,16 +56,18 @@ public class ScreeningEditService {
         if(applicantsScreeningStep == null){
             applicantsScreeningStep = new ApplicantsScreeningStep(stepId, application.getId());
 
+            applicantsScreeningStep = applicantsScreeningStepRepository.saveAndFlush(applicantsScreeningStep);
+
             for(ScreeningStepCriteria criteria : step.getCriterias()){
 
-                applicantsScreeningStep.getCriterias().add(
-
-                    ApplicantsScreeningStepCriteria.builder()
+                ApplicantsScreeningStepCriteria screeningStepCriteria = ApplicantsScreeningStepCriteria.builder()
                         .applicantsScreeningStepId(applicantsScreeningStep.getId())
                         .criteriaId(criteria.getId())
-                        .build()
+                        .build();
 
-                );
+                screeningStepCriteria = screeningStepCriteriaRepository.saveAndFlush(screeningStepCriteria);
+
+                applicantsScreeningStep.getCriterias().add(screeningStepCriteria);
             }
 
         }
