@@ -1,10 +1,10 @@
 
 TRUNCATE TABLE online_app_system.location_types;
 
-INSERT INTO online_app_system.location_types (id, name, course_type) VALUES ('BUD', 'Budapest, HU', 'GENERAL');
-INSERT INTO online_app_system.location_types (id, name, course_type) VALUES ('KRK', 'Kraków, PL', 'GENERAL');
-INSERT INTO online_app_system.location_types (id, name, course_type) VALUES ('MSC', 'Miskolc, HU', 'GENERAL');
-INSERT INTO online_app_system.location_types (id, name, course_type) VALUES ('WRS', 'Warsaw, PL', 'GENERAL');
+INSERT INTO online_app_system.location_types (id, name, course_type, map_location) VALUES ('BUD', 'Budapest, HU', 'GENERAL', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1347.612256267971!2d19.056949036075714!3d47.50501872312887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741dc6ce5ea866d%3A0x1e1303babc750580!2sCodecool+Budapest!5e0!3m2!1shu!2shu!4v1501075849612');
+INSERT INTO online_app_system.location_types (id, name, course_type, map_location) VALUES ('KRK', 'Kraków, PL', 'GENERAL', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2562.015260585022!2d19.959537315713305!3d50.04854542412304!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47165b489abcda1b%3A0xd9258f5c752a2a5e!2sCodecool+Poland+Sp.+z+o.o.!5e0!3m2!1shu!2shu!4v1501076882240');
+INSERT INTO online_app_system.location_types (id, name, course_type, map_location) VALUES ('MSC', 'Miskolc, HU', 'GENERAL', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2664.2863117661204!2d20.785012415654926!3d48.10471236142834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47409ffb81b0b0bf%3A0xdeae936bc289226f!2sCodecool+programoz%C3%B3+suli!5e0!3m2!1shu!2shu!4v1501076717127');
+INSERT INTO online_app_system.location_types (id, name, course_type, map_location) VALUES ('WRS', 'Warsaw, PL', 'GENERAL', null);
 
 TRUNCATE TABLE online_app_system.tests;
 

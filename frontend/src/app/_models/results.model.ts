@@ -5,6 +5,7 @@ export class Results{
     answer: string;
     passed: boolean;
     points: number;
+    percent: number;
     comment: string;
     isPending: boolean;
     isMotivation: boolean;

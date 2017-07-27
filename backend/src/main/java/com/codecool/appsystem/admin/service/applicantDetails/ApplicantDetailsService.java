@@ -61,6 +61,9 @@ public class ApplicantDetailsService {
         return tests
                 .stream()
                 .map(this::transformTestResult)
+                .sorted((o1, o2) -> {
+                    return o1.getSubmitted().before(o2.getSubmitted()) ? 1 : -1;
+                })
                 .collect(Collectors.toList());
 
     }
@@ -78,6 +81,8 @@ public class ApplicantDetailsService {
         TDto.setPassed(testResult.getPassed());
         TDto.setPoints(testResult.getPoints());
         TDto.setIsMotivation(test.getMotivationVideo());
+        TDto.setSubmitted(testResult.getFinished());
+        TDto.setPercent(testResult.getPercent().intValue());
 
         return TDto;
 

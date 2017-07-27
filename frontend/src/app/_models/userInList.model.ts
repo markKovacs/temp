@@ -6,6 +6,7 @@ export class UserInList {
     lastPassedTest: string;
     attempts: number;
     blacklisted: boolean;
-
+    processStartedAt: Date;
+    email: string;
 
 }

@@ -41,7 +41,7 @@ import {
 } from './components/index';
 import {AuthGuard} from './guards/index';
 import {ScreeningService} from "./_services/screening.service";
-import {DateFormatPipe} from "angular2-moment";
+import {DateFormatPipe, MomentModule} from "angular2-moment";
 
 @NgModule({
     imports: [
@@ -57,6 +57,7 @@ import {DateFormatPipe} from "angular2-moment";
         SharedModule,
         PickListModule,
         CalendarModule,
+        MomentModule,
         GrowlModule
     ],
     declarations: [
