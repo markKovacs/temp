@@ -69,7 +69,7 @@ export class EvaluateScreeningsComponent {
         this.client.get(url).subscribe(
             (data: UsersScreeningStep) => this.toEvaluate = data,
             (error) => error,
-            () => console.log("Applicant's step arrived")
+            () => console.log("Applicant's step arrived", this.toEvaluate)
         )
     }
 
@@ -82,12 +82,12 @@ export class EvaluateScreeningsComponent {
     }
 
     postUpdate(){
-        console.log(this.toEvaluate);
-        // this.client.post('/api/evalscreening', this.toEvaluate.screeningStep).subscribe(
-        //     (data: any) => console.log(data),
-        //     (error) => error,
-        //     () => console.log("Applicant's step updated")
-        // )
+        console.log("Should post this: ", this.toEvaluate.screeningStep);
+        this.client.post('/api/evalscreening', this.toEvaluate.screeningStep).subscribe(
+            (data: any) => console.log(data),
+            (error) => error,
+            () => console.log("Applicant's step updated")
+        )
     }
 
     isActiveStepStatus(status){
