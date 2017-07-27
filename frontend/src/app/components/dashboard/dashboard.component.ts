@@ -1,8 +1,8 @@
-import {Component, OnChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
-import {Location, User} from "../../_models/index";
+import {Location} from "../../_models/index";
 import {UserMotivation} from "../../_models/user-motivation.model";
 import {UserScreening} from "../../_models/user-screening.model";
 
@@ -11,8 +11,7 @@ import {UserScreening} from "../../_models/user-screening.model";
     templateUrl: 'dashboard.component.html',
     styleUrls: ['dashboard.component.css']
 })
-export class DashboardComponent implements OnChanges{
-
+export class DashboardComponent implements OnInit{//implements OnChanges
 
     public locations: Location[] = [];
     public usersWithVideo: UserMotivation[] = [];
@@ -22,18 +21,15 @@ export class DashboardComponent implements OnChanges{
                 private router: Router,
                 private eventsManager: GlobalEventsManager) {
         this.eventsManager.showNavBar(true);
+    }
+
+    ngOnInit(): void {
         this.getLocations();
         this.getUsersWithVideo();
         this.getUsersWithScreening();
-
     }
 
-    ngOnChanges(): void {
-        if (localStorage.getItem("chosenLocation")) {
-            this.getUsersWithVideo();
-            this.getUsersWithScreening();
-        }
-    }
+
     getLocations() {
         this.client.get('/api/locations').subscribe(
             (locations: Location[]) => this.locations = locations,
@@ -83,9 +79,6 @@ export class DashboardComponent implements OnChanges{
         this.getUsersWithScreening();
     }
 
-    locationChosen() {
-        return localStorage.getItem("chosenLocation") != undefined;
-    }
 
     isChosen(id) {
         if (!localStorage.getItem("chosenLocation")) {
@@ -97,8 +90,5 @@ export class DashboardComponent implements OnChanges{
         return "selected-location";
     }
 
-    getApplicant(id) {
-        this.router.navigate(['applicants/' + id])
-    }
 
 }

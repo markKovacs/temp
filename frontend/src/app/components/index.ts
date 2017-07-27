@@ -1,4 +1,6 @@
 export * from './dashboard/dashboard.component';
+export * from './dashboard-motivation/dashboard-motivation.component';
+export * from './dashboard-screening/dashboard-screening.component';
 export * from './navbar/navbar.component';
 export * from './applicant/applicant.component';
 export * from './applicant-video/applicant-video.component';

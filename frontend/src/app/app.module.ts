@@ -28,6 +28,8 @@ import {
 import {
     NavBarComponent,
     DashboardComponent,
+    DashboardMotivationComponent,
+    DashboardScreeningComponent,
     ApplicantComponent,
     ApplicantVideoComponent,
     ApplicantTestComponent,
@@ -63,6 +65,8 @@ import {DateFormatPipe} from "angular2-moment";
         AppComponent,
         NavBarComponent,
         DashboardComponent,
+        DashboardMotivationComponent,
+        DashboardScreeningComponent,
         ApplicantComponent,
         ApplicantTestComponent,
         ApplicantVideoComponent,
