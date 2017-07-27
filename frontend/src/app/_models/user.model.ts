@@ -1,5 +1,5 @@
 import {Results} from "./results.model";
-
+import {ScreeningInfo} from "./screeninginfo.model"
 export class User {
 
     givenName: string;
@@ -19,5 +19,7 @@ export class User {
     screeningGroupTime: string;
     screeningPersonalTime: string;
     scheduleSignedBack: boolean;
+
+    screeningInfo: ScreeningInfo;
 
 }

@@ -1,0 +1,201 @@
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+.container {
+  padding-top: 65px;
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+}
+
+.editor-info {
+  padding: 7px;
+  color: #5cb85c;
+}
+
+.card-container {
+  padding: 20px;
+}
+
+.card {
+  box-shadow: 0 0 5px #999;
+  padding: 10px;
+}
+
+.screening-step-container {
+  padding: 10px;
+  margin: 10px;
+  box-shadow: inset 0 0 5px #999;
+}
+
+.screening-step-title {
+  color: #5cb85c;
+  padding: 0;
+  margin: 0;
+}
+
+.step-container {
+  border: 1px solid black;
+  border-radius: 2px;
+  padding: 0;
+  margin: 10px;
+  display: inline-block;
+  width: 70%;
+  background-color: #5cb85c;
+}
+
+.step-container input {
+  padding: 7px;
+  margin: 0;
+  width: 90%;
+  border: 0;
+  font-weight: bold;
+  background-color: #5cb85c;
+  color: white;
+}
+
+.step-container input::placeholder {
+  color: white;
+  text-align: center;
+}
+
+.step-container input:focus::placeholder {
+  color: #5cb85c;
+  text-align: center;
+}
+
+.step-container button {
+  padding: 7px;
+  margin: 0;
+  width: 9%;
+  border: 0;
+  border-left: 1px dashed white;
+  background-color: #5cb85c;
+}
+
+.criteria-container {
+  border: 1px solid black;
+  border-radius: 2px;
+  padding: 0;
+  margin: 10px;
+  display: inline-block;
+  width: 70%;
+  margin-left: 25%;
+  background-color: white;
+}
+
+.criteria-container input {
+  padding: 7px;
+  margin: 0;
+  width: 90%;
+  border: 0;
+}
+
+.criteria-container button {
+  padding: 7px;
+  margin: 0;
+  width: 9%;
+  border: 0;
+  border-left: 1px dashed red;
+  background-color: white;
+}
+
+.new-criteria-button {
+  margin: 10px;
+  width: 70%;
+  margin-left: 25%;
+  border: 1px solid black;
+  border-radius: 2px;
+  padding: 7px;
+}
+
+.new-step-button {
+  border: 1px solid black;
+  border-radius: 2px;
+  margin: 10px;
+  width: 70%;
+  padding: 7px;
+  font-weight: bold;
+  background-color: #5cb85c;
+  color: white;
+}
+
+.md-14 {
+  font-size: 14px;
+  vertical-align: text-bottom;
+}
+
+.red-icon {
+  color: red;
+}
+
+.white-icon {
+  color: white;
+}
+
+.tutorial h2 {
+  color: #5cb85c;
+  margin-bottom: 20px;
+  font-weight: bolder;
+}
+
+.tutorial p {
+  font-size: 0.8em;
+  padding: 5px 15px;
+  text-align: justify;
+}
+
+.tutorial span {
+  color: #5cb85c;
+  font-weight: bolder;
+}
+
+.save-button {
+  background-color: #5cb85c;
+  border: 1px solid #5cb85c;
+  border-radius: 2px;
+  color: white;
+  padding: 7px;
+  font-weight: bolder;
+}
+
+.router-button-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.router-button {
+  background-color: #5cb85c;
+  color: white;
+  border: 1px solid #5cb85c;
+  border-radius: 2px;
+  padding: 7px;
+}
+
+.loading-icon-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.loading-icon {
+  color: #999;
+  opacity: 0.3;
+  animation: loading 10s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes loading {
+  0% {transform: rotateZ(0deg);}
+  100% {transform: rotateZ(3600deg);;}
+}
+
+.material-icons.md-40 {
+  font-size: 10em;
+}
