@@ -79,4 +79,9 @@ public class ScreeningEditService {
 
     }
 
+
+    public void saveEvaluation(ApplicantsScreeningStep step){
+        applicantsScreeningStepRepository.save(step);
+    }
+
 }

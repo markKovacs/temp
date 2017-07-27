@@ -2,7 +2,9 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
-import {Criteria, Location, ScreeningStep, User, UsersScreeningStep} from "../../_models/index";
+import {Location, ScreeningStep, Criteria, User, UsersScreeningStep} from "../../_models/index";
+import {DateFormatPipe} from "angular2-moment";
+import {Message} from 'primeng/primeng';
 
 @Component({
     moduleId: module.id,
@@ -18,6 +20,7 @@ export class EvaluateScreeningsComponent {
     public toEvaluate: UsersScreeningStep;
     public chosenStep: ScreeningStep;
     public chosenCriteria: Criteria;
+    public messages: Message[] = [];
 
     constructor(
         private client: HttpClient,
@@ -68,7 +71,7 @@ export class EvaluateScreeningsComponent {
         this.client.get(url).subscribe(
             (data: UsersScreeningStep) => this.toEvaluate = data,
             (error) => error,
-            () => console.log("Applicant's step arrived")
+            () => console.log("Applicant's step arrived", this.toEvaluate)
         )
     }
 
@@ -81,12 +84,17 @@ export class EvaluateScreeningsComponent {
     }
 
     postUpdate(){
-        console.log(this.toEvaluate.screeningStep);
-        // this.client.post('/api/evalscreening', this.toEvaluate.screeningStep).subscribe(
-        //     (data: any) => console.log(data),
-        //     (error) => error,
-        //     () => console.log("Applicant's step updated")
-        // )
+        console.log("Should post this: ", this.toEvaluate.screeningStep);
+        this.client.post('/api/evalscreening', this.toEvaluate.screeningStep).subscribe(
+            (data: any) => this.messages.push(
+                {
+                    severity: 'success',
+                    summary: 'Save completed',
+                    detail: this.toEvaluate.name
+                }),
+            (error) => error,
+            () => console.log("Applicant's step updated")
+        )
     }
 
     isActiveStepStatus(status){
