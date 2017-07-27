@@ -1,10 +1,13 @@
 <div class="application-video-component" *ngIf="testResult">
 
     <div class="col-md-9 col-log-9">
-        <div class="applicant-motivation-video-container ">
+        <div class="applicant-motivation-video-container " *ngIf="isVideo()">
             <iframe
                     class="e2e-iframe-trusted-src" width="420" height="315" [src]="getMotivationVideo()">
             </iframe>
+        </div>
+        <div class="applicant-motivation-video-container " *ngIf="!isVideo()">
+            <span [innerHtml]="testResult.answer"></span>
         </div>
         <br>
         <textarea placeholder="Comment for motivation" rows="5" cols="60" (blur)="saveComment($event.target.value)"

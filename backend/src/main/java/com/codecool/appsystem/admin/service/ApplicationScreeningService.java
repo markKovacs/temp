@@ -37,6 +37,9 @@ public class ApplicationScreeningService {
     @Autowired
     private TestRepository testRepository;
 
+    @Autowired
+    private LocationRepository locationRepository;
+
     public void saveGroupScreeningTime(List<ScreeningTimeAssingmentDTO> data){
 
         for(ScreeningTimeAssingmentDTO dto : data){
@@ -62,6 +65,10 @@ public class ApplicationScreeningService {
             // the user has no assigned screening info
             if(screeningInfo == null){
                 screeningInfo = new ApplicationScreeningInfo();
+
+                Location location = locationRepository.findOne(application.getLocationId());
+                screeningInfo.setMapLocation(location.getMapLocation());
+
                 screeningInfo.setApplicationId(application.getId());
             }
 

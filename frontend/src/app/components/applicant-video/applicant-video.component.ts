@@ -37,10 +37,9 @@ export class ApplicantVideoComponent implements OnInit{
         this.postMotivationGrade(accepted)
             .subscribe(
                 // .() =>{ this.survey = null;}
-                error => console.log(error),
-                () => console.log('POST - /api/grademotivation')
+                error => console.log(error)
             );
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['/dashboard']);
     }
 
 
@@ -65,5 +64,9 @@ export class ApplicantVideoComponent implements OnInit{
     isValidVideoId(id) {
         let pattern = new RegExp(/^[a-z0-9]+$/i);
         return pattern.test(id)
+    }
+
+    isVideo(){
+        return this.testResult.answer.startsWith("http");
     }
 }

@@ -1,14 +1,8 @@
 package com.codecool.appsystem.admin.service;
 
-import com.codecool.appsystem.admin.model.Application;
-import com.codecool.appsystem.admin.model.Test;
-import com.codecool.appsystem.admin.model.TestResult;
-import com.codecool.appsystem.admin.model.User;
+import com.codecool.appsystem.admin.model.*;
 import com.codecool.appsystem.admin.model.dto.ApplicantInfoDTO;
-import com.codecool.appsystem.admin.repository.ApplicationRepository;
-import com.codecool.appsystem.admin.repository.TestRepository;
-import com.codecool.appsystem.admin.repository.TestResultRepository;
-import com.codecool.appsystem.admin.repository.UserRepository;
+import com.codecool.appsystem.admin.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,12 +27,16 @@ public class ApplicantListingService {
     @Autowired
     private TestRepository testRepository;
 
+    @Autowired
+    private ApplicationScreeningInfoRepository screeningInfoRepository;
+
     public List<ApplicantInfoDTO> getApplicationData(String locationId) {
 
-        List<User> userList = userRepository.findAllByLocationId(locationId);
+        List<Application> applications = applicationRepository.findByLocationIdAndActive(locationId, true);
 
-        return userList
+        return applications
                 .stream()
+                .map(application -> userRepository.findOne(application.getApplicantId()))
                 .map(this::transform)
                 .collect(Collectors.toList());
 
@@ -78,7 +76,17 @@ public class ApplicantListingService {
 
         Test test = testRepository.findOne(lastPassed.getTestId());
 
-        if(test.getMotivationVideo() && lastPassed.getPassed() == null){
+        ApplicationScreeningInfo screeningInfo = screeningInfoRepository.findByApplicationId(application.getId());
+
+        if(screeningInfo != null && screeningInfo.getScheduleSignedBack() == null){
+            return "Screening times assigned";
+        }
+
+        if(screeningInfo != null && Boolean.TRUE.equals(screeningInfo.getScheduleSignedBack())){
+            return "Schedule accepted";
+        }
+
+        if(Boolean.TRUE.equals(test.getMotivationVideo()) && lastPassed.getPassed() == null){
             return test.getName() + " submitted";
         }
 
