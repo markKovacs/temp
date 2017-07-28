@@ -27,7 +27,8 @@ export class ApplicantComponent {
                 this.getUser(params.id).subscribe(
                     (user: User) => {
                         this.user = user;
-                        console.log(user.screeningStep);
+                        // console.log(user.screeningStep);
+                        console.log(this.user)
                     },
                     (error) => console.log(error),
                     () => console.log("User set")
@@ -40,5 +41,13 @@ export class ApplicantComponent {
         return this.client.get('/api/applicants/' + id)
     }
 
+    setFinalResult(bool){
+        let data = {adminId: this.user.adminId, accepted: bool};
+        this.client.post("/api/setfinalresult", data).subscribe(
+            (response: any) => console.log(response),
+            (error) => console.log("error", error),
+            () => console.log("Final result response arrived")
+        )
+    }
 
 }
