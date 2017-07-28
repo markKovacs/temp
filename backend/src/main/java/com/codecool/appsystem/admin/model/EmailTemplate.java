@@ -27,7 +27,11 @@ public class EmailTemplate {
     private String id = UUID.randomUUID().toString();
 
     private String locationId;
+    private String name;
     @Column(columnDefinition = "TEXT")
-    private String html;
+    private String template;
+    @Column(columnDefinition = "TEXT")
+    private String model;
+
     private Boolean master;
 }
