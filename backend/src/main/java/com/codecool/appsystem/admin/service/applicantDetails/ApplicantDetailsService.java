@@ -42,7 +42,6 @@ public class ApplicantDetailsService {
         List<ApplicantsScreeningStep> applicantsScreeningSteps = applicantsScreeningStepRepository.findByApplicationId(application.getId());
 
         ApplicationScreeningInfo appScrInf = appScrInfoRepo.findByApplicationId(application.getId());
-        System.out.println("ScreeningSteps: " + appScrInf);
         return provideDTO(user, application, appScrInf, applicantsScreeningSteps);
     }
 
