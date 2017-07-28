@@ -11,6 +11,12 @@
                 </div>
             </div>
 
+            <div *ngIf="user.screeningSteps">
+              <p>Evaluate application</p>
+              <button (click)="setFinalResult(true)">Accept</button>
+              <button (click)="setFinalResult(false)">Decline</button>
+            </div>
+
             <div class="col-md-3 col-log-3">
                 <div class="applicant-profile-details">
                     <p><span>Applicant:</span><span>{{user.givenName}} {{user.familyName}}</span></p>
