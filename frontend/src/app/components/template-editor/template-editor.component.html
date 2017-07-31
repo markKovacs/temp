@@ -16,6 +16,16 @@
             <button (click)="previewTemplate(chosenTemplate.template)">Preview</button>
             <button (click)="saveTemplate(chosenTemplate)">Save template</button>
           </div>
+          <div class="model-builder">
+            <div *ngFor="let key of getKeys(chosenTemplate.model)">
+              <p>{{key}}<input [(ngModel)]="chosenTemplate.model[key]"/></p>
+
+            </div>
+            <div>
+              <input [(ngModel)]="newKey"/>
+              <button (click)="addNewKey()">Add key</button>
+            </div>
+          </div>
           <div class="chosen-template-body">
             <textarea rows="40" [(ngModel)]="chosenTemplate.template"></textarea>
           </div>
