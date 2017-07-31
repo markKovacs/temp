@@ -36,6 +36,7 @@ public class ScreeningControllerTest {
     private ScreeningController screeningController;
 
     private MockMvc mockMvc;
+
     private Date mockDate = new Date();
     private ScreeningDTO mockScreeningDTO = new ScreeningDTO();
     private List<ScreeningDTO> mockScreeningDTOs = new ArrayList<>();
