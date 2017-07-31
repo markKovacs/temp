@@ -94,6 +94,8 @@ public class ApplicantDetailsDTOBuilder {
         dto.setScreeningPersonalTime(screeningPersonalTime);
         dto.setScheduleSignedBack(scheduleSignedBack);
 
+        dto.setScreeningSteps(screeningSteps);
+
         return dto;
 
     }

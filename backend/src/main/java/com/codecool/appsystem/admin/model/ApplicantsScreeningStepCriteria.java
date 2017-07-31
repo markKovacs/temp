@@ -19,7 +19,6 @@ public class ApplicantsScreeningStepCriteria {
 
     private String criteriaId;
 
-    @JsonIgnore
     private String applicantsScreeningStepId;
 
     private Integer points;

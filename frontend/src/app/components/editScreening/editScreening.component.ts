@@ -52,7 +52,7 @@ export class EditScreeningComponent {
         this.changeHappened = false;
         console.log("should post this", this.screeningSteps);
         this.client.post("/api/editscreening", this.screeningSteps).subscribe(
-            (response: any) => console.log(response),
+            (response: any) => this.getScreening(),
             (error) => console.log(error),
             () => console.log("Response arrived")
         )
