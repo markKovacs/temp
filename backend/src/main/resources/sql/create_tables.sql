@@ -11,25 +11,26 @@ DROP TABLE IF EXISTS online_app_system.personal_data;
 DROP TABLE IF EXISTS online_app_system.system_user;
 
 CREATE SEQUENCE system_user_admin_id_seq START 101;
+GRANT ALL PRIVILEGES ON system_user_admin_id_seq TO applications;
 
 CREATE TABLE online_app_system.system_user
 (
-  id            VARCHAR(40) PRIMARY KEY NOT NULL,
-  auth0user_id  VARCHAR(80),
-  given_name    VARCHAR(255),
-  family_name   VARCHAR(255),
-  middle_name   VARCHAR(255),
-  registered_at TIMESTAMP,
-  gender        VARCHAR(255),
-  birth_date    INT,
-  photo_url     VARCHAR(255),
-  phone_number  VARCHAR(255),
-  location_id   VARCHAR(255),
-  user_hash     VARCHAR(80),
-  admin_id INTEGER,
-  can_apply     BOOLEAN,
-  is_blacklisted BOOLEAN,
-  gmail_account BOOLEAN
+  id             VARCHAR(40) PRIMARY KEY                                         NOT NULL,
+  auth0user_id   VARCHAR(80),
+  given_name     VARCHAR(255),
+  family_name    VARCHAR(255),
+  middle_name    VARCHAR(255),
+  registered_at  TIMESTAMP,
+  gender         VARCHAR(255),
+  birth_date     INT,
+  photo_url      VARCHAR(255),
+  phone_number   VARCHAR(255),
+  location_id    VARCHAR(255),
+  user_hash      VARCHAR(80),
+  admin_id       INTEGER DEFAULT nextval('system_user_admin_id_seq' :: REGCLASS) NOT NULL,
+  can_apply      BOOLEAN,
+  gmail_account  BOOLEAN,
+  is_blacklisted BOOLEAN
 );
 
 CREATE TABLE online_app_system.applications
@@ -68,13 +69,14 @@ CREATE TABLE online_app_system.application_screening_info
   screening_group_time    TIMESTAMP,
   screening_personal_time TIMESTAMP,
   schedule_signed_back    BOOLEAN,
-  map_location            VARCHAR(255)
+  map_location            TEXT
 );
 CREATE TABLE online_app_system.location_types
 (
-  id          VARCHAR(40) PRIMARY KEY NOT NULL UNIQUE,
-  name        VARCHAR(255),
-  course_type VARCHAR(255)
+  id           VARCHAR(40) PRIMARY KEY NOT NULL UNIQUE,
+  name         VARCHAR(255),
+  course_type  VARCHAR(255),
+  map_location TEXT
 );
 CREATE TABLE online_app_system.tests
 (
@@ -94,16 +96,16 @@ CREATE TABLE online_app_system.tests
 
 CREATE TABLE online_app_system.test_results
 (
-  id              VARCHAR(40) PRIMARY KEY NOT NULL,
-  application_id  VARCHAR(40) REFERENCES online_app_system.applications (id),
-  test_id         VARCHAR(40) REFERENCES online_app_system.tests (id),
-  started         TIMESTAMP,
-  finished        TIMESTAMP,
-  points          INT,
-  percent         DOUBLE PRECISION,
-  passed          BOOLEAN,
-  saved_answers   TEXT,
-  comment         VARCHAR(255)
+  id             VARCHAR(40) PRIMARY KEY NOT NULL,
+  application_id VARCHAR(40) REFERENCES online_app_system.applications (id),
+  test_id        VARCHAR(40) REFERENCES online_app_system.tests (id),
+  started        TIMESTAMP,
+  finished       TIMESTAMP,
+  points         INT,
+  percent        DOUBLE PRECISION,
+  passed         BOOLEAN,
+  saved_answers  TEXT,
+  comment        VARCHAR(255)
 );
 
 
@@ -120,7 +122,7 @@ CREATE TABLE online_app_system.courses
 
 CREATE TABLE online_app_system.test_answers (
   id             VARCHAR(40) PRIMARY KEY DEFAULT random() NOT NULL,
-  question_id    VARCHAR(40) NOT NULL,
+  question_id    VARCHAR(40)                              NOT NULL,
   correct_answer VARCHAR(255)
 );
 
@@ -146,5 +148,26 @@ CREATE TABLE online_app_system.personal_data (
   id_number        VARCHAR(255)
 );
 
+CREATE TABLE online_app_system.applicants_screening_step (
+  id             VARCHAR(40) NOT NULL CONSTRAINT applicants_screening_step_pkey PRIMARY KEY,
+  application_id VARCHAR(40) NOT NULL,
+  step_id        VARCHAR(40) NOT NULL,
+  interviewer    VARCHAR(255),
+  points         INTEGER,
+  comment        TEXT,
+  status         VARCHAR(255)
+);
+
+CREATE TABLE online_app_system.applicants_screening_step_criteria (
+  id                           VARCHAR(40) NOT NULL CONSTRAINT applicants_screening_step_criteria_pkey PRIMARY KEY,
+  criteria_id                  VARCHAR(40) NOT NULL,
+  applicants_screening_step_id VARCHAR(40) NOT NULL,
+  points                       INTEGER,
+  comment                      TEXT,
+  status                       VARCHAR(255)
+);
+
 GRANT ALL PRIVILEGES ON SCHEMA online_app_system TO applications;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA online_app_system TO applications;
+
+

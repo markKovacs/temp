@@ -27,4 +27,6 @@ public class Location {
 
     @JsonIgnore
     private String courseType;
+
+    private String mapLocation;
 }

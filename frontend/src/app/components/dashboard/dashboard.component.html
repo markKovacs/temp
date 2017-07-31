@@ -17,38 +17,25 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="locationChosen()">
+    <div class="row" *ngIf="usersWithVideo">
         <div class="col-md-6 col-sm-12">
             <div class="dashboard-users">
                 <h3>Motivation videos to grade</h3>
-                <div *ngFor="let user of usersWithVideo">
-                    <div class="dashboard-user">
-                        <div class="motivation-details">
-                            <p>{{user.givenName}}&nbsp;{{user.familyName}}</p>
-                        </div>
-                        <button class="btn btn-success" (click)="getApplicant(user.id)">
-                            Grade video&nbsp;&gt;&gt;
-                        </button>
-                    </div>
-                </div>
+                <dashboard-motivation *ngFor="let user of usersWithVideo"
+                                        [userWithVideo]="user">
+
+                </dashboard-motivation>
+
             </div>
         </div>
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-6 col-sm-12" *ngIf="usersWithScreening">
             <div class="dashboard-users">
                 <h3>Screenings to attend</h3>
-                <div *ngFor="let user of usersWithScreening">
-                    <div class="dashboard-user">
-                        <div class="screening-details">
-                            <p class="screening-date">
-                                {{ user.date | date: short }}
-                            </p>
-                            <p>{{user.givenName}}&nbsp;{{user.familyName}}</p>
-                        </div>
-                        <button class="btn btn-success" (click)="getApplicant(user.id)">
-                            Check applicant&nbsp;&gt;&gt;
-                        </button>
-                    </div>
-                </div>
+                <dashboard-screening *ngFor="let user of usersWithScreening"
+                                      [userWithScreening]="user">
+
+                </dashboard-screening>
+
             </div>
         </div>
     </div>

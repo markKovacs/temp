@@ -1,0 +1,12 @@
+<div class="dasboard-motivation-component">
+    <div *ngIf="userWithVideo">
+        <div class="dashboard-user">
+            <div class="motivation-details">
+                <p>{{userWithVideo.name}}</p>
+            </div>
+            <button class="btn btn-success" (click)="getApplicant(userWithVideo.adminId)">
+                Grade video&nbsp;&gt;&gt;
+            </button>
+        </div>
+    </div>
+</div>

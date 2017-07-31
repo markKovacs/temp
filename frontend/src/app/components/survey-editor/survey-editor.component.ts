@@ -43,7 +43,6 @@ export class SurveyEditorComponent implements OnInit{
         if (this.validate) {
             this.questionService.postSurvey(this.survey)
                 .subscribe(
-                    // .() =>{ this.survey = null;}
                     error => console.log(error),
                     () => console.log('POST - /api/question/save')
                 );

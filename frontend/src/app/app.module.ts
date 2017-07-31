@@ -25,21 +25,28 @@ import {
     QuestionService
 
 } from './_services/index';
+import { FilterEnabled } from './_pipes/index'
 import {
     NavBarComponent,
     DashboardComponent,
+    DashboardMotivationComponent,
+    DashboardScreeningComponent,
     ApplicantComponent,
+    ApplicantVideoComponent,
+    ApplicantTestComponent,
     ApplicantListComponent,
     SurveyGeneratorComponent,
     SurveyEditorComponent,
     OptionEditorComponent,
     QuestionEditorComponent,
     CalendarComponent,
-    StartComponent
+    StartComponent,
+    EvaluateScreeningsComponent,
+    EditScreeningComponent
 } from './components/index';
 import {AuthGuard} from './guards/index';
 import {ScreeningService} from "./_services/screening.service";
-import {DateFormatPipe} from "angular2-moment";
+import {DateFormatPipe, MomentModule} from "angular2-moment";
 
 @NgModule({
     imports: [
@@ -55,20 +62,28 @@ import {DateFormatPipe} from "angular2-moment";
         SharedModule,
         PickListModule,
         CalendarModule,
+        MomentModule,
         GrowlModule
     ],
     declarations: [
         AppComponent,
         NavBarComponent,
         DashboardComponent,
+        DashboardMotivationComponent,
+        DashboardScreeningComponent,
         ApplicantComponent,
+        ApplicantTestComponent,
+        ApplicantVideoComponent,
         ApplicantListComponent,
         SurveyGeneratorComponent,
         SurveyEditorComponent,
         QuestionEditorComponent,
         OptionEditorComponent,
         CalendarComponent,
-        StartComponent
+        EditScreeningComponent,
+        EvaluateScreeningsComponent,
+        StartComponent,
+        FilterEnabled
     ],
     providers: [
         AuthGuard,

@@ -39,6 +39,10 @@ export class NavBarComponent {
         this.router.navigate(['calendar'])
     }
 
+    getScreening(){
+        this.router.navigate(['evaluatescreenings'])
+    }
+
     hasLocation(){
         return localStorage.getItem('chosenLocation') != undefined;
     }
