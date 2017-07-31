@@ -22,7 +22,6 @@ import java.util.UUID;
 public class EmailTemplate {
 
     @Id
-    @JsonIgnore
     @Column(length = 40)
     private String id = UUID.randomUUID().toString();
 

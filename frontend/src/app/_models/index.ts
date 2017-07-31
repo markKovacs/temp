@@ -11,4 +11,5 @@ export * from './criteria.model';
 export * from './user-motivation.model';
 export * from './user-screening.model';
 export * from './results.model';
+export * from './template.model';
 export * from './users-screening-step.model';

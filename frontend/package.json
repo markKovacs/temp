@@ -28,6 +28,7 @@
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
     "material2": "^2.0.0-alpha.6-2",
+    "mustache": "^2.3.0",
     "ng2-social-login": "^2.0.4",
     "ngx-bootstrap": "^1.6.6",
     "primeng": "^4.1.0-rc.3",
