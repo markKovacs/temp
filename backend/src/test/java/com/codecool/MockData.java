@@ -74,6 +74,7 @@ public abstract class MockData {
         testResult.setApplicationId("1");
         testResult.setTestId("bp-2017-prereq");
         testResult.setSavedAnswers("bla blabla");
+        testResult.setPercent(100D);
 
         testResult1 = new TestResult();
         testResult1.setId("1");
@@ -134,7 +135,7 @@ public abstract class MockData {
         question.setSurveyContent("Content");
 
         test2 = new Test();
-        test2.setId("test_id");
+        test2.setId("bp-2017-prereq");
         test2.setEnabled(true);
         test2.setMotivationVideo(true);
         test2.setName("Test Mock");
