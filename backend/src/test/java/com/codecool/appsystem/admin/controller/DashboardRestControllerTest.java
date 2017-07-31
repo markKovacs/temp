@@ -80,7 +80,7 @@ public class DashboardRestControllerTest {
 
     @Test
     public void scheduledScreenings() throws Exception {
-        when(screeningService.find("BUD")).thenReturn(mockScreeningDTOs);
+        when(screeningService.find("BUD", null)).thenReturn(mockScreeningDTOs);
 
         mockMvc.perform(get("/api/dashboard/screening?location=BUD"))
                 .andExpect(status().isOk())
@@ -90,7 +90,7 @@ public class DashboardRestControllerTest {
                 .andExpect(jsonPath("$[0].adminId", is(100)))
                 .andExpect(jsonPath("$[0].age", is(20)));
 
-        verify(screeningService, times(1)).find("BUD");
+        verify(screeningService, times(1)).find("BUD", null);
         verifyNoMoreInteractions(screeningService);
 
 

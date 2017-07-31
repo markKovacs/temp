@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -49,7 +50,7 @@ public class ApplicantsControllerTest extends MockData{
     public void setup() {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(applicantsController).build();
-        this.applicantInfoDTO = new ApplicantInfoDTO("toth",100, "BUD", "English", 1L, false);
+        this.applicantInfoDTO = new ApplicantInfoDTO("toth",100, "BUD", "English", 1L, false, new Date(), "email@gmail.com");
 
         this.mockApplicantInfosDTO.add(applicantInfoDTO);
 
@@ -70,8 +71,7 @@ public class ApplicantsControllerTest extends MockData{
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].name", is("toth")))
-                .andExpect(jsonPath("$[0].adminId", is(100)))
-                .andExpect(jsonPath("$[0].lastPassedTest", is("English")));
+                .andExpect(jsonPath("$[0].adminId", is(100)));
 
         verify(applicantListingService, times(1)).getApplicationData("BUD");
         verifyNoMoreInteractions(applicantListingService);

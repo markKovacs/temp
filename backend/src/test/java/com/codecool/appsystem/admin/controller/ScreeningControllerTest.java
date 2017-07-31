@@ -63,9 +63,9 @@ public class ScreeningControllerTest {
 
     @Test
     public void getScreeningInfo() throws Exception {
-        when(screeningService.find("BUD")).thenReturn(mockScreeningDTOs);
+        when(screeningService.find("BUD", false)).thenReturn(mockScreeningDTOs);
 
-        mockMvc.perform(get("/api/screening/list?location=BUD"))
+        mockMvc.perform(get("/api/screening/list?location=BUD&signedback=false"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$", hasSize(1)))
@@ -73,7 +73,7 @@ public class ScreeningControllerTest {
                 .andExpect(jsonPath("$[0].age", is(20)))
                 .andExpect(jsonPath("$[0].adminId", is(100)));
 
-        verify(screeningService, times(1)).find("BUD");
+        verify(screeningService, times(1)).find("BUD", false);
         verifyNoMoreInteractions(screeningService);
     }
 
