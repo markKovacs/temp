@@ -1,7 +1,21 @@
 package com.codecool.appsystem.admin.controller;
 
-import com.codecool.MockData;
+import org.junit.Before;
+import org.junit.Test;
 
-public class QuestionControllerTest extends MockData {
+import static org.junit.Assert.*;
+
+public class QuestionControllerTest {
+    @Before
+    public void setUp() throws Exception {
+    }
+
+    @Test
+    public void applicantsByLocation() throws Exception {
+    }
+
+    @Test
+    public void getQuestionByLocation() throws Exception {
+    }
 
 }

@@ -21,7 +21,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -73,6 +73,8 @@ public class ApplicantsControllerTest extends MockData{
                 .andExpect(jsonPath("$[0].adminId", is(100)))
                 .andExpect(jsonPath("$[0].lastPassedTest", is("English")));
 
+        verify(applicantListingService, times(1)).getApplicationData("BUD");
+        verifyNoMoreInteractions(applicantListingService);
 
     }
 
@@ -87,6 +89,9 @@ public class ApplicantsControllerTest extends MockData{
                 .andExpect(jsonPath("$.familyName", is("Toth")))
                 .andExpect(jsonPath("$.givenName", is("Akos")))
                 .andExpect(jsonPath("$.location", is("BUD")));
+
+        verify(applicantDetailsService, times(1)).provideInfo(100);
+        verifyNoMoreInteractions(applicantDetailsService);
 
     }
 }
