@@ -14,6 +14,7 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right" *ngIf="hasLocation()">
+        <li><a (click)="getEditor()" id="navbar-surveys">Templates</a></li>
         <li><a (click)="getScreening()" id="navbar-surveys">Screenings</a></li>
         <li><a (click)="getSurvey()" id="navbar-surveys">Surveys</a></li>
         <li><a (click)="getApplicants()" id="navbar-applicants">Applicants</a></li>

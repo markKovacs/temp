@@ -42,7 +42,8 @@ import {
     CalendarComponent,
     StartComponent,
     EvaluateScreeningsComponent,
-    EditScreeningComponent
+    EditScreeningComponent,
+    TemplateEditorComponent
 } from './components/index';
 import {AuthGuard} from './guards/index';
 import {ScreeningService} from "./_services/screening.service";
@@ -83,6 +84,7 @@ import {DateFormatPipe, MomentModule} from "angular2-moment";
         EditScreeningComponent,
         EvaluateScreeningsComponent,
         StartComponent,
+        TemplateEditorComponent,
         FilterEnabled
     ],
     providers: [
