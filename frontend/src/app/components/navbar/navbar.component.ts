@@ -43,6 +43,10 @@ export class NavBarComponent {
         this.router.navigate(['evaluatescreenings'])
     }
 
+    getEditor(){
+        this.router.navigate(['edittemplate'])
+    }
+
     hasLocation(){
         return localStorage.getItem('chosenLocation') != undefined;
     }

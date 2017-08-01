@@ -25,10 +25,6 @@ public class TemplateController {
 
     @RequestMapping(value="/templates/save", method = RequestMethod.POST)
     public RestResponseDTO getAllLocations(@RequestBody EmailTemplate emailTemplate) {
-
-        EmailTemplate emailTemplate1 = emailTemplateRepository.findOne(emailTemplate.getId());
-        emailTemplate.setModel(emailTemplate.getModel());
-        emailTemplate.setTemplate(emailTemplate.getTemplate());
         emailTemplateRepository.save(emailTemplate);
         return RestResponseDTO.buildSuccess();
     }

@@ -7,7 +7,8 @@ import {
     CalendarComponent,
     EditScreeningComponent,
     EvaluateScreeningsComponent,
-    StartComponent
+    StartComponent,
+    TemplateEditorComponent
 } from './components/index';
 import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from './guards/index';
@@ -21,6 +22,7 @@ const appRoutes: Routes = [
     {path: 'editscreening', component: EditScreeningComponent, canActivate: [AuthGuard]},
     {path: 'evaluatescreenings', component: EvaluateScreeningsComponent},
     { path: 'surveygenerator', component: SurveyGeneratorComponent, canActivate: [AuthGuard]}, //
+    { path: 'edittemplate', component: TemplateEditorComponent, canActivate: [AuthGuard]},
 
     // redirects to auth0 login
     {path: 'login', component: StartComponent},

@@ -13,4 +13,5 @@ export * from './question-editor/question-editor.component';
 export * from './option-editor/option-editor.component';
 export * from './survey-editor/survey-editor.component';
 export * from './editScreening/editScreening.component';
+export * from './template-editor/template-editor.component';
 export * from './evaluateScreenings/evaluateScreenings.component';
