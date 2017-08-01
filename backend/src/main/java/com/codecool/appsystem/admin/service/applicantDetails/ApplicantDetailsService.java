@@ -5,6 +5,7 @@ import com.codecool.appsystem.admin.model.dto.ApplicantDetailsDTOBuilder;
 import com.codecool.appsystem.admin.model.dto.applicantDetails.ApplicantDetailsDTO;
 import com.codecool.appsystem.admin.model.dto.applicantDetails.TestResultDTO;
 import com.codecool.appsystem.admin.repository.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class ApplicantDetailsService {
 
     @Autowired
@@ -37,7 +39,6 @@ public class ApplicantDetailsService {
 
         User user = userRepo.findByAdminId(id);
 
-
         Application application = applicationRepo.findByApplicantIdAndActive(user.getId(),true);
         List<ApplicantsScreeningStep> applicantsScreeningSteps = applicantsScreeningStepRepository.findByApplicationId(application.getId());
 
@@ -62,7 +63,6 @@ public class ApplicantDetailsService {
     private List<TestResultDTO> getTestInfo(Application application) {
 
         List<TestResult> tests = testResRepository.findByApplicationId(application.getId());
-
         return tests
                 .stream()
                 .map(this::transformTestResult)
@@ -76,6 +76,7 @@ public class ApplicantDetailsService {
     private TestResultDTO transformTestResult(TestResult testResult){
 
         Test test = testRepo.findOne(testResult.getTestId());
+
 
         TestResultDTO TDto = new TestResultDTO();
         TDto.setId(testResult.getId());

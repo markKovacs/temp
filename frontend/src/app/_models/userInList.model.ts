@@ -3,7 +3,7 @@ export class UserInList {
     name: string;
     adminId: number;
     location: string;
-    lastPassedTest: string;
+    status: string;
     attempts: number;
     blacklisted: boolean;
     processStartedAt: Date;
