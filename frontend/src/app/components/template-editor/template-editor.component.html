@@ -1,38 +1,76 @@
-  <div class="container">
-  <div *ngIf="templates">
-    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-      <div class="card">
-        <h4 class="templates-title">Templates</h4>
-        <button *ngFor="let template of templates" class="template-button" (click)="chooseTemplate(template)">
-          {{template.name}}
-        </button>
-      </div>
-    </div>
-    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-      <div class="card">
-        <div *ngIf="chosenTemplate">
-          <div class="chosen-template-header">
-            <input [(ngModel)]="chosenTemplate.name"/>
-            <button (click)="previewTemplate(chosenTemplate.template)">Preview</button>
-            <button (click)="saveTemplate(chosenTemplate)">Save template</button>
-          </div>
-          <div class="model-builder">
-            <div *ngFor="let key of getKeys(chosenTemplate.model)">
-              <p>{{key}}<input [(ngModel)]="chosenTemplate.model[key]"/></p>
+<div class="container container-fluid">
+    <div *ngIf="templates">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <h3>Existing email templates</h3>
+            <hr />
+            <h4 *ngFor="let template of templates">
+                <a class="text-info" (click)="chooseTemplate(template)">
+                    {{ template.name }}&nbsp;<i *ngIf="template.master" class="fa fa-ban text-muted" aria-hidden="true"></i>
+                </a>
+            </h4>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+            <div *ngIf="chosenTemplate">
+                <div class="row">
+                    <div class="col-sm-8 col-md-8 col-lg-8">
+                        <h4 *ngIf="!editingName">{{ chosenTemplate.name }}&nbsp;
+                            <i *ngIf="!chosenTemplate.master" class="fa fa-pencil-square-o" aria-hidden="true"
+                               (click)="editingName = !editingName"></i>
+                        </h4>
+                        <input *ngIf="editingName" [(ngModel)]="chosenTemplate.name"/>
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                        <div class="pull-right" *ngIf="!chosenTemplate.master">
+                            <button class="btn btn-success" (click)="saveTemplate(chosenTemplate)">
+                                <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Save
+                            </button>
+                            <button class="btn btn-primary" (click)="previewTemplate(chosenTemplate.template)">
+                                <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;Preview
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row chosen-template-body">
+                    <div *ngIf="!chosenTemplate.master" [froalaEditor]="options"
+                         [(froalaModel)]="chosenTemplate.template">Hello, Froala!
+                    </div>
+                    <textarea *ngIf="chosenTemplate.master" rows="40" [(ngModel)]="chosenTemplate.template"
+                              disabled></textarea>
+                </div>
+
+                <hr/>
+
+                <div class="row" *ngIf="!chosenTemplate.master">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-horizontal">
+                            <div class="form-group" *ngFor="let key of getKeys(chosenTemplate.model)">
+                                <label for="input1" class="col-sm-2 control-label">{{ key }}</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control"
+                                           id="input1"
+                                           placeholder="Value"
+                                           [(ngModel)]="chosenTemplate.model[key]">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input2" class="col-sm-2 control-label" (click)="addNewKey()">
+                                    <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                </label>
+                                <div class="col-sm-10">
+                                    <input class="form-control"
+                                           id="input2"
+                                           placeholder="New key"
+                                           [(ngModel)]="newKey"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
-            <div>
-              <input [(ngModel)]="newKey"/>
-              <button (click)="addNewKey()">Add key</button>
-            </div>
-          </div>
-          <div class="chosen-template-body">
-            <textarea rows="40" [(ngModel)]="chosenTemplate.template"></textarea>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 <p-growl [(value)]="messages"

@@ -1,31 +1,13 @@
 .container {
-  padding-top: 65px;
+    padding-top: 65px;
 }
 
 .card {
-  box-shadow: 0 0 7px #999;
-  margin: 10px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-.templates-title {
-  text-align: center;
-}
-
-.template-button {
-  margin: 10px 0;
-  margin-left: 10%;
-  width: 80%;
-}
-
-.chosen-template-header {
-  padding: 20px;
-
+    box-shadow: 0 0 7px #999;
+    margin: 10px;
+    padding: 10px;
 }
 
 .chosen-template-body textarea {
-  margin: 20px 0;
-  margin-left: 10%;
-  width: 80%;
+    width: 100%;
 }

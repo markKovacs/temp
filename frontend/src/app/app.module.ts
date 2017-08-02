@@ -48,6 +48,7 @@ import {
 import {AuthGuard} from './guards/index';
 import {ScreeningService} from "./_services/screening.service";
 import {DateFormatPipe, MomentModule} from "angular2-moment";
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
     imports: [
@@ -64,7 +65,8 @@ import {DateFormatPipe, MomentModule} from "angular2-moment";
         PickListModule,
         CalendarModule,
         MomentModule,
-        GrowlModule
+        GrowlModule,
+        FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
     ],
     declarations: [
         AppComponent,

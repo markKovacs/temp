@@ -6,7 +6,6 @@ import com.codecool.appsystem.admin.model.ApplicationScreeningInfo;
 import com.codecool.appsystem.admin.model.User;
 import com.codecool.appsystem.admin.model.dto.applicantDetails.ApplicantDetailsDTO;
 import com.codecool.appsystem.admin.model.dto.applicantDetails.TestResultDTO;
-import com.jayway.jsonpath.internal.function.json.Append;
 
 import java.util.Date;
 import java.util.List;

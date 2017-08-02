@@ -19,6 +19,11 @@ export class TemplateEditorComponent {
     public masterTemplate: Template;
     public messages: Message[] = [];
     public newKey: string;
+    editingName: boolean = false;
+
+    public options: Object = {
+        immediateAngularModelUpdate: true
+    };
 
     constructor(
         private client: HttpClient,
@@ -60,7 +65,15 @@ export class TemplateEditorComponent {
 
     previewTemplate(template){
         let generated = Mustache.render(template, this.chosenTemplate.model);
-        let parts = this.masterTemplate.template.split("({[content]})");
+        let generatedMaster = Mustache.render(this.masterTemplate.template, this.masterTemplate.model);
+        let parts = generatedMaster.split("({[content]})");
+        if(parts.length !== 2){
+            this.messages.push({
+                severity: 'error',
+                summary: 'Error in Master template',
+                detail: 'Please check the syntax and try again'
+            });
+        }
         let full = parts[0] + generated + parts[1];
         let newWindow = window.open("", "", "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=800, height=700, top=0, left=0");
         newWindow.document.body.innerHTML = full;
@@ -72,13 +85,16 @@ export class TemplateEditorComponent {
             postData.model[key] = null;
         }
         postData.model = JSON.stringify(postData.model);
+
         this.client.post('/api/templates/save', postData).subscribe(
-            (response: PostResponse) => this.messages.push(
-                {
+            (response: PostResponse) => {
+                this.messages.push({
                     severity: 'success',
                     summary: 'Save completed',
                     detail: this.chosenTemplate.name
-                })
+                });
+                this.editingName = false;
+            }
         )
     }
 

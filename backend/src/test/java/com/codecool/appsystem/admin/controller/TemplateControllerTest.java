@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -19,12 +18,10 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class TemplateControllerTest {
 
@@ -61,7 +58,7 @@ public class TemplateControllerTest {
     @Test
     public void getAllLocations() throws Exception {
 
-        when(emailTemplateRepository.findByLocationId("BUD")).thenReturn(mockEmailTemplates);
+        when(emailTemplateRepository.findByLocationIdOrderByMasterDesc("BUD")).thenReturn(mockEmailTemplates);
 
         mockMvc.perform(get("/api/templates?location=BUD"))
                 .andExpect(status().isOk())
@@ -70,7 +67,7 @@ public class TemplateControllerTest {
                 .andExpect(jsonPath("$[0].name", is("name")))
                 .andExpect(jsonPath("$[0].master", is(false)));
 
-        verify(emailTemplateRepository, times(1)).findByLocationId("BUD");
+        verify(emailTemplateRepository, times(1)).findByLocationIdOrderByMasterDesc("BUD");
         verifyNoMoreInteractions(emailTemplateRepository);
     }
 

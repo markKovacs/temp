@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface EmailTemplateRepository extends JpaRepository<EmailTemplate, String> {
 
-    List<EmailTemplate> findByLocationId(String name);
+    List<EmailTemplate> findByLocationIdOrderByMasterDesc(String name);
 
 }

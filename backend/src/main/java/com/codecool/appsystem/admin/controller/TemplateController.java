@@ -24,7 +24,7 @@ public class TemplateController {
 
     @RequestMapping(value="/templates", method = RequestMethod.GET)
     public List<EmailTemplate> getAllLocations(@RequestParam("location") String locationId) {
-        return emailTemplateRepository.findByLocationId(locationId);
+        return emailTemplateRepository.findByLocationIdOrderByMasterDesc(locationId);
     }
 
     @RequestMapping(value="/templates/save", method = RequestMethod.POST)
