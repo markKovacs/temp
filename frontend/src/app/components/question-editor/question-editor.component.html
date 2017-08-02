@@ -1,42 +1,80 @@
-<div class="question-editor-component" *ngIf="question">
-    <div class="container">
-        <div class="row">
-            <h3>Question Editor</h3>
-            <button class="btn btn-danger" (click)="deleteQuestion()">Remove Question</button>
-            <br>
-            <div class="col-md-3">
-                <label>Question Content </label>
-            </div>
-            <div class="col-md-9">
-                <textarea placeholder="questionContent" rows="5" cols="60"
-                          [(ngModel)]="question.questionContent"></textarea>
-            </div>
-            <div class="col-md-9">
-                <form action="#">
-                    <label *ngIf="!motivation">
-                        <input type="radio" name="qtype" value="checkbox" [(ngModel)]="question.type"/>Checkbox
-                    </label>
-                    <label *ngIf="!motivation">
-                        <input type="radio" name="qtype" value="radio" [(ngModel)]="question.type"/>Radio
-                    </label>
-                    <label *ngIf="motivation">
-                        <input type="radio" name="qtype" value="freetext" [(ngModel)]="question.type"/>Motivation
-                    </label>
-                </form>
-            </div>
+<div style="padding: 1em" *ngIf="question">
+    <h3>
+        Question&nbsp;#{{ getQuestionNumber() }}
+        <span class="pull-right">
+                    <i class="fa fa-trash-o text-danger" aria-hidden="true" (click)="deleteQuestion()"></i>
+                </span>
+    </h3>
+
+    <div class="form-group">
+        <label for="content" class="col-sm-2 control-label">Content</label>
+        <div class="col-sm-10">
+                    <textarea
+                            rows="5" cols="60"
+                            class="form-control"
+                            [(ngModel)]="question.questionContent"
+                            id="content"
+                            placeholder="This one will be the question itself">
+                    </textarea>
         </div>
     </div>
-    <br><br>
-    <div *ngIf="!motivation">
-        <div *ngIf="!motivation">
-            <button class="btn btn-success" (click)="newOption()">Create new Option</button>
-            <br><br>
+
+
+    <form class="form">
+
+        <div class="form-group" *ngIf="!motivation">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="radio" name="qtype" value="checkbox" [(ngModel)]="question.type"/>&nbsp;Multiple
+                        correct answers
+                    </label>
+                </div>
+            </div>
         </div>
-        <br>
-        <option-editor *ngFor="let option of question.options"
-                       [option]="option">
+
+        <div class="form-group" *ngIf="!motivation">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="radio" name="qtype" value="radio" [(ngModel)]="question.type"/>&nbsp;Single
+                        answer
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group hidden" *ngIf="motivation">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="radio" name="qtype" value="freetext" [(ngModel)]="question.type"/>&nbsp;Motivation
+                        video question
+                    </label>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+    <div *ngIf="!motivation">
+
+        <h3>
+            Options
+            <span class="pull-right" *ngIf="!motivation">
+                <i class="fa fa-plus text-success" aria-hidden="true" (click)="newOption()" data-toggle="tooltip"
+                   title="Add new option"></i>
+            </span>
+        </h3>
+
+        <option-editor
+                *ngFor="let option of question.options; let i = index"
+                [option]="option"
+                [i]="i"
+        >
         </option-editor>
+
     </div>
 
 </div>
-

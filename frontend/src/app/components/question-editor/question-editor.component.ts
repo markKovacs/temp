@@ -13,6 +13,7 @@ export class QuestionEditorComponent implements OnInit{
 
     @Input() question: Question;
     @Input() motivation: boolean;
+    @Input() i: number;
 
     newOption(): void{
         this.question.options.push(new Option());
@@ -23,5 +24,9 @@ export class QuestionEditorComponent implements OnInit{
     }
 
     ngOnInit(): void {
+    }
+
+    getQuestionNumber(){
+        return this.i + 1 + "";
     }
 }

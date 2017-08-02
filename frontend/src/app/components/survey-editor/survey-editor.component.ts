@@ -13,12 +13,14 @@ import {Option} from "../../_models/option.model";
     providers: [QuestionService]
 
 })
-export class SurveyEditorComponent implements OnInit{
+export class SurveyEditorComponent {
 
     @Input() survey: Survey;
     @Input() motivation: boolean;
     validate: boolean = true;
     message: string;
+
+    activeSlideIndex = 0;
 
     constructor(private questionService: QuestionService){}
 
@@ -55,24 +57,12 @@ export class SurveyEditorComponent implements OnInit{
         if (!this.survey.motivationVideo) {
             this.survey.questions.push(new Question());
         }
-        if (this.survey.motivationVideo && this.survey.questions.length < 1){
-            this.survey.questions.push(new Question());
-        }
-    }
-
-    setMotivation(event):void{
-        this.newQuestion();
-        if(event.target.checked){
-            this.survey.motivationVideo = true;
-            this.survey.questions[0].type = "freetext";
-            this.motivation = true;
-        } else {
-            this.motivation = false;
-            this.survey.motivationVideo = false;
-        }
-    }
-
-    ngOnInit(): void {
 
     }
+
+    asText(i: any){
+        return i + 1 + '';
+    }
+
+
 }

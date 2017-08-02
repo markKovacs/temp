@@ -11,7 +11,7 @@ import {Option} from "../../_models/option.model";
 export class OptionEditorComponent implements OnInit{
 
     @Input() option: Option;
-
+    @Input() i: number;
 
     ngOnInit(): void {
         if (this.option.isCorrect == null){
@@ -20,5 +20,9 @@ export class OptionEditorComponent implements OnInit{
     }
     deleteOption(): void{
         this.option = null;
+    }
+
+    getNumber(){
+        return this.i + 1 + "";
     }
 }

@@ -1,93 +1,45 @@
-<div class="survey-editor-component" *ngIf="survey">
-    <div class="container">
-        <div class="row">
+<div *ngIf="survey">
 
-            <!--<div class="col-md-9">-->
-            <h3>EDIT SURVEY {{survey.name}}</h3>
-            <br>
-            <div class="col-md-3">
-                <label>Survey Description</label>
-            </div>
-            <div class="col-md-9">
-                <textarea placeholder="Survey Description" rows="5" cols="60"
-                          [(ngModel)]="survey.description"></textarea>
-            </div>
-            <br>
-            <div class="col-md-3">
-                <label>Survey Content</label>
-            </div>
-            <div class="col-md-9">
-                    <textarea placeholder="Survey Content" id="surveyContent" rows="5" cols="60"
-                              [(ngModel)]="survey.surveyContent"></textarea>
-            </div>
-
-            <br>
-
-            <div class="col-md-3">
-                <label for="name">Name: </label>
-            </div>
-            <div class="col-md-9">
-                <input type="text" id="name" name="name" value="name" [(ngModel)]="survey.name"/>
-            </div>
-            <br>
-            <div class="col-md-3">
-                <label for="order"> Order In Bundle:</label>
-            </div>
-            <div class="col-md-9">
-                <input type="number" id="order" name="order" value="order_in_bundle" min=0 step=1
-                       [(ngModel)]="survey.orderInBundle"/>
-            </div>
-            <br>
-            <div class="col-md-3">
-                <label> Threshold:</label>
-            </div>
-            <div class="col-md-9">
-                <input type="number" name="threshold" value="threshold" min=0 step=1
-                       [(ngModel)]="survey.threshold"/>
-            </div>
-            <br>
-            <div class="col-md-3">
-                <label> Max Point:</label>
-            </div>
-            <div class="col-md-9">
-                <input type="number" name="maxpoint" value="maxpoint" min=0 step=1 [(ngModel)]="survey.maxPoints"/>
-            </div>
-            <br>
-            <div class="col-md-3">
-                <label> Estimated Time:
-                </label>
-            </div>
-            <div class="col-md-9">
-                <input type="number" name="estimated_time" value="estimated_time" min=0 step=1
-                       [(ngModel)]="survey.estimatedTime"/>
-            </div>
-            <br>
-            <br>
-            <div *ngIf="survey.questions.length == 0">
-                <div class="col-md-3">
-                    <label> Is Motivation Video?
-                    </label>
-                </div>
-                <div class="col-md-9">
-                    <input type="checkbox" name="motivation" value="isMotivationVideo"
-                           [(ngModel)]="survey.motivationVideo" (click)="setMotivation($event)"/>
-                </div>
-            </div>
-
-        </div>
+    <div class="row">
+        <survey-data [survey]="survey" [motivation]="motivation"></survey-data>
     </div>
 
-    <br><br>
-    <question-editor *ngFor="let question of survey.questions"
-                     [question]="question"
-                     [motivation]="motivation">
-    </question-editor>
-    <br>
-    <button class="btn btn-success" (click)="newQuestion()">Add new Question</button>
+    <div class="row">
+
+        <h2>
+            Questions&nbsp;<small>{{ survey.questions.length }}</small>
+            <span class="pull-right">
+                <i class="fa fa-plus text-success" aria-hidden="true" (click)="newQuestion()" data-toggle="tooltip" title="Add new question"></i>
+            </span>
+            <div class="text-center" *ngIf="!motivation">
+                <ul class="list-inline">
+                    <li *ngFor="let question of survey.questions; let i = index">
+                        <h5><a (click)="activeSlideIndex = i">{{asText(i)}}&nbsp;</a></h5>
+                    </li>
+                </ul>
+            </div>
+        </h2>
+
+        <carousel [noWrap]="true" [interval]="false" [(activeSlide)]="activeSlideIndex">
+            <slide *ngFor="let question of survey.questions; let i = index">
+                <question-editor
+                        [question]="question"
+                        [motivation]="motivation"
+                        [i]="i"
+                >
+                </question-editor>
+            </slide>
+        </carousel>
+
+        <br/>
+    </div>
+
+
     <div *ngIf="!validate" class="alert alert-danger">
         {{message}}
     </div>
+
     <button class="btn btn-primary" (click)="postSurvey()">SAVE SURVEY</button>
-    <br><br>
+
 </div>
 

@@ -40,7 +40,6 @@ export class SurveyGeneratorComponent implements OnInit{
         this.testsByLocation.getTestByLocation()
             .subscribe(
                 (data: Survey[]) => {
-                    console.log("api test2");
                     for (const test of data) {
                         this.surveys.push(test);
                     }

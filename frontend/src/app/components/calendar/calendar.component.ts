@@ -90,6 +90,13 @@ export class CalendarComponent implements OnInit {
             this.dates.push(this.date);
             this.dateSelectorOn = false;
         }
+        this.date = null;
+        this.dates.sort((a, b) => {
+            if(a.getDate() > b.getDate()){
+                return 1;
+            }
+            return -1;
+        });
     }
 
     selectDate(date) {
@@ -97,6 +104,13 @@ export class CalendarComponent implements OnInit {
         this.groupTimesSet = null;
         this.sourceList = this.users.filter((user) => user.groupTime == null);
         this.targetList = this.users.filter((user) => user.groupTime == this.chosenDate);
+    }
+
+    getClass(date){
+        if(this.chosenDate === date){
+            return "text-danger";
+        }
+        return "";
     }
 
     showGroupTimes() {
@@ -135,7 +149,6 @@ export class CalendarComponent implements OnInit {
         for (let user of this.targetList) {
             sendData.push({id: user.adminId, time: user.groupTime})
         }
-        console.log("should post this:", {groupTimes: sendData});
 
         this.isPostingGroupTimes = true;
 

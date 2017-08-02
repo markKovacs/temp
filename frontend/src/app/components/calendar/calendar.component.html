@@ -3,17 +3,18 @@
     <!-- Left side - date picker -->
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <div class="card">
-            <h4 class="assign-title">Choose a date</h4>
+            <h2>Choose a date</h2>
             <div class="row">
                 <div *ngIf="!loaded" class="loading-icon-container">
                     <i class="material-icons md-40 loading-icon">autorenew</i>
                 </div>
                 <div *ngFor="let dateObj of dates.sort(sortDates)" class="date-button-container">
-                    <button class="btn btn-success date-button" (click)="selectDate(dateObj)">
-                        <i class="material-icons icon-align-left md-10">date_range</i>
+                    <h4 [class]="getClass(dateObj)" (click)="selectDate(dateObj)">
+                        <i class="fa fa-calendar"></i>&nbsp;
                         {{ dateObj | date: 'yyyy.MM.dd. HH:mm' }}
-                    </button>
+                    </h4>
                 </div>
+                <hr />
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
@@ -26,9 +27,12 @@
                     </p-calendar>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                    <button class="btn btn-success" (click)="addDate()">
-                        <i class="fa fa-plus" aria-hidden="true"></i>Add
-                    </button>
+                    <span>
+                    <a (click)="addDate()">
+                        <i class="fa fa-plus text-success" aria-hidden="true">&nbsp;Add new</i>
+                    </a>
+                    </span>
+
                 </div>
             </div>
         </div>
@@ -47,7 +51,7 @@
 
         <!-- Group times -->
         <div class="card" *ngIf="showGroupTimes()">
-            <h4 class="assign-title">Group screening - Assign the applicant to the choosen date</h4>
+            <h3 class="text-info">Group screening - Assign the applicant to the choosen date</h3>
             <div class="row assign-container">
                 <p-pickList
                         [showSourceControls]="false"
@@ -75,7 +79,7 @@
 
         <!-- Individual times -->
         <div *ngIf="showIndividualTimes()" class="card">
-            <h4 class="assign-title">Individual screening - Set a date for the applicant</h4>
+            <h3>Personal screening - Set a date for the applicant</h3>
             <div *ngFor="let user of targetList" class="applicant-individual-container">
                 <div>
                     <span>{{user.name}}</span>

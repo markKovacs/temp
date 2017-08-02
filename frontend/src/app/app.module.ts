@@ -43,12 +43,14 @@ import {
     StartComponent,
     EvaluateScreeningsComponent,
     EditScreeningComponent,
-    TemplateEditorComponent
+    TemplateEditorComponent,
+    SurveyBaseDataComponent
 } from './components/index';
 import {AuthGuard} from './guards/index';
 import {ScreeningService} from "./_services/screening.service";
 import {DateFormatPipe, MomentModule} from "angular2-moment";
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
     imports: [
@@ -66,7 +68,8 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
         CalendarModule,
         MomentModule,
         GrowlModule,
-        FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
+        FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
+        CarouselModule.forRoot()
     ],
     declarations: [
         AppComponent,
@@ -87,7 +90,8 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
         EvaluateScreeningsComponent,
         StartComponent,
         TemplateEditorComponent,
-        FilterEnabled
+        FilterEnabled,
+        SurveyBaseDataComponent
     ],
     providers: [
         AuthGuard,
