@@ -6,6 +6,7 @@ import com.codecool.appsystem.admin.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,9 @@ public class ApplicantListingService {
 
     @Autowired
     private ApplicationScreeningInfoRepository screeningInfoRepository;
+
+    @Autowired
+    private ApplicantsScreeningStepRepository screeningStepRepository;
 
     public List<ApplicantInfoDTO> getApplicationData(String locationId) {
 
@@ -78,12 +82,26 @@ public class ApplicantListingService {
 
         ApplicationScreeningInfo screeningInfo = screeningInfoRepository.findByApplicationId(application.getId());
 
+        List<ApplicantsScreeningStep> screeningSteps = screeningStepRepository.findByApplicationId(application.getId());
+
         if(screeningInfo != null && screeningInfo.getScheduleSignedBack() == null){
             return "Screening times assigned";
         }
 
-        if(screeningInfo != null && Boolean.TRUE.equals(screeningInfo.getScheduleSignedBack())){
+        if(screeningInfo != null && Boolean.TRUE.equals(screeningInfo.getScheduleSignedBack())
+                && CollectionUtils.isEmpty(screeningSteps)){
             return "Schedule accepted";
+        }
+
+        if(!CollectionUtils.isEmpty(screeningSteps) && application.getFinalResult() == null){
+            return "Screening";
+        }
+
+        if(application.getFinalResult() != null){
+            if(application.getFinalResult()){
+                return "Final result: Y";
+            }
+            return "Final result: N";
         }
 
         if(Boolean.TRUE.equals(test.getMotivationVideo()) && lastPassed.getPassed() == null){

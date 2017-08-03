@@ -1,19 +1,37 @@
-<div class="dashboard-screening-component">
-
-    <div *ngIf="userWithScreening">
-        <div class="dashboard-user">
-            <div class="screening-details">
-                <p>Name: {{userWithScreening.name}}</p>
-                <p class="screening-date">
-                    Group Time: {{ userWithScreening.groupTime | date: short}}
+<div>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Group time</th>
+            <th>Personal time</th>
+            <th>Signed back</th>
+        </tr>
+        <tr *ngFor="let user of users" (onClick)="navigate(user)">
+            <td>{{ user.name }}</td>
+            <td>
+                <p *ngIf="user.groupTime">
+                {{ user.groupTime | date: 'yyyy.MM.dd. HH:mm' }}
                 </p>
-                <p class="screening-date">
-                    Personal Time: {{ userWithScreening.personalTime | date: short}}
+                <p *ngIf="!user.groupTime">
+                    <i class="fa fa-ban" aria-hidden="true"></i>
                 </p>
-            </div>
-            <button class="btn btn-success" (click)="getApplicant(userWithScreening.adminId)">
-                Check applicant&nbsp;&gt;&gt;
-            </button>
-        </div>
-    </div>
+            </td>
+            <td>
+                <p *ngIf="user.personalTime">
+                {{ user.personalTime | date: 'yyyy.MM.dd. HH:mm' }}
+                </p>
+                <p *ngIf="!user.personalTime">
+                    <i class="fa fa-ban" aria-hidden="true"></i>
+                </p>
+            </td>
+            <td>
+                <p *ngIf="user.scheduleSignedBack === true" class="text-success">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                </p>
+                <p *ngIf="!user.scheduleSignedBack">
+                    <i class="fa fa-question" aria-hidden="true"></i>
+                </p>
+            </td>
+        </tr>
+    </table>
 </div>

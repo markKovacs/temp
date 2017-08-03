@@ -1,9 +1,11 @@
 package com.codecool.appsystem.admin.service;
 
+import com.codecool.appsystem.admin.config.security.AuthenticatedUser;
 import com.codecool.appsystem.admin.model.*;
 import com.codecool.appsystem.admin.model.dto.ScreeningStepEvaluationDTO;
 import com.codecool.appsystem.admin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -81,6 +83,7 @@ public class ScreeningEditService {
 
 
     public void saveEvaluation(ApplicantsScreeningStep step){
+        step.setInterviewer(((AuthenticatedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName());
         applicantsScreeningStepRepository.save(step);
     }
 

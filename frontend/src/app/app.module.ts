@@ -51,6 +51,8 @@ import {ScreeningService} from "./_services/screening.service";
 import {DateFormatPipe, MomentModule} from "angular2-moment";
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import {ApplicantScreeningComponent} from "./components/applicant-screening/applicant-screening.component";
 
 @NgModule({
     imports: [
@@ -69,7 +71,8 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
         MomentModule,
         GrowlModule,
         FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
-        CarouselModule.forRoot()
+        CarouselModule.forRoot(),
+        BsDropdownModule.forRoot()
     ],
     declarations: [
         AppComponent,
@@ -91,7 +94,8 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
         StartComponent,
         TemplateEditorComponent,
         FilterEnabled,
-        SurveyBaseDataComponent
+        SurveyBaseDataComponent,
+        ApplicantScreeningComponent
     ],
     providers: [
         AuthGuard,

@@ -1,6 +1,8 @@
-import {Component, Input} from "@angular/core";
-import {UserScreening} from "../../_models/user-screening.model";
+import {Component} from "@angular/core";
+import {ScreeningService} from "../../_services/screening.service";
+import {ScreeningInfo} from "../../_models/screeninginfo.model";
 import {Router} from "@angular/router";
+import {GlobalEventsManager} from "../../global.eventsmanager";
 
 @Component({
     moduleId: module.id,
@@ -10,11 +12,35 @@ import {Router} from "@angular/router";
 })
 export class DashboardScreeningComponent {
 
-    @Input() public userWithScreening: UserScreening;
+    users: ScreeningInfo[] = [];
 
-    constructor(private router: Router) {}
+    constructor(private screeningService: ScreeningService,
+                private router: Router,
+                private eventsManager: GlobalEventsManager) {
 
-    getApplicant(id) {
-        this.router.navigate(['applicants/' + id]);
+        this.getData();
+
+        this.eventsManager.selectedLocationEmitter.subscribe((loc) => {
+                if (loc !== null) {
+                    this.users = [];
+                    this.getData();
+                }
+            }
+        );
+
     }
+
+    navigate(user: ScreeningInfo) {
+        this.router.navigate(['/applicants/' + user.adminId]);
+    }
+
+    getData(){
+        this.screeningService.findCandidates().subscribe(
+            (data: ScreeningInfo[]) => {
+                this.users = data;
+            },
+            error => console.log(error)
+        );
+    }
+
 }

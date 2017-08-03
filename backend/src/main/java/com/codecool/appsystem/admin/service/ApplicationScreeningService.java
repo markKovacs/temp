@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -141,7 +140,7 @@ public class ApplicationScreeningService {
                 testResultRepository.
                         findFirstByTestIdAndApplicationIdOrderByFinishedDesc(test.getId(), application.getId());
 
-        return testResult != null && Boolean.TRUE.equals(testResult.getPassed());
+        return application.getFinalResult() == null && testResult != null && Boolean.TRUE.equals(testResult.getPassed());
 
     }
 
@@ -158,6 +157,7 @@ public class ApplicationScreeningService {
         if(screeningInfo != null){
             result.setGroupTime(screeningInfo.getScreeningGroupTime());
             result.setPersonalTime(screeningInfo.getScreeningPersonalTime());
+            result.setScheduleSignedBack(screeningInfo.getScheduleSignedBack());
         }
         return result;
 
@@ -185,13 +185,7 @@ public class ApplicationScreeningService {
     }
 
     private ScreeningDTO transformScreeningInfo(ApplicationScreeningInfo asci) {
-
-        String groupTime =
-                new SimpleDateFormat("yyyy.MM.dd HH:mm").format(asci.getScreeningGroupTime());
-
-        String personalTime =
-                new SimpleDateFormat("yyyy.MM.dd HH:mm").format(asci.getScreeningPersonalTime());
-
+        Application application = appRepository.findOne(asci.getApplicationId());
         return ScreeningDTO
                 .builder()
                 .groupTime(asci.getScreeningGroupTime())
@@ -200,6 +194,7 @@ public class ApplicationScreeningService {
                 .adminId(findUserAdminId(asci.getApplicationId()))
                 .name(findUserName(asci.getApplicationId()))
                 .age(getAge(asci.getApplicationId()))
+                .finalResult(application.getFinalResult())
                 .build();
 
     }

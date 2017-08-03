@@ -6,38 +6,15 @@ body {
 h1 {
     font-family: 'Montserrat', sans-serif;
     font-size: 2em;
-    color: #7c8084;
 }
 
 p {
     font-family: 'Montserrat', sans-serif;
     font-size: 1em;
-    color: #7c8084;
 }
 
 .container {
-  padding-top: 65px;
-  background-color: white;
-}
-
-.dashboard-welcome {
-  margin: 0 20px;
-}
-
-.loc-buttons {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.loc-button-place button {
-  width: 100%;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-.selected-location {
-  background-color: #428bca;
-  border-color: #428bca;
+  margin-top: 50px;
 }
 
 .dashboard-users {

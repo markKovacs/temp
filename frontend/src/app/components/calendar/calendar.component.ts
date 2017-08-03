@@ -91,12 +91,12 @@ export class CalendarComponent implements OnInit {
             this.dateSelectorOn = false;
         }
         this.date = null;
-        this.dates.sort((a, b) => {
+        /*this.dates.sort((a, b) => {
             if(a.getDate() > b.getDate()){
                 return 1;
             }
             return -1;
-        });
+        });*/
     }
 
     selectDate(date) {

@@ -1,42 +1,12 @@
 <div class="container">
-
     <div class="row">
-        <div class="col-sm-12 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
-            <h1 class="text-danger text-center">Location</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" *ngFor="let loc of locations">
-
-            <button
-                    (click)="chooseLocation(loc.id)"
-                    class="btn btn-info {{isChosen(loc.id)}}">
-                {{ loc.name }}
-            </button>
-
-        </div>
-    </div>
-
-    <div class="row" *ngIf="usersWithVideo">
         <div class="col-md-6 col-sm-12">
-            <div class="dashboard-users">
-                <h3>Motivation videos to grade</h3>
-                <dashboard-motivation *ngFor="let user of usersWithVideo"
-                                        [userWithVideo]="user">
-
-                </dashboard-motivation>
-
-            </div>
+            <h2>Motivation videos to grade</h2>
+            <dashboard-motivation></dashboard-motivation>
         </div>
-        <div class="col-md-6 col-sm-12" *ngIf="usersWithScreening">
-            <div class="dashboard-users">
-                <h3>Screenings to attend</h3>
-                <dashboard-screening *ngFor="let user of usersWithScreening"
-                                      [userWithScreening]="user">
-
-                </dashboard-screening>
-
-            </div>
+        <div class="col-md-6 col-sm-12">
+            <h2>Screenings</h2>
+            <dashboard-screening></dashboard-screening>
         </div>
     </div>
 </div>

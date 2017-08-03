@@ -45,6 +45,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
         return new AuthenticatedUser(
                 parsedEmail,
+                "Józsi",
                 token,
                 Collections.singletonList(new SimpleGrantedAuthority("USER")));
     }

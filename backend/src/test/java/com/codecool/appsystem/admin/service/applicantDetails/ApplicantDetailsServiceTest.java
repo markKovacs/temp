@@ -71,7 +71,7 @@ public class ApplicantDetailsServiceTest extends MockData {
         mockApplicantDetailsDTO.setGivenName("Doe");
         mockApplicantDetailsDTO.setFamilyName("John");
         mockApplicantDetailsDTO.setTimesApplied(0L);
-        mockApplicantDetailsDTO.setScreeningSteps(mockApplicantsScreeningSteps);
+        //mockApplicantDetailsDTO.setScreeningSteps(mockApplicantsScreeningSteps);
         mockApplicantDetailsDTO.setTestResults(Arrays.asList(mockTestResultDTO));
 
         mockApplicationScreeningInfo.setApplicationId("asd@gmail.com");

@@ -1,27 +1,29 @@
 .container {
-  padding-top: 65px;
-  background-color: white;
-  min-height: 500px;
+    margin-top: 5em;
+    min-height: 500px;
 }
 
-
 .material-icons.md-240 {
-  font-size: 240px;
+    font-size: 240px;
 }
 
 .applicant-loading-container {
-  padding: 50px;
-  text-align: center;
+    padding: 50px;
+    text-align: center;
 }
 
 .applicant-loading {
-  color: blue;
-  opacity: 0.1;
-  animation: flyDown 3s;
-  animation-iteration-count: infinite;
+    color: blue;
+    opacity: 0.1;
+    animation: flyDown 3s;
+    animation-iteration-count: infinite;
 }
 
 @keyframes flyDown {
-  0% {transform: translateY(0px);}
-  100% {transform: translateY(100px);}
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(100px);
+    }
 }

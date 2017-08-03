@@ -1,6 +1,7 @@
 import {Results} from "./results.model";
 import {ScreeningInfo} from "./screeninginfo.model"
 import {ScreeningStep} from "./screeningStep.model";
+import {UserScreeningDisplayModel} from "./user-screening-display.model";
 export class User {
 
     givenName: string;
@@ -16,10 +17,14 @@ export class User {
     testResults: Results[]=[];
 
     // from screening info
-    screeningPersonalTime: string;
+
+    screeningGroupTime: Date;
+    screeningPersonalTime: Date;
 
     screeningInfo: ScreeningInfo;
 
-    screeningStep: ScreeningStep;
+    finalResult: boolean;
+
+    screeningSteps: UserScreeningDisplayModel[];
 
 }

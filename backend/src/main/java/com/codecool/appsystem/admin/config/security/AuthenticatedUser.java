@@ -12,11 +12,13 @@ import java.util.Collection;
 public class AuthenticatedUser implements UserDetails {
 
     private final String email;
+    private final String name;
     private final String token;
     private final Collection<? extends GrantedAuthority> authorities;
 
-    AuthenticatedUser(String email, String token, Collection<? extends GrantedAuthority> authorities) {
+    AuthenticatedUser(String email, String name, String token, Collection<? extends GrantedAuthority> authorities) {
         this.email = email;
+        this.name = name;
         this.token = token;
         this.authorities = authorities;
     }
@@ -62,6 +64,10 @@ public class AuthenticatedUser implements UserDetails {
     @Override
     public String getPassword() {
         return null;
+    }
+
+    public String getName() {
+        return name;
     }
 }
 

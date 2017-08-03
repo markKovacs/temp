@@ -17,10 +17,18 @@ public class ScreeningEvalService {
     @Autowired
     private UserRepository userRepository;
 
-    public void gradeScreening(ScreeningGrade grade){
+    public void gradeScreening(ScreeningGrade grade) {
+
         User user = userRepository.findByAdminId(grade.getAdminId());
+
         Application application = applicationRepository.findByApplicantIdAndActive(user.getId(), true);
         application.setFinalResult(grade.getAccepted());
+
+        if (Boolean.TRUE.equals(grade.getAccepted())) {
+            user.setCanApply(false);
+            userRepository.saveAndFlush(user);
+        }
+
         applicationRepository.save(application);
     }
 }

@@ -7,8 +7,9 @@ export class GlobalEventsManager {
 
     private _showNavBar: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
     public showNavBarEmitter: Observable<boolean> = this._showNavBar.asObservable();
-    private _profileEditEnabled: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
-    public profileEditEnabledEmitter: Observable<boolean> = this._profileEditEnabled.asObservable();
+
+    private _selectedLocation: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+    public selectedLocationEmitter: Observable<string> = this._selectedLocation.asObservable();
 
     constructor() {
     }
@@ -16,5 +17,10 @@ export class GlobalEventsManager {
     showNavBar(ifShow: boolean) {
         this._showNavBar.next(ifShow);
     }
+
+    setSelectedLocation(loc: string) {
+        this._selectedLocation.next(loc);
+    }
+
 
 }

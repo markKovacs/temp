@@ -12,7 +12,7 @@ import {Router} from "@angular/router";
     styleUrls: ['applicant-video.component.css'],
     selector: 'applicant-video'
 })
-export class ApplicantVideoComponent implements OnInit{
+export class ApplicantVideoComponent {
 
     @Input() testResult: Results;
     comment: string;
@@ -25,9 +25,6 @@ export class ApplicantVideoComponent implements OnInit{
         this.eventsManager.showNavBar(true);
     }
 
-    ngOnInit(): void {
-
-    }
 
     saveComment(comment){
         this.comment = comment;

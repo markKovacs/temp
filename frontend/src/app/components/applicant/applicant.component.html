@@ -2,30 +2,63 @@
     <div *ngIf="!user" class="applicant-loading-container">
         <i class="material-icons md-240 applicant-loading">cloud_download</i>
     </div>
-    <div *ngIf="user" class="applicant-profile">
+    <div *ngIf="user">
         <div class="row">
-            <div *ngFor="let result of user.testResults">
-                <div *ngIf="result.isMotivation">
-                    <applicant-video [testResult]="result"
-                                     [adminId]="user.adminId"></applicant-video>
+            <div class="col-sm-12 col-md-8 col-lg-8">
+                <div *ngFor="let result of user.testResults">
+                    <div *ngIf="result.isMotivation">
+                        <applicant-video [testResult]="result"
+                                         [adminId]="user.adminId"></applicant-video>
+                    </div>
                 </div>
             </div>
 
-            <div *ngIf="user.screeningSteps">
-              <p>Evaluate application</p>
-              <button (click)="setFinalResult(true)">Accept</button>
-              <button (click)="setFinalResult(false)">Decline</button>
-            </div>
-
-            <div class="col-md-3 col-log-3">
-                <div class="applicant-profile-details">
-                    <p><span>Applicant:</span><span>{{user.givenName}} {{user.familyName}}</span></p>
-                    <p><span>Birthdate:</span><span>{{user.dateOfBirth}}</span></p>
-                    <p><span>Location:</span><span>{{user.location}}</span></p>
-                    <p><span>Times Applied:</span><span>{{user.timesApplied}}</span></p>
+            <div class="col-sm-12 col-md-4 col-log-4">
+                <h3>APPLICANT&nbsp;<small>OVERVIEW</small>
+                </h3>
+                <br/>
+                <div>
+                    <div class="col-sm-6">
+                        <h4><small>Name</small></h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4>{{user.givenName}} {{user.familyName}}</h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4><small>Date of birth</small></h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4>{{user.dateOfBirth}}</h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4><small>Times applied</small></h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4>{{user.timesApplied}}</h4>
+                    </div>
+                    <div class="col-sm-6" *ngIf="user.screeningGroupTime">
+                        <h4><small>Group time</small></h4>
+                    </div>
+                    <div class="col-sm-6" *ngIf="user.screeningGroupTime">
+                        <h4>{{ user.screeningGroupTime | date: 'yyyy.MM.dd. HH:mm' }}</h4>
+                    </div>
+                    <div class="col-sm-6" *ngIf="user.screeningPersonalTime">
+                        <h4><small>Personal time</small></h4>
+                    </div>
+                    <div class="col-sm-6" *ngIf="user.screeningPersonalTime">
+                        <h4>{{ user.screeningPersonalTime | date: 'yyyy.MM.dd. HH:mm' }}</h4>
+                    </div>
                 </div>
             </div>
         </div>
+        <hr/>
+
+        <div class="row" *ngIf="user.screeningSteps && user.screeningSteps.length > 0">
+            <applicant-screening [user]="user"></applicant-screening>
+        </div>
+
+        <hr *ngIf="user.screeningSteps && user.screeningSteps.length > 0"/>
+
         <div class="row">
             <applicant-test *ngFor="let result of user.testResults" [testResult]="result"></applicant-test>
         </div>

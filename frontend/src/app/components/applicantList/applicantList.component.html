@@ -39,7 +39,7 @@
               filterMatchMode="contains">
         <ng-template let-applicant="rowData" pTemplate="body">
           <span *ngIf="applicant.processStartedAt">
-            <!--{{ getDeadline(applicant) | amTimeAgo }}-->
+            {{ getDeadline(applicant) | amTimeAgo }}
           </span>
         </ng-template>
       </p-column>

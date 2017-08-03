@@ -46,16 +46,16 @@ export class EvaluateScreeningsComponent {
             (users: User[]) => this.users = users.sort((one, other) => {
                 return one.screeningPersonalTime > other.screeningPersonalTime ? 1 : -1;
             }),
-            (error) => error,
-            () => console.log("Applicants arrived", this.users)
+            (error) => error
+            //,() => console.log("Applicants arrived", this.users)
         )
     }
 
     getSteps(){
         this.client.get('/api/screeningsteps?location=' + this.location.id).subscribe(
             (steps: ScreeningStep[]) => this.screeningSteps = steps,
-            (error) => error,
-            () => console.log("Steps arrived")
+            (error) => error
+            //,() => console.log("Steps arrived")
         )
     }
 
@@ -67,11 +67,11 @@ export class EvaluateScreeningsComponent {
     getApplicantsStep(step){
         let url = '/api/evalscreening/' + this.user.adminId + '?step=' + step.id;
         this.chosenStep = step;
-        this.toEvaluate = null;
+        this.toEvaluate = new UsersScreeningStep();
         this.client.get(url).subscribe(
             (data: UsersScreeningStep) => this.toEvaluate = data,
-            (error) => error,
-            () => console.log("Applicant's step arrived", this.toEvaluate)
+            (error) => error
+            //,() => console.log("Applicant's step arrived", this.toEvaluate)
         )
     }
 
@@ -84,7 +84,6 @@ export class EvaluateScreeningsComponent {
     }
 
     postUpdate(){
-        console.log("Should post this: ", this.toEvaluate.screeningStep);
         this.client.post('/api/evalscreening', this.toEvaluate.screeningStep).subscribe(
             (data: any) => this.messages.push(
                 {
@@ -92,8 +91,8 @@ export class EvaluateScreeningsComponent {
                     summary: 'Save completed',
                     detail: this.toEvaluate.name
                 }),
-            (error) => error,
-            () => console.log("Applicant's step updated")
+            (error) => error
+            //,() => console.log("Applicant's step updated")
         )
     }
 

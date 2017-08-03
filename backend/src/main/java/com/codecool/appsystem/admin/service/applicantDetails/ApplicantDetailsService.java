@@ -2,6 +2,8 @@ package com.codecool.appsystem.admin.service.applicantDetails;
 
 import com.codecool.appsystem.admin.model.*;
 import com.codecool.appsystem.admin.model.dto.ApplicantDetailsDTOBuilder;
+import com.codecool.appsystem.admin.model.dto.ApplicantsScreeningStepDTO;
+import com.codecool.appsystem.admin.model.dto.CriteriaDTO;
 import com.codecool.appsystem.admin.model.dto.applicantDetails.ApplicantDetailsDTO;
 import com.codecool.appsystem.admin.model.dto.applicantDetails.TestResultDTO;
 import com.codecool.appsystem.admin.repository.*;
@@ -9,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +37,11 @@ public class ApplicantDetailsService {
     @Autowired
     private ApplicantsScreeningStepRepository applicantsScreeningStepRepository;
 
+    @Autowired
+    private ScreeningStepRepository screeningStepRepository;
+
+    @Autowired
+    private ScreeningStepCriteriaRepository screeningStepCriteriaRepository;
 
     public ApplicantDetailsDTO provideInfo(Integer id) {
 
@@ -49,15 +57,58 @@ public class ApplicantDetailsService {
 
     private ApplicantDetailsDTO provideDTO(User user, Application application, ApplicationScreeningInfo appScrInf, List<ApplicantsScreeningStep> applicantsScreeningSteps) {
 
-        return new ApplicantDetailsDTOBuilder()
+        ApplicantDetailsDTO dto = new ApplicantDetailsDTOBuilder()
                 .fromUser(user)
                 .timesApplied(applicationRepo.countByApplicantId(user.getId()))
                 .fromApplication(application)
                 .testResults(getTestInfo(application))
                 .fromAppScrInfo(appScrInf)
-                .fromScreening(applicantsScreeningSteps)
+                .finalResult(application.getFinalResult())
                 .build();
 
+        if(applicantsScreeningSteps != null){
+            dto.setScreeningSteps(processScreening(applicantsScreeningSteps));
+        }
+
+        return dto;
+
+    }
+
+    private List<ApplicantsScreeningStepDTO> processScreening(List<ApplicantsScreeningStep> steps){
+        List<ApplicantsScreeningStepDTO> result = new ArrayList<>();
+        for(ApplicantsScreeningStep step : steps){
+            result.add(ApplicantsScreeningStepDTO.builder()
+                    .comment(step.getComment())
+                    .interviewer(step.getInterviewer())
+                    .points(step.getPoints())
+                    .status(step.getStatus())
+                    .stepName(getNameForStep(step.getStepId()))
+                    .criterias(processCriterias(step.getCriterias()))
+                    .build());
+        }
+        return result;
+    }
+
+    private String getNameForStep(String id){
+        return screeningStepRepository.findOne(id).getName();
+    }
+
+    private List<CriteriaDTO> processCriterias(List<ApplicantsScreeningStepCriteria> criterias){
+        List<CriteriaDTO> result = new ArrayList<>();
+        for(ApplicantsScreeningStepCriteria crit : criterias){
+            result.add(CriteriaDTO.builder()
+                    .comment(crit.getComment())
+                    .points(crit.getPoints())
+                    .status(crit.getStatus())
+                    .criteriaName(getNameForCriteria(crit.getCriteriaId()))
+                    .build()
+            );
+        }
+        return result;
+    }
+
+    private String getNameForCriteria(String id){
+        return screeningStepCriteriaRepository.findOne(id).getName();
     }
 
     private List<TestResultDTO> getTestInfo(Application application) {

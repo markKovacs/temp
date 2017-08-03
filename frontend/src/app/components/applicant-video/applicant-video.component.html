@@ -1,26 +1,59 @@
-<div class="application-video-component" *ngIf="testResult">
+<div *ngIf="testResult">
 
-    <div class="col-md-9 col-log-9">
-        <div class="applicant-motivation-video-container " *ngIf="isVideo()">
+        <div *ngIf="isVideo()" class="row text-center">
             <iframe
-                    class="e2e-iframe-trusted-src" width="420" height="315" [src]="getMotivationVideo()">
+                    class="e2e-iframe-trusted-src" width="640" height="360" [src]="getMotivationVideo()">
             </iframe>
         </div>
-        <div class="applicant-motivation-video-container " *ngIf="!isVideo()">
-            <span [innerHtml]="testResult.answer"></span>
-        </div>
-        <br>
-        <div *ngIf="!testResult.passed">
-        <textarea placeholder="Comment for motivation" rows="5" cols="60" (blur)="saveComment($event.target.value)"></textarea>
-        <br>
-        <button class="btn btn-danger" (click)="gradeMotivation(true)">Accept</button>
-        <button class="btn btn-success" (click)="gradeMotivation(false)">Decline</button>
-        </div>
-        <div *ngIf="testResult.passed">
-            <p>Video comment: {{testResult.comment}}</p>
-            <p>Accepted: {{testResult.passed}}</p>
-        </div>
-    </div>
+        <div class="row form" *ngIf="!isVideo()">
 
+            <div class="form-group">
+                <label for="content" class="col-sm-2 control-label">Submitted motivation text</label>
+                <div class="col-sm-10">
+                    <textarea
+                            rows="5" cols="60"
+                            class="form-control"
+                            [(ngModel)]="testResult.answer"
+                            id="content"
+                            disabled
+                    >
+                    </textarea>
+                </div>
+            </div>
+
+        </div>
+
+        <hr />
+
+        <div class="row form">
+
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label for="comment" class="control-label">Comment</label>
+                    <h4 *ngIf="testResult.passed === undefined">
+                        <a (click)="gradeMotivation(true)" class="text-success">
+                            <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Accept
+                        </a>
+                    </h4>
+                    <h4 *ngIf="testResult.passed === undefined">
+                        <a (click)="gradeMotivation(false)" class="text-danger">
+                            <i class="fa fa-times" aria-hidden="true"></i>&nbsp;Decline
+                        </a>
+                    </h4>
+                </div>
+                <div class="col-sm-10">
+                    <textarea
+                            rows="5" cols="60"
+                            class="form-control"
+                            (blur)="saveComment($event.target.value)"
+                            id="comment"
+                            placeholder="You can give some comment here, the applicant won't see this ever."
+                            [disabled]="testResult.passed !== undefined"
+                    >
+                    </textarea>
+                </div>
+            </div>
+
+        </div>
 
 </div>

@@ -1,7 +1,7 @@
 <nav *ngIf="showNavBar" class="navbar navbar-default navbar-fixed-top navbar-custom">
   <div class="container">
-    <a class="navbar-brand" rel="home">
-      <img (click)="getDashboard()" style="max-height :17px; margin-top: -4px; display: inline;" src="../../../assets/logo.png">
+    <a (click)="getDashboard()" class="navbar-brand" rel="home">
+      <img style="max-height :17px; margin-top: -4px; display: inline;" src="../../../assets/logo.png">
     </a>
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -13,12 +13,26 @@
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div class="nav navbar-nav navbar-left btn-group" dropdown>
+        <p dropdownToggle class="navbar-text">
+          Location<span *ngIf="getLocation()"> {{ getLocation() }}</span> <span class="caret"></span>
+        </p>
+        <ul *dropdownMenu class="dropdown-menu" role="menu">
+          <li *ngFor="let loc of locations"
+              role="menuitem">
+                <a class="dropdown-item"
+                   (click)="chooseLocation(loc.id)">
+                    {{ loc.name }}
+                </a>
+          </li>
+        </ul>
+      </div>
       <ul class="nav navbar-nav navbar-right" *ngIf="hasLocation()">
-        <li><a (click)="getEditor()" id="navbar-surveys">Templates</a></li>
-        <li><a (click)="getScreening()" id="navbar-surveys">Screenings</a></li>
-        <li><a (click)="getSurvey()" id="navbar-surveys">Surveys</a></li>
         <li><a (click)="getApplicants()" id="navbar-applicants">Applicants</a></li>
         <li><a (click)="getCalendar()" id="navbar-calendar">Calendar</a></li>
+        <li><a (click)="getScreening()" id="navbar-screenings">Screenings</a></li>
+        <li><a (click)="getEditor()" id="navbar-templates">Templates</a></li>
+        <li><a (click)="getSurvey()" id="navbar-surveys">Surveys</a></li>
         <li><a (click)="logout()">Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->

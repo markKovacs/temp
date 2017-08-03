@@ -21,5 +21,6 @@ public class ScreeningDTO extends RestResponseDTO{
     private Boolean scheduleSignedBack;
     private Integer age;
     private String gender;
+    private Boolean finalResult;
 
 }

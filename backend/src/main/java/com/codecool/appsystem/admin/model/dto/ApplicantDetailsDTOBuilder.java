@@ -1,6 +1,5 @@
 package com.codecool.appsystem.admin.model.dto;
 
-import com.codecool.appsystem.admin.model.ApplicantsScreeningStep;
 import com.codecool.appsystem.admin.model.Application;
 import com.codecool.appsystem.admin.model.ApplicationScreeningInfo;
 import com.codecool.appsystem.admin.model.User;
@@ -29,7 +28,8 @@ public class ApplicantDetailsDTOBuilder {
     private Date screeningGroupTime;
     private Date screeningPersonalTime;
     private Boolean scheduleSignedBack;
-    private List<ApplicantsScreeningStep> screeningSteps;
+    private List<ApplicantsScreeningStepDTO> screeningSteps;
+    private Boolean finalResult;
 
 
     public ApplicantDetailsDTOBuilder fromUser(User user){
@@ -40,9 +40,8 @@ public class ApplicantDetailsDTOBuilder {
         return this;
     }
 
-    public ApplicantDetailsDTOBuilder fromScreening(List<ApplicantsScreeningStep> appScreen){
-        this.screeningSteps = appScreen;
-        return this;
+    public void setScreeningSteps(List<ApplicantsScreeningStepDTO> screeningSteps){
+        this.screeningSteps = screeningSteps;
     }
 
     public ApplicantDetailsDTOBuilder testResults(List<TestResultDTO> testResults){
@@ -66,6 +65,11 @@ public class ApplicantDetailsDTOBuilder {
 
     public ApplicantDetailsDTOBuilder location(String location){
         this.location = location;
+        return this;
+    }
+
+    public ApplicantDetailsDTOBuilder finalResult(Boolean finalResult){
+        this.finalResult = finalResult;
         return this;
     }
 
