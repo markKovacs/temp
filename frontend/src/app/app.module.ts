@@ -53,6 +53,11 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import {ApplicantScreeningComponent} from "./components/applicant-screening/applicant-screening.component";
+import {EditStepsBoxComponent} from "./components/evaluateScreenings/edit-steps-box/edit-steps-box.component";
+import {EvaluateStepsComponent} from "./components/evaluateScreenings/evaluate-steps/evaluate-steps.component";
+import {EvaluateUserComponent} from "./components/evaluateScreenings/evaluate-user/evaluate-user.component";
+import {AlertService} from "./_services/alert.service";
+import {AlertComponent} from "./components/alert/alert.component";
 
 @NgModule({
     imports: [
@@ -95,7 +100,11 @@ import {ApplicantScreeningComponent} from "./components/applicant-screening/appl
         TemplateEditorComponent,
         FilterEnabled,
         SurveyBaseDataComponent,
-        ApplicantScreeningComponent
+        ApplicantScreeningComponent,
+        EditStepsBoxComponent,
+        EvaluateStepsComponent,
+        EvaluateUserComponent,
+        AlertComponent
     ],
     providers: [
         AuthGuard,
@@ -105,7 +114,8 @@ import {ApplicantScreeningComponent} from "./components/applicant-screening/appl
         QuestionService,
         DateFormatPipe,
         DatePipe,
-        ScreeningService
+        ScreeningService,
+        AlertService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent]

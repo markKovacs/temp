@@ -3,15 +3,18 @@ package com.codecool.appsystem.admin.service;
 import com.codecool.appsystem.admin.model.*;
 import com.codecool.appsystem.admin.model.dto.MotivationDTO;
 import com.codecool.appsystem.admin.repository.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
+@Slf4j
 public class MotivationsUtilService {
 
 
@@ -33,8 +36,17 @@ public class MotivationsUtilService {
 
         Test motivationTest = testRepo.findByMotivationVideoAndLocationId(true, id);
 
+        if(motivationTest == null){
+            log.warn("No motivation test found for location: {}", id);
+            return Collections.emptyList();
+        }
+
         for (User u: userList) {
             Application application = applicationRepository.findByApplicantIdAndActive(u.getId(), true);
+
+            if(application == null){
+                continue;
+            }
 
             List<TestResult> testResults = testResultRepo.findByApplicationId(application.getId());
 

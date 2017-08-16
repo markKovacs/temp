@@ -2,11 +2,11 @@
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <h2>Motivation videos to grade</h2>
-            <dashboard-motivation></dashboard-motivation>
+            <dashboard-motivation *ngIf="hasLocation()"></dashboard-motivation>
         </div>
         <div class="col-md-6 col-sm-12">
             <h2>Screenings</h2>
-            <dashboard-screening></dashboard-screening>
+            <dashboard-screening *ngIf="hasLocation()"></dashboard-screening>
         </div>
     </div>
 </div>

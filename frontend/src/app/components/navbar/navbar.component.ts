@@ -45,6 +45,7 @@ export class NavBarComponent {
         let chosen: Location = this.locations.filter((location) => location.id == id)[0];
         localStorage.setItem("chosenLocation", JSON.stringify(chosen));
         this.globalEventsManager.setSelectedLocation(chosen.id);
+        this.router.navigate(['dashboard']);
     }
 
     getDashboard() {
@@ -64,7 +65,7 @@ export class NavBarComponent {
     }
 
     getScreening(){
-        this.router.navigate(['evaluatescreenings'])
+        this.router.navigate(['evaluate'])
     }
 
     getEditor(){
@@ -76,7 +77,10 @@ export class NavBarComponent {
     }
 
     getLocation(){
-        return JSON.parse(localStorage.getItem('chosenLocation')).name;
+        if(localStorage.getItem('chosenLocation')) {
+            return JSON.parse(localStorage.getItem('chosenLocation')).name;
+        }
+        return null;
     }
 
     logout() {

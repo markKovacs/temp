@@ -2,8 +2,6 @@ package com.codecool.appsystem.admin.config;
 
 import com.codecool.appsystem.admin.config.security.JwtAuthenticationProvider;
 import com.codecool.appsystem.admin.config.security.JwtAuthenticationTokenFilter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,8 +22,6 @@ import java.util.Collections;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
-
     @Autowired
     private JwtAuthenticationProvider authenticationProvider;
 
@@ -39,12 +35,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
 
         // match GET and POST under / for authentication.
-        RequestMatcher getRequestMatcher = new AntPathRequestMatcher("/**", HttpMethod.GET.name(), false);
-        RequestMatcher postRequestMatcher = new AntPathRequestMatcher("/**", HttpMethod.POST.name(), false);
+        RequestMatcher getRequestMatcher = new AntPathRequestMatcher("/api/**", HttpMethod.GET.name(), false);
+        RequestMatcher postRequestMatcher = new AntPathRequestMatcher("/api/**", HttpMethod.POST.name(), false);
 
         // allow /api/login
         RequestMatcher notLogin = new NegatedRequestMatcher(
-                new AntPathRequestMatcher("/api/login")
+                new AntPathRequestMatcher("/api/login**")
         );
 
         // allow /api/login/callback

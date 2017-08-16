@@ -1,9 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {GlobalEventsManager} from "../../global.eventsmanager";
-import {HttpClient} from "../../_httpclient/httpclient";
-import {Location} from "../../_models/index";
-import {UserMotivation} from "../../_models/user-motivation.model";
-import {UserScreening} from "../../_models/user-screening.model";
 
 @Component({
     moduleId: module.id,
@@ -16,4 +12,7 @@ export class DashboardComponent {
         this.eventsManager.showNavBar(true);
     }
 
+    hasLocation():boolean {
+        return localStorage.getItem("chosenLocation") !== null;
+    }
 }
