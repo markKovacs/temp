@@ -9,4 +9,7 @@
             <dashboard-screening *ngIf="hasLocation()"></dashboard-screening>
         </div>
     </div>
+    <div class="row">
+        <app-active-applicants-table [locationId]="'BUD'"></app-active-applicants-table>
+    </div>
 </div>

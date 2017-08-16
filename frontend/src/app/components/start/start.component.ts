@@ -28,7 +28,7 @@ export class StartComponent implements OnInit {
             // if no auth token found - redirect to login.
             if (!localStorage.getItem('adminAuthToken')) {
                 console.log("NO jwt token received");
-                window.location.href = 'http://35.158.247.216:9002/api/login';
+                window.location.href = '/api/login';
             } else {
                 this.router.navigate(['dashboard']);
             }

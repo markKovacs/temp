@@ -1,4 +1,4 @@
-export class UserInList {
+export class Applicant {
 
     name: string;
     adminId: number;
