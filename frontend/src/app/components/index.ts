@@ -16,3 +16,4 @@ export * from './survey-editor/survey-base-data.component';
 export * from './editScreening/editScreening.component';
 export * from './template-editor/template-editor.component';
 export * from './evaluateScreenings/evaluateScreenings.component';
+export * from './evaluateScreenings/evaluate-user/evaluate-user.component';

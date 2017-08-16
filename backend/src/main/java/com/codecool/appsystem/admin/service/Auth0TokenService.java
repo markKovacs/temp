@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Base64Utils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -98,7 +99,7 @@ public class Auth0TokenService {
 
             log.trace("JWT Token generated: {}", jwtToken);
 
-            return jwtToken;
+            return  Base64Utils.encodeToUrlSafeString(jwtToken.getBytes());
 
         } catch (Exception e){
             log.error("Error occurred during authentication: {}", e.getMessage(), e);

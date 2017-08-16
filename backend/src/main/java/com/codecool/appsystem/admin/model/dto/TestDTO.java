@@ -1,9 +1,7 @@
 package com.codecool.appsystem.admin.model.dto;
 
-import com.codecool.appsystem.admin.model.Question;
 import com.codecool.appsystem.admin.model.QuestionContent;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.sun.xml.internal.bind.v2.runtime.InlineBinaryTransducer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

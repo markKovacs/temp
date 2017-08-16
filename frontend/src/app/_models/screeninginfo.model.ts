@@ -7,5 +7,6 @@ export class ScreeningInfo {
     scheduleSignedBack: boolean;
     age: number;
     gender: string;
+    finalResult: boolean;
 
 }

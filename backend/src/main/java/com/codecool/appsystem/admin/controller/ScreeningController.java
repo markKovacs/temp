@@ -20,6 +20,11 @@ public class ScreeningController {
         return screeningService.find(location, signedBack);
     }
 
+    @RequestMapping("/api/screening/{id}")
+    public ScreeningDTO getScreeningInfo(@PathVariable("id") Integer id){
+        return screeningService.findOne(id);
+    }
+
     @RequestMapping("/api/screening/candidates")
     public List<ScreeningDTO> getScreeningCandidates(@RequestParam String location){
         return screeningService.getCandidates(location);

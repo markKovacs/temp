@@ -123,6 +123,22 @@ public class ApplicationScreeningService {
 
     }
 
+    public ScreeningDTO findOne(Integer adminId) {
+
+        User user = userRepository.findByAdminId(adminId);
+
+        Application application =
+                appRepository.findByApplicantIdAndActive(user.getId(), true);
+
+        if(application == null){
+            return null;
+        }
+
+        ApplicationScreeningInfo appscr = appScrRepo.findByApplicationId(application.getId());
+        return transformScreeningInfo(appscr);
+
+    }
+
     public List<ScreeningDTO> getCandidates(String locationId) {
 
         return appRepository.findByLocationId(locationId)

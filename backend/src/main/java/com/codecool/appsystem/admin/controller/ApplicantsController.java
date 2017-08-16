@@ -19,12 +19,12 @@ public class ApplicantsController {
     @Autowired
     private ApplicantListingService applicantListingService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public List<ApplicantInfoDTO> getAllApplicants(@RequestParam("location") String locationId){
         return applicantListingService.getApplicationData(locationId);
     }
 
-    @RequestMapping(value = "/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ApplicantDetailsDTO getSingleApplicantInfo(@PathVariable("id") Integer id) {
         return detailsService.provideInfo(id);
     }

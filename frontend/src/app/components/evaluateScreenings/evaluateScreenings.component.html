@@ -1,109 +1,34 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 card-container">
-            <div class="card">
-                <div *ngFor="let user of users">
-                    <div class="one-user-in-list">
-                        <div class="user-in-list-date">
-                            {{ user.groupTime | date: 'MM.dd. HH:mm' }}
-                            &nbsp;/&nbsp;
-                            {{ user.personalTime | date: 'MM.dd. HH:mm' }}
-                        </div>
-                        <div class="user-in-list-name">
-                            {{ user.name }}
-                        </div>
-                        <div>
-                            <button (click)="chooseUser(user)" class="user-in-list-button">
-                                Evaluate
-                                <i class="material-icons icon-align md-14 align-right">&#xE8DD;</i>
-                            </button>
-                            <button (click)="chooseUser(user)" class="user-in-list-button">Go to Profile &gt;&gt;
-                            </button>
-                        </div>
+            <div *ngFor="let user of users">
+                <div class="one-user-in-list">
+                    <div class="user-in-list-date">
+                        <i class="fa fa-users text-info" aria-hidden="true"></i>
+                        &nbsp;{{ user.groupTime | date: 'MM.dd. HH:mm' }}
+                        &nbsp;/&nbsp;
+                        <i class="fa fa-user text-info" aria-hidden="true"></i>
+                        &nbsp;{{ user.personalTime | date: 'MM.dd. HH:mm' }}
+                    </div>
+                    <div class="user-in-list-name">
+                        {{ user.name }}
+                    </div>
+                    <div>
+                        <button (click)="chooseUser(user)" class="user-in-list-button">
+                            Evaluate
+                            <i class="fa fa-check"></i>
+                            <i class="fa fa-question"></i>
+                            <i class="fa fa-ban"></i>
+                        </button>
+                        <button (click)="profile(user)" class="user-in-list-button">Go to Profile &gt;&gt;
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 card-container">
-            <div class="card tutorial">
-                <h2>Evaluate screenings</h2>
-                <p>
-                    - You can rate the applicants based on the criterias set for <span>Budapest</span>.
-                </p>
-                <div class="router-button-container">
-                    <button (click)="editScreening()" class="router-button">
-                        Edit screening
-                    </button>
-                </div>
-            </div>
+            <edit-steps-box *ngIf="user"></edit-steps-box>
         </div>
     </div>
-    <div class="row" *ngIf="user && user.finalResult !== undefined">
-        <h3 class="text-danger">This user has already received a final result. Do you want to modify his/her screening
-            data for sure?</h3>
-    </div>
-    <div class="row card" *ngIf="user">
-        <div class="user-details-container col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <div class="user-details">
-                <p>{{user.name}}</p>
-                <p>{{user.age}} years old</p>
-                <div *ngFor="let step of screeningSteps">
-                    <button (click)="getApplicantsStep(step)" class="step-button {{isActiveStep(step)}}">
-                        {{step.name}}
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="evaluation-container col-xs-10 col-sm-10 col-md-10 col-lg-10">
-            <div *ngIf="toEvaluate">
-                <div class="row">
-                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                        <div class="step-buttons-container">
-                            <div><input type="number" min=0 max=10 [(ngModel)]="toEvaluate.screeningStep.points"/></div>
-                            <div class="step-status-buttons">
-                                <button (click)="setStepStatus('yes')" class="{{isActiveStepStatus('yes')}}">Yes
-                                </button>
-                                <button (click)="setStepStatus('maybe')" class="{{isActiveStepStatus('maybe')}}">Maybe
-                                </button>
-                                <button (click)="setStepStatus('no')" class="{{isActiveStepStatus('no')}}">No</button>
-                            </div>
-                            <div>
-                                <button (click)="postUpdate()">Save {{chosenStep.name}}</button>
-                            </div>
-                        </div>
-                        <div class="step-comment-container">
-              <textarea placeholder="Evaluation" [(ngModel)]="toEvaluate.screeningStep.comment" rows="10">
-              </textarea>
-                        </div>
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                        <div *ngFor="let criteria of toEvaluate.screeningStep.criterias" class="criterias-container">
-                            <h4>{{getNameForCriteria(toEvaluate.screeningStep, criteria)}}</h4>
-                            <div class="criteria-buttons">
-                                <button (click)="setCriteriaStatus(criteria, 'yes')"
-                                        class="{{isActiveCriteriaStatus(criteria, 'yes')}}">
-                                    <i class="material-icons md-14 icon-align">&#xE8DC;</i>
-                                </button>
-                                <button (click)="setCriteriaStatus(criteria, 'maybe')"
-                                        class="{{isActiveCriteriaStatus(criteria, 'maybe')}}">
-                                    <i class="material-icons md-14 icon-align">&#xE8DD;</i>
-                                </button>
-                                <button (click)="setCriteriaStatus(criteria, 'no')"
-                                        class="{{isActiveCriteriaStatus(criteria, 'no')}}">
-                                    <i class="material-icons md-14 icon-align">&#xE8DB;</i>
-                                </button>
-                                <input type="number" min=0 max=10 [(ngModel)]="criteria.points"/>
-                            </div>
-                            <input placeholder="Leave a comment" [(ngModel)]="criteria.comment"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<p-growl [(value)]="messages"
-         life=5000
-         [style]="{'margin-top': '2.5em'}"
-></p-growl>
+</div>

@@ -1,12 +1,15 @@
 <div class="dasboard-motivation-component">
-    <div *ngIf="userWithVideo">
-        <div class="dashboard-user">
+    <div *ngIf="usersWithVideo && usersWithVideo.length > 0">
+        <div class="dashboard-user" *ngFor="let user of usersWithVideo">
             <div class="motivation-details">
-                <p>{{userWithVideo.name}}</p>
+                <p>{{ user.name }}</p>
             </div>
-            <button class="btn btn-success" (click)="getApplicant(userWithVideo.adminId)">
+            <button class="btn btn-success" (click)="getApplicant(user.adminId)">
                 Grade video&nbsp;&gt;&gt;
             </button>
         </div>
     </div>
+    <h3 class="text-success" *ngIf="!usersWithVideo || usersWithVideo.length === 0">
+        There are no motivation videos to grade.
+    </h3>
 </div>
