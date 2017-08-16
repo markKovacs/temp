@@ -28,6 +28,4 @@ export class ActiveApplicantsTableComponent implements OnInit {
             );
     }
 
-
-
 }

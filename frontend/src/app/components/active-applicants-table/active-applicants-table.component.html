@@ -6,30 +6,20 @@
     <p-column field="email" header="E-Mail"></p-column>
     <p-column field="name" header="Phone Number"></p-column>
     <p-column field="attempts" header="Retry Attempts" [style]="{'width':'80px'}"></p-column>
-    <ng-template let-car pTemplate="rowexpansion">
-        <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px">
+    <ng-template applicants pTemplate="rowexpansion">
+        <div class="ui-grid" style="font-size:14px;padding:5px 35px">
             <div class="ui-grid-row">
-                <div class="ui-grid-col-3" style="text-align:center">
-                    <i class="fa fa-search" (click)="showCar(car)" style="cursor:pointer;float:left;margin-top:40px"></i>
-                    <img src="assets/showcase/images/demo/car/{{car.brand}}.png">
-                </div>
-                <div class="ui-grid-col-9">
+                <div class="ui-grid-col-12">
                     <div class="ui-grid ui-grid-responsive ui-grid-pad">
                         <div class="ui-grid-row">
-                            <div class="ui-grid-col-2 label">Vin: </div>
-                            <div class="ui-grid-col-10">{{car.vin}}</div>
-                        </div>
-                        <div class="ui-grid-row">
-                            <div class="ui-grid-col-2 label">Year: </div>
-                            <div class="ui-grid-col-10">{{car.year}}</div>
-                        </div>
-                        <div class="ui-grid-row">
-                            <div class="ui-grid-col-2 label">Brand: </div>
-                            <div class="ui-grid-col-10">{{car.brand}}</div>
-                        </div>
-                        <div class="ui-grid-row">
-                            <div class="ui-grid-col-2 label">Color: </div>
-                            <div class="ui-grid-col-10">{{car.color}}</div>
+                            <div class="ui-grid-col-12">
+                                <ul>
+                                    <li>BirthDate</li>
+                                    <li>Process Started</li>
+                                    <li>Deadline</li>
+                                    <li>TestResults</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
