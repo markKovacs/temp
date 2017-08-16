@@ -10,6 +10,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,7 +35,14 @@ public class ApplicantListingService {
     @Autowired
     private ApplicantsScreeningStepRepository screeningStepRepository;
 
-    public List<ApplicantInfoDTO> getApplicationData(String locationId) {
+    public List<ApplicantInfoDTO> getApplicationData(String locationId, Boolean all) {
+
+        if(Boolean.TRUE.equals(all)){
+            return userRepository.findAllByLocationId(locationId)
+                    .stream()
+                    .map(this::transform)
+                    .collect(Collectors.toList());
+        }
 
         List<Application> applications = applicationRepository.findByLocationIdAndActive(locationId, true);
 

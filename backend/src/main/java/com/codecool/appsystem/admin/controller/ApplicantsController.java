@@ -19,9 +19,9 @@ public class ApplicantsController {
     @Autowired
     private ApplicantListingService applicantListingService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<ApplicantInfoDTO> getAllApplicants(@RequestParam("location") String locationId){
-        return applicantListingService.getApplicationData(locationId);
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<ApplicantInfoDTO> getAllApplicants(@RequestParam("location") String locationId, @RequestParam("all") Boolean all){
+        return applicantListingService.getApplicationData(locationId, all);
     }
 
     @RequestMapping(value = "/{id}")
