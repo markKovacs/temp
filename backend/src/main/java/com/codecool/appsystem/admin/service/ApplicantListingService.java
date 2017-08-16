@@ -38,7 +38,7 @@ public class ApplicantListingService {
     public List<ApplicantInfoDTO> getApplicationData(String locationId, Boolean all) {
 
         if(Boolean.TRUE.equals(all)){
-            return userRepository.findAllByLocationId(locationId)
+            return userRepository.findByLocationId(locationId)
                     .stream()
                     .map(this::transform)
                     .collect(Collectors.toList());
