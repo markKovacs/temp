@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
-import {UserInList} from "../../_models/index";
+import {Applicant} from '../../_models/applicant.model';
 
 @Component({
     moduleId: module.id,
@@ -11,7 +11,7 @@ import {UserInList} from "../../_models/index";
 })
 export class ApplicantListComponent {
 
-    public users: UserInList[];
+    public users: Applicant[];
 
     constructor(private route: ActivatedRoute,
                 private client: HttpClient,
@@ -20,13 +20,13 @@ export class ApplicantListComponent {
         this.eventsManager.showNavBar(true);
         let id = JSON.parse(localStorage.getItem("chosenLocation")).id;
         this.client.get("/api/applicants?location="+id).subscribe(
-            (users: UserInList[]) => this.users = users,
+            (users: Applicant[]) => this.users = users,
             (error) => console.log(error),
             () => console.log("users fetched for applicant list", this.users)
         );
     }
 
-    getDeadline(applicant: UserInList){
+    getDeadline(applicant: Applicant){
         let deadline = new Date();
         deadline.setDate(new Date(applicant.processStartedAt).getDate() + 7);
         return deadline;

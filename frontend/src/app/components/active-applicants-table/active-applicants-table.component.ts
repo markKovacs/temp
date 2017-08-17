@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ApplicantService} from '../../_services/applicants.service';
 import {Applicant} from '../../_models/applicant.model';
+import {User} from '../../_models/user.model';
 
 @Component({
     moduleId: module.id,
@@ -22,7 +23,20 @@ export class ActiveApplicantsTableComponent implements OnInit {
             .subscribe(
                 (data: Applicant[]) => {
                     this.applicants = data;
-                    console.log('megjottek', data);
+                },
+                error => console.log(error)
+            );
+    }
+
+    handleRowExpand(e): void {
+        this.applicantService.getApplicantDetailsById(e.data.adminId)
+            .subscribe(
+                (data: User) => {
+                    for (const applicant of this.applicants) {
+                        if (data.adminId === applicant.adminId) {
+                            applicant.user = data;
+                        }
+                    }
                 },
                 error => console.log(error)
             );

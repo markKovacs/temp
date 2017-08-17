@@ -60,6 +60,7 @@ import {EvaluateUserComponent} from "./components/evaluateScreenings/evaluate-us
 import {AlertService} from "./_services/alert.service";
 import {AlertComponent} from "./components/alert/alert.component";
 import {ApplicantService} from './_services/applicants.service';
+import {UserService} from './_services/user.service';
 
 @NgModule({
     imports: [
@@ -119,7 +120,8 @@ import {ApplicantService} from './_services/applicants.service';
         DatePipe,
         ScreeningService,
         AlertService,
-        ApplicantService
+        ApplicantService,
+        UserService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent]

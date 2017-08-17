@@ -1,7 +1,6 @@
-import {Results} from "./results.model";
-import {ScreeningInfo} from "./screeninginfo.model"
-import {ScreeningStep} from "./screeningStep.model";
-import {UserScreeningDisplayModel} from "./user-screening-display.model";
+import {Results} from './results.model';
+import {ScreeningInfo} from './screeninginfo.model'
+import {UserScreeningDisplayModel} from './user-screening-display.model';
 export class User {
 
     givenName: string;
@@ -13,18 +12,13 @@ export class User {
     timesApplied: number;
     location: string;
     processStartedAt: number;
-
-    testResults: Results[]=[];
+    testResults: Results[]= [];
 
     // from screening info
-
     screeningGroupTime: Date;
     screeningPersonalTime: Date;
-
     screeningInfo: ScreeningInfo;
-
     finalResult: boolean;
-
     screeningSteps: UserScreeningDisplayModel[];
 
 }

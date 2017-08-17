@@ -1,3 +1,4 @@
+import {User} from './user.model';
 export class Applicant {
 
     name: string;
@@ -8,5 +9,6 @@ export class Applicant {
     blacklisted: boolean;
     processStartedAt: Date;
     email: string;
+    user: User = new User();
 
 }
