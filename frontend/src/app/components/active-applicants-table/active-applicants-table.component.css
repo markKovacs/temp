@@ -2,3 +2,21 @@ ul {
     list-style:none;
     padding-left:0;
 }
+
+alert {
+    display: block;
+}
+
+table {
+    border: 1px solid #c2c2c2;
+}
+
+table th {
+    text-align: left;
+    font-weight: normal;
+}
+
+.applicant-name {
+    padding-top: 15px;
+    font-size: 26px;
+}

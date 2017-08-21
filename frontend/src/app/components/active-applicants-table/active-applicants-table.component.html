@@ -2,7 +2,7 @@
              expandableRows="true"
              (onRowExpand)="handleRowExpand($event)"
              [paginator]="true"
-             [rows]="50">
+             [rows]="10">
 
     <p-column expander="true"
               styleClass="col-icon"
@@ -45,10 +45,10 @@
               [style]="{'width':'80px'}"></p-column>
 
     <ng-template let-applicant pTemplate="rowexpansion">
-        <div class="ui-grid"  style="font-size:14px; padding-left:38px; padding-right: 38px; padding-bottom: 15px;">
+        <div class="ui-grid"  style="font-size:14px; padding-left:38px; padding-right: 38px; padding-bottom: 30px;">
             <div *ngIf="applicant.user">
                 <div class="ui-grid-row">
-                    <h3>{{applicant.user.givenName}} {{applicant.user.familyName}}</h3>
+                    <span class="applicant-name">{{applicant.user.givenName}} {{applicant.user.familyName}}</span>
                 </div>
                 <div class="ui-grid-row">
 
@@ -57,22 +57,30 @@
                             <b>{{applicant.user.dateOfBirth | amParse:'YYYY' | amTimeAgo}}</b>,
                             applied <b>{{applicant.user.timesApplied}}</b> times so far.
                         </p>
-                        <p><b>Process Started at:</b> {{applicant.user.processStartedAt | date: 'yyyy.MM.dd. HH:mm'}}</p>
-                        <p><b>Group Time:</b> {{applicant.user.screeningGroupTime | date: 'yyyy.MM.dd. HH:mm'}}</p>
-                        <p><b>Personal Time:</b> {{applicant.user.screeningPersonalTime | date: 'yyyy.MM.dd. HH:mm'}}</p>
+                        <p><b>Process Started at </b> {{applicant.user.processStartedAt | date: 'yyyy.MM.dd. HH:mm'}}</p>
+                        <span><b>Group Time:</b> {{applicant.user.screeningGroupTime | date: 'yyyy.MM.dd. HH:mm'}}</span><br />
+                        <span><b>Personal Time:</b> {{applicant.user.screeningPersonalTime | date: 'yyyy.MM.dd. HH:mm'}}</span>
                         <p><b>Screening Steps:</b> {{applicant.user.screeningSteps}}</p>
                         <p><b>Screening Info:</b> {{applicant.user.screeningInfo}}</p>
                         <p><b>Final Result:</b> {{applicant.user.finalResult}}</p>
                     </div>
                     <div class="ui-grid-col-7">
-                        <p><b>Test Results</b></p>
-                        <ul>
-                            <li *ngFor="let testResult of applicant.user.testResults.reverse()">
-                                <span *ngIf="testResult.passed"><b>Passed</b> the</span>
-                                <span><i><b>{{testResult.name}}</b></i></span> survey with <b>{{testResult.percent}}%</b>.
-                                <br />
-                            </li>
-                        </ul>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Survey</th>
+                                    <th>Result</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let testResult of applicant.user.testResults.reverse()">
+                                    <td>{{testResult.name}}</td>
+                                    <td>{{testResult.passed}}</td>
+                                    <td>{{testResult.percent}}%</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
