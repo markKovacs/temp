@@ -8,27 +8,36 @@
     <p-column field="name" header="Phone Number"></p-column>
     <p-column field="attempts" header="Retry Attempts" [style]="{'width':'80px'}"></p-column>
     <ng-template let-applicant pTemplate="rowexpansion">
-        <div class="ui-grid" style="font-size:14px;padding-left:38px;padding-right: 38px;">
+        <div class="ui-grid"  style="font-size:14px;padding-left:38px;padding-right: 38px;padding-bottom: 15px;">
             <div *ngIf="applicant.user">
-                <h5><b>{{applicant.user.givenName}} {{applicant.user.familyName}}</b></h5>
-                <hr/>
-                <p>Born on <b>{{applicant.user.dateOfBirth}}</b>,
-                    <b>{{calculateAge(applicant.user.dateOfBirth)}}</b> years old,
-                    applied <b>{{applicant.user.timesApplied}}</b> times so far.
-                </p>
-                <p>Process Started At {{generateDateStrFromEpoch(applicant.user.processStartedAt)}}</p>
-                <p>Group Time {{applicant.user.screeningGroupTime}}</p>
-                <p>Personal Time {{applicant.user.screeningPersonalTime}}</p>
-                <p>Screening Info {{applicant.user.screeningInfo}}</p>
-                <p>Final Result {{applicant.user.finalResult}}</p>
-                <p>Screening Steps {{applicant.user.screeningSteps}}</p>
-                <h5>TestResults</h5>
-                <hr />
-                    <ul>
-                        <li *ngFor="let testResult of applicant.user.testResults">
-                            {{testResult.name}}, {{testResult.percent}}%
-                        </li>
-                    </ul>
+                <div class="ui-grid-row">
+                    <h3>{{applicant.user.givenName}} {{applicant.user.familyName}}</h3>
+                </div>
+                <div class="ui-grid-row">
+
+                    <div class="ui-grid-col-5">
+                        <p>Born in <b>{{applicant.user.dateOfBirth}}</b>,
+                            <b>{{applicant.user.dateOfBirth | amParse:'YYYY' | amTimeAgo}}</b>,
+                            applied <b>{{applicant.user.timesApplied}}</b> times so far.
+                        </p>
+                        <p><b>Process Started at:</b> {{applicant.user.processStartedAt | date: 'yyyy.MM.dd. HH:mm'}}</p>
+                        <p><b>Group Time:</b> {{applicant.user.screeningGroupTime | date: 'yyyy.MM.dd. HH:mm'}}</p>
+                        <p><b>Personal Time:</b> {{applicant.user.screeningPersonalTime | date: 'yyyy.MM.dd. HH:mm'}}</p>
+                        <p><b>Screening Steps:</b> {{applicant.user.screeningSteps}}</p>
+                        <p><b>Screening Info:</b> {{applicant.user.screeningInfo}}</p>
+                        <p><b>Final Result:</b> {{applicant.user.finalResult}}</p>
+                    </div>
+                    <div class="ui-grid-col-7">
+                        <p><b>Test Results</b></p>
+                        <ul>
+                            <li *ngFor="let testResult of applicant.user.testResults.reverse()">
+                                <span *ngIf="testResult.passed"><b>Passed</b> the</span>
+                                <span><i><b>{{testResult.name}}</b></i></span> survey with <b>{{testResult.percent}}%</b>.
+                                <br />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </ng-template>

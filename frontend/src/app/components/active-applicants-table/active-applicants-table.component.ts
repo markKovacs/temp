@@ -61,14 +61,4 @@ export class ActiveApplicantsTableComponent implements OnInit {
         return JSON.parse(localStorage.getItem('chosenLocation')).id;
     }
 
-    calculateAge(year: number): number {
-        return (new Date().getFullYear()) - year;
-    }
-
-    generateDateStrFromEpoch(epoch: number): string {
-        const d = new Date(0);
-        d.setUTCSeconds(epoch);
-        return d.getFullYear() + d.getMonth() + d.getDay() + '';
-    }
-
 }
