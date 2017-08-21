@@ -10,16 +10,15 @@ import {GlobalEventsManager} from '../../global.eventsmanager';
     templateUrl: './active-applicants-table.component.html',
     styleUrls: ['./active-applicants-table.component.css']
 })
-export class ActiveApplicantsTableComponent {
+export class ActiveApplicantsTableComponent implements OnInit {
 
     private locationId: string;
-    private applicants: Applicant[];
+    private applicants: Applicant[] = [];
 
     constructor(
         private applicantService: ApplicantService,
         private eventsManager: GlobalEventsManager
     ) {
-        this.applicants = [];
         this.eventsManager.selectedLocationEmitter.subscribe((loc) => {
                 if (loc !== null) {
                     this.locationId = this.getSelectedLocationId();
@@ -27,6 +26,11 @@ export class ActiveApplicantsTableComponent {
                 }
             }
         );
+    }
+
+    ngOnInit(): void {
+        this.locationId = this.getSelectedLocationId();
+        this.getData();
     }
 
     getData(): void {
@@ -55,6 +59,16 @@ export class ActiveApplicantsTableComponent {
 
     getSelectedLocationId() {
         return JSON.parse(localStorage.getItem('chosenLocation')).id;
+    }
+
+    calculateAge(year: number): number {
+        return (new Date().getFullYear()) - year;
+    }
+
+    generateDateStrFromEpoch(epoch: number): string {
+        const d = new Date(0);
+        d.setUTCSeconds(epoch);
+        return d.getFullYear() + d.getMonth() + d.getDay() + '';
     }
 
 }

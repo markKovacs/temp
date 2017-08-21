@@ -1,33 +1,34 @@
-<p-dataTable [value]="applicants" expandableRows="true" (onRowExpand)="handleRowExpand($event)">
-    <p-column expander="true" styleClass="col-icon" [style]="{'width':'40px'}"></p-column>
+<p-dataTable [value]="applicants"
+             expandableRows="true"
+             (onRowExpand)="handleRowExpand($event)">
+    <p-column expander="true" styleClass="col-icon" [style]="{'width':'38px'}"></p-column>
     <p-column field="name" header="Name"></p-column>
     <p-column field="status" header="Last Passed"></p-column>
     <p-column field="email" header="E-Mail"></p-column>
     <p-column field="name" header="Phone Number"></p-column>
     <p-column field="attempts" header="Retry Attempts" [style]="{'width':'80px'}"></p-column>
     <ng-template let-applicant pTemplate="rowexpansion">
-        <div class="ui-grid" style="font-size:14px;padding:5px 35px">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-12">
-                    <div class="ui-grid ui-grid-responsive ui-grid-pad">
-                        <div class="ui-grid-row">
-                            <div class="ui-grid-col-12">
-                                <div *ngIf="applicant.user">
-                                    <p>Date of Birth {{applicant.user.dateOfBirth}}</p>
-                                    <p>Applied {{applicant.user.timesApplied}} times</p>
-                                    <p>Location {{applicant.user.location}}</p>
-                                    <p>Process Started At {{applicant.user.processStartedAt}}</p>
-                                    <p>TestResults {{applicant.user.testResults}}</p>
-                                    <p>Group Time {{applicant.user.screeningGroupTime}}</p>
-                                    <p>Personal Time {{applicant.user.screeningPersonalTime}}</p>
-                                    <p>Screening Info {{applicant.user.screeningInfo}}</p>
-                                    <p>Final Result {{applicant.user.finalResult}}</p>
-                                    <p>Screening Steps {{applicant.user.screeningSteps}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="ui-grid" style="font-size:14px;padding-left:38px;padding-right: 38px;">
+            <div *ngIf="applicant.user">
+                <h5><b>{{applicant.user.givenName}} {{applicant.user.familyName}}</b></h5>
+                <hr/>
+                <p>Born on <b>{{applicant.user.dateOfBirth}}</b>,
+                    <b>{{calculateAge(applicant.user.dateOfBirth)}}</b> years old,
+                    applied <b>{{applicant.user.timesApplied}}</b> times so far.
+                </p>
+                <p>Process Started At {{generateDateStrFromEpoch(applicant.user.processStartedAt)}}</p>
+                <p>Group Time {{applicant.user.screeningGroupTime}}</p>
+                <p>Personal Time {{applicant.user.screeningPersonalTime}}</p>
+                <p>Screening Info {{applicant.user.screeningInfo}}</p>
+                <p>Final Result {{applicant.user.finalResult}}</p>
+                <p>Screening Steps {{applicant.user.screeningSteps}}</p>
+                <h5>TestResults</h5>
+                <hr />
+                    <ul>
+                        <li *ngFor="let testResult of applicant.user.testResults">
+                            {{testResult.name}}, {{testResult.percent}}%
+                        </li>
+                    </ul>
             </div>
         </div>
     </ng-template>
