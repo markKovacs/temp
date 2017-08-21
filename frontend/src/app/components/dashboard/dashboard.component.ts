@@ -20,6 +20,4 @@ export class DashboardComponent {
         return JSON.parse(localStorage.getItem('chosenLocation')).name;
     }
 
-
-
 }
