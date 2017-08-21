@@ -11,10 +11,11 @@ import {User} from '../../_models/user.model';
 })
 export class ActiveApplicantsTableComponent implements OnInit {
 
-    @Input() locationId: string;
+    public locationId: string;
     private applicants: Applicant[];
 
     constructor(private applicantService: ApplicantService) {
+        this.locationId = this.getSelectedLocationId();
         this.applicants = [];
     }
 
@@ -40,6 +41,10 @@ export class ActiveApplicantsTableComponent implements OnInit {
                 },
                 error => console.log(error)
             );
+    }
+
+    getSelectedLocationId() {
+        return JSON.parse(localStorage.getItem('chosenLocation')).id;
     }
 
 }
