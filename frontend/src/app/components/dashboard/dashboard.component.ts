@@ -16,6 +16,10 @@ export class DashboardComponent {
         return localStorage.getItem('chosenLocation') !== null;
     }
 
+    getSelectedLocation(): string {
+        return JSON.parse(localStorage.getItem('chosenLocation')).name;
+    }
+
 
 
 }

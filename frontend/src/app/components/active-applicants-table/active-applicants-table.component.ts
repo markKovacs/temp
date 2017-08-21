@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ApplicantService} from '../../_services/applicants.service';
 import {Applicant} from '../../_models/applicant.model';
 import {User} from '../../_models/user.model';
+import {GlobalEventsManager} from '../../global.eventsmanager';
 
 @Component({
     moduleId: module.id,
@@ -9,17 +10,26 @@ import {User} from '../../_models/user.model';
     templateUrl: './active-applicants-table.component.html',
     styleUrls: ['./active-applicants-table.component.css']
 })
-export class ActiveApplicantsTableComponent implements OnInit {
+export class ActiveApplicantsTableComponent {
 
-    public locationId: string;
+    private locationId: string;
     private applicants: Applicant[];
 
-    constructor(private applicantService: ApplicantService) {
-        this.locationId = this.getSelectedLocationId();
+    constructor(
+        private applicantService: ApplicantService,
+        private eventsManager: GlobalEventsManager
+    ) {
         this.applicants = [];
+        this.eventsManager.selectedLocationEmitter.subscribe((loc) => {
+                if (loc !== null) {
+                    this.locationId = this.getSelectedLocationId();
+                    this.getData();
+                }
+            }
+        );
     }
 
-    ngOnInit(): void {
+    getData(): void {
         this.applicantService.getApplicants(this.locationId)
             .subscribe(
                 (data: Applicant[]) => {
