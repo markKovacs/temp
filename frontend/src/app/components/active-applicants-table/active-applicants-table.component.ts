@@ -3,6 +3,7 @@ import {ApplicantService} from '../../_services/applicants.service';
 import {Applicant} from '../../_models/applicant.model';
 import {User} from '../../_models/user.model';
 import {GlobalEventsManager} from '../../global.eventsmanager';
+import {Router} from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -18,7 +19,8 @@ export class ActiveApplicantsTableComponent implements OnInit {
 
     constructor(
         private applicantService: ApplicantService,
-        private eventsManager: GlobalEventsManager
+        private eventsManager: GlobalEventsManager,
+        private router: Router
     ) {
         this.eventsManager.selectedLocationEmitter.subscribe((loc) => {
                 if (loc !== null) {
@@ -56,6 +58,11 @@ export class ActiveApplicantsTableComponent implements OnInit {
                 },
                 error => console.log(error)
             );
+    }
+
+    handleRowClick(e): void {
+        console.log(e.data.adminId);
+        this.router.navigate(['/applicants', e.data.adminId])
     }
 
     getSelectedLocationId() {

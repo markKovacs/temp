@@ -1,5 +1,7 @@
 <p-dataTable [value]="applicants"
              expandableRows="true"
+             selectionMode="single"
+             (onRowClick)="handleRowClick($event)"
              (onRowExpand)="handleRowExpand($event)"
              [paginator]="true"
              [rows]="10">
