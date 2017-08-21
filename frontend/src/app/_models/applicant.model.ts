@@ -10,5 +10,6 @@ export class Applicant {
     processStartedAt: Date;
     email: string;
     user: User = new User();
+    phoneNumber: string;
 
 }

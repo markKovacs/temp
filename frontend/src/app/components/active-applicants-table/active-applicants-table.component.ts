@@ -14,6 +14,7 @@ export class ActiveApplicantsTableComponent implements OnInit {
 
     private locationId: string;
     private applicants: Applicant[] = [];
+    cities = ['miskolc', 'budapest'];
 
     constructor(
         private applicantService: ApplicantService,

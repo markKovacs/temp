@@ -65,6 +65,7 @@ public class ApplicantListingService {
                 .status(getStatus(user.getId()))
                 .processStartedAt(getProcesssStartedAt(user))
                 .email(user.getId())
+                .phoneNumber(user.getPhoneNumber())
                 .build();
 
     }

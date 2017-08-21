@@ -1,14 +1,45 @@
 <p-dataTable [value]="applicants"
              expandableRows="true"
-             (onRowExpand)="handleRowExpand($event)">
-    <p-column expander="true" styleClass="col-icon" [style]="{'width':'38px'}"></p-column>
-    <p-column field="name" header="Name"></p-column>
-    <p-column field="status" header="Last Passed"></p-column>
-    <p-column field="email" header="E-Mail"></p-column>
-    <p-column field="name" header="Phone Number"></p-column>
-    <p-column field="attempts" header="Retry Attempts" [style]="{'width':'80px'}"></p-column>
+             (onRowExpand)="handleRowExpand($event)"
+             [paginator]="true"
+             [rows]="10">
+    <p-column expander="true"
+              styleClass="col-icon"
+              [style]="{'width':'38px'}"></p-column>
+    <p-column field="name"
+              header="Name"
+              [filter]="true"
+              filterPlaceholder="Search by Name"
+              filterMatchMode="contains"></p-column>
+    <p-column field="status"
+              header="Last Passed"></p-column>
+    <p-column field="email"
+              header="E-Mail"
+              [filter]="true"
+              filterPlaceholder="Search by Email"
+              filterMatchMode="contains"></p-column>
+    <p-column field="phoneNumber"
+              header="Phone Number"
+              [filter]="true"
+              filterPlaceholder="Search #"
+              filterMatchMode="contains"
+              [style]="{'width':'145px'}"></p-column>
+    <p-column field="attempts"
+              header="Retry Attempts"
+              [filter]="true"
+              filterMatchMode="in"
+              [style]="{'width':'80px'}">
+        <ng-template pTemplate="filter" let-col>
+            <p-multiSelect [options]="cities"
+                           defaultLabel="All Locations"
+                           (onChange)="dt.filter($event.value, col.field, col.filterMatchMode)"
+                           styleClass="ui-column-filter">
+            </p-multiSelect>
+        </ng-template>
+
+    </p-column>
     <ng-template let-applicant pTemplate="rowexpansion">
-        <div class="ui-grid"  style="font-size:14px;padding-left:38px;padding-right: 38px;padding-bottom: 15px;">
+        <div class="ui-grid"  style="font-size:14px; padding-left:38px; padding-right: 38px; padding-bottom: 15px;">
             <div *ngIf="applicant.user">
                 <div class="ui-grid-row">
                     <h3>{{applicant.user.givenName}} {{applicant.user.familyName}}</h3>
