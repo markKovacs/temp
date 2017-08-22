@@ -6,10 +6,10 @@ import {Applicant} from '../../_models/applicant.model';
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'applicantList.component.html',
-    styleUrls: ['applicantList.component.css']
+    templateUrl: 'applicants.component.html',
+    styleUrls: ['applicants.component.css']
 })
-export class ApplicantListComponent {
+export class ApplicantsComponent {
 
     public users: Applicant[];
 
@@ -34,6 +34,10 @@ export class ApplicantListComponent {
 
     checkApplicant(e) {
         this.router.navigate(['applicants/' + e.data.adminId]);
+    }
+
+    getSelectedLocation(): string {
+        return JSON.parse(localStorage.getItem('chosenLocation')).name;
     }
 
 }
