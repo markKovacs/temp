@@ -7,15 +7,15 @@ import {Router} from '@angular/router';
 
 @Component({
     moduleId: module.id,
-    selector: 'app-active-applicants-table',
-    templateUrl: './active-applicants-table.component.html',
-    styleUrls: ['./active-applicants-table.component.css']
+    selector: 'app-applicants-table',
+    templateUrl: './applicants-table.component.html',
+    styleUrls: ['./applicants-table.component.css']
 })
-export class ActiveApplicantsTableComponent implements OnInit {
+export class ApplicantsTableComponent implements OnInit {
 
+    @Input() fetchAll: boolean; // grab all or active applicants
     private locationId: string;
     private applicants: Applicant[] = [];
-    cities = ['miskolc', 'budapest'];
 
     constructor(
         private applicantService: ApplicantService,
@@ -37,7 +37,7 @@ export class ActiveApplicantsTableComponent implements OnInit {
     }
 
     getData(): void {
-        this.applicantService.getApplicants(this.locationId)
+        this.applicantService.getApplicants(this.locationId, this.fetchAll)
             .subscribe(
                 (data: Applicant[]) => {
                     this.applicants = data;

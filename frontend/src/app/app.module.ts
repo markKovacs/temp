@@ -34,7 +34,7 @@ import {
     ApplicantComponent,
     ApplicantVideoComponent,
     ApplicantTestComponent,
-    ApplicantListComponent,
+    ApplicantsComponent,
     SurveyGeneratorComponent,
     SurveyEditorComponent,
     OptionEditorComponent,
@@ -45,7 +45,7 @@ import {
     EditScreeningComponent,
     TemplateEditorComponent,
     SurveyBaseDataComponent,
-    ActiveApplicantsTableComponent
+    ApplicantsTableComponent
 } from './components/index';
 import {AuthGuard} from './guards/index';
 import {ScreeningService} from "./_services/screening.service";
@@ -91,7 +91,7 @@ import {UserService} from './_services/user.service';
         ApplicantComponent,
         ApplicantTestComponent,
         ApplicantVideoComponent,
-        ApplicantListComponent,
+        ApplicantsComponent,
         SurveyGeneratorComponent,
         SurveyEditorComponent,
         QuestionEditorComponent,
@@ -108,7 +108,7 @@ import {UserService} from './_services/user.service';
         EvaluateStepsComponent,
         EvaluateUserComponent,
         AlertComponent,
-        ActiveApplicantsTableComponent
+        ApplicantsTableComponent
     ],
     providers: [
         AuthGuard,

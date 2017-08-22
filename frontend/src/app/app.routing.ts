@@ -2,7 +2,6 @@ import {
     NavBarComponent,
     DashboardComponent,
     ApplicantComponent,
-    ApplicantListComponent,
     SurveyGeneratorComponent,
     CalendarComponent,
     EditScreeningComponent,
@@ -13,11 +12,12 @@ import {
 } from './components/index';
 import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from './guards/index';
+import {ApplicantsComponent} from './components/applicants/applicants.component';
 
 const appRoutes: Routes = [
     // routes - all for logged in user only
     {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-    {path: 'applicants', component: ApplicantListComponent, canActivate: [AuthGuard]},
+    {path: 'applicants', component: ApplicantsComponent, canActivate: [AuthGuard]},
     {path: 'applicants/:id', component: ApplicantComponent, canActivate: [AuthGuard]},
     {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]},
     {path: 'editscreening', component: EditScreeningComponent, canActivate: [AuthGuard]},

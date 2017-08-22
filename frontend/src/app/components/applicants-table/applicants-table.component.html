@@ -96,4 +96,5 @@
 
 </p-dataTable>
 <br />
-<p class="pull-right">There are {{applicants.length}} active applicants for the selected location.</p>
+
+<p>There are {{applicants.length}} <span *ngIf="!fetchAll">active</span> applicants for the selected location.</p>
