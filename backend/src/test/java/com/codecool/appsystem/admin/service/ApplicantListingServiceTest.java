@@ -46,7 +46,7 @@ public class ApplicantListingServiceTest extends MockData {
         Mockito.when(applicationRepository.countByApplicantId(user.getId())).thenReturn(1L);
         Mockito.when(testResultRepo.findByApplicationId(application.getId())).thenReturn(fourTests);
 
-        List<ApplicantInfoDTO> applInfo = applicantListingService.getApplicationData(location.getId());
+        List<ApplicantInfoDTO> applInfo = applicantListingService.getApplicationData(location.getId(), null);
 
         Assert.assertEquals(1,applInfo.size());
     }

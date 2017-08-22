@@ -1,4 +1,5 @@
-export class UserInList {
+import {User} from './user.model';
+export class Applicant {
 
     name: string;
     adminId: number;
@@ -8,5 +9,7 @@ export class UserInList {
     blacklisted: boolean;
     processStartedAt: Date;
     email: string;
+    user: User = new User();
+    phoneNumber: string;
 
 }

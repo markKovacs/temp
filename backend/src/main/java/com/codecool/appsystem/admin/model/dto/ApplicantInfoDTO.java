@@ -19,5 +19,5 @@ public class ApplicantInfoDTO extends RestResponseDTO {
     private Boolean blacklisted;
     private Date processStartedAt;
     private String email;
-
+    private String phoneNumber;
 }

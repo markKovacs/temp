@@ -50,7 +50,7 @@ public class ApplicantsControllerTest extends MockData{
     public void setup() {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(applicantsController).build();
-        this.applicantInfoDTO = new ApplicantInfoDTO("toth",100, "BUD", "English", 1L, false, new Date(), "email@gmail.com");
+        this.applicantInfoDTO = new ApplicantInfoDTO("toth",100, "BUD", "English", 1L, false, new Date(), "email@gmail.com", "36707776655");
 
         this.mockApplicantInfosDTO.add(applicantInfoDTO);
 
@@ -64,7 +64,7 @@ public class ApplicantsControllerTest extends MockData{
 
     @Test
     public void getAllApplicants() throws Exception{
-        when(applicantListingService.getApplicationData("BUD")).thenReturn(mockApplicantInfosDTO);
+        when(applicantListingService.getApplicationData("BUD", null)).thenReturn(mockApplicantInfosDTO);
 
         mockMvc.perform(get("/api/applicants?location=BUD"))
                 .andExpect(status().isOk())
@@ -73,7 +73,7 @@ public class ApplicantsControllerTest extends MockData{
                 .andExpect(jsonPath("$[0].name", is("toth")))
                 .andExpect(jsonPath("$[0].adminId", is(100)));
 
-        verify(applicantListingService, times(1)).getApplicationData("BUD");
+        verify(applicantListingService, times(1)).getApplicationData("BUD", null);
         verifyNoMoreInteractions(applicantListingService);
 
     }

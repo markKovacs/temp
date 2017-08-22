@@ -17,3 +17,4 @@ export * from './editScreening/editScreening.component';
 export * from './template-editor/template-editor.component';
 export * from './evaluateScreenings/evaluateScreenings.component';
 export * from './evaluateScreenings/evaluate-user/evaluate-user.component';
+export * from './active-applicants-table/active-applicants-table.component';

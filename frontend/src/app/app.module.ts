@@ -44,7 +44,8 @@ import {
     EvaluateScreeningsComponent,
     EditScreeningComponent,
     TemplateEditorComponent,
-    SurveyBaseDataComponent
+    SurveyBaseDataComponent,
+    ActiveApplicantsTableComponent
 } from './components/index';
 import {AuthGuard} from './guards/index';
 import {ScreeningService} from "./_services/screening.service";
@@ -58,6 +59,8 @@ import {EvaluateStepsComponent} from "./components/evaluateScreenings/evaluate-s
 import {EvaluateUserComponent} from "./components/evaluateScreenings/evaluate-user/evaluate-user.component";
 import {AlertService} from "./_services/alert.service";
 import {AlertComponent} from "./components/alert/alert.component";
+import {ApplicantService} from './_services/applicants.service';
+import {UserService} from './_services/user.service';
 
 @NgModule({
     imports: [
@@ -104,7 +107,8 @@ import {AlertComponent} from "./components/alert/alert.component";
         EditStepsBoxComponent,
         EvaluateStepsComponent,
         EvaluateUserComponent,
-        AlertComponent
+        AlertComponent,
+        ActiveApplicantsTableComponent
     ],
     providers: [
         AuthGuard,
@@ -115,7 +119,9 @@ import {AlertComponent} from "./components/alert/alert.component";
         DateFormatPipe,
         DatePipe,
         ScreeningService,
-        AlertService
+        AlertService,
+        ApplicantService,
+        UserService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent]

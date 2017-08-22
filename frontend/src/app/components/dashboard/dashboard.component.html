@@ -1,12 +1,32 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-6 col-sm-12">
-            <h2>Motivation videos to grade</h2>
-            <dashboard-motivation *ngIf="hasLocation()"></dashboard-motivation>
+    <div *ngIf="hasLocation(); then locationIsSet else locationIsNotSet"></div>
+    <ng-template #locationIsSet>
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-heading">Motivation Videos to Grade for {{getSelectedLocation()}}</div>
+                <div class="panel-body">
+                    <dashboard-motivation></dashboard-motivation>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Scheduled Screenings for {{getSelectedLocation()}}</div>
+                <div class="panel-body">
+                    <dashboard-screening></dashboard-screening>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Active Applicants for {{getSelectedLocation()}}</div>
+                <div class="panel-body">
+                    <app-active-applicants-table></app-active-applicants-table>
+                </div>
+            </div>
+    </ng-template>
+    <ng-template #locationIsNotSet>
+        <br />
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">First Things First</h4>
+            <hr />
+            <p>Select a Location from the dropdown above. You can find it in the navigation bar.</p>
         </div>
-        <div class="col-md-6 col-sm-12">
-            <h2>Screenings</h2>
-            <dashboard-screening *ngIf="hasLocation()"></dashboard-screening>
-        </div>
-    </div>
+    </ng-template>
 </div>

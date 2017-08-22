@@ -20,8 +20,8 @@ public class ApplicantsController {
     private ApplicantListingService applicantListingService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<ApplicantInfoDTO> getAllApplicants(@RequestParam("location") String locationId){
-        return applicantListingService.getApplicationData(locationId);
+    public List<ApplicantInfoDTO> getAllApplicants(@RequestParam("location") String locationId, @RequestParam(value = "all", required = false) Boolean all) {
+        return applicantListingService.getApplicationData(locationId, all);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
