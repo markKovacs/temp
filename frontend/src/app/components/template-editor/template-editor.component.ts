@@ -16,8 +16,7 @@ export class TemplateEditorComponent {
     public location: Location;
     public templates: Template[];
     public masterTemplate: Template;
-    public chosenTemplate: Template;
-    public messages: Message[] = [];
+    public selectedTemplate: Template;
     public newKey: string;
     editingName = false;
 
@@ -39,52 +38,45 @@ export class TemplateEditorComponent {
             });
     }
 
-    chooseTemplate(template) {
-        this.chosenTemplate = template;
+    selectTemplate(template) {
+        this.selectedTemplate = template;
     }
 
     getKeys(model) {
         return _.keys(model)
     }
 
-    addNewKey(){
-        this.chosenTemplate.model[this.newKey] = null;
+    addNewKey() {
+        this.selectedTemplate.model[this.newKey] = null;
         this.newKey = null;
     }
 
-    previewTemplate(template){
-        const generated = Mustache.render(template, this.chosenTemplate.model);
+    previewTemplate(template) {
+        const generated = Mustache.render(template, this.selectedTemplate.model);
         const generatedMaster = Mustache.render(this.masterTemplate.template, this.masterTemplate.model);
         const parts = generatedMaster.split('({[content]})');
-        if (parts.length !== 2){
-            this.messages.push({
-                severity: 'error',
-                summary: 'Error in Master template',
-                detail: 'Please check the syntax and try again'
-            });
+        if (parts.length !== 2) {
+            // this.messages.push({
+            //     severity: 'error',
+            //     summary: 'Error in Master template',
+            //     detail: 'Please check the syntax and try again'
+            // });
         }
         const full = parts[0] + generated + parts[1];
         const newWindow = window.open('', '', 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=800, height=700, top=0, left=0');
         newWindow.document.body.innerHTML = full;
     }
 
-    saveTemplate(template){
-        const postData = Object.assign({}, template);
-        for (const key in postData.model) {
-            postData.model[key] = null;
-        }
-        postData.model = JSON.stringify(postData.model);
-
-        this.client.post('/api/templates/save', postData).subscribe(
-            (response: PostResponse) => {
-                this.messages.push({
-                    severity: 'success',
-                    summary: 'Save completed',
-                    detail: this.chosenTemplate.name
-                });
-                this.editingName = false;
-            }
-        )
+    saveTemplate(template) {
+        let copy = Object.assign({}, template);
+        copy.model = JSON.stringify(copy.model);
+        console.log(copy);
+        this.emailTemplateService.saveTemplate(copy)
+            .subscribe(
+                (response: PostResponse) => {
+                    response.success ? console.log('saved') : console.log('something went wrong');
+                }
+            );
     }
 
 }
