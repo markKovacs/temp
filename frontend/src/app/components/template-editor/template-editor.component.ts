@@ -62,6 +62,10 @@ export class TemplateEditorComponent {
         return _.keys(model)
     }
 
+    keyupHandlerFunction($event) {
+        console.log('handler ', event);
+    }
+
     openPreviewWindow(template) {
         const generated = Mustache.render(template, this.selectedTemplate.model);
         const generatedMaster = Mustache.render(this.masterTemplate.template, this.masterTemplate.model);

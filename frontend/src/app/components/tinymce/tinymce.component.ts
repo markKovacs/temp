@@ -4,19 +4,20 @@ import {
     AfterViewInit,
     EventEmitter,
     Input,
-    Output
+    Output, ElementRef
 } from '@angular/core';
 
 @Component({
     selector: 'app-tinymce',
-    template: `<textarea id="{{elementId}}"></textarea>`
+    template: `<textarea id="{{elementId}}">{{initialHtml}}</textarea>`
 })
 export class TinyMceComponent implements AfterViewInit, OnDestroy {
     @Input() elementId: String;
+    @Input() initialHtml: String;
     @Output() onEditorKeyup = new EventEmitter<any>();
 
     editor;
-
+    
     ngAfterViewInit() {
         tinymce.init({
             selector: '#' + this.elementId,
