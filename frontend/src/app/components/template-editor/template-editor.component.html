@@ -10,6 +10,12 @@
                         (click)="selectTemplate(template)">{{template.name}}
                 </button>
             </div>
+
+            <app-tinymce
+                    [elementId]="'my-editor-id'"
+                    (onEditorKeyup)="keyupHandlerFunction($event)">
+            </app-tinymce>
+
         </div>
     </div>
 

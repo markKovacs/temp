@@ -18,3 +18,4 @@ export * from './template-editor/template-editor.component';
 export * from './evaluateScreenings/evaluateScreenings.component';
 export * from './evaluateScreenings/evaluate-user/evaluate-user.component';
 export * from './applicants-table/applicants-table.component';
+export * from './tinymce/tinymce.component';
