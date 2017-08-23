@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="row chosen-template-body">
-                    <div *ngIf="!chosenTemplate.master" [froalaEditor]="options"
+                        <div *ngIf="!chosenTemplate.master" [froalaEditor]="options"
                          [(froalaModel)]="chosenTemplate.template">Hello, Froala!
                     </div>
                     <textarea *ngIf="chosenTemplate.master" rows="40" [(ngModel)]="chosenTemplate.template"

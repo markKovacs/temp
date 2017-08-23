@@ -13,7 +13,7 @@ import {Location} from "../../_models/location.model";
 })
 export class NavBarComponent {
 
-    public showNavBar: boolean = false;
+    public showNavBar: boolean = true;
     locations: Location[] = [];
 
     constructor(private router: Router,

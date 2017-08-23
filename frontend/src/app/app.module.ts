@@ -61,6 +61,7 @@ import {AlertService} from "./_services/alert.service";
 import {AlertComponent} from "./components/alert/alert.component";
 import {ApplicantService} from './_services/applicants.service';
 import {UserService} from './_services/user.service';
+import {EmailTemplateService} from './_services/email-template.service';
 
 @NgModule({
     imports: [
@@ -121,7 +122,8 @@ import {UserService} from './_services/user.service';
         ScreeningService,
         AlertService,
         ApplicantService,
-        UserService
+        UserService,
+        EmailTemplateService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent]
