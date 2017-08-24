@@ -15,7 +15,7 @@ export class ApplicantsTableComponent implements OnInit {
 
     @Input() fetchAll: boolean; // grab all or active applicants
     private locationId: string;
-    private applicants: Applicant[] = [];
+    applicants: Applicant[] = [];
 
     constructor(
         private applicantService: ApplicantService,
