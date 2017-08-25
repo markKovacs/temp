@@ -3,6 +3,7 @@ import {HttpClient} from '../../_httpclient/httpclient';
 import {Location, Template, PostResponse} from '../../_models/index';
 import Mustache from 'mustache/mustache';
 import * as _ from 'lodash';
+import {Message} from 'primeng/primeng';
 import {EmailTemplateService} from '../../_services/email-template.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class TemplateEditorComponent {
     public templates: Template[];
     public masterTemplate: Template;
     public selectedTemplate: Template;
+    public messages: Message[] = [];
     editingName = false;
     public options: Object = {
         immediateAngularModelUpdate: true
