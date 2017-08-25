@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnChanges, SimpleChanges} from '@angular/core';
 import {HttpClient} from '../../_httpclient/httpclient';
 import {Location, Template, PostResponse} from '../../_models/index';
 import Mustache from 'mustache/mustache';
@@ -62,7 +62,7 @@ export class TemplateEditorComponent {
         return _.keys(model)
     }
 
-    keyupHandlerFunction($event) {
+    keyupHandlerFunction(event) {
         console.log('handler ', event);
     }
 

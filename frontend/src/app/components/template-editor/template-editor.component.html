@@ -11,11 +11,7 @@
                 </button>
             </div>
 
-            <app-tinymce
-                    [elementId]="'my-editor-id'"
-                    (onEditorKeyup)="keyupHandlerFunction($event)"
-                    [initialHtml]="'<b>test</b><p>ok</p>'">
-            </app-tinymce>
+
 
         </div>
     </div>
@@ -37,10 +33,15 @@
                     </div>
 
                     <div class="row chosen-template-body">
-                        <div *ngIf="!selectedTemplate.master"
-                             [froalaEditor]="options"
-                             [(froalaModel)]="selectedTemplate.template">Hello, Froala!
-                        </div>
+                        <app-tinymce *ngIf="!selectedTemplate.master"
+                                [elementId]="'editor'"
+                                (onEditorKeyup)="keyupHandlerFunction($event)"
+                                [initialHtml]="selectedTemplate.template">
+                        </app-tinymce>
+                        <!--<div *ngIf="!selectedTemplate.master"-->
+                             <!--[froalaEditor]="options"-->
+                             <!--[(froalaModel)]="selectedTemplate.template">Hello, Froala!-->
+                        <!--</div>-->
                         <textarea *ngIf="selectedTemplate.master"
                                   rows="40"
                                   [(ngModel)]="selectedTemplate.template"
