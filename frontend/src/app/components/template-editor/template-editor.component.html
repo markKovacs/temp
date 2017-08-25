@@ -15,7 +15,7 @@
 
     <div class="panel panel-default" *ngIf="selectedTemplate">
         <div class="panel-heading" *ngIf="!selectedTemplate.master">Editing <b>{{selectedTemplate.name}}</b> Template</div>
-        <div class="panel-heading" *ngIf="selectedTemplate.master">Viewing <b>{{selectedTemplate.name}}</b> Template</div>
+        <div class="panel-heading" *ngIf="selectedTemplate.master">Viewing <b>{{selectedTemplate.name}}</b> Template (ask the admins in case you want to edit this template)</div>
         <div class="panel-body">
 
             <div *ngIf="!selectedTemplate.master">

@@ -46,8 +46,10 @@ export class TemplateEditorComponent {
             .subscribe(
                 (response: PostResponse) => {
                     if (response.success) {
+                        alert('template saved');
                         // todo show msg growl with success severity
                     } else {
+                        alert('error while saving');
                         // todo show msg growl with error severity
                     }
                 }
@@ -62,8 +64,8 @@ export class TemplateEditorComponent {
         return _.keys(model)
     }
 
-    keyupHandlerFunction(event) {
-        console.log('handler ', event);
+    keyupHandlerFunction(event: string): void {
+        this.selectedTemplate.template = event;
     }
 
     openPreviewWindow(template) {
@@ -87,9 +89,9 @@ export class TemplateEditorComponent {
             'scrollbars=yes,' +
             'resizable=yes,' +
             'width=800,' +
-            'height=700,' +
-            'top=0,' +
-            'left=0');
+            'height=600,' +
+            'top=70,' +
+            'left=' + ((window.screen.width / 2) - 400));
         newWindow.document.body.innerHTML = full;
     }
 
