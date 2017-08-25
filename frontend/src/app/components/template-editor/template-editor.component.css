@@ -2,14 +2,8 @@
     padding-top: 65px;
 }
 
-.chosen-template-body {
-    background-color: red;
-    width: 100%;
-}
-
 .editor {
     display: block;
-    background-color: yellow;
 }
 
 textarea {
