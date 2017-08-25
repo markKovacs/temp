@@ -45,7 +45,8 @@ import {
     EditScreeningComponent,
     TemplateEditorComponent,
     SurveyBaseDataComponent,
-    ApplicantsTableComponent
+    ApplicantsTableComponent,
+    TinyMceComponent
 } from './components/index';
 import {AuthGuard} from './guards/index';
 import {ScreeningService} from "./_services/screening.service";
@@ -109,7 +110,8 @@ import {EmailTemplateService} from './_services/email-template.service';
         EvaluateStepsComponent,
         EvaluateUserComponent,
         AlertComponent,
-        ApplicantsTableComponent
+        ApplicantsTableComponent,
+        TinyMceComponent
     ],
     providers: [
         AuthGuard,

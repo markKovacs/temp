@@ -14,52 +14,39 @@
     </div>
 
     <div class="panel panel-default" *ngIf="selectedTemplate">
-        <div class="panel-heading">Template Editor</div>
+        <div class="panel-heading" *ngIf="!selectedTemplate.master">Editing <b>{{selectedTemplate.name}}</b> Template</div>
+        <div class="panel-heading" *ngIf="selectedTemplate.master">Viewing <b>{{selectedTemplate.name}}</b> Template (ask the admins in case you want to edit this template)</div>
         <div class="panel-body">
-            <div class="btn-group" role="group">
-                <div>
-                    <h4>{{selectedTemplate.name}}</h4>
 
-                    <div *ngIf="!selectedTemplate.master">
-                        <button class="btn btn-success" (click)="saveTemplate(selectedTemplate)">
-                            <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Save
-                        </button>
-                        <button class="btn btn-primary" (click)="openPreviewWindow(selectedTemplate.template)">
-                            <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;Preview
-                        </button>
-                    </div>
-
-                    <div class="row chosen-template-body">
-                        <div *ngIf="!selectedTemplate.master"
-                             [froalaEditor]="options"
-                             [(froalaModel)]="selectedTemplate.template">Hello, Froala!
-                        </div>
-                        <textarea *ngIf="selectedTemplate.master"
-                                  rows="40"
-                                  [(ngModel)]="selectedTemplate.template"
-                                  disabled>
-                        </textarea>
-                    </div>
-
-                    <div class="row" *ngIf="!selectedTemplate.master">
-                        <div class="col-sm-12 col-md-12 col-lg-12">
-                            <div class="form-horizontal">
-                                <div class="form-group" *ngFor="let key of getKeys(selectedTemplate.model)">
-                                    <label for="input1" class="col-sm-2 control-label">{{ key }}</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control"
-                                               id="input1"
-                                               placeholder="Value"
-                                               [(ngModel)]="selectedTemplate.model[key]">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div *ngIf="!selectedTemplate.master">
+                <button class="btn btn-success" (click)="saveTemplate(selectedTemplate)">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Save
+                </button>
+                <button class="btn btn-primary" (click)="openPreviewWindow(selectedTemplate.template)">
+                <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;Preview
+                </button>
             </div>
+
+            <br />
+
+            <app-tinymce class="editor"
+                         *ngIf="!selectedTemplate.master"
+                         [elementId]="'editor'"
+                         (onEditorKeyup)="keyupHandlerFunction($event)"
+                         [initialHtml]="selectedTemplate.template">
+            </app-tinymce>
+
+            <div *ngIf="selectedTemplate.master">
+                <textarea
+                    rows="40"
+                    [(ngModel)]="selectedTemplate.template"
+                    disabled>
+                </textarea>
+            </div>
+
         </div>
     </div>
+
 </div>
 
 <p-growl [(value)]="messages"

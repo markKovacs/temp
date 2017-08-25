@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnChanges, SimpleChanges} from '@angular/core';
 import {HttpClient} from '../../_httpclient/httpclient';
 import {Location, Template, PostResponse} from '../../_models/index';
 import Mustache from 'mustache/mustache';
@@ -46,8 +46,10 @@ export class TemplateEditorComponent {
             .subscribe(
                 (response: PostResponse) => {
                     if (response.success) {
+                        alert('template saved');
                         // todo show msg growl with success severity
                     } else {
+                        alert('error while saving');
                         // todo show msg growl with error severity
                     }
                 }
@@ -60,6 +62,10 @@ export class TemplateEditorComponent {
 
     getKeys(model: any): any[] {
         return _.keys(model)
+    }
+
+    keyupHandlerFunction(event: string): void {
+        this.selectedTemplate.template = event;
     }
 
     openPreviewWindow(template) {
@@ -83,9 +89,9 @@ export class TemplateEditorComponent {
             'scrollbars=yes,' +
             'resizable=yes,' +
             'width=800,' +
-            'height=700,' +
-            'top=0,' +
-            'left=0');
+            'height=600,' +
+            'top=70,' +
+            'left=' + ((window.screen.width / 2) - 400));
         newWindow.document.body.innerHTML = full;
     }
 
