@@ -25,6 +25,7 @@ export class TinyMceComponent implements AfterViewInit, OnDestroy, OnChanges {
         tinymce.init({
             selector: '#' + this.elementId,
             plugins: ['link', 'paste', 'table'],
+            width : '75%',
             skin_url: 'assets/skins/lightgray',
             setup: editor => {
                 this.editor = editor;

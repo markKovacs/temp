@@ -2,16 +2,16 @@
     padding-top: 65px;
 }
 
-.card {
-    box-shadow: 0 0 7px #999;
-    margin: 10px;
-    padding: 10px;
-}
-
-.chosen-template-body textarea {
+.chosen-template-body {
+    background-color: red;
     width: 100%;
 }
 
-#editor {
+.editor {
+    display: block;
+    background-color: yellow;
+}
 
+textarea {
+    width: 100%;
 }
