@@ -31,6 +31,5 @@ public class EmailTemplate {
     private String template;
     @Column(columnDefinition = "TEXT")
     private String model;
-
     private Boolean master;
 }
