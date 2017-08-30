@@ -1,7 +1,7 @@
 
 import {Component, Input, OnInit} from "@angular/core";
 import {Results} from "../../_models/results.model";
-import {DomSanitizer} from "@angular/platform-browser";
+import {BrowserModule, DomSanitizer} from "@angular/platform-browser";
 import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
 import {Router} from "@angular/router";
@@ -10,12 +10,12 @@ import {Router} from "@angular/router";
     moduleId: module.id,
     templateUrl: 'applicant-video.component.html',
     styleUrls: ['applicant-video.component.css'],
-    selector: 'applicant-video'
+    selector: 'applicant-video',
+    providers: [BrowserModule]
 })
 export class ApplicantVideoComponent {
 
     @Input() testResult: Results;
-    comment: string;
     adminId: string;
 
     constructor(private sanitizer: DomSanitizer,
@@ -26,8 +26,16 @@ export class ApplicantVideoComponent {
     }
 
 
-    saveComment(comment){
-        this.comment = comment;
+    updateComment(comment){
+        this.testResult.comment = comment;
+    }
+
+    saveComment(){
+        let grade= {adminId: this.adminId, comment: this.testResult.comment, testResultId:this.testResult.id };
+        return this.client.post('/api/grademotivation', grade ).subscribe(
+            // .() =>{ this.survey = null;}
+            error => console.log(error)
+        );
     }
 
     gradeMotivation(accepted: boolean): void{
@@ -41,7 +49,7 @@ export class ApplicantVideoComponent {
 
 
     postMotivationGrade(accepted:boolean) {
-        let grade= {adminId: this.adminId, passed: accepted, comment: this.comment, testResultId:this.testResult.id };
+        let grade= {adminId: this.adminId, passed: accepted, comment: this.testResult.comment, testResultId:this.testResult.id };
         return this.client.post('/api/grademotivation', grade );
     }
 

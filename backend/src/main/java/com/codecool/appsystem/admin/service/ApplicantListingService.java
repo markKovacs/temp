@@ -10,7 +10,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,7 +43,7 @@ public class ApplicantListingService {
                     .collect(Collectors.toList());
         }
 
-        List<Application> applications = applicationRepository.findByLocationIdAndActive(locationId, true);
+        List<Application> applications = applicationRepository.findByLocationIdAndActiveIsTrue(locationId);
 
         return applications
                 .stream()
@@ -71,12 +70,17 @@ public class ApplicantListingService {
     }
 
     private Date getProcesssStartedAt(User user){
-        return applicationRepository.findByApplicantIdAndActive(user.getId(), true).getProcessStartedAt();
+        Application application = applicationRepository.findByApplicantIdAndActive(user.getId(), true);
+        return application == null ? null : application.getProcessStartedAt();
     }
 
     private String getStatus(String id) {
 
         Application application = applicationRepository.findByApplicantIdAndActive(id, Boolean.TRUE);
+
+        if(application == null){
+            return "-";
+        }
 
         TestResult lastPassed = testResultRepository.findByApplicationId(application.getId())
                 .stream()
@@ -84,7 +88,7 @@ public class ApplicantListingService {
                 .findFirst().orElse(null);
 
         if(lastPassed == null){
-            return "Not started yet";
+            return "-";
         }
 
         Test test = testRepository.findOne(lastPassed.getTestId());
@@ -113,15 +117,7 @@ public class ApplicantListingService {
             return "Final result: N";
         }
 
-        if(Boolean.TRUE.equals(test.getMotivationVideo()) && lastPassed.getPassed() == null){
-            return test.getName() + " submitted";
-        }
-
-        if(Boolean.FALSE.equals(lastPassed.getPassed())){
-            return test.getName() + " failed";
-        }
-
-        return test.getName() + " passed";
+        return test.getName();
 
     }
 

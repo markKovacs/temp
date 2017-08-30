@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/applicants")
@@ -27,5 +28,11 @@ public class ApplicantsController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ApplicantDetailsDTO getSingleApplicantInfo(@PathVariable("id") Integer id) {
         return detailsService.provideInfo(id);
+    }
+
+    @RequestMapping(value = "/{id}/savedate", method = RequestMethod.POST)
+    public ApplicantDetailsDTO getSingleApplicantInfo(
+            @PathVariable("id") Integer id, @RequestBody Map<String, Long> data) {
+        return detailsService.saveDates(id, data);
     }
 }

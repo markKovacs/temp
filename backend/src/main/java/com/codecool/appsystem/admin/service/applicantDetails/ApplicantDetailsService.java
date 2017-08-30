@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,6 +45,9 @@ public class ApplicantDetailsService {
     @Autowired
     private ScreeningStepCriteriaRepository screeningStepCriteriaRepository;
 
+    @Autowired
+    private LocationRepository locationRepository;
+
     public ApplicantDetailsDTO provideInfo(Integer id) {
 
         User user = userRepo.findByAdminId(id);
@@ -53,6 +58,35 @@ public class ApplicantDetailsService {
         ApplicationScreeningInfo appScrInf = appScrInfoRepo.findByApplicationId(application.getId());
         return provideDTO(user, application, appScrInf, applicantsScreeningSteps);
     }
+
+    public ApplicantDetailsDTO saveDates(Integer id, Map<String, Long> data) {
+
+        //TODO send update email here
+
+        User user = userRepo.findByAdminId(id);
+
+        Location location = locationRepository.findOne(user.getLocationId());
+
+        Application application = applicationRepo.findByApplicantIdAndActive(user.getId(),true);
+
+        ApplicationScreeningInfo appScrInf = appScrInfoRepo.findByApplicationId(application.getId());
+
+        if(appScrInf == null){
+            appScrInf = new ApplicationScreeningInfo();
+            appScrInf.setApplicationId(application.getId());
+        }
+
+        appScrInf.setScreeningGroupTime(new Date(data.get("group")));
+        appScrInf.setScreeningPersonalTime(new Date(data.get("personal")));
+        appScrInf.setMapLocation(location.getMapLocation());
+        appScrInfoRepo.saveAndFlush(appScrInf);
+
+        List<ApplicantsScreeningStep> applicantsScreeningSteps = applicantsScreeningStepRepository.findByApplicationId(application.getId());
+
+        return provideDTO(user, application, appScrInf, applicantsScreeningSteps);
+
+    }
+
 
 
     private ApplicantDetailsDTO provideDTO(User user, Application application, ApplicationScreeningInfo appScrInf, List<ApplicantsScreeningStep> applicantsScreeningSteps) {

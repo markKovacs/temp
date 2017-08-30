@@ -15,44 +15,48 @@
         </div>
     </div>
 
-    <div class="col-sm-{{ getSizeClass() }}" *ngFor="let step of user.screeningSteps">
-        <div class="panel {{ getClass(step) }}">
+    <div class="col-sm-9">
+        <div class="panel {{ getClass(step) }}" *ngFor="let step of user.screeningSteps">
             <div class="panel-heading">
                 <h3 class="panel-title">{{ step.stepName }}&nbsp;
                     <small>
-                        <i class="fa fa-check pull-right" aria-hidden="true" *ngIf="step.status === 'yes'">&nbsp;Yes</i>
-                        <i class="fa fa-question pull-right" aria-hidden="true" *ngIf="step.status === 'maybe'">&nbsp;Maybe</i>
-                        <i class="fa fa-ban pull-right" aria-hidden="true" *ngIf="step.status === 'no'">&nbsp;No</i>
+                        <i class="fa fa-check" aria-hidden="true" *ngIf="step.status === 'yes'">&nbsp;Yes</i>
+                        <i class="fa fa-question" aria-hidden="true" *ngIf="step.status === 'maybe'">&nbsp;Maybe</i>
+                        <i class="fa fa-ban" aria-hidden="true" *ngIf="step.status === 'no'">&nbsp;No</i>
                     </small>
                 </h3>
             </div>
             <div class="panel-body">
-                <h4>
-                    <small>POINTS</small>&nbsp;{{ step.points }}
-                </h4>
-                <h4>
-                    <small>COMMENT</small>&nbsp;{{ step.comment }}
-                </h4>
-                <h4>
-                    <small>INTERVIEWER</small>&nbsp;{{ step.interviewer }}
-                </h4>
-                <div class="panel {{ getClass(crit) }}" *ngFor="let crit of step.criterias">
+
+                <div class="col-sm-3">
+                    <h4>
+                        <small>POINTS</small>&nbsp;{{ step.points }}
+                    </h4>
+                    <h4>
+                        <small>COMMENT</small><br />{{ step.comment }}
+                    </h4>
+                    <h4>
+                        <small>INTERVIEWER</small>&nbsp;{{ step.interviewer }}
+                    </h4>
+                </div>
+
+                <div class="col-sm-3 panel {{ getClass(crit) }}" *ngFor="let crit of step.criterias">
                     <div class="panel-heading">
                         <h4 class="panel-title">{{ crit.criteriaName }}&nbsp;
                             <small>
-                                <i class="fa fa-check pull-right" aria-hidden="true" *ngIf="crit.status === 'yes'">&nbsp;Yes</i>
-                                <i class="fa fa-question pull-right" aria-hidden="true" *ngIf="crit.status === 'maybe'">&nbsp;Maybe</i>
-                                <i class="fa fa-ban pull-right" aria-hidden="true"
+                                <i class="fa fa-check" aria-hidden="true" *ngIf="crit.status === 'yes'">&nbsp;Yes</i>
+                                <i class="fa fa-question" aria-hidden="true" *ngIf="crit.status === 'maybe'">&nbsp;Maybe</i>
+                                <i class="fa fa-ban" aria-hidden="true"
                                    *ngIf="crit.status === 'no'">&nbsp;No</i>
                             </small>
                         </h4>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" style="min-height: 250px">
                         <h5>
                             <small>POINTS</small>&nbsp;{{ crit.points }}
                         </h5>
                         <h5>
-                            <small>COMMENT</small>&nbsp;{{ crit.comment }}
+                            <small>COMMENT</small><br />{{ crit.comment }}
                         </h5>
                         <h5>
                             <small>STATUS</small>&nbsp;{{ crit.status }}
@@ -61,6 +65,6 @@
                 </div>
             </div>
         </div>
-
     </div>
+
 </div>

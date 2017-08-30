@@ -27,6 +27,8 @@ export class ApplicantComponent {
                 this.getUser(params.id).subscribe(
                     (user: User) => {
                         this.user = user;
+                        this.user.screeningGroupTime = new Date(this.user.screeningGroupTime);
+                        this.user.screeningPersonalTime = new Date(this.user.screeningPersonalTime);
                     },
                     (error) => console.log(error)
                 )
@@ -38,5 +40,24 @@ export class ApplicantComponent {
         return this.client.get('/api/applicants/' + id)
     }
 
+    hasSuccessMotivation(): boolean {
+        return this.user.testResults.filter(mot => mot.isMotivation && mot.passed).length === 1;
+    }
 
+    save(){
+        this.client.post('/api/applicants/' + this.user.adminId + '/savedate',
+            {
+                    group: this.user.screeningGroupTime.getTime(),
+                    personal: this.user.screeningPersonalTime.getTime()
+                  }
+            )
+            .subscribe(
+                (success:any) => console.log("success"),
+                    (error:any) => console.log(error)
+            )
+    }
+
+    getDate(date: number){
+        return new Date(date);
+    }
 }

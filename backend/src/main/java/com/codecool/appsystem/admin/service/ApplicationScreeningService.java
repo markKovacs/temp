@@ -182,7 +182,7 @@ public class ApplicationScreeningService {
     private List<ApplicationScreeningInfo> findScreeningInfo(String locationId) {
 
         List<Application> applicationsByLocation =
-                appRepository.findByLocationIdAndActive(locationId, Boolean.TRUE);
+                appRepository.findByLocationIdAndActiveIsTrue(locationId);
 
         List<ApplicationScreeningInfo> screeningInfo = new ArrayList<>();
 
