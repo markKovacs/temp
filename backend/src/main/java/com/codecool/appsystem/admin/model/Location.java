@@ -29,4 +29,10 @@ public class Location {
     private String courseType;
 
     private String mapLocation;
+
+    private String emailAddress;
+
+    private String subjectPrefix;
+
+    private String nextCourseStart;
 }
