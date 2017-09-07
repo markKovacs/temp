@@ -52,7 +52,7 @@ public class EmailService {
     //@Value("${application.expiry.days:1}")
     private Integer days;
 
-    public void sendInitialEmail(User user){
+    public void sendMotivationSuccess(User user){
 
         log.info("Sending initial email to: {}", user.getId());
 

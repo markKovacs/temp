@@ -15,11 +15,21 @@ export class ScreeningService {
         return this.http.get("/api/screening/candidates" + "?location=" + JSON.parse(localStorage.getItem('chosenLocation')).id);
     }
 
-    saveGroupTimes(data: any): Observable<PostResponse>{
-        return this.http.post("/api/screening/group", data);
+    saveGroupTimes(data: ScreeningInfo[]): Observable<PostResponse>{
+        let sendData = [];
+        for (let user of data) {
+            sendData.push({id: user.adminId, time: user.groupTime})
+        }
+        return this.http.post("/api/screening/group", sendData);
     }
 
-    savePersonalTimes(data: any): Observable<PostResponse>{
-        return this.http.post("/api/screening/personal", data);
+    savePersonalTimes(data: ScreeningInfo[]): Observable<PostResponse>{
+        let sendData = [];
+
+        for (let user of data) {
+            sendData.push({id: user.adminId, time: user.personalTime})
+        }
+        return this.http.post("/api/screening/personal", sendData);
     }
+
 }

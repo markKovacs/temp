@@ -29,14 +29,14 @@
             <div class="panel-body">
 
                 <div class="col-sm-3">
-                    <h4>
+                    <h4 *ngIf="step.points">
                         <small>POINTS</small>&nbsp;{{ step.points }}
                     </h4>
                     <h4>
                         <small>COMMENT</small><br />{{ step.comment }}
                     </h4>
                     <h4>
-                        <small>INTERVIEWER</small>&nbsp;{{ step.interviewer }}
+                        <small>INTERVIEWER</small><br />{{ step.interviewer }}
                     </h4>
                 </div>
 

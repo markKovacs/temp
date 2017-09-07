@@ -6,9 +6,11 @@ import {Location, User} from "../../_models/index";
 import {ScreeningInfo} from "../../_models/screeninginfo.model";
 import {ScreeningService} from "../../_services/screening.service";
 import { DatePipe } from '@angular/common';
-import {Message} from 'primeng/primeng';
+import {Message, SelectItem} from 'primeng/primeng';
 import {DateFormatPipe} from "angular2-moment";
 import {PostResponse} from "../../_models/post-response.model";
+import {isNullOrUndefined} from "util";
+
 
 @Component({
     moduleId: module.id,
@@ -19,19 +21,12 @@ export class CalendarComponent implements OnInit {
 
     hu: any;
 
-    public users: ScreeningInfo[] = [];
+    users: ScreeningInfo[] = [];
+
+    selectDates: SelectItem[] = [];
 
     public dates: Date[] = [];
-    public loaded: boolean = false;
-    public dateSelectorOn: boolean = false;
     public date: Date;
-    public chosenDate: Date;
-    public sourceList: ScreeningInfo[] = [];
-    public targetList: ScreeningInfo[] = [];
-    public isPostingGroupTimes: boolean = false;
-    public isPostingIndividualTimes: boolean = false;
-    public groupTimesSet: boolean = false;
-    public individualTimesSet: boolean = false;
     public messages: Message[] = [];
     minDate = new Date();
 
@@ -53,6 +48,7 @@ export class CalendarComponent implements OnInit {
             monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
             monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]
         };
+        this.users.filter(u => !isNullOrUndefined(u.groupTime));
     }
 
     private fetchUsers() {
@@ -69,151 +65,45 @@ export class CalendarComponent implements OnInit {
 
     private loadDates() {
 
-        for (let user of this.users) {
-
+        this.users.forEach(user => {
             if (user.groupTime != null && !this.dates.includes(user.groupTime)) {
-                this.dates.push(user.groupTime)
+                this.dates.push(user.groupTime);
+                this.selectDates.push(
+                    {
+                        label: this.dateFormatter.transform(user.groupTime, 'yyyy.MM.dd. HH:mm'),
+                        value: user.groupTime
+                    }
+                );
             }
+        });
 
-        }
-
-        this.loaded = true;
-    }
-
-    openDateSelector() {
-        this.dateSelectorOn = true;
-        this.date = null;
     }
 
     addDate() {
         if (this.date && !this.dates.includes(this.date)) {
             this.dates.push(this.date);
-            this.dateSelectorOn = false;
+            this.selectDates.push(
+                {
+                    label: this.dateFormatter.transform(this.date, 'yyyy.MM.dd. HH:mm'),
+                    value: this.date
+                }
+            );
         }
         this.date = null;
-        /*this.dates.sort((a, b) => {
-            if(a.getDate() > b.getDate()){
-                return 1;
-            }
-            return -1;
-        });*/
+        this.dates.sort();
     }
 
-    selectDate(date) {
-        this.chosenDate = date;
-        this.groupTimesSet = null;
-        this.sourceList = this.users.filter((user) => user.groupTime == null);
-        this.targetList = this.users.filter((user) => user.groupTime == this.chosenDate);
-    }
-
-    getClass(date){
-        if(this.chosenDate === date){
-            return "text-danger";
-        }
-        return "";
-    }
-
-    showGroupTimes() {
-        return this.chosenDate != null && !this.isPostingGroupTimes && !this.groupTimesSet;
-    }
-
-    showIndividualTimes() {
-        return this.groupTimesSet && !this.isPostingIndividualTimes;
-    }
-
-    showLoading() {
-        return this.isPostingGroupTimes || this.isPostingIndividualTimes;
-    }
-
-    setGroupTimes() {
-        for (let user of this.targetList) {
-            user.groupTime = this.chosenDate;
-        }
-    }
-
-    saveGroupTimes() {
-        this.setGroupTimes();
-        this.postGroupTimes();
-    }
-
-    saveIndividualTimes() {
-        this.postIndividualTimes();
-    }
-
-    getIndividual(user) {
-        return user.personalTime ? user.personalTime : user.groupTime
-    }
-
-    postGroupTimes() {
-        let sendData = [];
-        for (let user of this.targetList) {
-            sendData.push({id: user.adminId, time: user.groupTime})
-        }
-
-        this.isPostingGroupTimes = true;
-
-        this.screeningService.saveGroupTimes(sendData).subscribe(
-            (data: PostResponse) => {
-                if(data.success){
-                    this.isPostingGroupTimes = false;
-                    this.groupTimesSet = true;
-                    this.messages.push(
-                        {
-                            severity: 'info',
-                            summary: 'Group times saved.',
-                            detail: 'for: ' + this.dateFormatter.transform(this.chosenDate, "y.MM.dd. HH:mm")
-                        }
-                    );
-                    if (this.targetList.length == 0) { this.chosenDate = null; };
-                }
-            },
-            error2 => {
-                this.messages.push(
-                    {
-                        severity: 'error',
-                        summary: 'Error while saving data',
-                        detail: error2
-                    }
-                )
-            }
+    saveGroupTimes(){
+        this.screeningService.saveGroupTimes(this.users).subscribe(
+            (data: any) => {},
+            error2 => console.log(error2)
         );
     }
 
-    postIndividualTimes() {
-        let sendData = [];
-
-        for (let user of this.targetList) {
-            sendData.push({id: user.adminId, time: user.personalTime})
-        }
-
-        this.isPostingIndividualTimes = true;
-        this.individualTimesSet = false;
-
-        this.screeningService.savePersonalTimes(sendData).subscribe(
-            (data: PostResponse) => {
-                if(data.success){
-                    this.messages.push(
-                        {
-                            severity: 'info',
-                            summary: 'Individual times saved.',
-                            detail: 'for: ' + this.dateFormatter.transform(this.chosenDate, "y.MM.dd. HH:mm")
-                        }
-                    );
-                    this.isPostingIndividualTimes = false;
-                    this.individualTimesSet = true;
-                    this.chosenDate = null;
-                    this.groupTimesSet = false;
-                }
-            },
-            error2 => {
-                this.messages.push(
-                    {
-                        severity: 'error',
-                        summary: 'Error while saving data',
-                        detail: error2
-                    }
-                )
-            }
+    savePersonalTimes(){
+        this.screeningService.savePersonalTimes(this.users).subscribe(
+            (data: any) => {},
+            error2 => console.log(error2)
         );
     }
 }
