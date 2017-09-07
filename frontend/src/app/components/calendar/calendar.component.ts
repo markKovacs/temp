@@ -53,7 +53,7 @@ export class CalendarComponent implements OnInit {
 
     private fetchUsers() {
 
-        this.screeningService.findCandidates().subscribe(
+        this.screeningService.findAssignmentCandidates().subscribe(
             (data: ScreeningInfo[]) => {
                 this.users = data;
                 this.loadDates();

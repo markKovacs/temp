@@ -39,23 +39,15 @@ public class ApplicationScreeningService {
     @Autowired
     private LocationRepository locationRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     public void saveGroupScreeningTime(List<ScreeningTimeAssingmentDTO> data){
 
         for(ScreeningTimeAssingmentDTO dto : data){
-            // truncate all our saved dates to hh:mm
-            Date groupTime = Date.from(
-                    Instant.ofEpochMilli(dto.getTime().getTime()).truncatedTo(ChronoUnit.MINUTES)
-            );
 
-            List<ApplicationScreeningInfo> byScreeningGroupTime = appScrRepo.findByScreeningGroupTime(groupTime);
+            log.debug("Saving group screening times: {}", dto);
 
-            // null out all the group dates for the given time
-            byScreeningGroupTime
-                    .forEach(applicationScreeningInfo -> applicationScreeningInfo.setScreeningGroupTime(null));
-
-        }
-
-        for(ScreeningTimeAssingmentDTO dto : data){
             User user = userRepository.findByAdminId(dto.getId());
             Application application = appRepository.findByApplicantIdAndActive(user.getId(), Boolean.TRUE);
 
@@ -97,6 +89,8 @@ public class ApplicationScreeningService {
             ApplicationScreeningInfo screeningInfo = appScrRepo.findByApplicationId(application.getId());
 
             screeningInfo.setScreeningPersonalTime(personalTime);
+
+            emailService.sendScreeningTimesAssigned(user, screeningInfo);
 
             appScrRepo.saveAndFlush(screeningInfo);
         }
@@ -149,6 +143,16 @@ public class ApplicationScreeningService {
 
     }
 
+    public List<ScreeningDTO> getAssignmentCandidates(String locationId) {
+
+        return appRepository.findByLocationId(locationId)
+                .stream()
+                .filter(this::isScreeningAssignmentCandidate)
+                .map(this::createCandidate)
+                .collect(Collectors.toList());
+
+    }
+
     private boolean isScreeningCandidate(Application application){
         Test test = testRepository.findByMotivationVideoAndLocationId(Boolean.TRUE, application.getLocationId());
 
@@ -158,6 +162,11 @@ public class ApplicationScreeningService {
 
         return application.getFinalResult() == null && testResult != null && Boolean.TRUE.equals(testResult.getPassed());
 
+    }
+
+    private boolean isScreeningAssignmentCandidate(Application application){
+        ApplicationScreeningInfo screeningInfo = appScrRepo.findByApplicationId(application.getId());
+        return screeningInfo != null && !Boolean.TRUE.equals(screeningInfo.getScheduleSignedBack());
     }
 
     private ScreeningDTO createCandidate(Application application){
@@ -190,7 +199,7 @@ public class ApplicationScreeningService {
 
             ApplicationScreeningInfo appscr =  appScrRepo.findByApplicationId(application.getId());
 
-            if (appscr != null) {
+            if (appscr != null && application.getFinalResult() == null) {
                 screeningInfo.add(appscr);
             }
 

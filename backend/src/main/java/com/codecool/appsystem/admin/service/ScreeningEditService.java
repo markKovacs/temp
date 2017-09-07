@@ -53,7 +53,7 @@ public class ScreeningEditService {
 
         ScreeningStep step = repository.findOne(stepId);
 
-        ApplicantsScreeningStep applicantsScreeningStep = applicantsScreeningStepRepository.findByStepId(stepId);
+        ApplicantsScreeningStep applicantsScreeningStep = applicantsScreeningStepRepository.findByStepIdAndApplicationId(stepId, application.getId());
 
         if(applicantsScreeningStep == null){
             applicantsScreeningStep = new ApplicantsScreeningStep(stepId, application.getId());

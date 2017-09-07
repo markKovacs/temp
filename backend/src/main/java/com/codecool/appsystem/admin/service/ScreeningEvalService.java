@@ -17,6 +17,9 @@ public class ScreeningEvalService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     public void gradeScreening(ScreeningGrade grade) {
 
         User user = userRepository.findByAdminId(grade.getAdminId());
@@ -27,6 +30,11 @@ public class ScreeningEvalService {
         if (Boolean.TRUE.equals(grade.getAccepted())) {
             user.setCanApply(false);
             userRepository.saveAndFlush(user);
+
+            emailService.sendResultY(user);
+
+        } else {
+            emailService.sendResultN(user);
         }
 
         applicationRepository.save(application);

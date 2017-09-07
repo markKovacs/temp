@@ -35,4 +35,6 @@ public class Location {
     private String subjectPrefix;
 
     private String nextCourseStart;
+
+    private String address;
 }

@@ -15,6 +15,10 @@ export class ScreeningService {
         return this.http.get("/api/screening/candidates" + "?location=" + JSON.parse(localStorage.getItem('chosenLocation')).id);
     }
 
+    findAssignmentCandidates(): Observable<ScreeningInfo[]> {
+        return this.http.get("/api/screening/assignmentcandidates" + "?location=" + JSON.parse(localStorage.getItem('chosenLocation')).id);
+    }
+
     saveGroupTimes(data: ScreeningInfo[]): Observable<PostResponse>{
         let sendData = [];
         for (let user of data) {
