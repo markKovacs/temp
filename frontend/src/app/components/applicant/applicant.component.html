@@ -4,7 +4,7 @@
     </div>
     <div *ngIf="user">
         <div class="row">
-            <div class="col-sm-12 col-md-8 col-lg-8">
+            <div class="col-sm-12 col-md-7 col-lg-7">
                 <div *ngFor="let result of user.testResults">
                     <div *ngIf="result.isMotivation">
                         <applicant-video [testResult]="result"
@@ -13,40 +13,70 @@
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-4 col-log-4">
+            <div class="col-sm-12 col-md-5 col-log-5">
                 <h3>APPLICANT&nbsp;<small>OVERVIEW</small>
                 </h3>
                 <br/>
                 <div>
                     <div class="col-sm-6">
-                        <h4><small>Name</small></h4>
+                        <h4>
+                            <small>Name</small>
+                        </h4>
                     </div>
                     <div class="col-sm-6">
                         <h4>{{user.givenName}} {{user.familyName}}</h4>
                     </div>
                     <div class="col-sm-6">
-                        <h4><small>Date of birth</small></h4>
+                        <h4>
+                            <small>Date of birth</small>
+                        </h4>
                     </div>
                     <div class="col-sm-6">
                         <h4>{{user.dateOfBirth}}</h4>
                     </div>
                     <div class="col-sm-6">
-                        <h4><small>Times applied</small></h4>
+                        <h4>
+                            <small>Times applied</small>
+                        </h4>
                     </div>
                     <div class="col-sm-6">
                         <h4>{{user.timesApplied}}</h4>
                     </div>
-                    <div class="col-sm-6" *ngIf="user.screeningGroupTime">
-                        <h4><small>Group time</small></h4>
+                    <div class="row" style="margin-left:0;margin-right:0">
+                        <div class="col-sm-6" *ngIf="hasSuccessMotivation() || user.screeningGroupTime">
+                            <h4>
+                                <small>Group time</small>
+                            </h4>
+                        </div>
+                        <div class="col-sm-4" *ngIf="hasSuccessMotivation() || user.screeningGroupTime">
+                            <p-calendar
+                                    [(ngModel)]="user.screeningGroupTime"
+                                    showTime="showTime"
+                                    dateFormat="yy.mm.dd."
+                                    hourFormat="24">
+                            </p-calendar>
+                        </div>
+                        <div class="col-sm-2">
+                            <a (click)="save()"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
+                        </div>
                     </div>
-                    <div class="col-sm-6" *ngIf="user.screeningGroupTime">
-                        <h4>{{ user.screeningGroupTime | date: 'yyyy.MM.dd. HH:mm' }}</h4>
-                    </div>
-                    <div class="col-sm-6" *ngIf="user.screeningPersonalTime">
-                        <h4><small>Personal time</small></h4>
-                    </div>
-                    <div class="col-sm-6" *ngIf="user.screeningPersonalTime">
-                        <h4>{{ user.screeningPersonalTime | date: 'yyyy.MM.dd. HH:mm' }}</h4>
+                    <div class="row" style="margin-left:0;margin-right:0">
+                        <div class="col-sm-6" *ngIf="hasSuccessMotivation() || user.screeningPersonalTime">
+                            <h4>
+                                <small>Personal time</small>
+                            </h4>
+                        </div>
+                        <div class="col-sm-4" *ngIf="hasSuccessMotivation() || user.screeningPersonalTime">
+                            <p-calendar
+                                    [(ngModel)]="user.screeningPersonalTime"
+                                    showTime="showTime"
+                                    dateFormat="yy.mm.dd."
+                                    hourFormat="24">
+                            </p-calendar>
+                        </div>
+                        <div class="col-sm-2 pull-right">
+                            <a (click)="save()"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>

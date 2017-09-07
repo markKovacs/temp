@@ -30,6 +30,12 @@ public class ScreeningController {
         return screeningService.getCandidates(location);
     }
 
+    @RequestMapping("/api/screening/assignmentcandidates")
+    public List<ScreeningDTO> getScreeningAssignmentCandidates(@RequestParam String location){
+        return screeningService.getAssignmentCandidates(location);
+    }
+
+
     @RequestMapping(value = "/api/screening/group", method = RequestMethod.POST)
     public RestResponseDTO saveGroupTimes(@RequestBody List<ScreeningTimeAssingmentDTO> data){
         screeningService.saveGroupScreeningTime(data);

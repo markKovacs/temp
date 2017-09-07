@@ -32,15 +32,8 @@ export class ApplicantScreeningComponent {
         if(step.status === 'yes'){
             return "panel-success";
         }
+        return 'panel-default';
     }
-
-    getSizeClass(){
-        if(this.user.screeningSteps.length === 3){
-            return 3;
-        }
-        return Math.floor(9/this.user.screeningSteps.length);
-    }
-
 
     setFinalResult(bool){
 

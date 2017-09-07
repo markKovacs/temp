@@ -45,12 +45,14 @@
                     <textarea
                             rows="5" cols="60"
                             class="form-control"
-                            (blur)="saveComment($event.target.value)"
+                            (blur)="updateComment($event.target.value)"
                             id="comment"
                             placeholder="You can give some comment here, the applicant won't see this ever."
                             [disabled]="testResult.passed !== undefined"
+                            [(ngModel)]="testResult.comment"
                     >
                     </textarea>
+                    <button class="btn btn-success" (click)="saveComment()">Save</button>
                 </div>
             </div>
 

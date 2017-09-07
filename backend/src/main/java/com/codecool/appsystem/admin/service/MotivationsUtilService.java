@@ -30,6 +30,15 @@ public class MotivationsUtilService {
     @Autowired
     private TestRepository testRepo;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private ApplicationScreeningInfoRepository applicationScreeningInfoRepository;
+
     public List<MotivationDTO> getUngradedUsers(List<User> userList, String id) {
 
         List<MotivationDTO> motivation = new ArrayList<>();
@@ -78,6 +87,23 @@ public class MotivationsUtilService {
         TestResult actualTestResult = testResultRepository.getOne(motivationGrade.getTestResultId());
         actualTestResult.setComment(motivationGrade.getComment());
         actualTestResult.setPassed(motivationGrade.getPassed());
+
+        Application application = applicationRepository.findOne(actualTestResult.getApplicationId());
+        User user = userRepository.findOne(application.getApplicantId());
+
+        if(Boolean.TRUE.equals(motivationGrade.getPassed())){
+
+            ApplicationScreeningInfo screeningInfo = new ApplicationScreeningInfo();
+            screeningInfo.setApplicationId(application.getId());
+
+            applicationScreeningInfoRepository.saveAndFlush(screeningInfo);
+
+
+            emailService.sendMotivationSuccess(user);
+        } else {
+            emailService.sendMotivationFailed(user);
+        }
+
         testResultRepository.save(actualTestResult);
     }
 

@@ -44,7 +44,7 @@ public class Auth0TokenService {
     private String userInfoUrl;
 
     @Autowired
-    private RestTemplate restTemplate;
+    private RestTemplate authenticationRestTemplate;
 
     @Autowired
     private JwtTokenGenerator jwtTokenGenerator;
@@ -69,7 +69,7 @@ public class Auth0TokenService {
         body.add("code", code);
         body.add("grant_type", "authorization_code");
 
-        ResponseEntity<Map> mapResponseEntity = restTemplate.postForEntity(tokenExchangeURL, body, Map.class);
+        ResponseEntity<Map> mapResponseEntity = authenticationRestTemplate.postForEntity(tokenExchangeURL, body, Map.class);
 
         log.trace("Callback token exchange request sent, response: {}", mapResponseEntity);
 
@@ -87,7 +87,7 @@ public class Auth0TokenService {
 
             RequestEntity<Map> request = new RequestEntity<Map>(headers, HttpMethod.GET, new URI(userInfoUrl));
 
-            ResponseEntity<Map> userInfoData = restTemplate.exchange(
+            ResponseEntity<Map> userInfoData = authenticationRestTemplate.exchange(
                     request,
                     Map.class
             );

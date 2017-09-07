@@ -19,8 +19,6 @@ public class MotivationController {
     @Autowired
     private MotivationsUtilService motivationsUtilService;
 
-
-
     @RequestMapping(method = RequestMethod.POST)
     public RestResponseDTO applicantsByLocation(@RequestBody MotivationGrade motivationGrade) {
 

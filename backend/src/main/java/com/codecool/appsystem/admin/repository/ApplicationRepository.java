@@ -11,7 +11,7 @@ public interface ApplicationRepository extends JpaRepository<Application, String
 
     List<Application> findByLocationId(String locationId);
 
-    List<Application> findByLocationIdAndActive(String locationId, Boolean active);
+    List<Application> findByLocationIdAndActiveIsTrue(String locationId);
 
     Long countByApplicantId(String id);
 
