@@ -67,7 +67,9 @@ public class ApplicationScreeningService {
                     Instant.ofEpochMilli(dto.getTime().getTime()).truncatedTo(ChronoUnit.MINUTES)
             );
 
-            screeningInfo.setScreeningGroupTime(groupTime);
+            if(!groupTime.equals(screeningInfo.getScreeningGroupTime())){
+                screeningInfo.setScreeningGroupTime(groupTime);
+            }
 
             appScrRepo.saveAndFlush(screeningInfo);
 
@@ -88,9 +90,10 @@ public class ApplicationScreeningService {
             Application application = appRepository.findByApplicantIdAndActive(user.getId(), Boolean.TRUE);
             ApplicationScreeningInfo screeningInfo = appScrRepo.findByApplicationId(application.getId());
 
-            screeningInfo.setScreeningPersonalTime(personalTime);
-
-            emailService.sendScreeningTimesAssigned(user, screeningInfo);
+            if(!personalTime.equals(screeningInfo.getScreeningPersonalTime())) {
+                screeningInfo.setScreeningPersonalTime(personalTime);
+                emailService.sendScreeningTimesAssigned(user, screeningInfo);
+            }
 
             appScrRepo.saveAndFlush(screeningInfo);
         }

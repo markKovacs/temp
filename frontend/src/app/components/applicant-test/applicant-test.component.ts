@@ -1,4 +1,3 @@
-
 import {Component, Input, OnInit} from "@angular/core";
 import {Results} from "../../_models/results.model";
 
@@ -17,14 +16,33 @@ export class ApplicantTestComponent implements OnInit{
     }
 
     getPanelClass(): string {
-        return this.testResult.passed ? "panel-success" : "panel-danger";
+        if(this.testResult.passed === true){
+            return "panel-success";
+        } else if(this.testResult.passed === false) {
+            return "panel-danger";
+        }
+        return "panel-default";
     }
 
     getBgClass(): string {
-        return this.testResult.passed ? "bg-success" : "bg-danger";
+        if(this.testResult.passed === true){
+            return "bg-success";
+        } else if(this.testResult.passed === false) {
+            return "bg-danger";
+        }
+        return "bg-default";
     }
 
     getTextClass(): string {
-        return this.testResult.passed ? "text-success" : "text-danger";
+        if(this.testResult.passed === true){
+            return "text-success";
+        } else if(this.testResult.passed === false) {
+            return "text-danger";
+        }
+        return "text-info";
+    }
+
+    inProgress(): boolean {
+        return this.testResult.passed === null || this.testResult.passed === undefined;
     }
 }

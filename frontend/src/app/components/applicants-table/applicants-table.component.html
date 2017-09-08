@@ -1,3 +1,5 @@
+<div class="loading" *ngIf="loading"></div>
+
 <p-dataTable [value]="applicants"
              expandableRows="true"
              selectionMode="single"
@@ -63,6 +65,7 @@
                         <span><b>Screening Info:</b> {{applicant.user.screeningInfo}}</span>
                         <br /><br />
                         <p><b>Final Result:</b> {{applicant.user.finalResult}}</p>
+                        <p><b>Comment:</b> {{applicant.user.comment}}</p>
                     </div>
                     <div class="ui-grid-col-7">
                         <table class="table table-striped">

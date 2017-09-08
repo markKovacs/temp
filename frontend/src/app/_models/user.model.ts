@@ -8,6 +8,11 @@ export class User {
     dateOfBirth: number;
     adminId: number;
 
+    phoneNumber: string;
+    email: string;
+
+    comment;
+
     // from application info
     timesApplied: number;
     location: string;

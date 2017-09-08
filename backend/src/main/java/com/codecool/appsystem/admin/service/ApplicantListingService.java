@@ -47,6 +47,7 @@ public class ApplicantListingService {
 
         return applications
                 .stream()
+                .filter(application -> !Boolean.FALSE.equals(application.getFinalResult()))
                 .map(application -> userRepository.findOne(application.getApplicantId()))
                 .map(this::transform)
                 .collect(Collectors.toList());

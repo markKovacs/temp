@@ -13,8 +13,6 @@ public class RestResponseDTO {
     private String location;
     private String locationId;
 
-    private Integer percent;
-
     public static RestResponseDTO buildSuccess(){
         RestResponseDTO dto = new RestResponseDTO();
         dto.setSuccess(true);

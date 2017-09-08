@@ -10,6 +10,7 @@ import {Message, SelectItem} from 'primeng/primeng';
 import {DateFormatPipe} from "angular2-moment";
 import {PostResponse} from "../../_models/post-response.model";
 import {isNullOrUndefined} from "util";
+import {AlertService} from "../../_services/alert.service";
 
 
 @Component({
@@ -30,11 +31,15 @@ export class CalendarComponent implements OnInit {
     public messages: Message[] = [];
     minDate = new Date();
 
+    loading: boolean = false;
+
     constructor(private router: Router,
                 private eventsManager: GlobalEventsManager,
                 private screeningService: ScreeningService,
-                private dateFormatter: DatePipe
+                private dateFormatter: DatePipe,
+                private alertService: AlertService
     ) {
+        this.loading = true;
         this.eventsManager.showNavBar(true);
         this.fetchUsers();
     }
@@ -77,6 +82,8 @@ export class CalendarComponent implements OnInit {
             }
         });
 
+        this.loading = false;
+
     }
 
     addDate() {
@@ -101,6 +108,20 @@ export class CalendarComponent implements OnInit {
     }
 
     savePersonalTimes(){
+
+        let missingGroupTimes = false;
+
+        for(let u of this.users){
+            if(!u.groupTime){
+                missingGroupTimes = true;
+            }
+        }
+
+        if(missingGroupTimes){
+            this.alertService.showAlert("error", "Missing group time", "Assign group times to all applicants");
+            return;
+        }
+
         this.screeningService.savePersonalTimes(this.users).subscribe(
             (data: any) => {},
             error2 => console.log(error2)

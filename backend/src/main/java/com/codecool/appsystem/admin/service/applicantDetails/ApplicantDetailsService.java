@@ -7,6 +7,7 @@ import com.codecool.appsystem.admin.model.dto.CriteriaDTO;
 import com.codecool.appsystem.admin.model.dto.applicantDetails.ApplicantDetailsDTO;
 import com.codecool.appsystem.admin.model.dto.applicantDetails.TestResultDTO;
 import com.codecool.appsystem.admin.repository.*;
+import com.codecool.appsystem.admin.service.EmailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,9 @@ public class ApplicantDetailsService {
     @Autowired
     private LocationRepository locationRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     public ApplicantDetailsDTO provideInfo(Integer id) {
 
         User user = userRepo.findByAdminId(id);
@@ -60,8 +64,6 @@ public class ApplicantDetailsService {
     }
 
     public ApplicantDetailsDTO saveDates(Integer id, Map<String, Long> data) {
-
-        //TODO send update email here
 
         User user = userRepo.findByAdminId(id);
 
@@ -76,10 +78,29 @@ public class ApplicantDetailsService {
             appScrInf.setApplicationId(application.getId());
         }
 
-        appScrInf.setScreeningGroupTime(new Date(data.get("group")));
-        appScrInf.setScreeningPersonalTime(new Date(data.get("personal")));
+        boolean datesChanged = false;
+
+        Date groupTime = new Date(data.get("group"));
+        if(!groupTime.equals(appScrInf.getScreeningGroupTime())) {
+            appScrInf.setScreeningGroupTime(groupTime);
+            datesChanged = true;
+        }
+
+        Date personalTime = new Date(data.get("personal"));
+
+        if(!personalTime.equals(appScrInf.getScreeningPersonalTime())){
+            appScrInf.setScreeningPersonalTime(personalTime);
+            datesChanged = true;
+        }
+
         appScrInf.setMapLocation(location.getMapLocation());
         appScrInfoRepo.saveAndFlush(appScrInf);
+
+
+        if(datesChanged){
+            emailService.sendScreeningTimesAssigned(user, appScrInf);
+        }
+
 
         List<ApplicantsScreeningStep> applicantsScreeningSteps = applicantsScreeningStepRepository.findByApplicationId(application.getId());
 
@@ -151,7 +172,7 @@ public class ApplicantDetailsService {
         return tests
                 .stream()
                 .map(this::transformTestResult)
-                .sorted((o1, o2) -> o1.getSubmitted().before(o2.getSubmitted()) ? 1 : -1)
+                .sorted((o1, o2) -> o1.getStarted().before(o2.getStarted()) ? 1 : -1)
                 .collect(Collectors.toList());
 
     }
@@ -168,10 +189,13 @@ public class ApplicantDetailsService {
         TDto.setAnswer(testResult.getSavedAnswers());
         TDto.setIsPending(Boolean.TRUE.equals(testResult.getPassed() == null));
         TDto.setPassed(testResult.getPassed());
-        TDto.setPoints(testResult.getPoints());
+        if(testResult.getPoints() != null) {
+            TDto.setPoints(testResult.getPoints());
+        }
         TDto.setIsMotivation(test.getMotivationVideo());
         TDto.setSubmitted(testResult.getFinished());
-        TDto.setPercent(testResult.getPercent() == null ? null : testResult.getPercent().intValue());
+        TDto.setStarted(testResult.getStarted());
+        TDto.setPercent(testResult.getPercent() == null ? 0 : testResult.getPercent().intValue());
 
         return TDto;
 

@@ -178,7 +178,7 @@ public class EmailService {
             }
 
         } catch (Exception ex) {
-            log.error("Failed to send email: {}, {}", response == null ? "-" : response.getBody(), ex.getMessage(), ex);
+            log.error("Failed to send email: {}, {}", response == null ? "-" : response.getBody(), ex.getMessage());
         }
     }
 

@@ -91,6 +91,7 @@ public class MotivationsUtilService {
         Application application = applicationRepository.findOne(actualTestResult.getApplicationId());
         User user = userRepository.findOne(application.getApplicantId());
 
+        // accepted
         if(Boolean.TRUE.equals(motivationGrade.getPassed())){
 
             ApplicationScreeningInfo screeningInfo = new ApplicationScreeningInfo();
@@ -100,9 +101,13 @@ public class MotivationsUtilService {
 
 
             emailService.sendMotivationSuccess(user);
-        } else {
+
+            // failed
+        } else if (Boolean.FALSE.equals(motivationGrade.getPassed())){
             emailService.sendMotivationFailed(user);
         }
+
+        // in other cases, just the comment got saved.s
 
         testResultRepository.save(actualTestResult);
     }

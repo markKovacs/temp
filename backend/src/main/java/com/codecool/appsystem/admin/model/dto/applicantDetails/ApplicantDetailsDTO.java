@@ -17,9 +17,12 @@ public class ApplicantDetailsDTO extends RestResponseDTO {
     private String givenName;
     private String familyName;
     private Integer dateOfBirth;
+    private String phoneNumber;
+    private String email;
     private Integer adminId;
     private Long timesApplied;
     private String location;
+    private String comment;
     private Date processStartedAt;
     private List<TestResultDTO> testResults;
     private Date screeningGroupTime;
