@@ -44,6 +44,9 @@ public class EmailService {
     @Value("${server.frontend.basepath}")
     private String frontendUrl;
 
+    @Value("${server.appsystem.basepath}")
+    private String appsystemUrl;
+
     @Value("${application.expiry.days:7}")
     private Integer days;
 
@@ -68,7 +71,7 @@ public class EmailService {
         context.put("firstName", user.getGivenName());
         context.put("replyToAddress", location.getEmailAddress());
         context.put("unsubscribeLink", getUnsubscribeLink(user));
-        context.put("appUrl", frontendUrl);
+        context.put("appUrl", appsystemUrl);
 
         send(context, location, templateName, " - Motivation video processed", user);
 
@@ -87,7 +90,8 @@ public class EmailService {
         context.put("firstName", user.getGivenName());
         context.put("replyToAddress", location.getEmailAddress());
         context.put("unsubscribeLink", getUnsubscribeLink(user));
-        context.put("appUrl", frontendUrl);
+        // this has to take the user to the appsystem's url
+        context.put("appUrl", appsystemUrl);
         context.put("groupScreeningTime", groupTime);
         context.put("personalScreeningTime", personalTime);
         context.put("address", location.getAddress());
@@ -105,7 +109,7 @@ public class EmailService {
         context.put("firstName", user.getGivenName());
         context.put("replyToAddress", location.getEmailAddress());
         context.put("unsubscribeLink", getUnsubscribeLink(user));
-        context.put("appUrl", frontendUrl);
+        context.put("appUrl", appsystemUrl);
         context.put("location", location.getName());
         context.put("nextCourseStart", location.getNextCourseStart());
 
@@ -122,7 +126,7 @@ public class EmailService {
         context.put("firstName", user.getGivenName());
         context.put("replyToAddress", location.getEmailAddress());
         context.put("unsubscribeLink", getUnsubscribeLink(user));
-        context.put("appUrl", frontendUrl);
+        context.put("appUrl", appsystemUrl);
 
         send(context, location, "result-no", " - Screening result", user);
 
