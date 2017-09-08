@@ -37,6 +37,9 @@ public class MotivationsUtilService {
     private EmailService emailService;
 
     @Autowired
+    private LocationRepository locationRepository;
+
+    @Autowired
     private ApplicationScreeningInfoRepository applicationScreeningInfoRepository;
 
     public List<MotivationDTO> getUngradedUsers(List<User> userList, String id) {
@@ -96,6 +99,10 @@ public class MotivationsUtilService {
 
             ApplicationScreeningInfo screeningInfo = new ApplicationScreeningInfo();
             screeningInfo.setApplicationId(application.getId());
+
+            Location location = locationRepository.findOne(application.getLocationId());
+            screeningInfo.setMapLocation(location.getMapLocation());
+
 
             applicationScreeningInfoRepository.saveAndFlush(screeningInfo);
 
