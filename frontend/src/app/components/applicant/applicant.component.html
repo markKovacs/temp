@@ -26,6 +26,26 @@
                     <div class="col-sm-6">
                         <h4>{{user.givenName}} {{user.familyName}}</h4>
                     </div>
+
+                    <div class="col-sm-6">
+                        <h4>
+                            <small>Phone number</small>
+                        </h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4>{{user.phoneNumber}}</h4>
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        <h4>
+                            <small>Email</small>
+                        </h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4>{{user.email}}</h4>
+                    </div>
+
                     <div class="col-sm-6">
                         <h4>
                             <small>Date of birth</small>
@@ -42,13 +62,13 @@
                     <div class="col-sm-6">
                         <h4>{{user.timesApplied}}</h4>
                     </div>
-                    <div class="row" style="margin-left:0;margin-right:0">
-                        <div class="col-sm-6" *ngIf="hasSuccessMotivation() || user.screeningGroupTime">
+                    <div class="row" style="margin-left:0;margin-right:0" *ngIf="hasSuccessMotivation()">
+                        <div class="col-sm-6">
                             <h4>
                                 <small>Group time</small>
                             </h4>
                         </div>
-                        <div class="col-sm-4" *ngIf="hasSuccessMotivation() || user.screeningGroupTime">
+                        <div class="col-sm-4">
                             <p-calendar
                                     [(ngModel)]="user.screeningGroupTime"
                                     showTime="showTime"
@@ -60,13 +80,13 @@
                             <a (click)="save()"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
                         </div>
                     </div>
-                    <div class="row" style="margin-left:0;margin-right:0">
-                        <div class="col-sm-6" *ngIf="hasSuccessMotivation() || user.screeningPersonalTime">
+                    <div class="row" style="margin-left:0;margin-right:0" *ngIf="hasSuccessMotivation()">
+                        <div class="col-sm-6">
                             <h4>
                                 <small>Personal time</small>
                             </h4>
                         </div>
-                        <div class="col-sm-4" *ngIf="hasSuccessMotivation() || user.screeningPersonalTime">
+                        <div class="col-sm-4">
                             <p-calendar
                                     [(ngModel)]="user.screeningPersonalTime"
                                     showTime="showTime"
@@ -77,6 +97,11 @@
                         <div class="col-sm-2 pull-right">
                             <a (click)="save()"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
                         </div>
+                    </div>
+                    <div class="col-sm-12" *ngIf="user.comment">
+                        <h4>
+                            <strong class="text-danger">{{user.comment}}</strong>
+                        </h4>
                     </div>
                 </div>
             </div>

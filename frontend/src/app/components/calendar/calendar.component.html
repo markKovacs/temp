@@ -1,4 +1,15 @@
+<div class="loading" *ngIf="loading"></div>
+
 <div class="container">
+
+    <div class="col-sm-12 panel panel-warning">
+        <div class="panel-body">
+            <span>You can assign screening times here. Please first always assign group times,
+                since the personal times assignment will trigger an email sending.
+                <br />Note: Emails will be sent only if the assigned dates are new, or changed.
+            </span>
+        </div>
+    </div>
 
     <!-- Left side - date picker -->
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -67,7 +78,7 @@
         </div>
         <br />
         <div class="row">
-            <button class="btn btn-success" (click)="savePersonalTimes()">Save personal times</button>
+            <button class="btn btn-success" (click)="savePersonalTimes()">Save personal times and send emails</button>
         </div>
 
 

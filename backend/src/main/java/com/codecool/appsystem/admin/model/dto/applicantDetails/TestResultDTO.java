@@ -15,11 +15,12 @@ public class TestResultDTO extends RestResponseDTO{
     private String id;
     private String name;
     private Boolean passed;
-    private Integer points;
+    private int points;
     private String comment;
     private Boolean isPending;
     private String answer;
     private Boolean isMotivation;
+    private Date started;
     private Date submitted;
-    private Integer percent;
+    private int percent;
 }

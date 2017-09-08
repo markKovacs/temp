@@ -9,9 +9,13 @@
                     </h4>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6">
-                    <h4 class="pull-right {{ getTextClass() }}">
+                    <h4 class="pull-right {{ getTextClass() }}" *ngIf="!inProgress()">
                         {{ testResult.points }} points / {{ testResult.percent }} %
                     </h4>
+                    <h4 class="pull-right {{ getTextClass() }}" *ngIf="inProgress()">
+                        in progress <br />
+                    </h4>
+                    <span *ngIf="testResult.comment">comment: {{testResult.comment}}</span>
                 </div>
             </div>
         </div>

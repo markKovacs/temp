@@ -17,11 +17,14 @@ export class ApplicantsTableComponent implements OnInit {
     private locationId: string;
     applicants: Applicant[] = [];
 
+    loading: boolean = false;
+
     constructor(
         private applicantService: ApplicantService,
         private eventsManager: GlobalEventsManager,
         private router: Router
     ) {
+        this.loading = true;
         this.eventsManager.selectedLocationEmitter.subscribe((loc) => {
                 if (loc !== null) {
                     this.locationId = this.getSelectedLocationId();
@@ -42,7 +45,8 @@ export class ApplicantsTableComponent implements OnInit {
                 (data: Applicant[]) => {
                     this.applicants = data;
                 },
-                error => console.log(error)
+                error => console.log(error),
+                () => this.loading = false
             );
     }
 

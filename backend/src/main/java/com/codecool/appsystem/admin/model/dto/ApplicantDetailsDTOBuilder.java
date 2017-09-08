@@ -31,12 +31,19 @@ public class ApplicantDetailsDTOBuilder {
     private List<ApplicantsScreeningStepDTO> screeningSteps;
     private Boolean finalResult;
 
+    private String phoneNumber;
+    private String email;
+
+    private String comment;
+
 
     public ApplicantDetailsDTOBuilder fromUser(User user){
         this.givenName = user.getGivenName();
         this.familyName = user.getFamilyName();
         this.dateOfBirth = user.getBirthDate();
         this.adminId = user.getAdminId();
+        this.phoneNumber = user.getPhoneNumber();
+        this.email = user.getId();
         return this;
     }
 
@@ -60,6 +67,7 @@ public class ApplicantDetailsDTOBuilder {
 
     public ApplicantDetailsDTOBuilder fromApplication(Application application){
         this.processStartedAt = application.getProcessStartedAt();
+        this.comment = application.getComment();
         return this;
     }
 
@@ -98,6 +106,11 @@ public class ApplicantDetailsDTOBuilder {
         dto.setScheduleSignedBack(scheduleSignedBack);
 
         dto.setScreeningSteps(screeningSteps);
+
+        dto.setPhoneNumber(phoneNumber);
+        dto.setEmail(email);
+
+        dto.setComment(comment);
 
         return dto;
 
