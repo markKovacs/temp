@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class MotivationDTO extends RestResponseDTO {
 
-    private Integer adminId;
+    private Integer id;
     private String name;
     private Boolean isVideo;
 }

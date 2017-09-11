@@ -44,7 +44,7 @@ export class ApplicantScreeningComponent {
         this.user.finalResult = bool;
 
         let data = {
-            adminId: this.user.adminId,
+            id: this.user.id,
             accepted: bool
         };
 

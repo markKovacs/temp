@@ -23,7 +23,7 @@ public class UserDTO extends RestResponseDTO {
     private String gender;
     private Integer birthDate;
     private Boolean gmailAccount;
-    private Integer adminId;
+    private Integer id;
     private String photoUrl;
     private String phoneNumber;
     private String locationId;

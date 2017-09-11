@@ -14,7 +14,7 @@ public class UserService {
     private UserRepository userRepository;
 
     public User getCurrentUser(){
-        User user = userRepository.findOne(SecurityContextHolder.getContext().getAuthentication().getName());
+        User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         if(user == null){
             throw new UsernameNotFoundException("User not found");
         }

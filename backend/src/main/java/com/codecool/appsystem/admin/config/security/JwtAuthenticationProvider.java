@@ -1,7 +1,5 @@
 package com.codecool.appsystem.admin.config.security;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
@@ -15,8 +13,6 @@ import java.util.Collections;
 
 @Component
 public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
-
-    private static final Logger log = LoggerFactory.getLogger(JwtAuthenticationProvider.class);
 
     @Autowired
     private JwtTokenValidator jwtTokenValidator;

@@ -157,7 +157,7 @@ public class EmailService {
             Email email = Email.builder()
                     .fromAddress(location.getEmailAddress())
                     .subject(location.getSubjectPrefix() + subjectPostfix)
-                    .toAddress(user.getId())
+                    .toAddress(user.getEmail())
                     .html(html)
                     .build();
 

@@ -15,7 +15,7 @@ public class ApplicantDetailsDTOBuilder {
     private String givenName;
     private String familyName;
     private Integer dateOfBirth;
-    private Integer adminId;
+    private Integer id;
 
     // from application info
     private Long timesApplied;
@@ -41,9 +41,9 @@ public class ApplicantDetailsDTOBuilder {
         this.givenName = user.getGivenName();
         this.familyName = user.getFamilyName();
         this.dateOfBirth = user.getBirthDate();
-        this.adminId = user.getAdminId();
+        this.id = user.getId();
         this.phoneNumber = user.getPhoneNumber();
-        this.email = user.getId();
+        this.email = user.getEmail();
         return this;
     }
 
@@ -93,7 +93,7 @@ public class ApplicantDetailsDTOBuilder {
         dto.setGivenName(givenName);
         dto.setFamilyName(familyName);
         dto.setDateOfBirth(dateOfBirth);
-        dto.setAdminId(adminId);
+        dto.setId(id);
 
         dto.setTimesApplied(timesApplied);
         dto.setLocation(location);

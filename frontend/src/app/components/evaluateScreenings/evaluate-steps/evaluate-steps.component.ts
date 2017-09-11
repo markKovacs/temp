@@ -55,7 +55,7 @@ export class EvaluateStepsComponent {
     }
 
     getApplicantsStep(step){
-        let url = '/api/evalscreening/' + this.user.adminId + '?step=' + step.id;
+        let url = '/api/evalscreening/' + this.user.id + '?step=' + step.id;
         this.chosenStep = step;
         this.client.get(url).subscribe(
             (data: UsersScreeningStep) => this.toEvaluate = data,

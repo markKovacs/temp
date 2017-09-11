@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ScreeningGrade {
 
-    private Integer adminId;
+    private Integer id;
     private Boolean accepted;
 }

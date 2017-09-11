@@ -53,11 +53,11 @@ export class EvaluateScreeningsComponent {
     }
 
     chooseUser(user: ScreeningInfo){
-        this.router.navigate(['/evaluateuser/' + user.adminId])
+        this.router.navigate(['/evaluateuser/' + user.id])
     }
 
     profile(user: ScreeningInfo){
-        this.router.navigate(['/applicants/' + user.adminId])
+        this.router.navigate(['/applicants/' + user.id])
     }
 
 }

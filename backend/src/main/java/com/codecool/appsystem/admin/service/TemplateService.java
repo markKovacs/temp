@@ -12,7 +12,6 @@ public class TemplateService {
     private EmailTemplateRepository emailTemplateRepository;
 
     public void modifyTemplate(EmailTemplate emailTemplate) {
-        EmailTemplate emailTemplate1 = emailTemplateRepository.findOne(emailTemplate.getId());
         emailTemplate.setModel(emailTemplate.getModel());
         emailTemplate.setTemplate(emailTemplate.getTemplate());
         emailTemplateRepository.save(emailTemplate);

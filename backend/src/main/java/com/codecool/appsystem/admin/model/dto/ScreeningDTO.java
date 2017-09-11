@@ -14,7 +14,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 public class ScreeningDTO extends RestResponseDTO{
 
-    private Integer adminId;
+    private Integer id;
     private String name;
     private Date groupTime;
     private Date personalTime;

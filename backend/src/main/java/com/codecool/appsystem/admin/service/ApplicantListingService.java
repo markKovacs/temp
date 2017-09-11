@@ -58,26 +58,26 @@ public class ApplicantListingService {
 
         return ApplicantInfoDTO.builder()
                 .name(user.getFullName())
-                .adminId(user.getAdminId())
+                .id(user.getId())
                 .blacklisted(user.getIsBlacklisted())
                 .location(user.getLocationId())
                 .attempts(getAttempts(user))
                 .status(getStatus(user.getId()))
                 .processStartedAt(getProcesssStartedAt(user))
-                .email(user.getId())
+                .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
                 .build();
 
     }
 
     private Date getProcesssStartedAt(User user){
-        Application application = applicationRepository.findByApplicantIdAndActive(user.getId(), true);
+        Application application = applicationRepository.findByApplicantIdAndActiveIsTrue(user.getId());
         return application == null ? null : application.getProcessStartedAt();
     }
 
-    private String getStatus(String id) {
+    private String getStatus(Integer id) {
 
-        Application application = applicationRepository.findByApplicantIdAndActive(id, Boolean.TRUE);
+        Application application = applicationRepository.findByApplicantIdAndActiveIsTrue(id);
 
         if(application == null){
             return "-";

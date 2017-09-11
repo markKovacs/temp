@@ -25,7 +25,7 @@ public class Application {
     @Column(length = 40)
     private String id = UUID.randomUUID().toString();
 
-    private String applicantId;
+    private Integer applicantId;
     private Integer courseId;
     private String locationId;
 

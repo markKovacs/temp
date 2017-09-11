@@ -66,7 +66,7 @@ public class ApplicantDetailsServiceTest extends MockData {
         mockTestResultDTO.setAnswer("bla blabla");
         mockTestResultDTO.setIsMotivation(true);
 
-        mockApplicantDetailsDTO.setAdminId(1);
+        mockApplicantDetailsDTO.setId(1);
         mockApplicantDetailsDTO.setDateOfBirth(1991);
         mockApplicantDetailsDTO.setGivenName("Doe");
         mockApplicantDetailsDTO.setFamilyName("John");
@@ -83,8 +83,8 @@ public class ApplicantDetailsServiceTest extends MockData {
     @Test
     public void provideInfo(){
 
-        when(userRepo.findByAdminId(user.getAdminId())).thenReturn(user);
-        when(applicationRepo.findByApplicantIdAndActive(user.getId(),true)).thenReturn(application);
+        when(userRepo.findOne(user.getId())).thenReturn(user);
+        when(applicationRepo.findByApplicantIdAndActiveIsTrue(user.getId())).thenReturn(application);
 
         when(applicantsScreeningStepRepository.findByApplicationId(application.getId())).thenReturn(mockApplicantsScreeningSteps);
         when(appScrInfoRepo.findByApplicationId(application.getId())).thenReturn(mockApplicationScreeningInfo);
@@ -94,7 +94,7 @@ public class ApplicantDetailsServiceTest extends MockData {
 
         ApplicantDetailsDTO result = applicantDetailsService.provideInfo(1);
 
-        verify(userRepo, times(1)).findByAdminId(user.getAdminId());
+        verify(userRepo, times(1)).findOne(user.getId());
         verifyNoMoreInteractions(userRepo);
 
         assertEquals(mockApplicantDetailsDTO,result);

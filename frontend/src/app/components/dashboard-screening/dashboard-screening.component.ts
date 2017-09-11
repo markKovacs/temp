@@ -32,9 +32,9 @@ export class DashboardScreeningComponent {
 
     navigate(user: ScreeningInfo) {
         if(user.scheduleSignedBack){
-            this.router.navigate(['/evaluateuser/' + user.adminId]);
+            this.router.navigate(['/evaluateuser/' + user.id]);
         } else {
-            this.router.navigate(['/applicants/' + user.adminId]);
+            this.router.navigate(['/applicants/' + user.id]);
         }
 
     }

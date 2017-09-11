@@ -19,7 +19,7 @@ public class ApplicantDetailsDTO extends RestResponseDTO {
     private Integer dateOfBirth;
     private String phoneNumber;
     private String email;
-    private Integer adminId;
+    private Integer id;
     private Long timesApplied;
     private String location;
     private String comment;

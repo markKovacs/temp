@@ -16,7 +16,7 @@ import {Router} from "@angular/router";
 export class ApplicantVideoComponent {
 
     @Input() testResult: Results;
-    adminId: string;
+    id: number;
 
     constructor(private sanitizer: DomSanitizer,
                 private client: HttpClient,
@@ -31,7 +31,7 @@ export class ApplicantVideoComponent {
     }
 
     saveComment(){
-        let grade= {adminId: this.adminId, comment: this.testResult.comment, testResultId:this.testResult.id };
+        let grade= {id: this.id, comment: this.testResult.comment, testResultId:this.testResult.id };
         return this.client.post('/api/grademotivation', grade ).subscribe(
             // .() =>{ this.survey = null;}
             error => console.log(error)
@@ -49,7 +49,7 @@ export class ApplicantVideoComponent {
 
 
     postMotivationGrade(accepted:boolean) {
-        let grade= {adminId: this.adminId, passed: accepted, comment: this.testResult.comment, testResultId:this.testResult.id };
+        let grade= {id: this.id, passed: accepted, comment: this.testResult.comment, testResultId:this.testResult.id };
         return this.client.post('/api/grademotivation', grade );
     }
 

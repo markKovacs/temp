@@ -27,8 +27,8 @@ public class ScreeningStepsController {
     }
 
     @RequestMapping(value = "/api/evalscreening/{applicantId}", method = RequestMethod.GET)
-    public ScreeningStepEvaluationDTO findForApplicant(@PathVariable("applicantId") Integer adminId, @RequestParam("step") String stepId){
-        return screeningEditService.findForApplicant(adminId, stepId);
+    public ScreeningStepEvaluationDTO findForApplicant(@PathVariable("applicantId") Integer id, @RequestParam("step") String stepId){
+        return screeningEditService.findForApplicant(id, stepId);
     }
 
     @RequestMapping(value = "/api/evalscreening", method = RequestMethod.POST)

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MotivationGrade {
 
-    private Integer adminId;
+    private Integer id;
     private String testResultId;
     private Boolean passed;
     private String comment;

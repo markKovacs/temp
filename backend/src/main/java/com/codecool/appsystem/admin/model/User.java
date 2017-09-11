@@ -23,9 +23,9 @@ public class User {
 
     @Id
     @JsonIgnore
-    private String id;
+    private Integer id;
 
-    private Integer adminId;
+    private String email;
 
     private String givenName;
     private String familyName;
@@ -51,12 +51,11 @@ public class User {
 
     private Boolean isBlacklisted;
 
+    // todo join current application
+    // todo join past applications
+
     @Column(length = 80)
     private String userHash;
-
-    public User(String id) {
-        this.id = id;
-    }
 
     public String getFullName() {
         if (!StringUtils.isEmpty(middleName)) {

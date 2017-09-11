@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -20,12 +19,10 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class ScreeningControllerTest {
 
@@ -53,7 +50,7 @@ public class ScreeningControllerTest {
         mockScreeningDTO.setName("Elek");
         mockScreeningDTO.setGender("Male");
         mockScreeningDTO.setAge(20);
-        mockScreeningDTO.setAdminId(100);
+        mockScreeningDTO.setId(100);
         mockScreeningDTOs.add(mockScreeningDTO);
 
         ScreeningTimeAssingmentDTO mockScreeningTimeAssingmentDTO = new ScreeningTimeAssingmentDTO();

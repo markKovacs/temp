@@ -8,7 +8,7 @@
                 <div *ngFor="let result of user.testResults">
                     <div *ngIf="result.isMotivation">
                         <applicant-video [testResult]="result"
-                                         [adminId]="user.adminId"></applicant-video>
+                                         [id]="user.id"></applicant-video>
                     </div>
                 </div>
             </div>

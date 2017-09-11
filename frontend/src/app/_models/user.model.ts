@@ -6,7 +6,7 @@ export class User {
     givenName: string;
     familyName: string;
     dateOfBirth: number;
-    adminId: number;
+    id: number;
 
     phoneNumber: string;
     email: string;

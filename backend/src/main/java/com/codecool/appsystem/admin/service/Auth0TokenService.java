@@ -1,8 +1,7 @@
 package com.codecool.appsystem.admin.service;
 
 import com.codecool.appsystem.admin.config.security.JwtTokenGenerator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -20,10 +19,9 @@ import java.net.URI;
 import java.util.Date;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class Auth0TokenService {
-
-    private static final Logger log = LoggerFactory.getLogger(Auth0TokenService.class);
 
     @Value("${auth0.oauth.clientId}")
     private String clientId;
