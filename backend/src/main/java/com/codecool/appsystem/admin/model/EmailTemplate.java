@@ -32,4 +32,5 @@ public class EmailTemplate {
     @Column(columnDefinition = "TEXT")
     private String model;
     private Boolean master;
+    private int order;
 }

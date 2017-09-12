@@ -34,7 +34,6 @@ public class Application {
 
     private Boolean finalResult;
 
-    private Boolean contractSigned;
     private Boolean active;
     private String utmSource;
     private String utmMedium;
