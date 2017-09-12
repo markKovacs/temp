@@ -22,7 +22,7 @@ export class ScreeningService {
     saveGroupTimes(data: ScreeningInfo[]): Observable<PostResponse>{
         let sendData = [];
         for (let user of data) {
-            sendData.push({id: user.adminId, time: user.groupTime})
+            sendData.push({id: user.id, time: user.groupTime})
         }
         return this.http.post("/api/screening/group", sendData);
     }
@@ -31,7 +31,7 @@ export class ScreeningService {
         let sendData = [];
 
         for (let user of data) {
-            sendData.push({id: user.adminId, time: user.personalTime})
+            sendData.push({id: user.id, time: user.personalTime})
         }
         return this.http.post("/api/screening/personal", sendData);
     }

@@ -54,9 +54,9 @@ public class ApplicantDetailsService {
 
     public ApplicantDetailsDTO provideInfo(Integer id) {
 
-        User user = userRepo.findByAdminId(id);
+        User user = userRepo.findOne(id);
 
-        Application application = applicationRepo.findByApplicantIdAndActive(user.getId(),true);
+        Application application = applicationRepo.findByApplicantIdAndActiveIsTrue(user.getId());
         List<ApplicantsScreeningStep> applicantsScreeningSteps = applicantsScreeningStepRepository.findByApplicationId(application.getId());
 
         ApplicationScreeningInfo appScrInf = appScrInfoRepo.findByApplicationId(application.getId());
@@ -65,11 +65,11 @@ public class ApplicantDetailsService {
 
     public ApplicantDetailsDTO saveDates(Integer id, Map<String, Long> data) {
 
-        User user = userRepo.findByAdminId(id);
+        User user = userRepo.findOne(id);
 
         Location location = locationRepository.findOne(user.getLocationId());
 
-        Application application = applicationRepo.findByApplicantIdAndActive(user.getId(),true);
+        Application application = applicationRepo.findByApplicantIdAndActiveIsTrue(user.getId());
 
         ApplicationScreeningInfo appScrInf = appScrInfoRepo.findByApplicationId(application.getId());
 

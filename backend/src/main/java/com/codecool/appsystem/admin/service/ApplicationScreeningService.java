@@ -48,8 +48,8 @@ public class ApplicationScreeningService {
 
             log.debug("Saving group screening times: {}", dto);
 
-            User user = userRepository.findByAdminId(dto.getId());
-            Application application = appRepository.findByApplicantIdAndActive(user.getId(), Boolean.TRUE);
+            User user = userRepository.findOne(dto.getId());
+            Application application = appRepository.findByApplicantIdAndActiveIsTrue(user.getId());
 
             ApplicationScreeningInfo screeningInfo = appScrRepo.findByApplicationId(application.getId());
 
@@ -86,8 +86,8 @@ public class ApplicationScreeningService {
                     Instant.ofEpochMilli(dto.getTime().getTime()).truncatedTo(ChronoUnit.MINUTES)
             );
 
-            User user = userRepository.findByAdminId(dto.getId());
-            Application application = appRepository.findByApplicantIdAndActive(user.getId(), Boolean.TRUE);
+            User user = userRepository.findOne(dto.getId());
+            Application application = appRepository.findByApplicantIdAndActiveIsTrue(user.getId());
             ApplicationScreeningInfo screeningInfo = appScrRepo.findByApplicationId(application.getId());
 
             if(!personalTime.equals(screeningInfo.getScreeningPersonalTime())) {
@@ -120,12 +120,12 @@ public class ApplicationScreeningService {
 
     }
 
-    public ScreeningDTO findOne(Integer adminId) {
+    public ScreeningDTO findOne(Integer id) {
 
-        User user = userRepository.findByAdminId(adminId);
+        User user = userRepository.findOne(id);
 
         Application application =
-                appRepository.findByApplicantIdAndActive(user.getId(), true);
+                appRepository.findByApplicantIdAndActiveIsTrue(user.getId());
 
         if(application == null){
             return null;
@@ -177,7 +177,7 @@ public class ApplicationScreeningService {
         ApplicationScreeningInfo screeningInfo = appScrRepo.findByApplicationId(application.getId());
 
         ScreeningDTO result = ScreeningDTO.builder()
-                .adminId(findUserAdminId(application.getId()))
+                .id(findId(application.getId()))
                 .name(findUserName(application.getId()))
                 .age(getAge(application.getId()))
                 .build();
@@ -216,10 +216,10 @@ public class ApplicationScreeningService {
         Application application = appRepository.findOne(asci.getApplicationId());
         return ScreeningDTO
                 .builder()
+                .id(findId(asci.getApplicationId()))
                 .groupTime(asci.getScreeningGroupTime())
                 .personalTime(asci.getScreeningPersonalTime())
                 .scheduleSignedBack(asci.getScheduleSignedBack())
-                .adminId(findUserAdminId(asci.getApplicationId()))
                 .name(findUserName(asci.getApplicationId()))
                 .age(getAge(asci.getApplicationId()))
                 .finalResult(application.getFinalResult())
@@ -227,18 +227,14 @@ public class ApplicationScreeningService {
 
     }
 
-    private ApplicationScreeningInfo getForApplication(Application application) {
-        return appScrRepo.findByApplicationId(application.getId());
-    }
-
-    private int findUserAdminId(String id) {
-        Application application = appRepository.findOne(id);
-        return userRepository.findOne(application.getApplicantId()).getAdminId();
-    }
-
     private String findUserName(String id) {
         Application application = appRepository.findOne(id);
         return userRepository.findOne(application.getApplicantId()).getFullName();
+    }
+
+    private Integer findId(String id) {
+        Application application = appRepository.findOne(id);
+        return userRepository.findOne(application.getApplicantId()).getId();
     }
 
     private Integer getAge(String id) {

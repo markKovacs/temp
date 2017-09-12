@@ -33,8 +33,8 @@ public abstract class MockData {
 
         user = new User();
         user.setLocationId("BUD");
-        user.setAdminId(1);
-        user.setId("asd@gmail.com");
+        user.setId(1);
+        user.setEmail("asd@gmail.com");
         user.setCanApply(true);
         user.setBirthDate(1991);
         user.setFamilyName("John");
@@ -44,7 +44,7 @@ public abstract class MockData {
         application = new Application();
         application.setId("1");
         application.setActive(true);
-        application.setApplicantId("asd@gmail.com");
+        application.setApplicantId(1);
 
         location = new Location();
         location.setName("Budapest");
@@ -148,7 +148,7 @@ public abstract class MockData {
 
         motivDto = new MotivationDTO();
         motivDto.setName(user.getFullName());
-        motivDto.setAdminId(user.getAdminId());
+        motivDto.setId(user.getId());
         motivDto.setIsVideo(false);
     }
 

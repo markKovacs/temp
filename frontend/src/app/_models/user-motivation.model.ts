@@ -1,6 +1,6 @@
 export class UserMotivation {
 
-    adminId: number;
+    id: number;
     name: string;
     isVideo: boolean;
 

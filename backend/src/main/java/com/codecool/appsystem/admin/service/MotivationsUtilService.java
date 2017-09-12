@@ -54,7 +54,7 @@ public class MotivationsUtilService {
         }
 
         for (User u: userList) {
-            Application application = applicationRepository.findByApplicantIdAndActive(u.getId(), true);
+            Application application = applicationRepository.findByApplicantIdAndActiveIsTrue(u.getId());
 
             if(application == null){
                 continue;
@@ -67,7 +67,7 @@ public class MotivationsUtilService {
                     if (tr.getTestId().equals(motivationTest.getId()) && tr.getPassed() == null){
                         MotivationDTO userMotivation = new MotivationDTO();
 
-                        userMotivation.setAdminId(u.getAdminId());
+                        userMotivation.setId(u.getId());
                         userMotivation.setIsVideo(checkMotivationText(tr.getSavedAnswers()));
                         userMotivation.setName(u.getFullName());
                         motivation.add(userMotivation);

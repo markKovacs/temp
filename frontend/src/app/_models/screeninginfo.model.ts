@@ -1,6 +1,6 @@
 export class ScreeningInfo {
 
-    adminId: number;
+    id: number;
     name: string;
     groupTime: Date;
     personalTime: Date;

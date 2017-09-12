@@ -16,9 +16,8 @@ import java.util.Date;
 public class Authentication {
 
     @Id
-    @Column(name = "id", length = 40)
     @JsonIgnore
-    private String id;
+    private Integer id;
 
     private String token;
 

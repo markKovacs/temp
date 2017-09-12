@@ -44,7 +44,7 @@ public class MotivationsUtilServiceTest extends MockData {
         List<TestResult> fourTests = Arrays.asList(testResult,testResult1,testResult2,testResult3);
 
         when(testRepository.findByMotivationVideoAndLocationId(true,location.getId())).thenReturn(test2);
-        when(applicationRepository.findByApplicantIdAndActive(user.getId(),true)).thenReturn(application);
+        when(applicationRepository.findByApplicantIdAndActiveIsTrue(user.getId())).thenReturn(application);
         when(testResultRepository.findByApplicationId(application.getId())).thenReturn(fourTests);
 
         List<MotivationDTO> dtoList = motivationsUtilService.getUngradedUsers(Collections.singletonList(user),location.getId());
@@ -60,7 +60,7 @@ public class MotivationsUtilServiceTest extends MockData {
         List<TestResult> fourTests = Arrays.asList(testResult,testResult1,testResult2,testResult3);
 
         when(testRepository.findByMotivationVideoAndLocationId(true,location.getId())).thenReturn(test2);
-        when(applicationRepository.findByApplicantIdAndActive(user.getId(),true)).thenReturn(application);
+        when(applicationRepository.findByApplicantIdAndActiveIsTrue(user.getId())).thenReturn(application);
         when(testResultRepository.findByApplicationId(application.getId())).thenReturn(fourTests);
 
         List<MotivationDTO> dtoList = motivationsUtilService.getUngradedUsers(Collections.singletonList(user),location.getId());

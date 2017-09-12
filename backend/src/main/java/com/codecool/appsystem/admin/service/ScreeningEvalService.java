@@ -22,9 +22,9 @@ public class ScreeningEvalService {
 
     public void gradeScreening(ScreeningGrade grade) {
 
-        User user = userRepository.findByAdminId(grade.getAdminId());
+        User user = userRepository.findOne(grade.getId());
 
-        Application application = applicationRepository.findByApplicantIdAndActive(user.getId(), true);
+        Application application = applicationRepository.findByApplicantIdAndActiveIsTrue(user.getId());
         application.setFinalResult(grade.getAccepted());
 
         if (Boolean.TRUE.equals(grade.getAccepted())) {

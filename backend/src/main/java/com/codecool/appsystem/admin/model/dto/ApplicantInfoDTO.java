@@ -11,8 +11,8 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 public class ApplicantInfoDTO extends RestResponseDTO {
 
+    private Integer id;
     private String name;
-    private Integer adminId;
     private String location;
     private String status;
     private Long attempts;

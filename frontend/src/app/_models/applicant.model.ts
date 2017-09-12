@@ -2,7 +2,7 @@ import {User} from './user.model';
 export class Applicant {
 
     name: string;
-    adminId: number;
+    id: number;
     location: string;
     status: string;
     attempts: number;

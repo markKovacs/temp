@@ -32,10 +32,6 @@ export class ApplicantsComponent {
         return deadline;
     }
 
-    checkApplicant(e) {
-        this.router.navigate(['applicants/' + e.data.adminId]);
-    }
-
     getSelectedLocation(): string {
         return JSON.parse(localStorage.getItem('chosenLocation')).name;
     }

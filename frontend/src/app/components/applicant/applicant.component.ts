@@ -45,7 +45,7 @@ export class ApplicantComponent {
     }
 
     save(){
-        this.client.post('/api/applicants/' + this.user.adminId + '/savedate',
+        this.client.post('/api/applicants/' + this.user.id + '/savedate',
             {
                     group: this.user.screeningGroupTime.getTime(),
                     personal: this.user.screeningPersonalTime.getTime()

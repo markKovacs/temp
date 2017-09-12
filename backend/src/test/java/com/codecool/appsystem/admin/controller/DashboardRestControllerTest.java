@@ -47,13 +47,13 @@ public class DashboardRestControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(dashboardRestController).build();
 
         MotivationDTO motivationDTO = new MotivationDTO();
-        motivationDTO.setAdminId(100);
+        motivationDTO.setId(100);
         motivationDTO.setIsVideo(true);
         motivationDTO.setName("Motivation");
         this.mockMotivationDTOs.add(motivationDTO);
 
         ScreeningDTO screeningDTO = new ScreeningDTO();
-        screeningDTO.setAdminId(100);
+        screeningDTO.setId(100);
         screeningDTO.setAge(20);
         screeningDTO.setGender("Female");
         screeningDTO.setName("Titania");
@@ -69,7 +69,7 @@ public class DashboardRestControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].name", is("Motivation")))
-                .andExpect(jsonPath("$[0].adminId", is(100)))
+                .andExpect(jsonPath("$[0].id", is(100)))
                 .andExpect(jsonPath("$[0].isVideo", is(true)));
 
         verify(userMotivationService, times(1)).applicantsByLocation("BUD");
@@ -87,7 +87,7 @@ public class DashboardRestControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].name", is("Titania")))
-                .andExpect(jsonPath("$[0].adminId", is(100)))
+                .andExpect(jsonPath("$[0].id", is(100)))
                 .andExpect(jsonPath("$[0].age", is(20)));
 
         verify(screeningService, times(1)).find("BUD", null);

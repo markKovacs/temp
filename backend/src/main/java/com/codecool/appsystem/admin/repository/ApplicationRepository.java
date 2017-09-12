@@ -7,12 +7,12 @@ import java.util.List;
 
 public interface ApplicationRepository extends JpaRepository<Application, String> {
 
-    Application findByApplicantIdAndActive(String email, Boolean active);
+    Application findByApplicantIdAndActiveIsTrue(Integer id);
 
     List<Application> findByLocationId(String locationId);
 
     List<Application> findByLocationIdAndActiveIsTrue(String locationId);
 
-    Long countByApplicantId(String id);
+    Long countByApplicantId(Integer id);
 
 }

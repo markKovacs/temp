@@ -21,7 +21,7 @@ import java.util.Date;
 public class PersonalData {
 
     @Id
-    private String userId;
+    private Integer id;
 
     private String name;
     private String maidenName;

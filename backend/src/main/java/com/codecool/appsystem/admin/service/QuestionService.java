@@ -50,7 +50,11 @@ public class QuestionService {
         // TODO remove all answers prior to saving the new!!!!
 
         for (QuestionContent questionContent : question.getQuestions()) {
+
             for (QuestionOption questionOption : questionContent.getOptions()) {
+
+                List<TestAnswer> existingAnswers = testAnswerRepository.findByQuestionIdOrderByCorrectAnswerAsc(questionContent.getId());
+                testAnswerRepository.delete(existingAnswers);
 
                 if (questionOption.getIsCorrect()){
                     TestAnswer testAnswer = new TestAnswer();

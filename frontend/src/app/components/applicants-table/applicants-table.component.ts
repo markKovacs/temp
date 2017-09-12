@@ -51,11 +51,11 @@ export class ApplicantsTableComponent implements OnInit {
     }
 
     handleRowExpand(e): void {
-        this.applicantService.getApplicantDetailsById(e.data.adminId)
+        this.applicantService.getApplicantDetailsById(e.data.id)
             .subscribe(
                 (data: User) => {
                     for (const applicant of this.applicants) {
-                        if (data.adminId === applicant.adminId) {
+                        if (data.id === applicant.id) {
                             applicant.user = data;
                         }
                     }
@@ -65,8 +65,8 @@ export class ApplicantsTableComponent implements OnInit {
     }
 
     handleRowClick(e): void {
-        console.log(e.data.adminId);
-        this.router.navigate(['/applicants', e.data.adminId])
+        console.log(e.data.id);
+        this.router.navigate(['/applicants', e.data.id])
     }
 
     getSelectedLocationId() {

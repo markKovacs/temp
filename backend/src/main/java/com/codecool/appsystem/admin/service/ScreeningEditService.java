@@ -46,10 +46,10 @@ public class ScreeningEditService {
         repository.save(data);
     }
 
-    public ScreeningStepEvaluationDTO findForApplicant(Integer adminId, String stepId){
+    public ScreeningStepEvaluationDTO findForApplicant(Integer id, String stepId){
 
-        User user = userRepository.findByAdminId(adminId);
-        Application application = applicationRepository.findByApplicantIdAndActive(user.getId(), true);
+        User user = userRepository.findOne(id);
+        Application application = applicationRepository.findByApplicantIdAndActiveIsTrue(user.getId());
 
         ScreeningStep step = repository.findOne(stepId);
 

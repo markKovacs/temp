@@ -13,7 +13,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -24,12 +23,10 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class ScreeningStepsControllerTest {
     @Mock
@@ -56,7 +53,7 @@ public class ScreeningStepsControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(screeningStepsController).build();
 
         mockScreeningGrade.setAccepted(true);
-        mockScreeningGrade.setAdminId(100);
+        mockScreeningGrade.setId(100);
 
         mockApplicantsScreeningStep.setApplicationId("email@gmail.com");
         mockApplicantsScreeningStep.setId("2");
