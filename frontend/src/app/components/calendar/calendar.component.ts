@@ -82,6 +82,7 @@ export class CalendarComponent implements OnInit {
                 this.screeningDates.push(candidate.groupTime);
             }
         });
+        console.log('screeningDates = ', this.screeningDates);
     }
 
     private loadDates(): void {
