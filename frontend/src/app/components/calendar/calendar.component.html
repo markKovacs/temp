@@ -2,6 +2,8 @@
 
 <div class="container">
 
+
+
     <div class="col-sm-12 panel panel-warning">
         <div class="panel-body">
             <span>You can assign screening times here. Please first always assign group times,
@@ -16,7 +18,7 @@
         <div class="card">
             <h3>Group screening dates</h3>
             <div class="row">
-                <div *ngFor="let dateObj of dates.sort()" class="date-button-container">
+                <div *ngFor="let dateObj of screeningDates.sort()" class="date-button-container">
                     <h4 class="text-info">
                         <i class="fa fa-calendar"></i>&nbsp;
                         {{ dateObj | date: 'yyyy.MM.dd. HH:mm' }}
@@ -31,7 +33,7 @@
                             showTime="showTime"
                             dateFormat="yy.mm.dd."
                             [minDate]="minDate"
-                            [locale]="hu"
+                            [locale]="calendarLocalization"
                             hourFormat="24">
                     </p-calendar>
                 </div>
@@ -53,7 +55,7 @@
         <div class="row">
             <h2>Group screening times</h2>
 
-            <div *ngFor="let user of users">
+            <div *ngFor="let user of candidates">
                 <calendar-group-date-assignment
                         [dates]="selectDates"
                         [user]="user"
@@ -69,7 +71,7 @@
 
         <div class="row">
             <h2>Personal screening times</h2>
-            <div *ngFor="let user of users">
+            <div *ngFor="let user of candidates">
                 <calendar-personal-date-assignment
                     [user]="user"
                 >
@@ -81,13 +83,6 @@
             <button class="btn btn-success" (click)="savePersonalTimes()">Save personal times and send emails</button>
         </div>
 
-
-
-        <!-- Messages -->
-        <p-growl [(value)]="messages"
-                 life=5000
-                 [style]="{'margin-top': '2.5em'}"
-        ></p-growl>
 
     </div>
 </div>
