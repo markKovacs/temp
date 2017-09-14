@@ -12,6 +12,7 @@ import {
   PickListModule,
   CalendarModule,
   GrowlModule,
+  DragDropModule,
   Message
 } from 'primeng/primeng';
 import {SharedModule} from 'primeng/primeng';
@@ -87,6 +88,7 @@ import {
         CalendarModule,
         MomentModule,
         GrowlModule,
+        DragDropModule,
         FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
         CarouselModule.forRoot(),
         BsDropdownModule.forRoot(),

@@ -2,15 +2,49 @@
 
 <div class="container">
 
-    <div class="panel panel-default">
-        <div class="panel-heading">Your group game starts at</div>
-        <div class="panel-body">
-            <span>You can assign screening times here. Please first always assign group times,
-                since the personal times assignment will trigger an email sending.
-                <br />Note: Emails will be sent only if the assigned dates are new, or changed.
-            </span>
+    <div class="row">
+        <div class="col-sm-6">
+            <p-panel>
+                <p-header>
+                    Candidates
+                </p-header>
+                    Content
+            </p-panel>
+        </div>
+        <div class="col-sm-6">
+            <p-panel >
+                <p-header>
+                    Screening Dates
+                </p-header>
+                    <div *ngFor="let dateObj of screeningDates.sort()" class="screening-date">
+                        <i class="fa fa-calendar"></i>&nbsp;
+                        {{ dateObj | date: 'yyyy.MM.dd. HH:mm' }} <button class="btn btn-default btn-xs pull-right">Remove</button>
+                    </div>
+                <p-footer>
+                    <button class="btn btn-xs btn-primary">Add New</button>
+                </p-footer>
+            </p-panel>
         </div>
     </div>
+
+    <br />
+
+    <div class="row">
+
+        <div class="col-sm-12">
+            <p-panel>
+                <p-header>
+                    Candidates With Assigned Group Game Schedules
+                </p-header>
+                Content
+            </p-panel>
+        </div>
+
+    </div>
+
+    <br />
+
+
 
     <div class="col-sm-12 panel panel-warning">
         <div class="panel-body">

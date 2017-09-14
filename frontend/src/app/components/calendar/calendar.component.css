@@ -7,9 +7,11 @@
   border-bottom: 1px solid #999;
 }
 
-.date-button-container {
-  text-align: center;
-  padding-top: 10px;
+.screening-date {
+    background-color: rgba(71, 137, 173, 0.24);
+    padding: 15px;
+    border-radius: 3px;
+    min-height: 100px;
 }
 
 .assign-title {
