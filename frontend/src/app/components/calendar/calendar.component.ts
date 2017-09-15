@@ -7,6 +7,7 @@ import {DatePipe} from '@angular/common';
 import {Message, SelectItem} from 'primeng/primeng';
 import {isNullOrUndefined} from 'util';
 import {AlertService} from '../../_services/alert.service';
+import {ScreeningBundle} from '../../_models/screening-bundle.model';
 
 
 @Component({
@@ -22,6 +23,9 @@ export class CalendarComponent implements OnInit {
     screeningDates: Date[] = [];
     date: Date;
     loading = false;
+    draggedCandidate: ScreeningInfo;
+    selectedCandidates: ScreeningInfo[] = [];
+    screeningBundles: ScreeningBundle[] = [];
 
     constructor(
         private eventsManager: GlobalEventsManager,
@@ -37,6 +41,42 @@ export class CalendarComponent implements OnInit {
     ngOnInit(): void {
         this.setCalendarLocalization();
         this.candidates.filter(candidate => !isNullOrUndefined(candidate.groupTime));
+        console.log('initial selectedCandidates: ', this.selectedCandidates);
+    }
+
+    dragStart(event, candidate: ScreeningInfo) {
+        this.draggedCandidate = candidate;
+        // console.log('dragStart() called, this.draggedCandidate =  ', this.draggedCandidate);
+    }
+
+    dragEnd(event) {
+        this.draggedCandidate = null;
+    }
+
+    drop(event, screeningBundle: ScreeningBundle) {
+        console.log('drop() called');
+        console.log('drop screeningBundle = ', screeningBundle);
+        if (this.draggedCandidate) {
+            const draggedCandidateIndex = this.findIndex(this.draggedCandidate);
+            screeningBundle.screeningInfos.push(this.draggedCandidate);
+            // this.selectedCandidates = [...this.selectedCandidates, this.draggedCandidate];
+            this.candidates = this.candidates.filter(function (candidate, idx) {
+                return idx !== draggedCandidateIndex;
+            });
+            this.draggedCandidate = null;
+        }
+        console.log('drop(), this.selectedCandidates = ', this.selectedCandidates);
+    }
+
+    findIndex(candidate: ScreeningInfo) {
+        let index = -1;
+        for (let i = 0; i < this.candidates.length; i++) {
+            if (candidate.id === this.candidates[i].id) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     private setCalendarLocalization(): void {
@@ -69,35 +109,21 @@ export class CalendarComponent implements OnInit {
             (data: ScreeningInfo[]) => {
                 this.candidates = data;
                 console.log('this.candidates = ', this.candidates);
-                this.setScreeningDates();
-                // this.loadDates();
+                // this.setScreeningDates();
+                this.populateScreeningBundles();
             },
             error => console.log(error)
         );
     }
 
-    private setScreeningDates(): void {
+    private populateScreeningBundles(): void {
+        console.log('populateScreeningBundles() called');
         this.candidates.forEach(candidate => {
             if (candidate.groupTime != null && !this.screeningDates.includes(candidate.groupTime)) {
-                this.screeningDates.push(candidate.groupTime);
+                this.screeningBundles.push(new ScreeningBundle(candidate.groupTime));
             }
         });
-        console.log('screeningDates = ', this.screeningDates);
-    }
-
-    private loadDates(): void {
-        this.candidates.forEach(candidate => {
-            if (candidate.groupTime != null && !this.screeningDates.includes(candidate.groupTime)) {
-                this.screeningDates.push(candidate.groupTime);
-                this.selectDates.push(
-                    {
-                        label: this.dateFormatter.transform(candidate.groupTime, 'yyyy.MM.dd. HH:mm'),
-                        value: candidate.groupTime
-                    }
-                );
-            }
-        });
-        this.loading = false;
+        console.log('this.screeningBundles = ', this.screeningBundles);
     }
 
     addDate() {
