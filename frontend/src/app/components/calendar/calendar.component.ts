@@ -18,6 +18,8 @@ export class CalendarComponent implements OnInit {
     candidates: ScreeningInfo[] = [];
     date: Date;
     loading = false;
+    groupTimeSaveBtnDisabled = true;
+    personalTimeSaveBtnDisabled = true;
 
     constructor(
         private eventsManager: GlobalEventsManager,
@@ -32,7 +34,14 @@ export class CalendarComponent implements OnInit {
     ngOnInit(): void {
         this.setCalendarLocalization();
         this.fetchCandidates();
-        // this.candidates.filter(candidate => !isNullOrUndefined(candidate.groupTime));
+    }
+
+    handleGroupTimeButtonAccess(): void {
+        this.groupTimeSaveBtnDisabled = false;
+    }
+
+    handlePersonalTimeButtonAccess(): void {
+        this.personalTimeSaveBtnDisabled = false;
     }
 
     private fetchCandidates(): void {
@@ -40,7 +49,6 @@ export class CalendarComponent implements OnInit {
             .subscribe(
             (data: ScreeningInfo[]) => {
                 data.forEach((screeningInfo) => {
-                   console.log(screeningInfo.groupTime);
                     if (!isNullOrUndefined(screeningInfo.groupTime)) {
                         screeningInfo.groupTime = new Date(screeningInfo.groupTime);
                     }
@@ -82,15 +90,29 @@ export class CalendarComponent implements OnInit {
         this.candidates.forEach(candidate => candidate.personalTime = date);
     }
 
+    getCandidatesWithValidSchedules(): ScreeningInfo[] {
+        return this.candidates.filter(candidate => {
+            return candidate.personalTime && candidate.groupTime;
+        });
+    }
+
     saveGroupTimes(): void {
+        this.loading = true;
+        this.groupTimeSaveBtnDisabled = true;
         this.screeningService.saveGroupTimes(this.candidates)
             .subscribe(
-                (data: any) => { },
+                (data: any) => {
+                    this.loading = false;
+                },
                 error => console.log(error)
             );
     }
 
     savePersonalTimes(): void {
+
+        this.loading = true;
+        this.personalTimeSaveBtnDisabled = true;
+
         let missingGroupTimes = false;
 
         for (const u of this.candidates) {
@@ -106,7 +128,9 @@ export class CalendarComponent implements OnInit {
 
         this.screeningService.savePersonalTimes(this.candidates)
             .subscribe(
-                (data: any) => {},
+                (data: any) => {
+                    this.loading = false;
+                },
                 error => console.log(error)
             );
     }

@@ -4,60 +4,106 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">Help</div>
-        <div class="panel-body">Some information goes here about how to use this page.</div>
+        <div class="panel-body">
+            On this page you can assign the <strong>Group Time</strong> and <strong>Personal Time</strong> schedules individually
+            for each candidate. <br>
+            If there's data about previously added schedules, it will get populated in the table below. <br>
+            You can change the schedules to any date/time you want. Clicking on the <strong>Send Emails</strong>
+            button is only allowed when all pending changes has been saved first. <br>
+
+        </div>
     </div>
 
-    <table class="table table-striped table-bordered">
-        <thead>
-        <tr>
-            <th>Candidate's Name</th>
-            <th>Assigned Group Time</th>
-            <th>Assigned Personal Time</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let candidate of candidates">
-            <td class="col-md-6 table-candidate-name">{{candidate.name}}</td>
-            <td class="col-md-3">
-                <p-calendar [(ngModel)]="candidate.groupTime"
-                            [locale]="calendarLocalization"
-                            dateFormat="yy/mm/dd"
-                            showTime="showTime"
-                            hourFormat="24"></p-calendar>
-                <button [disabled]="!candidate.groupTime"
-                        (click)="setGroupTimeToAll(candidate.groupTime)"
-                        class="btn btn-primary btn-xs pull-right">Set to all</button>
-                <button [disabled]="!candidate.groupTime"
-                        class="btn btn-danger btn-xs remove-button"
-                        (click)="restoreGroupTimeToNull(candidate)">
-                    <i class="fa fa-times"></i>
-                </button>
-            </td>
-            <td class="col-md-3">
-                <p-calendar [(ngModel)]="candidate.personalTime"
-                            [locale]="calendarLocalization"
-                            dateFormat="yy/mm/dd"
-                            showTime="showTime"
-                            hourFormat="24"></p-calendar>
-                <button [disabled]="!candidate.personalTime"
-                        (click)="setPersonalTimeToAll(candidate.personalTime)"
-                        class="btn btn-primary btn-xs pull-right">Set to all</button>
-                <button [disabled]="!candidate.personalTime"
-                        class="btn btn-danger btn-xs remove-button"
-                        (click)="restorePersonalTimeToNull(candidate)">
-                    <i class="fa fa-times"></i>
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <th></th>
-            <th><button class="btn btn-danger btn-xs pull-right save-button" (click)="saveGroupTimes()">Save Assigned Group Times</button></th>
-            <th><button class="btn btn-danger btn-xs pull-right save-button">Save Assigned Personal Times</button></th>
-        </tr>
-        </tbody>
-    </table>
+    <div class="panel panel-default">
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>Candidate's Name</th>
+                <th>Assigned Group Time</th>
+                <th>Assigned Personal Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let candidate of candidates">
+                <td class="col-md-6 table-candidate-name">{{candidate.name}}</td>
+                <td class="col-md-3">
+                    <p-calendar [(ngModel)]="candidate.groupTime"
+                                (ngModelChange)="handleGroupTimeButtonAccess()"
+                                [locale]="calendarLocalization"
+                                dateFormat="yy/mm/dd"
+                                showTime="showTime"
+                                hourFormat="24"></p-calendar>
+                    <button [disabled]="!candidate.groupTime"
+                            (click)="setGroupTimeToAll(candidate.groupTime)"
+                            class="btn btn-primary btn-xs pull-right">Set to all</button>
+                    <button [disabled]="!candidate.groupTime"
+                            class="btn btn-danger btn-xs remove-button"
+                            (click)="restoreGroupTimeToNull(candidate)">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </td>
+                <td class="col-md-3">
+                    <p-calendar [(ngModel)]="candidate.personalTime"
+                                (ngModelChange)="handlePersonalTimeButtonAccess()"
+                                [locale]="calendarLocalization"
+                                dateFormat="yy/mm/dd"
+                                showTime="showTime"
+                                hourFormat="24"></p-calendar>
+                    <button [disabled]="!candidate.personalTime"
+                            (click)="setPersonalTimeToAll(candidate.personalTime)"
+                            class="btn btn-primary btn-xs pull-right">Set to all</button>
+                    <button [disabled]="!candidate.personalTime"
+                            class="btn btn-danger btn-xs remove-button"
+                            (click)="restorePersonalTimeToNull(candidate)">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <th><button class="btn btn-danger btn-xs pull-right save-button"
+                            (click)="saveGroupTimes()"
+                            [disabled]="groupTimeSaveBtnDisabled">Save Assigned Group Times</button></th>
+                <th><button class="btn btn-danger btn-xs pull-right save-button"
+                            (click)="savePersonalTimes()"
+                            [disabled]="personalTimeSaveBtnDisabled">Save Assigned Group Times</button></th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <br />
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            Sending Notification E-mails
+            <button class="btn btn-danger pull-right btn-xs send-email-button"
+                    [disabled]="!groupTimeSaveBtnDisabled || !personalTimeSaveBtnDisabled">Send Emails</button>
+        </div>
+        <div class="panel-body">
+
+
+            The screening notification email will be sent only to those candidates
+            whose <strong>Group Time</strong> and <strong>Personal Time</strong> schedules are present.
+            <br>
+            If both or at least one of the schedules are missing, no email will be sent to those candidates.
+            <br>
+            <br>
+            The following people will receive an email with the assigned schedules when you click <strong>Send Emails</strong>.
+            <br>
+            <ol>
+                <li *ngFor="let candidate of getCandidatesWithValidSchedules()">
+                    <strong>{{candidate.name}}</strong> /
+                    GT
+                    <strong>{{candidate.groupTime | date: 'yyyy.MM.dd. HH:mm'}}</strong> /
+                    PT
+                    <strong>{{candidate.personalTime |date: 'yyyy.MM.dd. HH:mm'}}</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+
 
     <!--<div class="col-sm-12 panel panel-warning">-->
         <!--<div class="panel-body">-->
