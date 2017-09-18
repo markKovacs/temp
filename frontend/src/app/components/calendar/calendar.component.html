@@ -1,5 +1,4 @@
 <div class="loading" *ngIf="loading"></div>
-
 <div class="container">
 
     <div class="panel panel-default">
@@ -10,6 +9,9 @@
             If there's data about previously added schedules, it will get populated in the table below. <br>
             You can change the schedules to any date/time you want. Clicking on the <strong>Send Emails</strong>
             button is only allowed when all pending changes has been saved first. <br>
+            Click the input boxes to get a calendar. Use the red <strong style="color: #d9534f">X to empty the current value</strong>.
+            <br>
+            Use the <strong style="color: #428bca;">Set to all button to populate all inputs with the same date/time in that column</strong>.
 
         </div>
     </div>
@@ -72,17 +74,13 @@
         </table>
     </div>
 
-
-
     <div class="panel panel-default">
         <div class="panel-heading clearfix">
-            Sending Notification E-mails
+            Sending Invite E-mails
             <button class="btn btn-danger pull-right btn-xs send-email-button"
-                    [disabled]="!groupTimeSaveBtnDisabled || !personalTimeSaveBtnDisabled">Send Emails</button>
+                    [disabled]="!groupTimeSaveBtnDisabled || !personalTimeSaveBtnDisabled">Send Invite Emails </button>
         </div>
         <div class="panel-body">
-
-
             The screening notification email will be sent only to those candidates
             whose <strong>Group Time</strong> and <strong>Personal Time</strong> schedules are present.
             <br>
@@ -103,87 +101,4 @@
         </div>
     </div>
 
-
-
-    <!--<div class="col-sm-12 panel panel-warning">-->
-        <!--<div class="panel-body">-->
-            <!--<span>You can assign screening times here. Please first always assign group times,-->
-                <!--since the personal times assignment will trigger an email sending.-->
-                <!--<br />Note: Emails will be sent only if the assigned dates are new, or changed.-->
-            <!--</span>-->
-        <!--</div>-->
-    <!--</div>-->
-
-    <!-- Left side - date picker -->
-    <!--<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">-->
-        <!--<div class="card">-->
-            <!--<h3>Group screening dates</h3>-->
-            <!--<div class="row">-->
-                <!--<div *ngFor="let screeningDates of screeningDates.sort()" class="date-button-container">-->
-                    <!--<h4 class="text-info">-->
-                        <!--<i class="fa fa-calendar"></i>&nbsp;-->
-                        <!--{{ screeningDates | date: 'yyyy.MM.dd. HH:mm' }}-->
-                    <!--</h4>-->
-                <!--</div>-->
-                <!--<hr />-->
-            <!--</div>-->
-            <!--<div class="row">-->
-                <!--<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">-->
-                    <!--<p-calendar-->
-                            <!--[(ngModel)]="date"-->
-                            <!--showTime="showTime"-->
-                            <!--dateFormat="yy.mm.dd."-->
-                            <!--[minDate]="minDate"-->
-                            <!--[locale]="calendarLocalization"-->
-                            <!--hourFormat="24">-->
-                    <!--</p-calendar>-->
-                <!--</div>-->
-                <!--<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">-->
-                    <!--<span>-->
-                    <!--<a (click)="addDate()">-->
-                        <!--<i class="fa fa-plus text-success" aria-hidden="true">&nbsp;Add new</i>-->
-                    <!--</a>-->
-                    <!--</span>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-
-    <!-- Right side - assign applicant to group/individual -->
-    <!--<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">-->
-
-        <!--&lt;!&ndash; Group times &ndash;&gt;-->
-        <!--<div class="row">-->
-            <!--<h2>Group screening times</h2>-->
-
-            <!--<div *ngFor="let user of candidates">-->
-                <!--<calendar-group-date-assignment-->
-                        <!--[dates]="selectDates"-->
-                        <!--[user]="user"-->
-                <!--&gt;</calendar-group-date-assignment>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<br />-->
-        <!--<div class="row">-->
-            <!--<button class="btn btn-success" (click)="saveGroupTimes()">Save group times</button>-->
-        <!--</div>-->
-
-        <!--<br />-->
-
-        <!--<div class="row">-->
-            <!--<h2>Personal screening times</h2>-->
-            <!--<div *ngFor="let user of candidates">-->
-                <!--<calendar-personal-date-assignment-->
-                    <!--[user]="user"-->
-                <!--&gt;-->
-                <!--</calendar-personal-date-assignment>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<br />-->
-        <!--<div class="row">-->
-            <!--<button class="btn btn-success" (click)="savePersonalTimes()">Save personal times and send emails</button>-->
-        <!--</div>-->
-
-
-    <!--</div>-->
 </div>

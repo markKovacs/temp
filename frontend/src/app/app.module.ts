@@ -64,13 +64,8 @@ import {AlertComponent} from "./components/alert/alert.component";
 import {ApplicantService} from './_services/applicants.service';
 import {UserService} from './_services/user.service';
 import {EmailTemplateService} from './_services/email-template.service';
-import {
-    CalendarGroupDateAssignmentComponent
-} from "./components/calendar/calendar-group-date-assignment.component";
 import {ListboxModule} from 'primeng/primeng';
-import {
-    CalendarPersonalDateAssignmentComponent
-} from "./components/calendar/calendar-personal-date-assignment.component";
+
 
 @NgModule({
     imports: [
@@ -122,8 +117,6 @@ import {
         AlertComponent,
         ApplicantsTableComponent,
         TinyMceComponent,
-        CalendarGroupDateAssignmentComponent,
-        CalendarPersonalDateAssignmentComponent
     ],
     providers: [
         AuthGuard,
