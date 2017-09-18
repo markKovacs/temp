@@ -1,39 +1,34 @@
-import {Injectable} from "@angular/core";
-import {HttpClient} from "../_httpclient/httpclient";
-import {Observable} from "rxjs/Observable";
-import {ScreeningInfo} from "../_models/screeninginfo.model";
-import {PostResponse} from "../_models/post-response.model";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '../_httpclient/httpclient';
+import {Observable} from 'rxjs/Observable';
+import {ScreeningInfo} from '../_models/screeninginfo.model';
+import {PostResponse} from '../_models/post-response.model';
 
 @Injectable()
 export class ScreeningService {
 
-    constructor(
-        private http: HttpClient
-    ) { }
+    constructor(private http: HttpClient) { }
 
     findCandidates(): Observable<ScreeningInfo[]> {
-        return this.http.get("/api/screening/candidates" + "?location=" + JSON.parse(localStorage.getItem('chosenLocation')).id);
+        return this.http.get('/api/screening/candidates' + '?location=' + JSON.parse(localStorage.getItem('chosenLocation')).id);
     }
 
     findAssignmentCandidates(): Observable<ScreeningInfo[]> {
-        return this.http.get("/api/screening/assignmentcandidates" + "?location=" + JSON.parse(localStorage.getItem('chosenLocation')).id);
+        return this.http.get('/api/screening/assignmentcandidates' + '?location=' + JSON.parse(localStorage.getItem('chosenLocation')).id);
     }
 
-    saveGroupTimes(data: ScreeningInfo[]): Observable<PostResponse>{
-        let sendData = [];
-        for (let user of data) {
-            sendData.push({id: user.id, time: user.groupTime})
-        }
-        return this.http.post("/api/screening/group", sendData);
+    saveGroupTimes(candidates: ScreeningInfo[]): Observable<PostResponse> {
+        const dataToSend = candidates.map(candidate => {
+            return { id: candidate.id, time: candidate.groupTime }
+        });
+        return this.http.post('/api/screening/group', dataToSend);
     }
 
-    savePersonalTimes(data: ScreeningInfo[]): Observable<PostResponse>{
-        let sendData = [];
-
-        for (let user of data) {
-            sendData.push({id: user.id, time: user.personalTime})
-        }
-        return this.http.post("/api/screening/personal", sendData);
+    savePersonalTimes(candidates: ScreeningInfo[]): Observable<PostResponse> {
+        const dataToSend = candidates.map(candidate => {
+            return { id: candidate.id, time: candidate.personalTime }
+        });
+        return this.http.post('/api/screening/personal', dataToSend);
     }
 
 }

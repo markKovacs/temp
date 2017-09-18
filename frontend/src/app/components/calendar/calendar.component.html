@@ -25,6 +25,7 @@
                             showTime="showTime"
                             hourFormat="24"></p-calendar>
                 <button [disabled]="!candidate.groupTime"
+                        (click)="setGroupTimeToAll(candidate.groupTime)"
                         class="btn btn-primary btn-xs pull-right">Set to all</button>
                 <button [disabled]="!candidate.groupTime"
                         class="btn btn-danger btn-xs remove-button"
@@ -39,6 +40,7 @@
                             showTime="showTime"
                             hourFormat="24"></p-calendar>
                 <button [disabled]="!candidate.personalTime"
+                        (click)="setPersonalTimeToAll(candidate.personalTime)"
                         class="btn btn-primary btn-xs pull-right">Set to all</button>
                 <button [disabled]="!candidate.personalTime"
                         class="btn btn-danger btn-xs remove-button"
@@ -49,8 +51,8 @@
         </tr>
         <tr>
             <th></th>
-            <th><button class="btn btn-danger btn-xs pull-right save-button">Save Group Times</button></th>
-            <th><button class="btn btn-danger btn-xs pull-right save-button">Save Personal Times</button></th>
+            <th><button class="btn btn-danger btn-xs pull-right save-button" (click)="saveGroupTimes()">Save Assigned Group Times</button></th>
+            <th><button class="btn btn-danger btn-xs pull-right save-button">Save Assigned Personal Times</button></th>
         </tr>
         </tbody>
     </table>

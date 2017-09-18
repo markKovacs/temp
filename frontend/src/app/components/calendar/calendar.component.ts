@@ -74,6 +74,14 @@ export class CalendarComponent implements OnInit {
         candidate.personalTime = null;
     }
 
+    setGroupTimeToAll(date: Date): void {
+        this.candidates.forEach(candidate => candidate.groupTime = date);
+    }
+
+    setPersonalTimeToAll(date: Date): void {
+        this.candidates.forEach(candidate => candidate.personalTime = date);
+    }
+
     saveGroupTimes(): void {
         this.screeningService.saveGroupTimes(this.candidates)
             .subscribe(
