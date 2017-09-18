@@ -2,6 +2,27 @@
   padding-top: 85px;
 }
 
+.btn {
+    margin-top: 6px;
+}
+
+.save-button {
+    width: 100%;
+    margin-top: -1px;
+}
+
+.remove-button {
+    margin-top: -3px;
+}
+
+.table-candidate-name {
+    padding-top: 15px;
+}
+
+table {
+    border-radius: 5px;
+}
+
 .dates-container {
   min-height: 200px;
   border-bottom: 1px solid #999;

@@ -2,41 +2,58 @@
 
 <div class="container">
 
-    <div class="row">
-        <div class="col-sm-6">
-            <p-panel>
-                <p-header>
-                    Candidates
-                </p-header>
-                    <div class="candidate"
-                         *ngFor="let candidate of candidates"
-                         pDraggable="candidates"
-                         (onDragStart)="dragStart($event, candidate)"
-                         (onDragEnd)="dragEnd($event)">
-                        <span>Name: {{candidate.name}}</span>
-                    </div>
-            </p-panel>
-        </div>
-        <div class="col-sm-6">
-            <p-panel >
-                <p-header>
-                    Screening Dates
-                    <a class="pull-right">Add New</a>
-                </p-header>
-                    <div *ngFor="let screeningBundle of screeningBundles"
-                         class="screening-date"
-                         pDroppable="candidates"
-                         (onDrop)="drop($event, screeningBundle)">
-                        <i class="fa fa-calendar"></i>&nbsp;
-                        {{ screeningBundle.screeningDate | date: 'yyyy.MM.dd. HH:mm' }}
-                        <button class="btn btn-default btn-xs pull-right">Remove</button>
-                        <div class="selectedCandidate" *ngFor="let selectedCandidate of screeningBundle.screeningInfos">
-                            Name: {{selectedCandidate.name}}
-                        </div>
-                    </div>
-            </p-panel>
-        </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Help</div>
+        <div class="panel-body">Some information goes here about how to use this page.</div>
     </div>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>Candidate's Name</th>
+            <th>Assigned Group Time</th>
+            <th>Assigned Personal Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let candidate of candidates">
+            <td class="col-md-6 table-candidate-name">{{candidate.name}}</td>
+            <td class="col-md-3">
+                <p-calendar [(ngModel)]="candidate.groupTime"
+                            [locale]="calendarLocalization"
+                            dateFormat="yy/mm/dd"
+                            showTime="showTime"
+                            hourFormat="24"></p-calendar>
+                <button [disabled]="!candidate.groupTime"
+                        class="btn btn-primary btn-xs pull-right">Set to all</button>
+                <button [disabled]="!candidate.groupTime"
+                        class="btn btn-danger btn-xs remove-button"
+                        (click)="restoreGroupTimeToNull(candidate)">
+                    <i class="fa fa-times"></i>
+                </button>
+            </td>
+            <td class="col-md-3">
+                <p-calendar [(ngModel)]="candidate.personalTime"
+                            [locale]="calendarLocalization"
+                            dateFormat="yy/mm/dd"
+                            showTime="showTime"
+                            hourFormat="24"></p-calendar>
+                <button [disabled]="!candidate.personalTime"
+                        class="btn btn-primary btn-xs pull-right">Set to all</button>
+                <button [disabled]="!candidate.personalTime"
+                        class="btn btn-danger btn-xs remove-button"
+                        (click)="restorePersonalTimeToNull(candidate)">
+                    <i class="fa fa-times"></i>
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <th></th>
+            <th><button class="btn btn-danger btn-xs pull-right save-button">Save Group Times</button></th>
+            <th><button class="btn btn-danger btn-xs pull-right save-button">Save Personal Times</button></th>
+        </tr>
+        </tbody>
+    </table>
 
     <br />
 

@@ -14,4 +14,3 @@ export * from './results.model';
 export * from './template.model';
 export * from './users-screening-step.model';
 export * from './screeninginfo.model';
-export * from './screening-bundle.model';
