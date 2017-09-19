@@ -2,14 +2,60 @@
   padding-top: 85px;
 }
 
+.btn {
+    margin-top: 6px;
+}
+
+.save-button {
+    width: 100%;
+    margin-top: -1px;
+}
+
+.remove-button {
+    margin-top: -3px;
+}
+
+.table-candidate-name {
+    padding-top: 15px;
+}
+
+.send-email-button {
+    position: static;
+    margin-top: -1px;
+    right: 0;
+}
+
+table {
+    border-radius: 5px;
+}
+
+ol {
+    margin-top: 15px;
+    padding-left: 0;
+    list-style: inside decimal;
+}
+
 .dates-container {
   min-height: 200px;
   border-bottom: 1px solid #999;
 }
 
-.date-button-container {
-  text-align: center;
-  padding-top: 10px;
+.screening-date {
+    background-color: rgba(71, 137, 173, 0.24);
+    padding: 15px;
+    border-radius: 3px;
+    min-height: 100px;
+}
+
+.candidate, .selectedCandidate {
+    background-color: #f0f0f0;
+    padding: 15px;
+    margin: 5px;
+    border-radius: 3px;
+}
+
+.candidate:hover {
+    background-color: #4789ad;
 }
 
 .assign-title {
