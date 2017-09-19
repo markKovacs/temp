@@ -42,5 +42,8 @@
             </td>
         </tr>
     </table>
-    <h3 class="text-success" *ngIf="!users || users.length === 0">There are no screening tasks, hurray!</h3>
+    <!--<h3 class="text-success" >There are no screening tasks, hurray!</h3>-->
+    <div *ngIf="!users || users.length === 0">
+        <i class="fa fa-smile-o" aria-hidden="true"></i> All caught up! There are no screenings to schedule.
+    </div>
 </div>
