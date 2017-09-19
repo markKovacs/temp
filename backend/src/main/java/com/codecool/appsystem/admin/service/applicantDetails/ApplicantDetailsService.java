@@ -12,10 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,50 +29,35 @@ public class ApplicantDetailsService {
     private ApplicationScreeningInfoRepository appScrInfoRepo;
 
     @Autowired
-    private TestResultRepository testResRepository;
-
-    @Autowired
-    private TestRepository testRepo;
-
-    @Autowired
-    private ApplicantsScreeningStepRepository applicantsScreeningStepRepository;
-
-    @Autowired
-    private ScreeningStepRepository screeningStepRepository;
-
-    @Autowired
-    private ScreeningStepCriteriaRepository screeningStepCriteriaRepository;
-
-    @Autowired
-    private LocationRepository locationRepository;
-
-    @Autowired
     private EmailService emailService;
 
     public ApplicantDetailsDTO provideInfo(Integer id) {
 
         User user = userRepo.findOne(id);
 
-        Application application = applicationRepo.findByApplicantIdAndActiveIsTrue(user.getId());
-        List<ApplicantsScreeningStep> applicantsScreeningSteps = applicantsScreeningStepRepository.findByApplicationId(application.getId());
+        Application application = user.getApplication();
 
-        ApplicationScreeningInfo appScrInf = appScrInfoRepo.findByApplicationId(application.getId());
-        return provideDTO(user, application, appScrInf, applicantsScreeningSteps);
+        if(application == null) {
+            application = applicationRepo.findLast(user.getId());
+        }
+
+        return provideDTO(user, application);
     }
 
     public ApplicantDetailsDTO saveDates(Integer id, Map<String, Long> data) {
 
         User user = userRepo.findOne(id);
 
-        Location location = locationRepository.findOne(user.getLocationId());
+        Application application = user.getApplication();
 
-        Application application = applicationRepo.findByApplicantIdAndActiveIsTrue(user.getId());
+        Location location = application.getLocation();
 
-        ApplicationScreeningInfo appScrInf = appScrInfoRepo.findByApplicationId(application.getId());
+
+        ApplicationScreeningInfo appScrInf = application.getApplicationScreeningInfo();
 
         if(appScrInf == null){
             appScrInf = new ApplicationScreeningInfo();
-            appScrInf.setApplicationId(application.getId());
+            appScrInf.setApplication(application);
         }
 
         boolean datesChanged = false;
@@ -101,51 +83,39 @@ public class ApplicantDetailsService {
             emailService.sendScreeningTimesAssigned(user, appScrInf);
         }
 
-
-        List<ApplicantsScreeningStep> applicantsScreeningSteps = applicantsScreeningStepRepository.findByApplicationId(application.getId());
-
-        return provideDTO(user, application, appScrInf, applicantsScreeningSteps);
+        return provideDTO(user, application);
 
     }
 
 
 
-    private ApplicantDetailsDTO provideDTO(User user, Application application, ApplicationScreeningInfo appScrInf, List<ApplicantsScreeningStep> applicantsScreeningSteps) {
+    private ApplicantDetailsDTO provideDTO(User user, Application application) {
 
-        ApplicantDetailsDTO dto = new ApplicantDetailsDTOBuilder()
+        return new ApplicantDetailsDTOBuilder()
                 .fromUser(user)
                 .timesApplied(applicationRepo.countByApplicantId(user.getId()))
                 .fromApplication(application)
                 .testResults(getTestInfo(application))
-                .fromAppScrInfo(appScrInf)
                 .finalResult(application.getFinalResult())
+                .screeningSteps(processScreening(application.getScreeningSteps()))
                 .build();
-
-        if(applicantsScreeningSteps != null){
-            dto.setScreeningSteps(processScreening(applicantsScreeningSteps));
-        }
-
-        return dto;
 
     }
 
     private List<ApplicantsScreeningStepDTO> processScreening(List<ApplicantsScreeningStep> steps){
-        List<ApplicantsScreeningStepDTO> result = new ArrayList<>();
-        for(ApplicantsScreeningStep step : steps){
-            result.add(ApplicantsScreeningStepDTO.builder()
-                    .comment(step.getComment())
-                    .interviewer(step.getInterviewer())
-                    .points(step.getPoints())
-                    .status(step.getStatus())
-                    .stepName(getNameForStep(step.getStepId()))
-                    .criterias(processCriterias(step.getCriterias()))
-                    .build());
-        }
-        return result;
-    }
 
-    private String getNameForStep(String id){
-        return screeningStepRepository.findOne(id).getName();
+        return steps
+                .stream()
+                .map(step -> ApplicantsScreeningStepDTO.builder()
+                        .comment(step.getComment())
+                        .interviewer(step.getInterviewer())
+                        .points(step.getPoints())
+                        .status(step.getStatus())
+                        .stepName(step.getStep().getName())
+                        .criterias(processCriterias(step.getCriterias()))
+                        .build())
+                .collect(Collectors.toList());
+
     }
 
     private List<CriteriaDTO> processCriterias(List<ApplicantsScreeningStepCriteria> criterias){
@@ -155,31 +125,28 @@ public class ApplicantDetailsService {
                     .comment(crit.getComment())
                     .points(crit.getPoints())
                     .status(crit.getStatus())
-                    .criteriaName(getNameForCriteria(crit.getCriteriaId()))
+                    .criteriaName(crit.getCriteria().getName())
                     .build()
             );
         }
         return result;
     }
 
-    private String getNameForCriteria(String id){
-        return screeningStepCriteriaRepository.findOne(id).getName();
-    }
-
     private List<TestResultDTO> getTestInfo(Application application) {
 
-        List<TestResult> tests = testResRepository.findByApplicationId(application.getId());
+        List<TestResult> tests = application.getTestResults();
+
         return tests
                 .stream()
+                .sorted(Comparator.comparing(t -> t.getTest().getOrderInBundle()))
                 .map(this::transformTestResult)
-                .sorted((o1, o2) -> o1.getStarted().before(o2.getStarted()) ? 1 : -1)
                 .collect(Collectors.toList());
 
     }
 
     private TestResultDTO transformTestResult(TestResult testResult){
 
-        Test test = testRepo.findOne(testResult.getTestId());
+        Test test = testResult.getTest();
 
 
         TestResultDTO TDto = new TestResultDTO();

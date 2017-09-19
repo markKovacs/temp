@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -22,9 +24,14 @@ public class TestResult {
     @Id
     @Column(name = "id", length = 40)
     private String id = UUID.randomUUID().toString();
-    // FKs
-    private String applicationId;
-    private String testId;
+
+    @ManyToOne
+    @JoinColumn(name = "application_id", referencedColumnName = "id")
+    private Application application;
+
+    @ManyToOne
+    @JoinColumn(name = "test_id", referencedColumnName = "id")
+    private Test test;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date started;
@@ -42,5 +49,9 @@ public class TestResult {
     private String savedAnswers;
 
     private String comment;
+
+    @OneToMany(mappedBy = "application")
+    @OrderBy("started")
+    private List<TestResult> testResults = new ArrayList<>();
 
 }

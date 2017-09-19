@@ -22,7 +22,10 @@ public class ApplicationScreeningInfo {
     @Column(name = "id", length = 40)
     private String id = UUID.randomUUID().toString();
 
-    private String applicationId;
+    @OneToOne
+    @JoinColumn(name = "application_id", referencedColumnName = "id")
+    private Application application;
+
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date screeningGroupTime;

@@ -1,13 +1,9 @@
 package com.codecool.appsystem.admin.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Data
@@ -25,12 +21,16 @@ public class EmailTemplate {
     @Column(length = 40)
     private String id = UUID.randomUUID().toString();
 
-    private String locationId;
+    @ManyToOne
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
+    private Location location;
+
     private String name;
     @Column(columnDefinition = "TEXT")
     private String template;
     @Column(columnDefinition = "TEXT")
     private String model;
     private Boolean master;
+
     private int order;
 }

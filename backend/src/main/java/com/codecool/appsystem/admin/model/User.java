@@ -6,10 +6,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Where;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Data
@@ -42,8 +45,10 @@ public class User {
 
     private String phoneNumber;
 
-    private boolean canApply;
-    private boolean gmailAccount;
+    private Boolean canApply;
+    private Boolean gmailAccount;
+
+    private Boolean contractSigned;
 
     private String locationId;
 
@@ -53,6 +58,15 @@ public class User {
 
     // todo join current application
     // todo join past applications
+
+    @OneToOne(mappedBy = "user")
+    @Where(clause = "active = true")
+    private Application application;
+
+    @OneToMany(mappedBy = "user")
+    @OrderBy("processStatedAt")
+    @Where(clause = "active = false")
+    private List<Application> pastApplications = new ArrayList<>();
 
     @Column(length = 80)
     private String userHash;

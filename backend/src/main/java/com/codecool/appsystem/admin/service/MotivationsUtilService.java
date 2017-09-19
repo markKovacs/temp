@@ -25,19 +25,10 @@ public class MotivationsUtilService {
     private ApplicationRepository applicationRepository;
 
     @Autowired
-    private TestResultRepository testResultRepo;
-
-    @Autowired
     private TestRepository testRepo;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private EmailService emailService;
-
-    @Autowired
-    private LocationRepository locationRepository;
 
     @Autowired
     private ApplicationScreeningInfoRepository applicationScreeningInfoRepository;
@@ -60,20 +51,19 @@ public class MotivationsUtilService {
                 continue;
             }
 
-            List<TestResult> testResults = testResultRepo.findByApplicationId(application.getId());
+            List<TestResult> testResults = application.getTestResults();
 
-            if (testResults.size() == 4) {
-                for (TestResult tr : testResults) {
-                    if (tr.getTestId().equals(motivationTest.getId()) && tr.getPassed() == null){
+                for (TestResult testResult : testResults) {
+                    if(Boolean.TRUE.equals(testResult.getTest().getMotivationVideo()) && testResult.getPassed() == null){
                         MotivationDTO userMotivation = new MotivationDTO();
 
                         userMotivation.setId(u.getId());
-                        userMotivation.setIsVideo(checkMotivationText(tr.getSavedAnswers()));
+                        userMotivation.setIsVideo(checkMotivationText(testResult.getSavedAnswers()));
                         userMotivation.setName(u.getFullName());
+
                         motivation.add(userMotivation);
                     }
                 }
-            }
         }
 
         return motivation;
@@ -87,20 +77,21 @@ public class MotivationsUtilService {
     }
 
     public void gradeMotivation(MotivationGrade motivationGrade){
+
         TestResult actualTestResult = testResultRepository.getOne(motivationGrade.getTestResultId());
         actualTestResult.setComment(motivationGrade.getComment());
         actualTestResult.setPassed(motivationGrade.getPassed());
 
-        Application application = applicationRepository.findOne(actualTestResult.getApplicationId());
-        User user = userRepository.findOne(application.getApplicantId());
+        Application application = actualTestResult.getApplication();
+        User user = application.getUser();
 
         // accepted
         if(Boolean.TRUE.equals(motivationGrade.getPassed())){
 
             ApplicationScreeningInfo screeningInfo = new ApplicationScreeningInfo();
-            screeningInfo.setApplicationId(application.getId());
+            screeningInfo.setApplication(application);
 
-            Location location = locationRepository.findOne(application.getLocationId());
+            Location location = application.getLocation();
             screeningInfo.setMapLocation(location.getMapLocation());
 
 

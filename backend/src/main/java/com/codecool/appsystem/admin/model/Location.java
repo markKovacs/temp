@@ -7,9 +7,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -37,4 +37,14 @@ public class Location {
     private String nextCourseStart;
 
     private String address;
+
+    @OneToMany(mappedBy = "location")
+    @OrderBy("orderInBundle")
+    @JsonIgnore
+    private List<Test> tests = new ArrayList<>();
+
+    @OneToMany(mappedBy = "location")
+    @OrderBy("order")
+    private List<EmailTemplate> emailTemplates = new ArrayList<>();
+
 }

@@ -1,12 +1,8 @@
 package com.codecool.appsystem.admin.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Data
@@ -17,7 +13,9 @@ public class ApplicantsScreeningStepCriteria {
     @Column(name = "id", length = 40)
     private String id = UUID.randomUUID().toString();
 
-    private String criteriaId;
+    @ManyToOne
+    @JoinColumn(name = "criteria_id", referencedColumnName = "id")
+    private ScreeningStepCriteria criteria;
 
     private String applicantsScreeningStepId;
 

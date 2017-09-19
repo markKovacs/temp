@@ -19,8 +19,13 @@ public class ApplicantsScreeningStep {
     @Column(name = "id", length = 40)
     private String id = UUID.randomUUID().toString();
 
-    private String applicationId;
-    private String stepId;
+    @ManyToOne
+    @JoinColumn(name = "application_id", referencedColumnName = "id")
+    private Application application;
+
+    @ManyToOne
+    @JoinColumn(name = "step_id", referencedColumnName = "id")
+    private ScreeningStep step;
 
     private String interviewer;
     private Integer points;
@@ -30,9 +35,9 @@ public class ApplicantsScreeningStep {
     @OneToMany(mappedBy = "applicantsScreeningStepId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<ApplicantsScreeningStepCriteria> criterias = new ArrayList<>();
 
-    public ApplicantsScreeningStep(String stepId, String applicationId){
-        this.stepId = stepId;
-        this.applicationId = applicationId;
+    public ApplicantsScreeningStep(ScreeningStep step, Application application){
+        this.step = step;
+        this.application = application;
     }
 
 }

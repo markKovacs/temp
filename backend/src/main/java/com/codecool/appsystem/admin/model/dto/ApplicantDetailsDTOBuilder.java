@@ -1,7 +1,6 @@
 package com.codecool.appsystem.admin.model.dto;
 
 import com.codecool.appsystem.admin.model.Application;
-import com.codecool.appsystem.admin.model.ApplicationScreeningInfo;
 import com.codecool.appsystem.admin.model.User;
 import com.codecool.appsystem.admin.model.dto.applicantDetails.ApplicantDetailsDTO;
 import com.codecool.appsystem.admin.model.dto.applicantDetails.TestResultDTO;
@@ -47,8 +46,9 @@ public class ApplicantDetailsDTOBuilder {
         return this;
     }
 
-    public void setScreeningSteps(List<ApplicantsScreeningStepDTO> screeningSteps){
+    public ApplicantDetailsDTOBuilder screeningSteps(List<ApplicantsScreeningStepDTO> screeningSteps){
         this.screeningSteps = screeningSteps;
+        return this;
     }
 
     public ApplicantDetailsDTOBuilder testResults(List<TestResultDTO> testResults){
@@ -56,18 +56,15 @@ public class ApplicantDetailsDTOBuilder {
         return this;
     }
 
-    public ApplicantDetailsDTOBuilder fromAppScrInfo(ApplicationScreeningInfo applicationScreeningInfo){
-        if (applicationScreeningInfo != null) {
-            this.screeningGroupTime = applicationScreeningInfo.getScreeningGroupTime();
-            this.screeningPersonalTime = applicationScreeningInfo.getScreeningPersonalTime();
-            this.scheduleSignedBack = applicationScreeningInfo.getScheduleSignedBack();
-        }
-        return this;
-    }
-
     public ApplicantDetailsDTOBuilder fromApplication(Application application){
-        this.processStartedAt = application.getProcessStartedAt();
-        this.comment = application.getComment();
+        if(application != null) {
+            this.processStartedAt = application.getProcessStartedAt();
+            this.comment = application.getComment();
+
+            this.screeningGroupTime = application.getApplicationScreeningInfo().getScreeningGroupTime();
+            this.screeningPersonalTime = application.getApplicationScreeningInfo().getScreeningPersonalTime();
+            this.scheduleSignedBack = application.getApplicationScreeningInfo().getScheduleSignedBack();
+        }
         return this;
     }
 

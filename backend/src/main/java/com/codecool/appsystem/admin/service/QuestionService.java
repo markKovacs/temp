@@ -2,6 +2,7 @@ package com.codecool.appsystem.admin.service;
 
 import com.codecool.appsystem.admin.model.*;
 import com.codecool.appsystem.admin.model.dto.TestDTO;
+import com.codecool.appsystem.admin.repository.LocationRepository;
 import com.codecool.appsystem.admin.repository.TestAnswerRepository;
 import com.codecool.appsystem.admin.repository.TestRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -25,8 +26,13 @@ public class QuestionService {
     @Autowired
     private TestAnswerRepository testAnswerRepository;
 
+    @Autowired
+    private LocationRepository locationRepository;
+
     public void saveTest(Question question) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
+
+
 
         Test test = new Test();
         test.setId(question.getId());
@@ -38,7 +44,9 @@ public class QuestionService {
         test.setEstimatedTime(question.getEstimatedTime());
         test.setName(question.getName());
         test.setOrderInBundle(question.getOrderInBundle());
-        test.setLocationId(question.getLocationId());
+
+        test.setLocation(locationRepository.findOne(question.getLocationId()));
+
         test.setDescription(question.getDescription());
         test.setMotivationVideo(question.getMotivationVideo());
 
@@ -46,8 +54,6 @@ public class QuestionService {
     }
 
     public void saveCorrectAnswers(Question question){
-
-        // TODO remove all answers prior to saving the new!!!!
 
         for (QuestionContent questionContent : question.getQuestions()) {
 
@@ -104,7 +110,7 @@ public class QuestionService {
                 .description(test.getDescription())
                 .enabled(test.getEnabled())
                 .estimatedTime(test.getEstimatedTime())
-                .locationId(test.getLocationId())
+                .locationId(test.getLocation().getId())
                 .id(test.getId())
                 .maxPoints(test.getMaxPoints())
                 .motivationVideo((test.getMotivationVideo() != null) ? test.getMotivationVideo(): false)

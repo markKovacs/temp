@@ -15,7 +15,11 @@ public class ScreeningStep {
     private String id = UUID.randomUUID().toString();
 
     private String name;
-    private String locationId;
+
+    @ManyToOne
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
+    private Location location;
+
     private Boolean enabled = Boolean.TRUE;
 
     @OneToMany(mappedBy = "screeningStepId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

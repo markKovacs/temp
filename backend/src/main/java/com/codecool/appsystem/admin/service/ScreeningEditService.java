@@ -49,14 +49,17 @@ public class ScreeningEditService {
     public ScreeningStepEvaluationDTO findForApplicant(Integer id, String stepId){
 
         User user = userRepository.findOne(id);
-        Application application = applicationRepository.findByApplicantIdAndActiveIsTrue(user.getId());
+        Application application = user.getApplication();
 
         ScreeningStep step = repository.findOne(stepId);
 
-        ApplicantsScreeningStep applicantsScreeningStep = applicantsScreeningStepRepository.findByStepIdAndApplicationId(stepId, application.getId());
+        ApplicantsScreeningStep applicantsScreeningStep = application.getScreeningSteps()
+                .stream()
+                .filter(applicantsScreeningStep1 -> applicantsScreeningStep1.getStep().getId().equals(stepId))
+                .findFirst().get();
 
         if(applicantsScreeningStep == null){
-            applicantsScreeningStep = new ApplicantsScreeningStep(stepId, application.getId());
+            applicantsScreeningStep = new ApplicantsScreeningStep(step, application);
 
             applicantsScreeningStep = applicantsScreeningStepRepository.saveAndFlush(applicantsScreeningStep);
 
@@ -64,7 +67,7 @@ public class ScreeningEditService {
 
                 ApplicantsScreeningStepCriteria screeningStepCriteria = new ApplicantsScreeningStepCriteria();
                 screeningStepCriteria.setApplicantsScreeningStepId(applicantsScreeningStep.getId());
-                screeningStepCriteria.setCriteriaId(criteria.getId());
+                screeningStepCriteria.setCriteria(criteria);
 
                 screeningStepCriteria = screeningStepCriteriaRepository.saveAndFlush(screeningStepCriteria);
 
