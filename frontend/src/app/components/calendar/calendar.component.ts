@@ -20,6 +20,7 @@ export class CalendarComponent implements OnInit {
     loading = false;
     groupTimeSaveBtnDisabled = true;
     personalTimeSaveBtnDisabled = true;
+    controlListVisible = true;
 
     constructor(
         private eventsManager: GlobalEventsManager,
@@ -37,11 +38,13 @@ export class CalendarComponent implements OnInit {
     }
 
     handleGroupTimeButtonAccess(): void {
+        this.controlListVisible = false;
         this.groupTimeSaveBtnDisabled = false;
     }
 
     handlePersonalTimeButtonAccess(): void {
         this.personalTimeSaveBtnDisabled = false;
+        this.controlListVisible = false;
     }
 
     private fetchCandidates(): void {
@@ -75,10 +78,14 @@ export class CalendarComponent implements OnInit {
     }
 
     restoreGroupTimeToNull(candidate: ScreeningInfo): void {
+        this.groupTimeSaveBtnDisabled = false;
+        this.controlListVisible = false;
         candidate.groupTime = null;
     }
 
     restorePersonalTimeToNull(candidate: ScreeningInfo): void {
+        this.personalTimeSaveBtnDisabled = false;
+        this.controlListVisible = false;
         candidate.personalTime = null;
     }
 
@@ -103,6 +110,11 @@ export class CalendarComponent implements OnInit {
             .subscribe(
                 (data: any) => {
                     this.loading = false;
+
+                    if (this.personalTimeSaveBtnDisabled) {
+                        this.controlListVisible = true;
+                    }
+
                 },
                 error => console.log(error)
             );
@@ -130,8 +142,34 @@ export class CalendarComponent implements OnInit {
             .subscribe(
                 (data: any) => {
                     this.loading = false;
+
+                    if (this.groupTimeSaveBtnDisabled) {
+                        this.controlListVisible = true;
+                    }
                 },
                 error => console.log(error)
             );
+    }
+
+    sendEmails(): void {
+
+        const confirmDialog = confirm('Are you sure?');
+
+        if (confirmDialog) {
+            this.loading = true;
+
+            const candidatesWithAssignedSchedules = this.candidates.filter(candidate => {
+                return candidate.groupTime && candidate.personalTime;
+            });
+
+            this.screeningService.sendScreeningInviteEmails(candidatesWithAssignedSchedules)
+                .subscribe(
+                    (data: any) => {
+                        this.loading = false;
+                        alert('Invite emails has been sent.');
+                    },
+                    error => console.log(error)
+                );
+        }
     }
 }

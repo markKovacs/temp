@@ -31,4 +31,12 @@ export class ScreeningService {
         return this.http.post('/api/screening/personal', dataToSend);
     }
 
+    sendScreeningInviteEmails(candidates: ScreeningInfo[]): Observable<PostResponse> {
+        const dataToSend = candidates.map(candidate => {
+            return candidate.id;
+        });
+        console.log(JSON.stringify(dataToSend));
+        return this.http.post('/api/screening/sendmails', dataToSend);
+    }
+
 }

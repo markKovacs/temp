@@ -4,15 +4,15 @@
     <div class="panel panel-default">
         <div class="panel-heading">Help</div>
         <div class="panel-body">
-            On this page you can assign the <strong>Group Time</strong> and <strong>Personal Time</strong> schedules individually
-            for each candidate. <br>
-            If there's data about previously added schedules, it will get populated in the table below. <br>
-            You can change the schedules to any date/time you want. Clicking on the <strong>Send Emails</strong>
-            button is only allowed when all pending changes has been saved first. <br>
-            Click the input boxes to get a calendar. Use the red <strong style="color: #d9534f">X to empty the current value</strong>.
-            <br>
-            Use the <strong style="color: #428bca;">Set to all button to populate all inputs with the same date/time in that column</strong>.
-
+            Assign <strong>Group Time</strong> and <strong>Personal Time</strong> schedules individually
+            for each candidate. <br><br>
+            <ul>
+                <li>If there's data available about previously added schedules in our database, it will get populated in the table below. </li>
+                <li>You can change the schedules to any date/time you want.</li>
+                <li>The <strong>Send Emails</strong> button is only available when changes has been saved. </li>
+                <li>Click the input boxes to get a calendar. Use the red <strong style="color: #d9534f">X to empty the current value</strong>.</li>
+                <li>Use the <strong style="color: #428bca;">Set to all button to populate all inputs with the same date/time in that column</strong>.</li>
+            </ul>
         </div>
     </div>
 
@@ -37,6 +37,7 @@
                                 hourFormat="24"></p-calendar>
                     <button [disabled]="!candidate.groupTime"
                             (click)="setGroupTimeToAll(candidate.groupTime)"
+                            [disabled]="groupTimeSaveBtnDisabled"
                             class="btn btn-primary btn-xs pull-right">Set to all</button>
                     <button [disabled]="!candidate.groupTime"
                             class="btn btn-danger btn-xs remove-button"
@@ -53,6 +54,7 @@
                                 hourFormat="24"></p-calendar>
                     <button [disabled]="!candidate.personalTime"
                             (click)="setPersonalTimeToAll(candidate.personalTime)"
+                            [disabled]="personalTimeSaveBtnDisabled"
                             class="btn btn-primary btn-xs pull-right">Set to all</button>
                     <button [disabled]="!candidate.personalTime"
                             class="btn btn-danger btn-xs remove-button"
@@ -76,28 +78,40 @@
 
     <div class="panel panel-default">
         <div class="panel-heading clearfix">
-            Sending Invite E-mails
+            Sending Invite E-mails / Control List
             <button class="btn btn-danger pull-right btn-xs send-email-button"
-                    [disabled]="!groupTimeSaveBtnDisabled || !personalTimeSaveBtnDisabled">Send Invite Emails </button>
+                    (click)="sendEmails()"
+                    [disabled]="!groupTimeSaveBtnDisabled || !personalTimeSaveBtnDisabled">Send Emails</button>
         </div>
         <div class="panel-body">
             The screening notification email will be sent only to those candidates
             whose <strong>Group Time</strong> and <strong>Personal Time</strong> schedules are present.
             <br>
             If both or at least one of the schedules are missing, no email will be sent to those candidates.
+            <div *ngIf="controlListVisible">
+                <br>
+                <br>
+                The following people will receive an email with the assigned schedules when you click <strong>Send Emails</strong>.
+                <br>
+                <ol>
+                    <li *ngFor="let candidate of getCandidatesWithValidSchedules()">
+                        <strong>{{candidate.name}}</strong> /
+                        GT
+                        <strong>{{candidate.groupTime | date: 'yyyy.MM.dd. HH:mm'}}</strong> /
+                        PT
+                        <strong>{{candidate.personalTime |date: 'yyyy.MM.dd. HH:mm'}}</strong>
+                    </li>
+                </ol>
+            </div>
+            <div *ngIf="!controlListVisible">
+                <br>
+                <br>
+                <strong style="color: #d9534f">The schedule has been modified. To send the emails please save the modifications first.
+                    <br>In case you want to revert back the schedule to the way it was, just refresh this page.
+                </strong>
+            </div>
             <br>
-            <br>
-            The following people will receive an email with the assigned schedules when you click <strong>Send Emails</strong>.
-            <br>
-            <ol>
-                <li *ngFor="let candidate of getCandidatesWithValidSchedules()">
-                    <strong>{{candidate.name}}</strong> /
-                    GT
-                    <strong>{{candidate.groupTime | date: 'yyyy.MM.dd. HH:mm'}}</strong> /
-                    PT
-                    <strong>{{candidate.personalTime |date: 'yyyy.MM.dd. HH:mm'}}</strong>
-                </li>
-            </ol>
+
         </div>
     </div>
 
