@@ -27,7 +27,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let candidate of candidates">
-                <td class="col-md-6 table-candidate-name">{{candidate.name}}</td>
+                <td class="col-md-6 table-candidate-name">{{candidate.name}} (ID {{candidate.id}})</td>
                 <td class="col-md-3">
                     <p-calendar [(ngModel)]="candidate.groupTime"
                                 (ngModelChange)="handleGroupTimeButtonAccess()"
@@ -81,7 +81,7 @@
             Sending Invite E-mails / Control List
             <button class="btn btn-danger pull-right btn-xs send-email-button"
                     (click)="sendEmails()"
-                    [disabled]="!groupTimeSaveBtnDisabled || !personalTimeSaveBtnDisabled">Send Emails</button>
+                    [disabled]="loading || !groupTimeSaveBtnDisabled || !personalTimeSaveBtnDisabled">Send Emails</button>
         </div>
         <div class="panel-body">
             The screening notification email will be sent only to those candidates
@@ -95,7 +95,7 @@
                 <br>
                 <ol>
                     <li *ngFor="let candidate of getCandidatesWithValidSchedules()">
-                        <strong>{{candidate.name}}</strong> /
+                        <strong>{{candidate.name}} (ID {{candidate.id}})</strong> /
                         GT
                         <strong>{{candidate.groupTime | date: 'yyyy.MM.dd. HH:mm'}}</strong> /
                         PT
