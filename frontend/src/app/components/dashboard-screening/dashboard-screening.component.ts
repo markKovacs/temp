@@ -30,7 +30,7 @@ export class DashboardScreeningComponent {
 
     }
 
-    navigate(user: ScreeningInfo) {
+    navigate(user: ScreeningInfo): void {
         if(user.scheduleSignedBack){
             this.router.navigate(['/evaluateuser/' + user.id]);
         } else {
