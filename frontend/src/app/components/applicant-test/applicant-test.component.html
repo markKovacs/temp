@@ -1,23 +1,40 @@
 <div *ngIf="testResult">
-    <div class="col-sm-12 col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8">
 
-        <div class="panel {{ getPanelClass() }}">
-            <div class="row panel-body {{ getBgClass() }}">
-                <div class="col-sm-6 col-md-6 col-lg-6">
-                    <h4 class="{{ getTextClass() }}">
-                        {{ testResult.name }}
-                    </h4>
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-6">
-                    <h4 class="pull-right {{ getTextClass() }}" *ngIf="!inProgress()">
-                        {{ testResult.points }} points / {{ testResult.percent }} %
-                    </h4>
-                    <h4 class="pull-right {{ getTextClass() }}" *ngIf="inProgress()">
-                        in progress <br />
-                    </h4>
-                    <span *ngIf="testResult.comment">comment: {{testResult.comment}}</span>
-                </div>
+    <div class="well">
+        <div class="name">
+            <p style="margin-bottom: 5px;">{{testResult.name}}</p>
+        </div>
+        <div class="progress" style="margin-bottom: 5px;">
+            <div class="progress-bar {{getPanelClass()}}"
+                 role="progressbar"
+                 aria-valuemin="0" aria-valuemax="100" [style.width]="testResult.percent + '%'"
+                 [attr.aria-valuenow]="testResult.percent">
+                {{testResult.percent}}% / {{ testResult.points }} points
             </div>
         </div>
+        <div class="comments">
+            <i class="fa fa-comment-o" aria-hidden="true"></i> {{testResult.comment}}
+        </div>
     </div>
+
+
+        <!--<div class="panel  }}">-->
+            <!--<div class="row panel-body {{ getBgClass() }}">-->
+                <!--<div class="col-sm-6 col-md-6 col-lg-6">-->
+                    <!--<h4 class="{{ getTextClass() }}">-->
+                        <!--{{ testResult.name }}-->
+                    <!--</h4>-->
+                <!--</div>-->
+                <!--<div class="col-sm-6 col-md-6 col-lg-6">-->
+                    <!--<h4 class="pull-right {{ getTextClass() }}" *ngIf="!inProgress()">-->
+                        <!--{{ testResult.points }} points / {{ testResult.percent }} %-->
+                    <!--</h4>-->
+                    <!--<h4 class="pull-right {{ getTextClass() }}" *ngIf="inProgress()">-->
+                        <!--in progress <br />-->
+                    <!--</h4>-->
+                    <!--<span *ngIf="testResult.comment">comment: </span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
 </div>

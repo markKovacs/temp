@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {Results} from "../../_models/results.model";
+import {Component, Input, OnInit} from '@angular/core';
+import {Results} from '../../_models/results.model';
 
 @Component({
     moduleId: module.id,
@@ -7,39 +7,40 @@ import {Results} from "../../_models/results.model";
     styleUrls: ['applicant-test.component.css'],
     selector: 'applicant-test'
 })
-export class ApplicantTestComponent implements OnInit{
+export class ApplicantTestComponent implements OnInit {
 
     @Input() testResult: Results;
+    x = '5';
 
     ngOnInit(): void {
-
+        console.log('TR: ', this.testResult);
     }
 
     getPanelClass(): string {
-        if(this.testResult.passed === true){
-            return "panel-success";
-        } else if(this.testResult.passed === false) {
-            return "panel-danger";
+        if (this.testResult.passed === true) {
+            return 'progress-bar-success';
+        } else if (this.testResult.passed === false) {
+            return 'progress-bar-danger';
         }
-        return "panel-default";
+        return 'panel-default';
     }
 
     getBgClass(): string {
-        if(this.testResult.passed === true){
-            return "bg-success";
-        } else if(this.testResult.passed === false) {
-            return "bg-danger";
+        if (this.testResult.passed === true) {
+            return 'bg-success';
+        } else if (this.testResult.passed === false) {
+            return 'bg-danger';
         }
-        return "bg-default";
+        return 'bg-default';
     }
 
     getTextClass(): string {
-        if(this.testResult.passed === true){
-            return "text-success";
-        } else if(this.testResult.passed === false) {
-            return "text-danger";
+        if (this.testResult.passed === true) {
+            return 'text-success';
+        } else if (this.testResult.passed === false) {
+            return 'text-danger';
         }
-        return "text-info";
+        return 'text-info';
     }
 
     inProgress(): boolean {
