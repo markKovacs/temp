@@ -14,9 +14,10 @@ body {
 }
 
 .container {
-  margin-top: 65px;
-  background-color: #f0f0f0;
+  margin-top: 75px;
+  background-color: white;
   border-radius: 5px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.66);
 }
 
 hr {
