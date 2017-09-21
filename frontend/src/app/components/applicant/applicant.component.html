@@ -3,6 +3,85 @@
         <i class="material-icons md-240 applicant-loading">cloud_download</i>
     </div>
     <div *ngIf="user">
+        <br>
+        <div class="panel panel-default">
+            <div class="panel-heading">Applicant Overview</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="name">
+                            {{user.givenName}} {{user.familyName}}
+                        </div>
+
+                        <table class="table table-condensed table-bordered table-striped">
+                            <tbody>
+                            <tr>
+                                <th class="col-md-4" scope="row">Phone Number</th>
+                                <td class="col-md-8">{{user.phoneNumber}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">E-mail</th>
+                                <td>{{user.email}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Birth Year</th>
+                                <td>{{user.dateOfBirth}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Retry Attempts #</th>
+                                <td>{{user.timesApplied}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Application Started</th>
+                                <td>{{user.processStartedAt | date: 'yyyy.MM.dd. HH:mm'}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-condensed table-bordered table-striped">
+                            <tbody>
+                            <tr>
+                                <th class="col-md-4" scope="row">Group Time</th>
+                                <td class="col-md-8">
+                                    <p-calendar
+                                            [(ngModel)]="user.screeningGroupTime"
+                                            showTime="showTime"
+                                            dateFormat="yy.mm.dd."
+                                            hourFormat="24">
+                                    </p-calendar>
+                                    <a (click)="save()"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Personal Time</th>
+                                <td>
+                                    <p-calendar
+                                            [(ngModel)]="user.screeningPersonalTime"
+                                            showTime="showTime"
+                                            dateFormat="yy.mm.dd."
+                                            hourFormat="24">
+                                    </p-calendar>
+                                    <a (click)="save()"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="col-md-6">
+                        2
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
         <div class="row">
             <div class="col-sm-12 col-md-7 col-lg-7">
                 <div *ngFor="let result of user.testResults">
@@ -24,7 +103,7 @@
                         </h4>
                     </div>
                     <div class="col-sm-6">
-                        <h4>{{user.givenName}} {{user.familyName}}</h4>
+                        <h4>{{user.givenName}} {{user.familyName}} {{user.processStartedAt | date: 'yyyy.MM.dd. HH:mm'}}</h4>
                     </div>
 
                     <div class="col-sm-6">

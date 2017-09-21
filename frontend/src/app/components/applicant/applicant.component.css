@@ -1,8 +1,9 @@
-.container {
-  padding-top: 65px;
-  background-color: white;
-  min-height: 500px;
+.name {
+  font-size: 30px;
+  font-weight: bold;
+  padding: 0 0 15px 10px;
 }
+
 
 .applicant-profile {
   border: 1px solid #999;
