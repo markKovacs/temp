@@ -10,13 +10,13 @@ body {
   padding: 0;
   background-color: #4789ad;
   background-image: url("assets/background_cc_blue.png");
+  background-attachment: fixed;
 }
 
 .container {
-  background-color: white;
-  height: 100%;
-  border-left: 3px solid #7c8084;
-  border-right: 3px solid #7c8084;
+  margin-top: 65px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
 }
 
 hr {
