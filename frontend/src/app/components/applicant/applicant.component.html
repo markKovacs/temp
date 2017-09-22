@@ -4,16 +4,18 @@
     </div>
     <div *ngIf="user">
         <br>
-        <div class="panel panel-default">
-            <div class="panel-heading">Applicant</div>
-            <div class="panel-body">
-                <div class="name">
-                    {{user.givenName}} {{user.familyName}}
-                    <hr style="margin-bottom: 0; margin-top: 5px; color: rgb(245,245,245); height: 1px;">
-                </div>
 
-                <div class="row">
-                    <div class="col-md-4">
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Applicant Info</div>
+                    <div class="panel-body">
+                        <div class="name">
+                            {{user.givenName}} {{user.familyName}}
+                            <hr style="margin-bottom: 0; margin-top: 5px; color: rgb(245,245,245); height: 1px;">
+                        </div>
+
                         <i class="fa fa-envelope" aria-hidden="true"></i> {{user.email}} <br>
                         <i class="fa fa-phone-square" aria-hidden="true"></i> {{user.phoneNumber}} <br>
                         <i class="fa fa-calendar" aria-hidden="true"></i> {{calculateage(user.dateOfBirth)}} years old<br>
@@ -30,10 +32,10 @@
                         <div class="well clearfix">
                             <span class="time-well">Group Time</span>
                             <p-calendar class="pull-right"
-                                    [(ngModel)]="user.screeningGroupTime"
-                                    showTime="showTime"
-                                    dateFormat="yy.mm.dd."
-                                    hourFormat="24">
+                                        [(ngModel)]="user.screeningGroupTime"
+                                        showTime="showTime"
+                                        dateFormat="yy.mm.dd."
+                                        hourFormat="24">
                             </p-calendar>
                         </div>
 
@@ -47,36 +49,42 @@
                             </p-calendar>
                         </div>
 
-
-
                         <a (click)="save()" class="btn btn-danger btn-xs btn-block">Save Group & Personal Time</a> <br>
 
                     </div>
-
                 </div>
             </div>
-        </div>
 
-        <div class="panel panel-default">
-            <div class="panel-heading">{{user.givenName}}'s Motivations & Interviewer Comments</div>
-            <div class="panel-body">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{user.givenName}}'s Motivations & Interviewer Comments</div>
+                    <div class="panel-body">
 
-                <div *ngFor="let result of user.testResults">
-                    <div *ngIf="result.isMotivation">
-                        <applicant-video [testResult]="result"
-                                         [id]="user.id"></applicant-video>
+                        <div *ngFor="let result of user.testResults">
+                            <div *ngIf="result.isMotivation">
+                                <applicant-video [testResult]="result" [id]="user.id"></applicant-video>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+            </div>
 
-                <!--todo-->
-                <!--<div class="row" *ngIf="user.screeningSteps && user.screeningSteps.length > 0">-->
-                    <!--<applicant-screening [user]="user"></applicant-screening>-->
-                <!--</div>-->
+        </div>
 
-                <!--<hr *ngIf="user.screeningSteps && user.screeningSteps.length > 0"/>-->
-
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{user.givenName}}'s Motivations & Interviewer Comments</div>
+                    <div class="panel-body">
+                        <applicant-screening *ngIf="user.screeningSteps && user.screeningSteps.length > 0" [user]="user"></applicant-screening>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
 </div>
+
+
+<!--todo-->

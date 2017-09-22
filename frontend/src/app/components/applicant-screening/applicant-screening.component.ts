@@ -9,6 +9,7 @@ import {HttpClient} from "../../_httpclient/httpclient";
 @Component({
     moduleId: module.id,
     templateUrl: 'applicant-screening.component.html',
+    styleUrls: ['applicant-screening.component.css'],
     selector: 'applicant-screening'
 })
 export class ApplicantScreeningComponent {

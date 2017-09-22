@@ -1,21 +1,18 @@
 <div *ngIf="user">
-    <div class="col-sm-3">
-        <div *ngIf="user.finalResult === undefined">
-            <h2>Final result</h2>
-            <h4 *ngIf="user.finalResult === undefined || user.finalResult === true">
-                <a (click)="setFinalResult(true)" class="text-success">
-                    <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Accept
-                </a>
-            </h4>
-            <h4>
-                <a (click)="setFinalResult(false)" class="text-danger">
-                    <i class="fa fa-times" aria-hidden="true"></i>&nbsp;Decline
-                </a>
-            </h4>
-        </div>
-    </div>
 
-    <div class="col-sm-9">
+        <div *ngIf="!user.finalResult" class="well">
+            <p><strong>Decide on the final result</strong></p>
+
+                <a *ngIf="user.finalResult === undefined || user.finalResult === true"
+                   (click)="setFinalResult(true)"
+                   class="btn btn-success btn-xs final-btn"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Accept the applicant
+                </a>
+                <a (click)="setFinalResult(false)" class="btn btn-danger btn-xs final-btn">
+                    <i class="fa fa-times" aria-hidden="true"></i>&nbsp;No way, decline this application
+                </a>
+        </div>
+
+
         <div class="panel {{ getClass(step) }}" *ngFor="let step of user.screeningSteps">
             <div class="panel-heading">
                 <h3 class="panel-title">{{ step.stepName }}&nbsp;
@@ -65,6 +62,5 @@
                 </div>
             </div>
         </div>
-    </div>
 
 </div>
