@@ -13,7 +13,6 @@ export class ApplicantTestComponent implements OnInit {
     x = '5';
 
     ngOnInit(): void {
-        console.log('TR: ', this.testResult);
     }
 
     getPanelClass(): string {

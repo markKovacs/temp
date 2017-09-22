@@ -11,6 +11,7 @@
 }
 
 .comments {
+    display: block;
     font-size: 12px;
 }
 

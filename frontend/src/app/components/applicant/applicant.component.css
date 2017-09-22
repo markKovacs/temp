@@ -4,6 +4,14 @@
   padding: 0 0 15px 0;
 }
 
+.borderless td, .borderless th {
+  border: none;
+}
+
+.time-well {
+  line-height: 36px;
+}
+
 .applicant-profile {
   border: 1px solid #999;
   border-radius: 3px;

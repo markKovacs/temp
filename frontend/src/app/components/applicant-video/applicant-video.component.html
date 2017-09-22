@@ -1,29 +1,25 @@
 <div *ngIf="testResult">
 
-        <div *ngIf="isVideo()" class="row text-center">
-            <iframe
-                    class="e2e-iframe-trusted-src" width="640" height="360" [src]="getMotivationVideo()">
-            </iframe>
-        </div>
-        <div class="row form" *ngIf="!isVideo()">
 
-            <div class="form-group">
-                <label for="content" class="col-sm-2 control-label">Submitted motivation text</label>
-                <div class="col-sm-10">
-                    <textarea
-                            rows="5" cols="60"
-                            class="form-control"
-                            [(ngModel)]="testResult.answer"
-                            id="content"
-                            disabled
-                    >
+
+        <div class="well">
+            <div [innerHTML]="parseTestResultAnswer()"></div>
+        </div>
+
+        <div>
+            <textarea
+                    rows="5"
+                    class="form-control"
+                    (blur)="updateComment($event.target.value)"
+                    id="comment"
+                    placeholder="You can give some comment here, the applicant won't see this ever."
+                    [disabled]="testResult.passed !== undefined"
+                    [(ngModel)]="testResult.comment">
                     </textarea>
-                </div>
-            </div>
-
         </div>
 
-        <hr />
+
+
 
         <div class="row form">
 
@@ -42,16 +38,7 @@
                     </h4>
                 </div>
                 <div class="col-sm-10">
-                    <textarea
-                            rows="5" cols="60"
-                            class="form-control"
-                            (blur)="updateComment($event.target.value)"
-                            id="comment"
-                            placeholder="You can give some comment here, the applicant won't see this ever."
-                            [disabled]="testResult.passed !== undefined"
-                            [(ngModel)]="testResult.comment"
-                    >
-                    </textarea>
+
                     <button class="btn btn-success" (click)="saveComment()">Save</button>
                 </div>
             </div>
