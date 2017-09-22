@@ -1,10 +1,8 @@
-import {Component, Input} from "@angular/core";
-import {ScreeningService} from "../../_services/screening.service";
-import {Router} from "@angular/router";
-import {GlobalEventsManager} from "../../global.eventsmanager";
-import {UserScreeningDisplayModel} from "../../_models/user-screening-display.model";
-import {User} from "../../_models/index";
-import {HttpClient} from "../../_httpclient/httpclient";
+import {Component, Input} from '@angular/core';
+import {Router} from '@angular/router';
+import {GlobalEventsManager} from '../../global.eventsmanager';
+import {User} from '../../_models/index';
+import {HttpClient} from '../../_httpclient/httpclient';
 
 @Component({
     moduleId: module.id,
@@ -24,37 +22,37 @@ export class ApplicantScreeningComponent {
     }
 
     getClass(step: any){
-        if(step.status === 'maybe'){
-            return "panel-warning";
+        if (step.status === 'maybe'){
+            return 'panel-warning';
         }
-        if(step.status === 'no'){
-            return "panel-danger";
+        if (step.status === 'no'){
+            return 'panel-danger';
         }
-        if(step.status === 'yes'){
-            return "panel-success";
+        if (step.status === 'yes'){
+            return 'panel-success';
         }
         return 'panel-default';
     }
 
     setFinalResult(bool){
 
-        if(this.user.finalResult !== undefined){
+        if (this.user.finalResult !== undefined){
             return;
         }
 
         this.user.finalResult = bool;
 
-        let data = {
+        const data = {
             id: this.user.id,
             accepted: bool
         };
 
-        this.client.post("/api/setfinalresult", data).subscribe(
+        this.client.post('/api/setfinalresult', data).subscribe(
             (response: any) => this.messages.push(
                 {
                     severity: 'success',
                     summary: 'Final result set',
-                    detail: this.user.givenName + " " + this.user.familyName
+                    detail: this.user.givenName + ' ' + this.user.familyName
                 }
             ),
             (error) => this.messages.push(

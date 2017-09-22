@@ -2,25 +2,19 @@
 
         <div *ngIf="!user.finalResult" class="well">
             <p><strong>Decide on the final result</strong></p>
-
-                <a *ngIf="user.finalResult === undefined || user.finalResult === true"
-                   (click)="setFinalResult(true)"
-                   class="btn btn-success btn-xs final-btn"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Accept the applicant
-                </a>
-                <a (click)="setFinalResult(false)" class="btn btn-danger btn-xs final-btn">
-                    <i class="fa fa-times" aria-hidden="true"></i>&nbsp;No way, decline this application
-                </a>
+            <a (click)="setFinalResult(true)" class="btn btn-success btn-xs final-btn"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Accept the applicant</a>
+            <a (click)="setFinalResult(false)" class="btn btn-danger btn-xs final-btn"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Decline</a>
         </div>
 
 
         <div class="panel {{ getClass(step) }}" *ngFor="let step of user.screeningSteps">
             <div class="panel-heading">
                 <h3 class="panel-title">{{ step.stepName }}&nbsp;
-                    <small>
-                        <i class="fa fa-check" aria-hidden="true" *ngIf="step.status === 'yes'">&nbsp;Yes</i>
-                        <i class="fa fa-question" aria-hidden="true" *ngIf="step.status === 'maybe'">&nbsp;Maybe</i>
-                        <i class="fa fa-ban" aria-hidden="true" *ngIf="step.status === 'no'">&nbsp;No</i>
-                    </small>
+
+                        <i class="fa fa-check" aria-hidden="true" *ngIf="step.status === 'yes'"></i>
+                        <i class="fa fa-question" aria-hidden="true" *ngIf="step.status === 'maybe'"></i>
+                        <i class="fa fa-ban" aria-hidden="true" *ngIf="step.status === 'no'"></i>
+                    
                 </h3>
             </div>
             <div class="panel-body">
