@@ -1,4 +1,54 @@
-.custom {
-    background-color: transparent;
+.navbar-default {
+    background-color: black;
     border: 0;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.66);
+}
+
+.container {
+    background-color: black;
+    margin-top: 0;
+    box-shadow: none;
+    margin-bottom: 0;
+}
+
+.navbar-default .navbar-brand {
+    color: white;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: black;
+    background-color: white;
+}
+
+.navbar-default .navbar-brand:focus {
+    color: #d9534f;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    background-color: white;
+    color: black;
+}
+
+.navbar-default .navbar-nav > li > a:focus {
+    color: #d9534f;
+}
+
+
+.navbar-text a {
+    color: white;
+}
+
+.dropdown-menu {
+    margin-top: -5px;
+    background-color: black;
+    color: white;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.66);
+}
+
+.dropdown-item {
+    color: white;
 }

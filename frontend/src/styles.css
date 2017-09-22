@@ -10,13 +10,15 @@ body {
   padding: 0;
   background-color: #4789ad;
   background-image: url("assets/background_cc_blue.png");
+  background-attachment: fixed;
 }
 
 .container {
+  margin-top: 75px;
   background-color: white;
-  height: 100%;
-  border-left: 3px solid #7c8084;
-  border-right: 3px solid #7c8084;
+  border-radius: 5px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.66);
+  margin-bottom: 40px;
 }
 
 hr {
