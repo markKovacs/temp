@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
 @Slf4j
+@RestController
 @RequestMapping(value = "/api/dashboard")
 public class DashboardRestController {
 
@@ -33,7 +33,5 @@ public class DashboardRestController {
     public List<ScreeningDTO> scheduledScreenings(@RequestParam("location") String locationId) throws Exception{
         return screeningService.find(locationId, null);
     }
-
-    //  TODO: /api/motivation/evaluate POST( adminId, bool)
 
 }

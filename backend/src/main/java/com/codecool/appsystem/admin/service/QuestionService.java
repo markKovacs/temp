@@ -30,9 +30,8 @@ public class QuestionService {
     private LocationRepository locationRepository;
 
     public void saveTest(Question question) throws JsonProcessingException {
+
         ObjectMapper mapper = new ObjectMapper();
-
-
 
         Test test = new Test();
         test.setId(question.getId());
@@ -53,7 +52,7 @@ public class QuestionService {
         testRepository.save(test);
     }
 
-    public void saveCorrectAnswers(Question question){
+    public void saveCorrectAnswers(Question question) {
 
         for (QuestionContent questionContent : question.getQuestions()) {
 
@@ -62,14 +61,15 @@ public class QuestionService {
                 List<TestAnswer> existingAnswers = testAnswerRepository.findByQuestionIdOrderByCorrectAnswerAsc(questionContent.getId());
                 testAnswerRepository.delete(existingAnswers);
 
-                if (questionOption.getIsCorrect()){
+                if (questionOption.getIsCorrect()) {
                     TestAnswer testAnswer = new TestAnswer();
                     testAnswer.setQuestionId(questionContent.getId());
                     testAnswer.setCorrectAnswer(questionOption.getId());
 
                     testAnswerRepository.save(testAnswer);
                 }
-                    questionOption.setIsCorrect(null);
+                // null out the isCorrect flag.
+                questionOption.setIsCorrect(null);
             }
         }
     }
@@ -87,15 +87,15 @@ public class QuestionService {
         return addCorrectAnswerToQuestions(questions);
     }
 
-    private  List<Question> addCorrectAnswerToQuestions(List<Question> questions){
+    private List<Question> addCorrectAnswerToQuestions(List<Question> questions) {
 
         for (Question question : questions) {
             for (QuestionContent qComponent : question.getQuestions()) {
                 List<String> testAnswerOptionId = testAnswerRepository.findByQuestionIdOrderByCorrectAnswerAsc(qComponent.getId()).stream().map(TestAnswer::getCorrectAnswer).collect(Collectors.toList());
                 for (QuestionOption qOption : qComponent.getOptions()) {
-                    if (testAnswerOptionId.contains(qOption.getId())){
+                    if (testAnswerOptionId.contains(qOption.getId())) {
                         qOption.setIsCorrect(true);
-                    } else{
+                    } else {
                         qOption.setIsCorrect(false);
                     }
                 }
@@ -104,7 +104,7 @@ public class QuestionService {
         return questions;
     }
 
-    public TestDTO createQuestionDTO(Test test, Question question){
+    public TestDTO createQuestionDTO(Test test, Question question) {
 
         return TestDTO.builder()
                 .description(test.getDescription())
@@ -113,7 +113,7 @@ public class QuestionService {
                 .locationId(test.getLocation().getId())
                 .id(test.getId())
                 .maxPoints(test.getMaxPoints())
-                .motivationVideo((test.getMotivationVideo() != null) ? test.getMotivationVideo(): false)
+                .motivationVideo((test.getMotivationVideo() != null) ? test.getMotivationVideo() : false)
                 .name(test.getName())
                 .orderInBundle(test.getOrderInBundle())
                 .threshold(test.getThreshold())

@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -49,9 +47,5 @@ public class TestResult {
     private String savedAnswers;
 
     private String comment;
-
-    @OneToMany(mappedBy = "application")
-    @OrderBy("started")
-    private List<TestResult> testResults = new ArrayList<>();
 
 }

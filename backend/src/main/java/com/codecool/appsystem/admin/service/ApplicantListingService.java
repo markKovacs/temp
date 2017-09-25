@@ -49,7 +49,7 @@ public class ApplicantListingService {
                 .id(user.getId())
                 .blacklisted(user.getIsBlacklisted())
                 .location(user.getLocationId())
-                .attempts(getAttempts(user))
+                .attempts(getTimesApplied(user))
                 .status(getStatus(user))
                 .processStartedAt(getProcesssStartedAt(user))
                 .email(user.getEmail())
@@ -105,17 +105,21 @@ public class ApplicantListingService {
             return "Final result: N";
         }
 
+        // if the test is still pending
+        if(lastPassed.getFinished() == null){
+sdfsg
+        }
+
         return test.getName();
 
     }
 
-
-    /**
-     * Counts all the application for the given user.
-     * @param user
-     * @return no. of applications in total
-     */
-    private long getAttempts(User user) {
-        return applicationRepository.countByApplicantId(user.getId());
+    private int getTimesApplied(User user){
+        int val = user.getPastApplications().size();
+        if(user.getApplication() != null){
+            val++;
+        }
+        return val;
     }
+
 }

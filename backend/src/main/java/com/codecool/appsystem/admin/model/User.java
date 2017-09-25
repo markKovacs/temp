@@ -56,9 +56,6 @@ public class User {
 
     private Boolean isBlacklisted;
 
-    // todo join current application
-    // todo join past applications
-
     @OneToOne(mappedBy = "user")
     @Where(clause = "active = true")
     private Application application;

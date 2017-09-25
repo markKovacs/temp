@@ -1,9 +1,9 @@
 package com.codecool.appsystem.admin.controller;
 
 import com.codecool.appsystem.admin.model.ScreeningStep;
-import com.codecool.appsystem.admin.model.dto.RestResponseDTO;
 import com.codecool.appsystem.admin.service.ScreeningEditService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,10 +19,10 @@ public class ScreeningEditController {
         return screeningEditService.findByLocationId(locationId);
     }
 
+    @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/api/editscreening", method = RequestMethod.POST)
-    public RestResponseDTO saveScreening(@RequestBody List<ScreeningStep> data){
+    public void saveScreening(@RequestBody List<ScreeningStep> data){
         screeningEditService.saveScreening(data);
-        return RestResponseDTO.buildSuccess();
     }
 
 }

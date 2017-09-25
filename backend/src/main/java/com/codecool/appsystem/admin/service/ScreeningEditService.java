@@ -22,9 +22,6 @@ public class ScreeningEditService {
     private UserRepository userRepository;
 
     @Autowired
-    private ApplicationRepository applicationRepository;
-
-    @Autowired
     private ApplicantsScreeningStepRepository applicantsScreeningStepRepository;
 
     @Autowired
@@ -48,15 +45,16 @@ public class ScreeningEditService {
 
     public ScreeningStepEvaluationDTO findForApplicant(Integer id, String stepId){
 
-        User user = userRepository.findOne(id);
-        Application application = user.getApplication();
+        Application application = userRepository.findOne(id).getApplication();
 
         ScreeningStep step = repository.findOne(stepId);
 
-        ApplicantsScreeningStep applicantsScreeningStep = application.getScreeningSteps()
-                .stream()
-                .filter(applicantsScreeningStep1 -> applicantsScreeningStep1.getStep().getId().equals(stepId))
-                .findFirst().get();
+        ApplicantsScreeningStep applicantsScreeningStep =
+                application.getScreeningSteps()
+                    .stream()
+                    .filter(applicantsScreeningStep1 -> applicantsScreeningStep1.getStep().getId().equals(stepId))
+                        .findFirst()
+                        .orElse(null);
 
         if(applicantsScreeningStep == null){
             applicantsScreeningStep = new ApplicantsScreeningStep(step, application);
@@ -78,8 +76,8 @@ public class ScreeningEditService {
 
         return ScreeningStepEvaluationDTO.builder()
                 .screeningStep(applicantsScreeningStep)
-                .name(user.getFullName())
-                .age(LocalDate.now().getYear() - user.getBirthDate())
+                .name(application.getUser().getFullName())
+                .age(LocalDate.now().getYear() - application.getUser().getBirthDate())
                 .build();
 
     }

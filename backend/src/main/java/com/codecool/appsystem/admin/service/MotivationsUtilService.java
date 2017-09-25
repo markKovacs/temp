@@ -22,9 +22,6 @@ public class MotivationsUtilService {
     private TestResultRepository testResultRepository;
 
     @Autowired
-    private ApplicationRepository applicationRepository;
-
-    @Autowired
     private TestRepository testRepo;
 
     @Autowired
@@ -45,7 +42,8 @@ public class MotivationsUtilService {
         }
 
         for (User u: userList) {
-            Application application = applicationRepository.findByApplicantIdAndActiveIsTrue(u.getId());
+
+            Application application = u.getApplication();
 
             if(application == null){
                 continue;
@@ -54,9 +52,10 @@ public class MotivationsUtilService {
             List<TestResult> testResults = application.getTestResults();
 
                 for (TestResult testResult : testResults) {
-                    if(Boolean.TRUE.equals(testResult.getTest().getMotivationVideo()) && testResult.getPassed() == null){
-                        MotivationDTO userMotivation = new MotivationDTO();
 
+                    if(Boolean.TRUE.equals(testResult.getTest().getMotivationVideo()) && testResult.getPassed() == null){
+
+                        MotivationDTO userMotivation = new MotivationDTO();
                         userMotivation.setId(u.getId());
                         userMotivation.setIsVideo(checkMotivationText(testResult.getSavedAnswers()));
                         userMotivation.setName(u.getFullName());
@@ -84,15 +83,13 @@ public class MotivationsUtilService {
 
         Application application = actualTestResult.getApplication();
         User user = application.getUser();
-
         // accepted
         if(Boolean.TRUE.equals(motivationGrade.getPassed())){
 
             ApplicationScreeningInfo screeningInfo = new ApplicationScreeningInfo();
             screeningInfo.setApplication(application);
 
-            Location location = application.getLocation();
-            screeningInfo.setMapLocation(location.getMapLocation());
+            screeningInfo.setMapLocation(application.getLocation().getMapLocation());
 
 
             applicationScreeningInfoRepository.saveAndFlush(screeningInfo);
@@ -105,9 +102,9 @@ public class MotivationsUtilService {
             emailService.sendMotivationFailed(user);
         }
 
-        // in other cases, just the comment got saved.s
+        // in other cases, just the comment got saved.
 
-        testResultRepository.save(actualTestResult);
+        testResultRepository.saveAndFlush(actualTestResult);
     }
 
 

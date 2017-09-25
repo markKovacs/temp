@@ -31,8 +31,6 @@ public class Application {
     @JoinColumn(name = "application_id", referencedColumnName = "id")
     private User user;
 
-
-
     @ManyToOne
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;

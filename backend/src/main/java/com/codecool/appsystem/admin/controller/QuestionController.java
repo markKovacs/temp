@@ -4,12 +4,12 @@ package com.codecool.appsystem.admin.controller;
 import com.codecool.appsystem.admin.model.Question;
 import com.codecool.appsystem.admin.model.Test;
 import com.codecool.appsystem.admin.model.dto.TestDTO;
-import com.codecool.appsystem.admin.model.dto.RestResponseDTO;
 import com.codecool.appsystem.admin.repository.TestRepository;
 import com.codecool.appsystem.admin.service.QuestionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -27,14 +27,13 @@ public class QuestionController {
     @Autowired
     private TestRepository testRepository;
 
+    @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public RestResponseDTO applicantsByLocation(@RequestBody Question question) throws JsonProcessingException {
+    public void applicantsByLocation(@RequestBody Question question) throws JsonProcessingException {
 
         log.info("new Survey Arrived: " + question);
         questionService.saveCorrectAnswers(question);
         questionService.saveTest(question);
-
-        return RestResponseDTO.buildSuccess();
 
     }
 

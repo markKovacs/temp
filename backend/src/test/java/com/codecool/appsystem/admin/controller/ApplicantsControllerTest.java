@@ -3,9 +3,9 @@ package com.codecool.appsystem.admin.controller;
 
 import com.codecool.MockData;
 import com.codecool.appsystem.admin.model.dto.ApplicantInfoDTO;
-import com.codecool.appsystem.admin.model.dto.applicantDetails.ApplicantDetailsDTO;
+import com.codecool.appsystem.admin.model.dto.ApplicantDetailsDTO;
 import com.codecool.appsystem.admin.service.ApplicantListingService;
-import com.codecool.appsystem.admin.service.applicantDetails.ApplicantDetailsService;
+import com.codecool.appsystem.admin.service.ApplicantDetailsService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

@@ -25,17 +25,24 @@ public class Location {
 
     private String name;
 
+    private String country;
+
     @JsonIgnore
     private String courseType;
 
+    @JsonIgnore
     private String mapLocation;
 
+    @JsonIgnore
     private String emailAddress;
 
+    @JsonIgnore
     private String subjectPrefix;
 
+    @JsonIgnore
     private String nextCourseStart;
 
+    @JsonIgnore
     private String address;
 
     @OneToMany(mappedBy = "location")
@@ -43,6 +50,7 @@ public class Location {
     @JsonIgnore
     private List<Test> tests = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "location")
     @OrderBy("order")
     private List<EmailTemplate> emailTemplates = new ArrayList<>();

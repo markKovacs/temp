@@ -1,10 +1,11 @@
 package com.codecool.appsystem.admin.controller;
 
+import com.codecool.appsystem.admin.model.dto.ApplicantDetailsDTO;
 import com.codecool.appsystem.admin.model.dto.ApplicantInfoDTO;
-import com.codecool.appsystem.admin.model.dto.applicantDetails.ApplicantDetailsDTO;
+import com.codecool.appsystem.admin.service.ApplicantDetailsService;
 import com.codecool.appsystem.admin.service.ApplicantListingService;
-import com.codecool.appsystem.admin.service.applicantDetails.ApplicantDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,9 +31,10 @@ public class ApplicantsController {
         return detailsService.provideInfo(id);
     }
 
+    @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/{id}/savedate", method = RequestMethod.POST)
-    public ApplicantDetailsDTO getSingleApplicantInfo(
+    public void saveDate(
             @PathVariable("id") Integer id, @RequestBody Map<String, Long> data) {
-        return detailsService.saveDates(id, data);
+        detailsService.saveDates(id, data);
     }
 }
