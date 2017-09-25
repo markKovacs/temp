@@ -22,7 +22,7 @@ export class ApplicantsComponent {
         this.client.get("/api/applicants?location="+id).subscribe(
             (users: Applicant[]) => this.users = users,
             (error) => console.log(error),
-            () => console.log("users fetched for applicant list", this.users)
+            () => console.log("candidates fetched for applicant list", this.users)
         );
     }
 

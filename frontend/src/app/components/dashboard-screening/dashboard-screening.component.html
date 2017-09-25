@@ -1,14 +1,18 @@
 <div>
-    <table class="table" *ngIf="users && users.length > 0">
+    <table class="table table-striped table-bordered" *ngIf="users && users.length > 0">
         <tr>
-            <th>Name</th>
-            <th>Group time</th>
-            <th>Personal time</th>
-            <th>Signed back</th>
+            <th>Applicant Name</th>
+            <th>Assigned Group Time</th>
+            <th>Assigned Personal Time</th>
+            <th>Signed Back</th>
             <th></th>
         </tr>
-        <tr *ngFor="let user of users">
-            <td>{{ user.name }}</td>
+        <tr *ngFor="let user of users"
+            [style.background-color] = "!user.scheduleSignedBack ? '#d9534f' : '#5cb85c'"
+            [style.color] = "!user.scheduleSignedBack ? '#fff' : '#fff'">
+            <td>
+                {{ user.name }}
+            </td>
             <td>
                 <p *ngIf="user.groupTime">
                 {{ user.groupTime | date: 'yyyy.MM.dd. HH:mm' }}
@@ -26,15 +30,20 @@
                 </p>
             </td>
             <td>
-                <p *ngIf="user.scheduleSignedBack === true" class="text-success">
-                    <i class="fa fa-check" aria-hidden="true"></i>
+                <p *ngIf="user.scheduleSignedBack === true">
+                    Coming
                 </p>
                 <p *ngIf="!user.scheduleSignedBack">
-                    <i class="fa fa-question" aria-hidden="true"></i>
+                    Not Signed Back
                 </p>
             </td>
-            <td><a (onClick)="navigate(user)"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+            <td>
+                <button class="btn btn-warning btn-xs btn-block" (click)="navigate(user)">Profile</button>
+            </td>
         </tr>
     </table>
-    <h3 class="text-success" *ngIf="!users || users.length === 0">There are no screening tasks, hurray!</h3>
+    <!--<h3 class="text-success" >There are no screening tasks, hurray!</h3>-->
+    <div *ngIf="!users || users.length === 0">
+        <i class="fa fa-smile-o" aria-hidden="true"></i> All caught up! There are no screenings to schedule.
+    </div>
 </div>

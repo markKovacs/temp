@@ -61,6 +61,13 @@ export class ApplicantComponent {
             )
     }
 
+    calculateage(year): string {
+        if (year) {
+            return (new Date().getFullYear() - year).toString();
+        }
+        return 'unable to calculate age';
+    }
+
     getDate(date: number){
         return new Date(date);
     }

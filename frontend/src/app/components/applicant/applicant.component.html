@@ -3,119 +3,88 @@
         <i class="material-icons md-240 applicant-loading">cloud_download</i>
     </div>
     <div *ngIf="user">
+        <br>
+
         <div class="row">
-            <div class="col-sm-12 col-md-7 col-lg-7">
-                <div *ngFor="let result of application.testResults">
-                    <div *ngIf="result.isMotivation">
-                        <applicant-video [testResult]="result"
-                                         [id]="user.id"></applicant-video>
+
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Applicant Info</div>
+                    <div class="panel-body">
+                        <div class="name">
+                            {{user.givenName}} {{user.familyName}}
+                            <hr style="margin-bottom: 0; margin-top: 5px; color: rgb(245,245,245); height: 1px;">
+                        </div>
+
+                        <i class="fa fa-envelope" aria-hidden="true"></i> {{user.email}} <br>
+                        <i class="fa fa-phone-square" aria-hidden="true"></i> {{user.phoneNumber}} <br>
+                        <i class="fa fa-calendar" aria-hidden="true"></i> {{calculateage(user.dateOfBirth)}} years old<br>
+                        <i class="fa fa-retweet" aria-hidden="true"></i> applied {{user.timesApplied}} times<br>
+                        <i class="fa fa-play-circle" aria-hidden="true"></i> process started at {{user.processStartedAt | date: 'yyyy.MM.dd. HH:mm'}} <br>
+                        <i class="fa fa-comment" aria-hidden="true" *ngIf="user.comment"></i> {{user.comment}}
+
+                        <br>
+
+                        <applicant-test *ngFor="let result of user.testResults.reverse()" [testResult]="result"></applicant-test>
+
+                        <br>
+
+                        <div class="well clearfix">
+                            <span class="time-well">Group Time</span>
+                            <p-calendar class="pull-right"
+                                        [(ngModel)]="user.screeningGroupTime"
+                                        showTime="showTime"
+                                        dateFormat="yy.mm.dd."
+                                        hourFormat="24">
+                            </p-calendar>
+                        </div>
+
+                        <div class="well clearfix">
+                            <span class="time-well">Personal Time</span>
+                            <p-calendar class="pull-right"
+                                        [(ngModel)]="user.screeningPersonalTime"
+                                        showTime="showTime"
+                                        dateFormat="yy.mm.dd."
+                                        hourFormat="24">
+                            </p-calendar>
+                        </div>
+
+                        <a (click)="save()" class="btn btn-danger btn-xs btn-block">Save Group & Personal Time</a> <br>
+
                     </div>
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-5 col-log-5">
-                <h3>APPLICANT&nbsp;<small>OVERVIEW</small>
-                </h3>
-                <br/>
-                <div>
-                    <div class="col-sm-6">
-                        <h4>
-                            <small>Name</small>
-                        </h4>
-                    </div>
-                    <div class="col-sm-6">
-                        <h4>{{user.givenName}} {{user.familyName}}</h4>
-                    </div>
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{user.givenName}}'s Motivations & Interviewer Comments</div>
+                    <div class="panel-body">
 
-                    <div class="col-sm-6">
-                        <h4>
-                            <small>Phone number</small>
-                        </h4>
-                    </div>
-                    <div class="col-sm-6">
-                        <h4>{{user.phoneNumber}}</h4>
-                    </div>
+                        <div *ngFor="let result of user.testResults">
+                            <div *ngIf="result.isMotivation">
+                                <applicant-video [testResult]="result" [id]="user.id"></applicant-video>
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
+            </div>
 
-                    <div class="col-sm-6">
-                        <h4>
-                            <small>Email</small>
-                        </h4>
-                    </div>
-                    <div class="col-sm-6">
-                        <h4>{{user.email}}</h4>
-                    </div>
+        </div>
 
-                    <div class="col-sm-6">
-                        <h4>
-                            <small>Date of birth</small>
-                        </h4>
-                    </div>
-                    <div class="col-sm-6">
-                        <h4>{{user.dateOfBirth}}</h4>
-                    </div>
-                    <div class="col-sm-6">
-                        <h4>
-                            <small>Times applied</small>
-                        </h4>
-                    </div>
-                    <div class="col-sm-6">
-                        <h4>{{user.timesApplied}}</h4>
-                    </div>
-                    <div class="row" style="margin-left:0;margin-right:0" *ngIf="hasSuccessMotivation()">
-                        <div class="col-sm-6">
-                            <h4>
-                                <small>Group time</small>
-                            </h4>
-                        </div>
-                        <div class="col-sm-4">
-                            <p-calendar
-                                    [(ngModel)]="user.screeningGroupTime"
-                                    showTime="showTime"
-                                    dateFormat="yy.mm.dd."
-                                    hourFormat="24">
-                            </p-calendar>
-                        </div>
-                        <div class="col-sm-2">
-                            <a (click)="save()"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-left:0;margin-right:0" *ngIf="hasSuccessMotivation()">
-                        <div class="col-sm-6">
-                            <h4>
-                                <small>Personal time</small>
-                            </h4>
-                        </div>
-                        <div class="col-sm-4">
-                            <p-calendar
-                                    [(ngModel)]="user.screeningPersonalTime"
-                                    showTime="showTime"
-                                    dateFormat="yy.mm.dd."
-                                    hourFormat="24">
-                            </p-calendar>
-                        </div>
-                        <div class="col-sm-2 pull-right">
-                            <a (click)="save()"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-sm-12" *ngIf="user.comment">
-                        <h4>
-                            <strong class="text-danger">{{user.comment}}</strong>
-                        </h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{user.givenName}}'s Motivations & Interviewer Comments</div>
+                    <div class="panel-body">
+                        <applicant-screening *ngIf="user.screeningSteps && user.screeningSteps.length > 0" [user]="user"></applicant-screening>
                     </div>
                 </div>
             </div>
         </div>
-        <hr/>
 
-        <div class="row" *ngIf="user.screeningSteps && user.screeningSteps.length > 0">
-            <applicant-screening [user]="user"></applicant-screening>
-        </div>
-
-        <hr *ngIf="user.screeningSteps && user.screeningSteps.length > 0"/>
-
-        <div class="row">
-            <applicant-test *ngFor="let result of user.testResults" [testResult]="result"></applicant-test>
-        </div>
     </div>
 </div>
+
+
+<!--todo-->

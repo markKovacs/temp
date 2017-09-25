@@ -1,13 +1,24 @@
 @charset "UTF-8";
 
-/* Code below applies from 0px to 600px and considered as default (mobile first approach) */
-html, body {
-  margin: 0;
+html {
   height: 100%;
 }
 
 body {
-  background-color: lightgray;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #4789ad;
+  background-image: url("assets/background_cc_blue.png");
+  background-attachment: fixed;
+}
+
+.container {
+  margin-top: 75px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.66);
+  margin-bottom: 40px;
 }
 
 hr {

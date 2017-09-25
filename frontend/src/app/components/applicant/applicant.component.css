@@ -1,7 +1,12 @@
-.container {
-  padding-top: 65px;
-  background-color: white;
-  min-height: 500px;
+.name {
+  font-size: 30px;
+  font-weight: bold;
+  padding: 0 0 15px 0;
+}
+
+
+.time-well {
+  line-height: 36px;
 }
 
 .applicant-profile {
