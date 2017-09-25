@@ -1,4 +1,4 @@
-package com.codecool.appsystem.admin.service.applicantDetails;
+package com.codecool.appsystem.admin.service;
 
 
 import com.codecool.MockData;
@@ -7,7 +7,6 @@ import com.codecool.appsystem.admin.model.ApplicationScreeningInfo;
 import com.codecool.appsystem.admin.model.dto.ApplicantDetailsDTO;
 import com.codecool.appsystem.admin.model.dto.TestResultDTO;
 import com.codecool.appsystem.admin.repository.*;
-import com.codecool.appsystem.admin.service.ApplicantDetailsService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -43,7 +42,7 @@ public class ApplicantDetailsServiceTest extends MockData {
     private List<ApplicantsScreeningStep> mockApplicantsScreeningSteps = new ArrayList<>();
     private ApplicantsScreeningStep mockApplicantsScreeningStep = new ApplicantsScreeningStep();
     private ApplicationScreeningInfo mockApplicationScreeningInfo = new ApplicationScreeningInfo();
-    private ApplicantDetailsDTO mockApplicantDetailsDTO = new ApplicantDetailsDTO();
+    private ApplicantDetailsDTO mockApplicantDetailsDTO = ApplicantDetailsDTO.builder().build();
 
 
 
@@ -54,14 +53,15 @@ public class ApplicantDetailsServiceTest extends MockData {
 
         mockApplicantsScreeningStep.setPoints(100);
         mockApplicantsScreeningStep.setId("1");
-        mockApplicantsScreeningStep.setApplicationId("asd@gmail.com");
+        mockApplicantsScreeningStep.setApplication(application);
         mockApplicantsScreeningStep.setInterviewer("interviewer");
 
         mockApplicantsScreeningSteps.add(mockApplicantsScreeningStep);
-        TestResultDTO mockTestResultDTO = new TestResultDTO();
+        TestResultDTO mockTestResultDTO = TestResultDTO.builder().build();
         mockTestResultDTO.setId("0");
         mockTestResultDTO.setPassed(true);
-        mockTestResultDTO.setPercent(100);
+        mockTestResultDTO.setPercent(100d);
+        mockTestResultDTO.setPercent(100d);
         mockTestResultDTO.setName("Test Mock");
         mockTestResultDTO.setIsPending(false);
         mockTestResultDTO.setAnswer("bla blabla");
@@ -71,11 +71,12 @@ public class ApplicantDetailsServiceTest extends MockData {
         mockApplicantDetailsDTO.setDateOfBirth(1991);
         mockApplicantDetailsDTO.setGivenName("Doe");
         mockApplicantDetailsDTO.setFamilyName("John");
-        mockApplicantDetailsDTO.setTimesApplied(0L);
-        //mockApplicantDetailsDTO.setScreeningSteps(mockApplicantsScreeningSteps);
-        mockApplicantDetailsDTO.setTestResults(Arrays.asList(mockTestResultDTO));
+        mockApplicantDetailsDTO.setTimesApplied(0);
 
-        mockApplicationScreeningInfo.setApplicationId("asd@gmail.com");
+        //mockApplicantDetailsDTO.setScreeningSteps(mockApplicantsScreeningSteps);
+
+
+        mockApplicationScreeningInfo.setApplication(application);
         mockApplicationScreeningInfo.setId("1");
         mockApplicationScreeningInfo.setMapLocation("map");
 
@@ -85,13 +86,10 @@ public class ApplicantDetailsServiceTest extends MockData {
     public void provideInfo(){
 
         when(userRepo.findOne(user.getId())).thenReturn(user);
-        when(applicationRepo.findByApplicantIdAndActiveIsTrue(user.getId())).thenReturn(application);
 
         when(applicantsScreeningStepRepository.findByApplicationId(application.getId())).thenReturn(mockApplicantsScreeningSteps);
-        when(appScrInfoRepo.findByApplicationId(application.getId())).thenReturn(mockApplicationScreeningInfo);
 
         when(testResultRepository.findByApplicationId(application.getId())).thenReturn(Arrays.asList(testResult));
-        when(testRepository.findOne(testResult.getTestId())).thenReturn(test2);
 
         ApplicantDetailsDTO result = applicantDetailsService.provideInfo(1);
 

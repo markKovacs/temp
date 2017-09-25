@@ -24,5 +24,5 @@ public class ApplicantDetailsDTO {
 
     // info about applications
     // the first one is always the most recent one
-    List<ApplicationInfoDTO> applications = new ArrayList<>();
+    private List<ApplicationInfoDTO> applications = new ArrayList<>();
 }

@@ -1,6 +1,8 @@
 package com.codecool.appsystem.admin.model;
 
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,7 +24,8 @@ public class ScreeningStep {
 
     private Boolean enabled = Boolean.TRUE;
 
-    @OneToMany(mappedBy = "screeningStepId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<ScreeningStepCriteria> criterias;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "screeningStepId", cascade = CascadeType.ALL)
+    private List<ScreeningStepCriteria> criteria;
 
 }

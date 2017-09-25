@@ -37,11 +37,11 @@ export class ApplicantScreeningComponent {
 
     setFinalResult(bool){
 
-        if(this.user.finalResult !== undefined){
+        if(this.user.applications[0].finalResult !== undefined){
             return;
         }
 
-        this.user.finalResult = bool;
+        this.user.applications[0].finalResult = bool;
 
         let data = {
             id: this.user.id,

@@ -1,5 +1,6 @@
 package com.codecool.appsystem.admin.controller;
 
+import com.codecool.MockData;
 import com.codecool.appsystem.admin.model.ApplicantsScreeningStep;
 import com.codecool.appsystem.admin.model.ScreeningGrade;
 import com.codecool.appsystem.admin.model.ScreeningStep;
@@ -23,12 +24,11 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class ScreeningStepsControllerTest {
+public class ScreeningStepsControllerTest extends MockData{
     @Mock
     private ScreeningEditService screeningEditService;
 
@@ -55,16 +55,16 @@ public class ScreeningStepsControllerTest {
         mockScreeningGrade.setAccepted(true);
         mockScreeningGrade.setId(100);
 
-        mockApplicantsScreeningStep.setApplicationId("email@gmail.com");
+        mockApplicantsScreeningStep.setApplication(application);
         mockApplicantsScreeningStep.setId("2");
         mockApplicantsScreeningStep.setPoints(2);
 
 
         mockScreeningStep.setEnabled(true);
         mockScreeningStep.setId("2");
-        mockScreeningStep.setLocationId("MSC");
+        mockScreeningStep.setLocation(location);
         mockScreeningStep.setName("name2");
-        mockScreeningStep.setCriterias(Arrays.asList(new ScreeningStepCriteria()));
+        mockScreeningStep.setCriteria(Arrays.asList(new ScreeningStepCriteria()));
         mockScreeningSteps.add(mockScreeningStep);
 
         mockScreeningStepEvaluationDTO.setAge(20);
@@ -104,23 +104,21 @@ public class ScreeningStepsControllerTest {
     @Test
     public void saveEvaluation() throws Exception {
 
-        RestResponseDTO result = screeningStepsController.saveEvaluation(mockApplicantsScreeningStep);
+        screeningStepsController.saveEvaluation(mockApplicantsScreeningStep);
 
         verify(screeningEditService, times(1)).saveEvaluation(mockApplicantsScreeningStep);
         verifyNoMoreInteractions(screeningEditService);
 
-        assertEquals(mockRestResponseDTO, result);
     }
 
     @Test
     public void applicantsByLocation() throws Exception {
 
-        RestResponseDTO result = screeningStepsController.applicantsByLocation(mockScreeningGrade);
+        screeningStepsController.applicantsByLocation(mockScreeningGrade);
 
         verify(screeningEvalService, times(1)).gradeScreening(mockScreeningGrade);
         verifyNoMoreInteractions(screeningEvalService);
 
-        assertEquals(mockRestResponseDTO, result);
     }
 
 }

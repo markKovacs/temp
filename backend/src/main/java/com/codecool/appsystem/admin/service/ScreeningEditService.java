@@ -36,7 +36,7 @@ public class ScreeningEditService {
 
     public void saveScreening(List<ScreeningStep> data){
         for(ScreeningStep step : data){
-            for(ScreeningStepCriteria criteria : step.getCriterias()){
+            for(ScreeningStepCriteria criteria : step.getCriteria()){
                 criteria.setScreeningStepId(step.getId());
             }
         }
@@ -61,7 +61,7 @@ public class ScreeningEditService {
 
             applicantsScreeningStep = applicantsScreeningStepRepository.saveAndFlush(applicantsScreeningStep);
 
-            for(ScreeningStepCriteria criteria : step.getCriterias()){
+            for(ScreeningStepCriteria criteria : step.getCriteria()){
 
                 ApplicantsScreeningStepCriteria screeningStepCriteria = new ApplicantsScreeningStepCriteria();
                 screeningStepCriteria.setApplicantsScreeningStepId(applicantsScreeningStep.getId());

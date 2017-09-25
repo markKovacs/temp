@@ -15,7 +15,7 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode
 @Table(name = "applications")
 @AllArgsConstructor
 @Builder
@@ -28,7 +28,7 @@ public class Application {
     private String id = UUID.randomUUID().toString();
 
     @ManyToOne
-    @JoinColumn(name = "application_id", referencedColumnName = "id")
+    @JoinColumn(name = "applicant_id", referencedColumnName = "id")
     private User user;
 
     @ManyToOne

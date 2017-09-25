@@ -29,7 +29,7 @@ public class QuestionController {
 
     @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public void applicantsByLocation(@RequestBody Question question) throws JsonProcessingException {
+    public void saveQuestion(@RequestBody Question question) throws JsonProcessingException {
 
         log.info("new Survey Arrived: " + question);
         questionService.saveCorrectAnswers(question);

@@ -107,7 +107,7 @@ public class ApplicantListingService {
 
         // if the test is still pending
         if(lastPassed.getFinished() == null){
-sdfsg
+            return test.getName() + " in progress";
         }
 
         return test.getName();
@@ -115,7 +115,7 @@ sdfsg
     }
 
     private int getTimesApplied(User user){
-        int val = user.getPastApplications().size();
+        int val = applicationRepository.findByUserAndActiveIsNot(user, true).size();
         if(user.getApplication() != null){
             val++;
         }

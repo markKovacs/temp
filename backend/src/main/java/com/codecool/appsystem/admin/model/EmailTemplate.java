@@ -26,10 +26,13 @@ public class EmailTemplate {
     private Location location;
 
     private String name;
+
     @Column(columnDefinition = "TEXT")
     private String template;
+
     @Column(columnDefinition = "TEXT")
     private String model;
+
     private Boolean master;
 
     private int order;

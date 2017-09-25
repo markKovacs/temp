@@ -6,6 +6,7 @@ import com.codecool.appsystem.admin.model.dto.ApplicationInfoDTO;
 import com.codecool.appsystem.admin.model.dto.CriteriaDTO;
 import com.codecool.appsystem.admin.model.dto.ApplicantDetailsDTO;
 import com.codecool.appsystem.admin.model.dto.TestResultDTO;
+import com.codecool.appsystem.admin.repository.ApplicationRepository;
 import com.codecool.appsystem.admin.repository.ApplicationScreeningInfoRepository;
 import com.codecool.appsystem.admin.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,9 @@ public class ApplicantDetailsService {
     private ApplicationScreeningInfoRepository appScrInfoRepo;
 
     @Autowired
+    private ApplicationRepository applicationRepository;
+
+    @Autowired
     private EmailService emailService;
 
     public ApplicantDetailsDTO provideInfo(Integer id) {
@@ -44,13 +48,17 @@ public class ApplicantDetailsService {
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
                 .timesApplied(getTimesApplied(user))
+                .applications(new ArrayList<>())
                 .build();
 
-        // first one is the active one.
-        result.getApplications().add(getApplicationInfo(user.getApplication()));
+        if(user.getApplication() != null) {
+            result.getApplications().add(getApplicationInfo(user.getApplication()));
+        }
+
+        List<Application> pastApplications = applicationRepository.findByUserAndActiveIsNot(user, true);
 
         // after all the previous applications
-        for(Application app : user.getPastApplications()){
+        for(Application app : pastApplications){
             result.getApplications().add(getApplicationInfo(app));
         }
 
@@ -150,7 +158,7 @@ public class ApplicantDetailsService {
     }
 
     private int getTimesApplied(User user){
-        int val = user.getPastApplications().size();
+        int val = applicationRepository.findByUserAndActiveIsNot(user, true).size();
         if(user.getApplication() != null){
             val++;
         }

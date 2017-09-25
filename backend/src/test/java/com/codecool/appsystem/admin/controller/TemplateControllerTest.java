@@ -1,5 +1,6 @@
 package com.codecool.appsystem.admin.controller;
 
+import com.codecool.MockData;
 import com.codecool.appsystem.admin.model.EmailTemplate;
 import com.codecool.appsystem.admin.model.dto.RestResponseDTO;
 import com.codecool.appsystem.admin.repository.EmailTemplateRepository;
@@ -23,7 +24,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class TemplateControllerTest {
+public class TemplateControllerTest extends MockData {
 
     @Mock
     private EmailTemplateRepository emailTemplateRepository;
@@ -49,7 +50,7 @@ public class TemplateControllerTest {
         mockEmailTemplate.setTemplate("template");
         mockEmailTemplate.setModel("model");
         mockEmailTemplate.setId("1");
-        mockEmailTemplate.setLocationId("BUD");
+        mockEmailTemplate.setLocation(location);
         mockEmailTemplate.setMaster(false);
         mockEmailTemplate.setName("name");
         mockEmailTemplates.add(mockEmailTemplate);

@@ -10,9 +10,7 @@ import org.hibernate.annotations.Where;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @Data
@@ -59,11 +57,6 @@ public class User {
     @OneToOne(mappedBy = "user")
     @Where(clause = "active = true")
     private Application application;
-
-    @OneToMany(mappedBy = "user")
-    @OrderBy("processStatedAt")
-    @Where(clause = "active = false")
-    private List<Application> pastApplications = new ArrayList<>();
 
     @Column(length = 80)
     private String userHash;
