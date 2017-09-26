@@ -53,10 +53,12 @@ public class MotivationsUtilService {
 
                 for (TestResult testResult : testResults) {
 
-                    if(Boolean.TRUE.equals(testResult.getTest().getMotivationVideo()) && testResult.getPassed() == null){
+                    if(testResult.getFinished() != null &&
+                            Boolean.TRUE.equals(testResult.getTest().getMotivationVideo()) && testResult.getPassed() == null){
 
                         MotivationDTO userMotivation = new MotivationDTO();
                         userMotivation.setId(u.getId());
+
                         userMotivation.setIsVideo(checkMotivationText(testResult.getSavedAnswers()));
                         userMotivation.setName(u.getFullName());
 
