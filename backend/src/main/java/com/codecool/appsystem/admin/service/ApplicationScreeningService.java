@@ -40,6 +40,10 @@ public class ApplicationScreeningService {
 
         for(ScreeningTimeAssingmentDTO dto : data){
 
+            if(dto.getTime() == null){
+                continue;
+            }
+
             log.debug("Saving group screening times: {}", dto);
 
             User user = userRepository.findOne(dto.getId());
@@ -71,6 +75,11 @@ public class ApplicationScreeningService {
     public void savePersonalScreeningTime(List<ScreeningTimeAssingmentDTO> data){
 
         for(ScreeningTimeAssingmentDTO dto : data){
+
+            if(dto.getTime() == null){
+                continue;
+            }
+
             // truncate all our saved dates to hh:mm
             Date personalTime = Date.from(
                     Instant.ofEpochMilli(dto.getTime().getTime()).truncatedTo(ChronoUnit.MINUTES)

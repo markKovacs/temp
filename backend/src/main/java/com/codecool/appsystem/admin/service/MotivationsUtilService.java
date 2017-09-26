@@ -6,6 +6,7 @@ import com.codecool.appsystem.admin.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,6 +55,7 @@ public class MotivationsUtilService {
                 for (TestResult testResult : testResults) {
 
                     if(testResult.getFinished() != null &&
+                            !StringUtils.isEmpty(testResult.getSavedAnswers()) &&
                             Boolean.TRUE.equals(testResult.getTest().getMotivationVideo()) && testResult.getPassed() == null){
 
                         MotivationDTO userMotivation = new MotivationDTO();

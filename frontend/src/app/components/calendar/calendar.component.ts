@@ -128,7 +128,7 @@ export class CalendarComponent implements OnInit {
         let missingGroupTimes = false;
 
         for (const u of this.candidates) {
-            if (!u.groupTime) {
+            if (u.personalTime && !u.groupTime) {
                 missingGroupTimes = true;
             }
         }

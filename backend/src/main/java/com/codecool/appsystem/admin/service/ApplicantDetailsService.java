@@ -132,7 +132,10 @@ public class ApplicantDetailsService {
                         .points(testResult.getPoints())
                         .comment(testResult.getComment())
                         .isPending(Boolean.TRUE.equals(testResult.getPassed() == null))
-                        // answer
+                        .answer(
+                                Boolean.TRUE.equals(testResult.getTest().getMotivationVideo()) ?
+                                    testResult.getSavedAnswers() : null
+                        )
                         .isMotivation(testResult.getTest().getMotivationVideo())
                         .started(testResult.getStarted())
                         .submitted(testResult.getFinished())

@@ -7,7 +7,6 @@ import com.codecool.appsystem.admin.model.dto.ScreeningStepEvaluationDTO;
 import com.codecool.appsystem.admin.service.ScreeningEditService;
 import com.codecool.appsystem.admin.service.ScreeningEvalService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,16 +30,16 @@ public class ScreeningStepsController {
         return screeningEditService.findForApplicant(id, stepId);
     }
 
-    @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/api/evalscreening", method = RequestMethod.POST)
-    public void saveEvaluation(@RequestBody ApplicantsScreeningStep data){
+    public boolean saveEvaluation(@RequestBody ApplicantsScreeningStep data){
         screeningEditService.saveEvaluation(data);
+        return true;
     }
 
-    @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/api/setfinalresult", method = RequestMethod.POST)
-    public void applicantsByLocation(@RequestBody ScreeningGrade grade) {
+    public boolean applicantsByLocation(@RequestBody ScreeningGrade grade) {
         screeningEvalService.gradeScreening(grade);
+        return true;
     }
 
 }

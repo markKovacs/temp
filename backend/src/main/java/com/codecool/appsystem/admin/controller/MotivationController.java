@@ -4,8 +4,10 @@ import com.codecool.appsystem.admin.model.MotivationGrade;
 import com.codecool.appsystem.admin.service.MotivationsUtilService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
@@ -16,9 +18,9 @@ public class MotivationController {
     @Autowired
     private MotivationsUtilService motivationsUtilService;
 
-    @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
-    public void applicantsByLocation(@RequestBody MotivationGrade motivationGrade) {
+    public boolean applicantsByLocation(@RequestBody MotivationGrade motivationGrade) {
         motivationsUtilService.gradeMotivation(motivationGrade);
+        return true;
     }
 }

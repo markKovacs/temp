@@ -9,7 +9,6 @@ import com.codecool.appsystem.admin.service.QuestionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -27,14 +26,14 @@ public class QuestionController {
     @Autowired
     private TestRepository testRepository;
 
-    @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public void saveQuestion(@RequestBody Question question) throws JsonProcessingException {
+    public boolean saveQuestion(@RequestBody Question question) throws JsonProcessingException {
 
         log.info("new Survey Arrived: " + question);
         questionService.saveCorrectAnswers(question);
         questionService.saveTest(question);
 
+        return true;
     }
 
     @RequestMapping(value="/{location}", method = RequestMethod.GET)

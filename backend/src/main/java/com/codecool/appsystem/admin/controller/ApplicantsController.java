@@ -5,7 +5,6 @@ import com.codecool.appsystem.admin.model.dto.ApplicantInfoDTO;
 import com.codecool.appsystem.admin.service.ApplicantDetailsService;
 import com.codecool.appsystem.admin.service.ApplicantListingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,10 +30,10 @@ public class ApplicantsController {
         return detailsService.provideInfo(id);
     }
 
-    @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/{id}/savedate", method = RequestMethod.POST)
-    public void saveDate(
+    public boolean saveDate(
             @PathVariable("id") Integer id, @RequestBody Map<String, Long> data) {
         detailsService.saveDates(id, data);
+        return true;
     }
 }
