@@ -1,6 +1,7 @@
 package com.codecool.appsystem.admin.controller;
 
 import com.codecool.appsystem.admin.model.ApplicantsScreeningStep;
+import com.codecool.appsystem.admin.model.Location;
 import com.codecool.appsystem.admin.model.ScreeningStep;
 import com.codecool.appsystem.admin.model.ScreeningStepCriteria;
 import com.codecool.appsystem.admin.model.dto.RestResponseDTO;
@@ -21,12 +22,9 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class ScreeningEditControllerTest {
 
@@ -50,9 +48,9 @@ public class ScreeningEditControllerTest {
 
         mockScreeningStep.setEnabled(true);
         mockScreeningStep.setId("1");
-        mockScreeningStep.setLocationId("BUD");
+        mockScreeningStep.setLocation(new Location());
         mockScreeningStep.setName("name");
-        mockScreeningStep.setCriterias(Arrays.asList(new ScreeningStepCriteria()));
+        mockScreeningStep.setCriteria(Arrays.asList(new ScreeningStepCriteria()));
         mockScreeningSteps.add(mockScreeningStep);
 
         mockScreeningStepEvaluationDTO.setAge(20);
@@ -80,12 +78,11 @@ public class ScreeningEditControllerTest {
     @Test
     public void saveScreening() throws Exception {
 
-        RestResponseDTO result = screeningEditController.saveScreening(mockScreeningSteps);
+        screeningEditController.saveScreening(mockScreeningSteps);
 
         verify(screeningEditService, times(1)).saveScreening(mockScreeningSteps);
         verifyNoMoreInteractions(screeningEditService);
 
-        assertEquals(mockRestResponseDTO, result);
 
     }
 

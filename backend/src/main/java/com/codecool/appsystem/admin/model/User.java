@@ -9,7 +9,9 @@ import lombok.ToString;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Data
@@ -42,8 +44,10 @@ public class User {
 
     private String phoneNumber;
 
-    private boolean canApply;
-    private boolean gmailAccount;
+    private Boolean canApply;
+    private Boolean gmailAccount;
+
+    private Boolean contractSigned;
 
     private String locationId;
 
@@ -51,8 +55,9 @@ public class User {
 
     private Boolean isBlacklisted;
 
-    // todo join current application
-    // todo join past applications
+    @OneToMany(mappedBy = "user")
+    @OrderBy("processStartedAt desc")
+    private List<Application> applications = new ArrayList<>();
 
     @Column(length = 80)
     private String userHash;
@@ -62,6 +67,17 @@ public class User {
             return givenName + " " + middleName + " " + familyName;
         }
         return givenName + " " + familyName;
+    }
+
+    public Application getActiveApplication(){
+
+        for(Application app : applications){
+            if(Boolean.TRUE.equals(app.getActive())){
+                return app;
+            }
+        }
+        return null;
+
     }
 }
 

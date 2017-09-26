@@ -15,7 +15,7 @@ public class ApplicantInfoDTO extends RestResponseDTO {
     private String name;
     private String location;
     private String status;
-    private Long attempts;
+    private Integer attempts;
     private Boolean blacklisted;
     private Date processStartedAt;
     private String email;

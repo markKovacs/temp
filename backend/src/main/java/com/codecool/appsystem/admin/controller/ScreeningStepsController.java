@@ -3,11 +3,11 @@ package com.codecool.appsystem.admin.controller;
 import com.codecool.appsystem.admin.model.ApplicantsScreeningStep;
 import com.codecool.appsystem.admin.model.ScreeningGrade;
 import com.codecool.appsystem.admin.model.ScreeningStep;
-import com.codecool.appsystem.admin.model.dto.RestResponseDTO;
 import com.codecool.appsystem.admin.model.dto.ScreeningStepEvaluationDTO;
 import com.codecool.appsystem.admin.service.ScreeningEditService;
 import com.codecool.appsystem.admin.service.ScreeningEvalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,18 +31,16 @@ public class ScreeningStepsController {
         return screeningEditService.findForApplicant(id, stepId);
     }
 
+    @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/api/evalscreening", method = RequestMethod.POST)
-    public RestResponseDTO saveEvaluation(@RequestBody ApplicantsScreeningStep data){
+    public void saveEvaluation(@RequestBody ApplicantsScreeningStep data){
         screeningEditService.saveEvaluation(data);
-        return RestResponseDTO.buildSuccess();
     }
 
+    @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/api/setfinalresult", method = RequestMethod.POST)
-    public RestResponseDTO applicantsByLocation(@RequestBody ScreeningGrade grade) {
-
+    public void applicantsByLocation(@RequestBody ScreeningGrade grade) {
         screeningEvalService.gradeScreening(grade);
-        return RestResponseDTO.buildSuccess();
-
     }
 
 }

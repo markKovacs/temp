@@ -1,17 +1,20 @@
 package com.codecool.appsystem.admin.service;
 
-import com.codecool.appsystem.admin.model.*;
+import com.codecool.appsystem.admin.model.Application;
+import com.codecool.appsystem.admin.model.ApplicationScreeningInfo;
+import com.codecool.appsystem.admin.model.TestResult;
+import com.codecool.appsystem.admin.model.User;
 import com.codecool.appsystem.admin.model.dto.ScreeningDTO;
 import com.codecool.appsystem.admin.model.dto.ScreeningTimeAssingmentDTO;
 import com.codecool.appsystem.admin.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -31,15 +34,6 @@ public class ApplicationScreeningService {
     private ApplicationScreeningInfoRepository appScrRepo;
 
     @Autowired
-    private TestResultRepository testResultRepository;
-
-    @Autowired
-    private TestRepository testRepository;
-
-    @Autowired
-    private LocationRepository locationRepository;
-
-    @Autowired
     private EmailService emailService;
 
     public void saveGroupScreeningTime(List<ScreeningTimeAssingmentDTO> data){
@@ -49,18 +43,14 @@ public class ApplicationScreeningService {
             log.debug("Saving group screening times: {}", dto);
 
             User user = userRepository.findOne(dto.getId());
-            Application application = appRepository.findByApplicantIdAndActiveIsTrue(user.getId());
 
-            ApplicationScreeningInfo screeningInfo = appScrRepo.findByApplicationId(application.getId());
+            ApplicationScreeningInfo screeningInfo = user.getActiveApplication().getApplicationScreeningInfo();
 
             // the user has no assigned screening info
             if(screeningInfo == null){
                 screeningInfo = new ApplicationScreeningInfo();
-
-                Location location = locationRepository.findOne(application.getLocationId());
-                screeningInfo.setMapLocation(location.getMapLocation());
-
-                screeningInfo.setApplicationId(application.getId());
+                screeningInfo.setMapLocation(user.getActiveApplication().getLocation().getMapLocation());
+                screeningInfo.setApplication(user.getActiveApplication());
             }
 
             Date groupTime = Date.from(
@@ -87,17 +77,34 @@ public class ApplicationScreeningService {
             );
 
             User user = userRepository.findOne(dto.getId());
-            Application application = appRepository.findByApplicantIdAndActiveIsTrue(user.getId());
-            ApplicationScreeningInfo screeningInfo = appScrRepo.findByApplicationId(application.getId());
+            ApplicationScreeningInfo screeningInfo = user.getActiveApplication().getApplicationScreeningInfo();
 
             if(!personalTime.equals(screeningInfo.getScreeningPersonalTime())) {
                 screeningInfo.setScreeningPersonalTime(personalTime);
-                emailService.sendScreeningTimesAssigned(user, screeningInfo);
             }
 
             appScrRepo.saveAndFlush(screeningInfo);
         }
 
+    }
+
+    public void sendMails(List<Integer> ids){
+        for(Integer id : ids){
+            User user = userRepository.findOne(id);
+
+            if(user.getActiveApplication().getApplicationScreeningInfo().getScreeningGroupTime() == null ||
+                    user.getActiveApplication().getApplicationScreeningInfo().getScreeningPersonalTime() == null ||
+                    user.getActiveApplication().getApplicationScreeningInfo().getScheduleSignedBack() != null){
+
+                log.warn("Failed to send screening times email to user {}, missing info: {}",
+                        id, user.getActiveApplication().getApplicationScreeningInfo());
+
+                continue;
+
+            }
+
+            emailService.sendScreeningTimesAssigned(user, user.getActiveApplication().getApplicationScreeningInfo());
+        }
     }
 
     /**
@@ -115,6 +122,7 @@ public class ApplicationScreeningService {
                 .filter(applicationScreeningInfo ->
                         signedBack == null ||
                                 signedBack.equals(applicationScreeningInfo.getScheduleSignedBack()))
+                .map(ApplicationScreeningInfo::getApplication)
                 .map(this::transformScreeningInfo)
                 .collect(Collectors.toList());
 
@@ -124,15 +132,12 @@ public class ApplicationScreeningService {
 
         User user = userRepository.findOne(id);
 
-        Application application =
-                appRepository.findByApplicantIdAndActiveIsTrue(user.getId());
 
-        if(application == null){
+        if(user.getActiveApplication() == null || user.getActiveApplication().getApplicationScreeningInfo() == null){
             return null;
         }
 
-        ApplicationScreeningInfo appscr = appScrRepo.findByApplicationId(application.getId());
-        return transformScreeningInfo(appscr);
+        return transformScreeningInfo(user.getActiveApplication());
 
     }
 
@@ -157,35 +162,38 @@ public class ApplicationScreeningService {
     }
 
     private boolean isScreeningCandidate(Application application){
-        Test test = testRepository.findByMotivationVideoAndLocationId(Boolean.TRUE, application.getLocationId());
 
-        TestResult testResult =
-                testResultRepository.
-                        findFirstByTestIdAndApplicationIdOrderByFinishedDesc(test.getId(), application.getId());
+        if(CollectionUtils.isEmpty(application.getTestResults())){
+            return false;
+        }
 
-        return application.getFinalResult() == null && testResult != null && Boolean.TRUE.equals(testResult.getPassed());
+        TestResult last = application.getTestResults().get(application.getTestResults().size() - 1);
+
+        if(!Boolean.TRUE.equals(last.getTest().getMotivationVideo())){
+            return false;
+        }
+
+        return application.getFinalResult() == null && Boolean.TRUE.equals(last.getPassed());
 
     }
 
     private boolean isScreeningAssignmentCandidate(Application application){
-        ApplicationScreeningInfo screeningInfo = appScrRepo.findByApplicationId(application.getId());
-        return screeningInfo != null && !Boolean.TRUE.equals(screeningInfo.getScheduleSignedBack());
+        return application.getApplicationScreeningInfo() != null
+                && !Boolean.TRUE.equals(application.getApplicationScreeningInfo().getScheduleSignedBack());
     }
 
     private ScreeningDTO createCandidate(Application application){
 
-        ApplicationScreeningInfo screeningInfo = appScrRepo.findByApplicationId(application.getId());
-
         ScreeningDTO result = ScreeningDTO.builder()
-                .id(findId(application.getId()))
-                .name(findUserName(application.getId()))
-                .age(getAge(application.getId()))
+                .id(application.getUser().getId())
+                .name(application.getUser().getFullName())
+                .age(LocalDate.now().getYear() - application.getUser().getBirthDate())
                 .build();
 
-        if(screeningInfo != null){
-            result.setGroupTime(screeningInfo.getScreeningGroupTime());
-            result.setPersonalTime(screeningInfo.getScreeningPersonalTime());
-            result.setScheduleSignedBack(screeningInfo.getScheduleSignedBack());
+        if(application.getApplicationScreeningInfo() != null){
+            result.setGroupTime(application.getApplicationScreeningInfo().getScreeningGroupTime());
+            result.setPersonalTime(application.getApplicationScreeningInfo().getScreeningPersonalTime());
+            result.setScheduleSignedBack(application.getApplicationScreeningInfo().getScheduleSignedBack());
         }
         return result;
 
@@ -196,50 +204,27 @@ public class ApplicationScreeningService {
         List<Application> applicationsByLocation =
                 appRepository.findByLocationIdAndActiveIsTrue(locationId);
 
-        List<ApplicationScreeningInfo> screeningInfo = new ArrayList<>();
-
-        for (Application application : applicationsByLocation) {
-
-            ApplicationScreeningInfo appscr =  appScrRepo.findByApplicationId(application.getId());
-
-            if (appscr != null && application.getFinalResult() == null) {
-                screeningInfo.add(appscr);
-            }
-
-        }
-
-        return screeningInfo;
+        return applicationsByLocation
+                .stream()
+                .filter(application -> application.getFinalResult() == null)
+                .map(Application::getApplicationScreeningInfo)
+                .collect(Collectors.toList());
 
     }
 
-    private ScreeningDTO transformScreeningInfo(ApplicationScreeningInfo asci) {
-        Application application = appRepository.findOne(asci.getApplicationId());
+    private ScreeningDTO transformScreeningInfo(Application application) {
+
         return ScreeningDTO
                 .builder()
-                .id(findId(asci.getApplicationId()))
-                .groupTime(asci.getScreeningGroupTime())
-                .personalTime(asci.getScreeningPersonalTime())
-                .scheduleSignedBack(asci.getScheduleSignedBack())
-                .name(findUserName(asci.getApplicationId()))
-                .age(getAge(asci.getApplicationId()))
+                .id(application.getUser().getId())
+                .groupTime(application.getApplicationScreeningInfo().getScreeningGroupTime())
+                .personalTime(application.getApplicationScreeningInfo().getScreeningPersonalTime())
+                .scheduleSignedBack(application.getApplicationScreeningInfo().getScheduleSignedBack())
+                .name(application.getUser().getFullName())
+                .age(LocalDate.now().getYear() - application.getUser().getBirthDate())
                 .finalResult(application.getFinalResult())
                 .build();
 
     }
 
-    private String findUserName(String id) {
-        Application application = appRepository.findOne(id);
-        return userRepository.findOne(application.getApplicantId()).getFullName();
-    }
-
-    private Integer findId(String id) {
-        Application application = appRepository.findOne(id);
-        return userRepository.findOne(application.getApplicantId()).getId();
-    }
-
-    private Integer getAge(String id) {
-        Application application = appRepository.findOne(id);
-        User user = userRepository.findOne(application.getApplicantId());
-        return LocalDate.now().getYear() - user.getBirthDate();
-    }
 }

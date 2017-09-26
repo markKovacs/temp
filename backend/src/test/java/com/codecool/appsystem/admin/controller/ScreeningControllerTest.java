@@ -19,7 +19,6 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -95,23 +94,21 @@ public class ScreeningControllerTest {
     @Test
     public void saveGroupTimes() throws Exception {
 
-        RestResponseDTO result = screeningController.saveGroupTimes(mockScreeningTimeAssingmentDTOs);
+        screeningController.saveGroupTimes(mockScreeningTimeAssingmentDTOs);
 
         verify(screeningService, times(1)).saveGroupScreeningTime(mockScreeningTimeAssingmentDTOs);
         verifyNoMoreInteractions(screeningService);
 
-        assertEquals(mockRestResponseDTO,result);
     }
 
     @Test
     public void savePersonalTimes() throws Exception {
 
-        RestResponseDTO result = screeningController.savePersonalTimes(mockScreeningTimeAssingmentDTOs);
+        screeningController.savePersonalTimes(mockScreeningTimeAssingmentDTOs);
 
         verify(screeningService, times(1)).savePersonalScreeningTime(mockScreeningTimeAssingmentDTOs);
         verifyNoMoreInteractions(screeningService);
 
-        assertEquals(mockRestResponseDTO,result);
 
     }
 

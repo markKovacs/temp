@@ -21,7 +21,7 @@ public abstract class MockData {
     protected TestResult testResult3;
     protected Test test;
     protected Question question;
-    protected QuestionContent qcon1;
+    private QuestionContent qcon1;
     protected QuestionContent qcon2;
     protected QuestionOption option;
     protected QuestionOption option2;
@@ -44,7 +44,7 @@ public abstract class MockData {
         application = new Application();
         application.setId("1");
         application.setActive(true);
-        application.setApplicantId(1);
+        application.setUser(user);
 
         location = new Location();
         location.setName("Budapest");
@@ -53,14 +53,14 @@ public abstract class MockData {
 
         applicationScreeningInfo = new ApplicationScreeningInfo();
         applicationScreeningInfo.setId("1");
-        applicationScreeningInfo.setApplicationId("1");
+        applicationScreeningInfo.setApplication(application);
         applicationScreeningInfo.setScheduleSignedBack(false);
         applicationScreeningInfo.setScreeningGroupTime(new Date());
         applicationScreeningInfo.setScreeningPersonalTime(new Date());
 
         test = new Test();
         test.setId("bp-2017-english");
-        test.setLocationId("BUD");
+        test.setLocation(location);
         test.setMaxPoints(10);
         test.setThreshold(6);
         test.setName("English");
@@ -71,29 +71,29 @@ public abstract class MockData {
         testResult = new TestResult();
         testResult.setId("0");
         testResult.setPassed(true);
-        testResult.setApplicationId("1");
-        testResult.setTestId("bp-2017-prereq");
+        testResult.setApplication(application);
+        testResult.setTest(test);
         testResult.setSavedAnswers("bla blabla");
         testResult.setPercent(100D);
 
         testResult1 = new TestResult();
         testResult1.setId("1");
         testResult1.setPassed(true);
-        testResult1.setApplicationId("1");
-        testResult1.setTestId("bp-2017-logic");
+        testResult1.setApplication(application);
+        testResult1.setTest(test);
         testResult1.setSavedAnswers("bla blabla");
 
         testResult2 = new TestResult();
         testResult2.setId("2");
         testResult2.setPassed(true);
-        testResult2.setApplicationId("1");
-        testResult2.setTestId("bp-2017-english");
+        testResult2.setApplication(application);
+        testResult2.setTest(test);
         testResult2.setSavedAnswers("bla blabla");
 
         testResult3 = new TestResult();
         testResult3.setId("3");
-        testResult3.setApplicationId("1");
-        testResult3.setTestId("test_id");
+        testResult3.setApplication(application);
+        testResult3.setTest(test);
         testResult3.setSavedAnswers("bla blabla");
 
         option = new QuestionOption();
@@ -140,7 +140,7 @@ public abstract class MockData {
         test2.setMotivationVideo(true);
         test2.setName("Test Mock");
         test2.setDescription("Descr");
-        test2.setLocationId("BUD");
+        test2.setLocation(location);
         test2.setEstimatedTime(20);
         test2.setMaxPoints(10);
         test2.setOrderInBundle(2);

@@ -3,9 +3,9 @@ package com.codecool.appsystem.admin.controller;
 
 import com.codecool.MockData;
 import com.codecool.appsystem.admin.model.dto.ApplicantInfoDTO;
-import com.codecool.appsystem.admin.model.dto.applicantDetails.ApplicantDetailsDTO;
+import com.codecool.appsystem.admin.model.dto.ApplicantDetailsDTO;
 import com.codecool.appsystem.admin.service.ApplicantListingService;
-import com.codecool.appsystem.admin.service.applicantDetails.ApplicantDetailsService;
+import com.codecool.appsystem.admin.service.ApplicantDetailsService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -50,11 +50,11 @@ public class ApplicantsControllerTest extends MockData{
     public void setup() {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(applicantsController).build();
-        this.applicantInfoDTO = new ApplicantInfoDTO(100,"name", "BUD", "English", 1L, false, new Date(), "email@gmail.com", "36707776655");
+        this.applicantInfoDTO = new ApplicantInfoDTO(100,"name", "BUD", "English", 1, false, new Date(), "email@gmail.com", "36707776655");
 
         this.mockApplicantInfosDTO.add(applicantInfoDTO);
 
-        this.mockApplicantDetailsDTO = new ApplicantDetailsDTO();
+        this.mockApplicantDetailsDTO = ApplicantDetailsDTO.builder().build();
         mockApplicantDetailsDTO.setId(100);
         mockApplicantDetailsDTO.setDateOfBirth(2000);
         mockApplicantDetailsDTO.setFamilyName("Toth");

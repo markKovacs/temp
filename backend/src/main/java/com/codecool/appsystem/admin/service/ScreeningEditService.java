@@ -22,9 +22,6 @@ public class ScreeningEditService {
     private UserRepository userRepository;
 
     @Autowired
-    private ApplicationRepository applicationRepository;
-
-    @Autowired
     private ApplicantsScreeningStepRepository applicantsScreeningStepRepository;
 
     @Autowired
@@ -39,7 +36,7 @@ public class ScreeningEditService {
 
     public void saveScreening(List<ScreeningStep> data){
         for(ScreeningStep step : data){
-            for(ScreeningStepCriteria criteria : step.getCriterias()){
+            for(ScreeningStepCriteria criteria : step.getCriteria()){
                 criteria.setScreeningStepId(step.getId());
             }
         }
@@ -48,23 +45,27 @@ public class ScreeningEditService {
 
     public ScreeningStepEvaluationDTO findForApplicant(Integer id, String stepId){
 
-        User user = userRepository.findOne(id);
-        Application application = applicationRepository.findByApplicantIdAndActiveIsTrue(user.getId());
+        Application application = userRepository.findOne(id).getActiveApplication();
 
         ScreeningStep step = repository.findOne(stepId);
 
-        ApplicantsScreeningStep applicantsScreeningStep = applicantsScreeningStepRepository.findByStepIdAndApplicationId(stepId, application.getId());
+        ApplicantsScreeningStep applicantsScreeningStep =
+                application.getScreeningSteps()
+                    .stream()
+                    .filter(applicantsScreeningStep1 -> applicantsScreeningStep1.getStep().getId().equals(stepId))
+                        .findFirst()
+                        .orElse(null);
 
         if(applicantsScreeningStep == null){
-            applicantsScreeningStep = new ApplicantsScreeningStep(stepId, application.getId());
+            applicantsScreeningStep = new ApplicantsScreeningStep(step, application);
 
             applicantsScreeningStep = applicantsScreeningStepRepository.saveAndFlush(applicantsScreeningStep);
 
-            for(ScreeningStepCriteria criteria : step.getCriterias()){
+            for(ScreeningStepCriteria criteria : step.getCriteria()){
 
                 ApplicantsScreeningStepCriteria screeningStepCriteria = new ApplicantsScreeningStepCriteria();
                 screeningStepCriteria.setApplicantsScreeningStepId(applicantsScreeningStep.getId());
-                screeningStepCriteria.setCriteriaId(criteria.getId());
+                screeningStepCriteria.setCriteria(criteria);
 
                 screeningStepCriteria = screeningStepCriteriaRepository.saveAndFlush(screeningStepCriteria);
 
@@ -75,8 +76,8 @@ public class ScreeningEditService {
 
         return ScreeningStepEvaluationDTO.builder()
                 .screeningStep(applicantsScreeningStep)
-                .name(user.getFullName())
-                .age(LocalDate.now().getYear() - user.getBirthDate())
+                .name(application.getUser().getFullName())
+                .age(LocalDate.now().getYear() - application.getUser().getBirthDate())
                 .build();
 
     }

@@ -1,10 +1,10 @@
 package com.codecool.appsystem.admin.controller;
 
-import com.codecool.appsystem.admin.model.dto.RestResponseDTO;
 import com.codecool.appsystem.admin.model.dto.ScreeningDTO;
 import com.codecool.appsystem.admin.model.dto.ScreeningTimeAssingmentDTO;
 import com.codecool.appsystem.admin.service.ApplicationScreeningService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,17 +35,23 @@ public class ScreeningController {
         return screeningService.getAssignmentCandidates(location);
     }
 
-
+    @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/api/screening/group", method = RequestMethod.POST)
-    public RestResponseDTO saveGroupTimes(@RequestBody List<ScreeningTimeAssingmentDTO> data){
+    public void saveGroupTimes(@RequestBody List<ScreeningTimeAssingmentDTO> data){
         screeningService.saveGroupScreeningTime(data);
-        return RestResponseDTO.buildSuccess();
     }
 
+    @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/api/screening/personal", method = RequestMethod.POST)
-    public RestResponseDTO savePersonalTimes(@RequestBody List<ScreeningTimeAssingmentDTO> data){
+    public void savePersonalTimes(@RequestBody List<ScreeningTimeAssingmentDTO> data){
         screeningService.savePersonalScreeningTime(data);
-        return RestResponseDTO.buildSuccess();
+    }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/api/screening/sendmails", method = RequestMethod.POST)
+    public void sendEmails(@RequestBody List<Integer> candidates){
+        screeningService.sendMails(candidates);
+
     }
 
 }

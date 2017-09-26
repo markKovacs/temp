@@ -2,7 +2,6 @@ package com.codecool.appsystem.admin.service;
 
 import com.codecool.appsystem.admin.model.Application;
 import com.codecool.appsystem.admin.model.ScreeningGrade;
-import com.codecool.appsystem.admin.model.User;
 import com.codecool.appsystem.admin.repository.ApplicationRepository;
 import com.codecool.appsystem.admin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +21,17 @@ public class ScreeningEvalService {
 
     public void gradeScreening(ScreeningGrade grade) {
 
-        User user = userRepository.findOne(grade.getId());
-
-        Application application = applicationRepository.findByApplicantIdAndActiveIsTrue(user.getId());
+        Application application = userRepository.findOne(grade.getId()).getActiveApplication();
         application.setFinalResult(grade.getAccepted());
 
         if (Boolean.TRUE.equals(grade.getAccepted())) {
-            user.setCanApply(false);
-            userRepository.saveAndFlush(user);
+            application.getUser().setCanApply(false);
+            userRepository.saveAndFlush(application.getUser());
 
-            emailService.sendResultY(user);
+            emailService.sendResultY(application.getUser());
 
         } else {
-            emailService.sendResultN(user);
+            emailService.sendResultN(application.getUser());
         }
 
         applicationRepository.save(application);

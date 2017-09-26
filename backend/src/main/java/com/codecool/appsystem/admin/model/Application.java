@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -13,7 +15,7 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode
 @Table(name = "applications")
 @AllArgsConstructor
 @Builder
@@ -25,9 +27,18 @@ public class Application {
     @Column(length = 40)
     private String id = UUID.randomUUID().toString();
 
-    private Integer applicantId;
+    @ManyToOne
+    @JoinColumn(name = "applicant_id", referencedColumnName = "id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
+    private Location location;
+
+    @OneToOne(mappedBy = "application")
+    private ApplicationScreeningInfo applicationScreeningInfo;
+
     private Integer courseId;
-    private String locationId;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date processStartedAt;
@@ -39,4 +50,12 @@ public class Application {
     private String utmMedium;
     private String utmCampaign;
     private String comment;
+
+    @OneToMany(mappedBy = "application")
+    private List<ApplicantsScreeningStep> screeningSteps = new ArrayList<>();
+
+    @OneToMany(mappedBy = "application")
+    @OrderBy("started")
+    private List<TestResult> testResults = new ArrayList<>();
+
 }

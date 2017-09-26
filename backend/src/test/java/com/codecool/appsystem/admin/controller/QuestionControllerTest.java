@@ -1,5 +1,6 @@
 package com.codecool.appsystem.admin.controller;
 
+import com.codecool.appsystem.admin.model.Location;
 import com.codecool.appsystem.admin.model.Question;
 import com.codecool.appsystem.admin.model.dto.RestResponseDTO;
 import com.codecool.appsystem.admin.model.dto.TestDTO;
@@ -21,7 +22,6 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -79,7 +79,7 @@ public class QuestionControllerTest {
         mockTest.setEnabled(true);
         mockTest.setEstimatedTime(10);
         mockTest.setId("1");
-        mockTest.setLocationId("BUD");
+        mockTest.setLocation(new Location());
         mockTest.setMotivationVideo(false);
         mockTest.setName("Test");
         mockTest.setOrderInBundle(1);
@@ -94,13 +94,11 @@ public class QuestionControllerTest {
     @Test
     public void applicantsByLocation() throws Exception {
 
-        RestResponseDTO result = questionController.applicantsByLocation(mockQuestion);
+        questionController.saveQuestion(mockQuestion);
 
         verify(questionService, times(1)).saveCorrectAnswers(mockQuestion);
         verify(questionService, times(1)).saveTest(mockQuestion);
         verifyNoMoreInteractions(questionService);
-
-        assertEquals(mockRestResponseDTO,result);
 
     }
 

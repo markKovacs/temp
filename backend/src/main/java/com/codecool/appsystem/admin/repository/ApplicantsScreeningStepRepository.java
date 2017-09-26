@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface ApplicantsScreeningStepRepository extends JpaRepository<ApplicantsScreeningStep, String> {
 
-    ApplicantsScreeningStep findByStepIdAndApplicationId(String stepId, String applicationId);
-
     List<ApplicantsScreeningStep> findByApplicationId(String appId);
 
 }

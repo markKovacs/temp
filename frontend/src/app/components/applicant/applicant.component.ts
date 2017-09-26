@@ -2,10 +2,10 @@ import {Component} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
-import {Location} from "../../_models/index";
 import {DomSanitizer} from '@angular/platform-browser';
 import {User} from "../../_models/user.model";
-import {Message} from 'primeng/primeng';
+import {Application} from "../../_models/application";
+import {isNullOrUndefined} from "util";
 
 @Component({
     moduleId: module.id,
@@ -15,6 +15,8 @@ import {Message} from 'primeng/primeng';
 export class ApplicantComponent {
 
     public user: User;
+
+    application: Application;
 
     constructor(private sanitizer: DomSanitizer,
                 private route: ActivatedRoute,
@@ -27,8 +29,15 @@ export class ApplicantComponent {
                 this.getUser(params.id).subscribe(
                     (user: User) => {
                         this.user = user;
-                        this.user.screeningGroupTime = new Date(this.user.screeningGroupTime);
-                        this.user.screeningPersonalTime = new Date(this.user.screeningPersonalTime);
+                        if(user.applications && user.applications.length > 0) {
+                            this.application = user.applications[0];
+                            if(this.application.screeningGroupTime) {
+                                this.application.screeningGroupTime = new Date(user.applications[0].screeningGroupTime);
+                            }
+                            if(this.application.screeningPersonalTime) {
+                                this.application.screeningPersonalTime = new Date(user.applications[0].screeningPersonalTime);
+                            }
+                        }
                     },
                     (error) => console.log(error)
                 )
@@ -41,14 +50,14 @@ export class ApplicantComponent {
     }
 
     hasSuccessMotivation(): boolean {
-        return this.user.testResults.filter(mot => mot.isMotivation && mot.passed).length === 1;
+        return this.application.testResults.filter(mot => mot.isMotivation && mot.passed).length === 1;
     }
 
     save(){
         this.client.post('/api/applicants/' + this.user.id + '/savedate',
             {
-                    group: this.user.screeningGroupTime.getTime(),
-                    personal: this.user.screeningPersonalTime.getTime()
+                    group: this.application.screeningGroupTime.getTime(),
+                    personal: this.application.screeningPersonalTime.getTime()
                   }
             )
             .subscribe(
@@ -64,7 +73,18 @@ export class ApplicantComponent {
         return 'unable to calculate age';
     }
 
-    getDate(date: number){
-        return new Date(date);
+    set(appl: Application){
+        this.application = appl;
+    }
+
+    trackByFn(index, item) {
+        return item.processStartedAt;
+    }
+
+    getClass(appl: Application){
+        if(this.application === appl){
+            return "btn-success";
+        }
+        return "btn-info";
     }
 }

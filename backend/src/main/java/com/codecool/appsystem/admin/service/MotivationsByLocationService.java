@@ -13,6 +13,7 @@ public class MotivationsByLocationService {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private MotivationsUtilService motivationsUtilService;
 

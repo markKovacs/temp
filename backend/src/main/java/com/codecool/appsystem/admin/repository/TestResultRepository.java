@@ -2,18 +2,16 @@ package com.codecool.appsystem.admin.repository;
 
 import com.codecool.appsystem.admin.model.TestResult;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 
 public interface TestResultRepository extends JpaRepository<TestResult, String> {
 
-    //findFirstByTestIdAndApplicationIdOrderByFinishedDesc
-    TestResult findFirstByTestIdAndApplicationIdOrderByFinishedDesc(String testId, String appId);
-
     List<TestResult> findByApplicationId(String id);
 
-    TestResult findByTestIdAndApplicationId(String testId, String appId);
+    @Query(nativeQuery = true, value = "SELECT id FROM v_timed_out_tests")
+    List<String> getTimedOutTests();
 
-    List<TestResult> findByApplicationIdAndPassed(String id, boolean passed);
 }

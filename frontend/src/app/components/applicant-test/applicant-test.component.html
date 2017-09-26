@@ -5,29 +5,8 @@
              role="progressbar"
              aria-valuemin="0" aria-valuemax="100" [style.width]="testResult.percent + '%'"
              [attr.aria-valuenow]="testResult.percent">
-             {{testResult.name}} &#9642; {{testResult.percent}}% &#9642; {{ testResult.points }} point(s)
+             {{testResult.name}} &#9642; {{getRoundedValue(testResult.percent)}}% &#9642; {{ testResult.points }} point(s)
         </div>
     </div>
-
-
-
-        <!--<div class="panel  }}">-->
-            <!--<div class="row panel-body {{ getBgClass() }}">-->
-                <!--<div class="col-sm-6 col-md-6 col-lg-6">-->
-                    <!--<h4 class="{{ getTextClass() }}">-->
-                        <!--{{ testResult.name }}-->
-                    <!--</h4>-->
-                <!--</div>-->
-                <!--<div class="col-sm-6 col-md-6 col-lg-6">-->
-                    <!--<h4 class="pull-right {{ getTextClass() }}" *ngIf="!inProgress()">-->
-                        <!--{{ testResult.points }} points / {{ testResult.percent }} %-->
-                    <!--</h4>-->
-                    <!--<h4 class="pull-right {{ getTextClass() }}" *ngIf="inProgress()">-->
-                        <!--in progress <br />-->
-                    <!--</h4>-->
-                    <!--<span *ngIf="testResult.comment">comment: </span>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
 
 </div>

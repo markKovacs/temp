@@ -6,10 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 
@@ -31,7 +28,11 @@ public class Test {
     private Integer maxPoints;
     private Integer threshold;
     private Boolean enabled;
-    private String locationId;
+
+    @ManyToOne
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
+    private Location location;
+
     private Integer orderInBundle;
     private Integer estimatedTime;
     private Boolean motivationVideo;

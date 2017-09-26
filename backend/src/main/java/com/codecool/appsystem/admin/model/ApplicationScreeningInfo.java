@@ -15,14 +15,17 @@ import java.util.UUID;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @EqualsAndHashCode(of = "id")
-@ToString
+@ToString(exclude = "application")
 public class ApplicationScreeningInfo {
 
     @Id
     @Column(name = "id", length = 40)
     private String id = UUID.randomUUID().toString();
 
-    private String applicationId;
+    @OneToOne
+    @JoinColumn(name = "application_id", referencedColumnName = "id")
+    private Application application;
+
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date screeningGroupTime;

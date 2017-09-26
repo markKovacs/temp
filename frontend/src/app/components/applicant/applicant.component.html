@@ -20,29 +20,29 @@
                         <i class="fa fa-phone-square" aria-hidden="true"></i> {{user.phoneNumber}} <br>
                         <i class="fa fa-calendar" aria-hidden="true"></i> {{calculateage(user.dateOfBirth)}} years old<br>
                         <i class="fa fa-retweet" aria-hidden="true"></i> applied {{user.timesApplied}} times<br>
-                        <i class="fa fa-play-circle" aria-hidden="true"></i> process started at {{user.processStartedAt | date: 'yyyy.MM.dd. HH:mm'}} <br>
-                        <i class="fa fa-comment" aria-hidden="true" *ngIf="user.comment"></i> {{user.comment}}
+                        <i class="fa fa-play-circle" aria-hidden="true"></i> process started at {{application.processStartedAt | date: 'yyyy.MM.dd. HH:mm'}} <br>
+                        <i class="fa fa-comment" aria-hidden="true" *ngIf="application.comment"></i> {{application.comment}}
 
                         <br>
 
-                        <applicant-test *ngFor="let result of user.testResults.reverse()" [testResult]="result"></applicant-test>
+                        <applicant-test *ngFor="let result of application.testResults.reverse()" [testResult]="result"></applicant-test>
 
                         <br>
 
-                        <div class="well clearfix">
+                        <div class="well clearfix" *ngIf="application.screeningGroupTime">
                             <span class="time-well">Group Time</span>
                             <p-calendar class="pull-right"
-                                        [(ngModel)]="user.screeningGroupTime"
+                                        [(ngModel)]="application.screeningGroupTime"
                                         showTime="showTime"
                                         dateFormat="yy.mm.dd."
                                         hourFormat="24">
                             </p-calendar>
                         </div>
 
-                        <div class="well clearfix">
+                        <div class="well clearfix" *ngIf="application.screeningPersonalTime">
                             <span class="time-well">Personal Time</span>
                             <p-calendar class="pull-right"
-                                        [(ngModel)]="user.screeningPersonalTime"
+                                        [(ngModel)]="application.screeningPersonalTime"
                                         showTime="showTime"
                                         dateFormat="yy.mm.dd."
                                         hourFormat="24">
@@ -50,6 +50,18 @@
                         </div>
 
                         <a (click)="save()" class="btn btn-danger btn-xs btn-block">Save Group & Personal Time</a> <br>
+
+                        <div class="well clearfix">
+                            <span class="time-well">Applications</span>
+                            <span *ngFor="let appl of user.applications.reverse(); let idx = index; trackBy: trackByFn;">
+                                <a (click)="set(appl)" class="btn {{getClass(appl)}} btn-xs btn-block spaced" *ngIf="appl.processStartedAt">
+                                    # {{idx + 1}}, started at: {{appl.processStartedAt | date: 'yyyy.MM.dd. HH:mm'}}
+                                </a>
+                                <a (click)="set(appl)" class="btn {{getClass(appl)}} btn-xs btn-block spaced" *ngIf="!appl.processStartedAt">
+                                    # {{idx + 1}}, not started
+                                </a>
+                            </span>
+                        </div>
 
                     </div>
                 </div>
@@ -60,7 +72,7 @@
                     <div class="panel-heading">{{user.givenName}}'s Motivations & Interviewer Comments</div>
                     <div class="panel-body">
 
-                        <div *ngFor="let result of user.testResults">
+                        <div *ngFor="let result of application.testResults">
                             <div *ngIf="result.isMotivation">
                                 <applicant-video [testResult]="result" [id]="user.id"></applicant-video>
                             </div>
@@ -77,7 +89,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">{{user.givenName}}'s Motivations & Interviewer Comments</div>
                     <div class="panel-body">
-                        <applicant-screening *ngIf="user.screeningSteps && user.screeningSteps.length > 0" [user]="user"></applicant-screening>
+                        <applicant-screening *ngIf="application.screeningSteps && application.screeningSteps.length > 0" [user]="user"></applicant-screening>
                     </div>
                 </div>
             </div>

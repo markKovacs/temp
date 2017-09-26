@@ -22,9 +22,14 @@ public class TestResult {
     @Id
     @Column(name = "id", length = 40)
     private String id = UUID.randomUUID().toString();
-    // FKs
-    private String applicationId;
-    private String testId;
+
+    @ManyToOne
+    @JoinColumn(name = "application_id", referencedColumnName = "id")
+    private Application application;
+
+    @ManyToOne
+    @JoinColumn(name = "test_id", referencedColumnName = "id")
+    private Test test;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date started;

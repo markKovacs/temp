@@ -22,18 +22,6 @@ public class ApplicantListingService {
     @Autowired
     private ApplicationRepository applicationRepository;
 
-    @Autowired
-    private TestResultRepository testResultRepository;
-
-    @Autowired
-    private TestRepository testRepository;
-
-    @Autowired
-    private ApplicationScreeningInfoRepository screeningInfoRepository;
-
-    @Autowired
-    private ApplicantsScreeningStepRepository screeningStepRepository;
-
     public List<ApplicantInfoDTO> getApplicationData(String locationId, Boolean all) {
 
         if(Boolean.TRUE.equals(all)){
@@ -48,7 +36,7 @@ public class ApplicantListingService {
         return applications
                 .stream()
                 .filter(application -> !Boolean.FALSE.equals(application.getFinalResult()))
-                .map(application -> userRepository.findOne(application.getApplicantId()))
+                .map(Application::getUser)
                 .map(this::transform)
                 .collect(Collectors.toList());
 
@@ -61,8 +49,8 @@ public class ApplicantListingService {
                 .id(user.getId())
                 .blacklisted(user.getIsBlacklisted())
                 .location(user.getLocationId())
-                .attempts(getAttempts(user))
-                .status(getStatus(user.getId()))
+                .attempts(user.getApplications().size())
+                .status(getStatus(user))
                 .processStartedAt(getProcesssStartedAt(user))
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
@@ -71,32 +59,34 @@ public class ApplicantListingService {
     }
 
     private Date getProcesssStartedAt(User user){
-        Application application = applicationRepository.findByApplicantIdAndActiveIsTrue(user.getId());
-        return application == null ? null : application.getProcessStartedAt();
+        return user.getActiveApplication() == null
+                ? null
+                : user.getActiveApplication().getProcessStartedAt();
     }
 
-    private String getStatus(Integer id) {
+    private String getStatus(User user) {
 
-        Application application = applicationRepository.findByApplicantIdAndActiveIsTrue(id);
+        Application application = user.getActiveApplication();
 
         if(application == null){
             return "-";
         }
 
-        TestResult lastPassed = testResultRepository.findByApplicationId(application.getId())
-                .stream()
-                .sorted((o1, o2) -> o1.getStarted().before(o2.getStarted()) ? 1 : -1)
-                .findFirst().orElse(null);
+        TestResult lastPassed = null;
+
+        if(!CollectionUtils.isEmpty(application.getTestResults())){
+            lastPassed = application.getTestResults().get(application.getTestResults().size() - 1);
+        }
 
         if(lastPassed == null){
             return "-";
         }
 
-        Test test = testRepository.findOne(lastPassed.getTestId());
+        Test test = lastPassed.getTest();
 
-        ApplicationScreeningInfo screeningInfo = screeningInfoRepository.findByApplicationId(application.getId());
+        ApplicationScreeningInfo screeningInfo = application.getApplicationScreeningInfo();
 
-        List<ApplicantsScreeningStep> screeningSteps = screeningStepRepository.findByApplicationId(application.getId());
+        List<ApplicantsScreeningStep> screeningSteps = application.getScreeningSteps();
 
         if(screeningInfo != null && screeningInfo.getScheduleSignedBack() == null){
             return "Screening times assigned";
@@ -118,17 +108,13 @@ public class ApplicantListingService {
             return "Final result: N";
         }
 
+        // if the test is still pending
+        if(lastPassed.getFinished() == null){
+            return test.getName() + " in progress";
+        }
+
         return test.getName();
 
     }
 
-
-    /**
-     * Counts all the application for the given user.
-     * @param user
-     * @return no. of applications in total
-     */
-    private long getAttempts(User user) {
-        return applicationRepository.countByApplicantId(user.getId());
-    }
 }

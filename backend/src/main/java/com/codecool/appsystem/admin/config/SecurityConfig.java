@@ -48,9 +48,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 new AntPathRequestMatcher("/api/login/callback")
         );
 
+        RequestMatcher notLocation = new NegatedRequestMatcher(
+                new AntPathRequestMatcher("/api/locations")
+        );
+
         RequestMatcher orRequestMatcher = new OrRequestMatcher(getRequestMatcher, postRequestMatcher);
 
-        RequestMatcher andRequestMatcher = new AndRequestMatcher(notCallback, notLogin, orRequestMatcher);
+        RequestMatcher andRequestMatcher = new AndRequestMatcher(notCallback, notLogin, notLocation, orRequestMatcher);
 
         JwtAuthenticationTokenFilter authenticationTokenFilter = new JwtAuthenticationTokenFilter(andRequestMatcher);
         authenticationTokenFilter.setAuthenticationManager(authenticationManager());

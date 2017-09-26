@@ -2,6 +2,7 @@ package com.codecool.appsystem.admin.service;
 
 import com.codecool.appsystem.admin.model.*;
 import com.codecool.appsystem.admin.model.dto.TestDTO;
+import com.codecool.appsystem.admin.repository.LocationRepository;
 import com.codecool.appsystem.admin.repository.TestAnswerRepository;
 import com.codecool.appsystem.admin.repository.TestRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -25,7 +26,11 @@ public class QuestionService {
     @Autowired
     private TestAnswerRepository testAnswerRepository;
 
+    @Autowired
+    private LocationRepository locationRepository;
+
     public void saveTest(Question question) throws JsonProcessingException {
+
         ObjectMapper mapper = new ObjectMapper();
 
         Test test = new Test();
@@ -38,36 +43,33 @@ public class QuestionService {
         test.setEstimatedTime(question.getEstimatedTime());
         test.setName(question.getName());
         test.setOrderInBundle(question.getOrderInBundle());
-        test.setLocationId(question.getLocationId());
+
+        test.setLocation(locationRepository.findOne(question.getLocationId()));
+
         test.setDescription(question.getDescription());
         test.setMotivationVideo(question.getMotivationVideo());
 
         testRepository.save(test);
     }
 
-    public void saveCorrectAnswers(Question question){
-
-        // TODO remove all answers prior to saving the new!!!!
+    public void saveCorrectAnswers(Question question) {
 
         for (QuestionContent questionContent : question.getQuestions()) {
 
             for (QuestionOption questionOption : questionContent.getOptions()) {
 
-                //List<TestAnswer> existingAnswers = testAnswerRepository.findByQuestionIdOrderByCorrectAnswerAsc(questionContent.getId());
-                //testAnswerRepository.delete(existingAnswers);
+                List<TestAnswer> existingAnswers = testAnswerRepository.findByQuestionIdOrderByCorrectAnswerAsc(questionContent.getId());
+                testAnswerRepository.delete(existingAnswers);
 
-                if (questionOption.getIsCorrect()){
-
-                    TestAnswer testAnswer = testAnswerRepository
-                            .findByQuestionIdAndCorrectAnswer(questionContent.getId(), questionOption.getId())
-                            .orElse(new TestAnswer());
-
+                if (questionOption.getIsCorrect()) {
+                    TestAnswer testAnswer = new TestAnswer();
                     testAnswer.setQuestionId(questionContent.getId());
                     testAnswer.setCorrectAnswer(questionOption.getId());
 
                     testAnswerRepository.save(testAnswer);
                 }
-                    questionOption.setIsCorrect(null);
+                // null out the isCorrect flag.
+                questionOption.setIsCorrect(null);
             }
         }
     }
@@ -85,15 +87,15 @@ public class QuestionService {
         return addCorrectAnswerToQuestions(questions);
     }
 
-    private  List<Question> addCorrectAnswerToQuestions(List<Question> questions){
+    private List<Question> addCorrectAnswerToQuestions(List<Question> questions) {
 
         for (Question question : questions) {
             for (QuestionContent qComponent : question.getQuestions()) {
                 List<String> testAnswerOptionId = testAnswerRepository.findByQuestionIdOrderByCorrectAnswerAsc(qComponent.getId()).stream().map(TestAnswer::getCorrectAnswer).collect(Collectors.toList());
                 for (QuestionOption qOption : qComponent.getOptions()) {
-                    if (testAnswerOptionId.contains(qOption.getId())){
+                    if (testAnswerOptionId.contains(qOption.getId())) {
                         qOption.setIsCorrect(true);
-                    } else{
+                    } else {
                         qOption.setIsCorrect(false);
                     }
                 }
@@ -102,16 +104,16 @@ public class QuestionService {
         return questions;
     }
 
-    public TestDTO createQuestionDTO(Test test, Question question){
+    public TestDTO createQuestionDTO(Test test, Question question) {
 
         return TestDTO.builder()
                 .description(test.getDescription())
                 .enabled(test.getEnabled())
                 .estimatedTime(test.getEstimatedTime())
-                .locationId(test.getLocationId())
+                .locationId(test.getLocation().getId())
                 .id(test.getId())
                 .maxPoints(test.getMaxPoints())
-                .motivationVideo((test.getMotivationVideo() != null) ? test.getMotivationVideo(): false)
+                .motivationVideo((test.getMotivationVideo() != null) ? test.getMotivationVideo() : false)
                 .name(test.getName())
                 .orderInBundle(test.getOrderInBundle())
                 .threshold(test.getThreshold())
