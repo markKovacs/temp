@@ -47,4 +47,11 @@ public class ScreeningController {
         screeningService.savePersonalScreeningTime(data);
     }
 
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/api/screening/sendmails", method = RequestMethod.POST)
+    public void sendEmails(@RequestBody List<Integer> candidates){
+        screeningService.sendMails(candidates);
+
+    }
+
 }

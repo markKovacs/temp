@@ -43,7 +43,7 @@ public class MotivationsUtilService {
 
         for (User u: userList) {
 
-            Application application = u.getApplication();
+            Application application = u.getActiveApplication();
 
             if(application == null){
                 continue;

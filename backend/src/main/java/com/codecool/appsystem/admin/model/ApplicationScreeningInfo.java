@@ -15,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @EqualsAndHashCode(of = "id")
-@ToString
+@ToString(exclude = "application")
 public class ApplicationScreeningInfo {
 
     @Id

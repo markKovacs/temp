@@ -1,12 +1,7 @@
 package com.codecool.appsystem.admin.service;
 
 import com.codecool.appsystem.admin.model.*;
-import com.codecool.appsystem.admin.model.dto.ApplicantsScreeningStepDTO;
-import com.codecool.appsystem.admin.model.dto.ApplicationInfoDTO;
-import com.codecool.appsystem.admin.model.dto.CriteriaDTO;
-import com.codecool.appsystem.admin.model.dto.ApplicantDetailsDTO;
-import com.codecool.appsystem.admin.model.dto.TestResultDTO;
-import com.codecool.appsystem.admin.repository.ApplicationRepository;
+import com.codecool.appsystem.admin.model.dto.*;
 import com.codecool.appsystem.admin.repository.ApplicationScreeningInfoRepository;
 import com.codecool.appsystem.admin.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -31,9 +26,6 @@ public class ApplicantDetailsService {
     private ApplicationScreeningInfoRepository appScrInfoRepo;
 
     @Autowired
-    private ApplicationRepository applicationRepository;
-
-    @Autowired
     private EmailService emailService;
 
     public ApplicantDetailsDTO provideInfo(Integer id) {
@@ -47,18 +39,11 @@ public class ApplicantDetailsService {
                 .dateOfBirth(user.getBirthDate())
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
-                .timesApplied(getTimesApplied(user))
+                .timesApplied(user.getApplications().size())
                 .applications(new ArrayList<>())
                 .build();
 
-        if(user.getApplication() != null) {
-            result.getApplications().add(getApplicationInfo(user.getApplication()));
-        }
-
-        List<Application> pastApplications = applicationRepository.findByUserAndActiveIsNot(user, true);
-
-        // after all the previous applications
-        for(Application app : pastApplications){
+        for(Application app : user.getApplications()){
             result.getApplications().add(getApplicationInfo(app));
         }
 
@@ -69,7 +54,7 @@ public class ApplicantDetailsService {
 
         User user = userRepo.findOne(id);
 
-        Application application = user.getApplication();
+        Application application = user.getActiveApplication();
 
         ApplicationScreeningInfo appScrInf = application.getApplicationScreeningInfo();
 
@@ -155,14 +140,6 @@ public class ApplicantDetailsService {
                         .build())
                 .collect(Collectors.toList());
 
-    }
-
-    private int getTimesApplied(User user){
-        int val = applicationRepository.findByUserAndActiveIsNot(user, true).size();
-        if(user.getApplication() != null){
-            val++;
-        }
-        return val;
     }
 
     private List<ApplicantsScreeningStepDTO> processScreening(List<ApplicantsScreeningStep> steps){

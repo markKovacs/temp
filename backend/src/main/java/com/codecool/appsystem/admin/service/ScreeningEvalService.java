@@ -21,7 +21,7 @@ public class ScreeningEvalService {
 
     public void gradeScreening(ScreeningGrade grade) {
 
-        Application application = userRepository.findOne(grade.getId()).getApplication();
+        Application application = userRepository.findOne(grade.getId()).getActiveApplication();
         application.setFinalResult(grade.getAccepted());
 
         if (Boolean.TRUE.equals(grade.getAccepted())) {

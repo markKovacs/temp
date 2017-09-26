@@ -49,7 +49,7 @@ public class ApplicantListingService {
                 .id(user.getId())
                 .blacklisted(user.getIsBlacklisted())
                 .location(user.getLocationId())
-                .attempts(getTimesApplied(user))
+                .attempts(user.getApplications().size())
                 .status(getStatus(user))
                 .processStartedAt(getProcesssStartedAt(user))
                 .email(user.getEmail())
@@ -59,21 +59,24 @@ public class ApplicantListingService {
     }
 
     private Date getProcesssStartedAt(User user){
-        Application application = user.getApplication();
-        return application == null ? null : application.getProcessStartedAt();
+        return user.getActiveApplication() == null
+                ? null
+                : user.getActiveApplication().getProcessStartedAt();
     }
 
     private String getStatus(User user) {
 
-        Application application = user.getApplication();
+        Application application = user.getActiveApplication();
 
         if(application == null){
             return "-";
         }
 
-        TestResult lastPassed = application.getTestResults() == null
-                ? null
-                : application.getTestResults().get(application.getTestResults().size() - 1);
+        TestResult lastPassed = null;
+
+        if(!CollectionUtils.isEmpty(application.getTestResults())){
+            lastPassed = application.getTestResults().get(application.getTestResults().size() - 1);
+        }
 
         if(lastPassed == null){
             return "-";
@@ -112,14 +115,6 @@ public class ApplicantListingService {
 
         return test.getName();
 
-    }
-
-    private int getTimesApplied(User user){
-        int val = applicationRepository.findByUserAndActiveIsNot(user, true).size();
-        if(user.getApplication() != null){
-            val++;
-        }
-        return val;
     }
 
 }

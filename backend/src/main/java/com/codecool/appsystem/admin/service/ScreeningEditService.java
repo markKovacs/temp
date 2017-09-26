@@ -45,7 +45,7 @@ public class ScreeningEditService {
 
     public ScreeningStepEvaluationDTO findForApplicant(Integer id, String stepId){
 
-        Application application = userRepository.findOne(id).getApplication();
+        Application application = userRepository.findOne(id).getActiveApplication();
 
         ScreeningStep step = repository.findOne(stepId);
 

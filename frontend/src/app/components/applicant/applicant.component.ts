@@ -5,6 +5,7 @@ import {HttpClient} from "../../_httpclient/httpclient";
 import {DomSanitizer} from '@angular/platform-browser';
 import {User} from "../../_models/user.model";
 import {Application} from "../../_models/application";
+import {isNullOrUndefined} from "util";
 
 @Component({
     moduleId: module.id,
@@ -30,8 +31,12 @@ export class ApplicantComponent {
                         this.user = user;
                         if(user.applications && user.applications.length > 0) {
                             this.application = user.applications[0];
-                            this.application.screeningGroupTime = new Date(user.applications[0].screeningGroupTime);
-                            this.application.screeningPersonalTime = new Date(user.applications[0].screeningPersonalTime);
+                            if(this.application.screeningGroupTime) {
+                                this.application.screeningGroupTime = new Date(user.applications[0].screeningGroupTime);
+                            }
+                            if(this.application.screeningPersonalTime) {
+                                this.application.screeningPersonalTime = new Date(user.applications[0].screeningPersonalTime);
+                            }
                         }
                     },
                     (error) => console.log(error)
@@ -68,7 +73,18 @@ export class ApplicantComponent {
         return 'unable to calculate age';
     }
 
-    getDate(date: number){
-        return new Date(date);
+    set(appl: Application){
+        this.application = appl;
+    }
+
+    trackByFn(index, item) {
+        return item.processStartedAt;
+    }
+
+    getClass(appl: Application){
+        if(this.application === appl){
+            return "btn-success";
+        }
+        return "btn-info";
     }
 }

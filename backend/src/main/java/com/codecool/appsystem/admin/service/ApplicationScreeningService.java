@@ -44,13 +44,13 @@ public class ApplicationScreeningService {
 
             User user = userRepository.findOne(dto.getId());
 
-            ApplicationScreeningInfo screeningInfo = user.getApplication().getApplicationScreeningInfo();
+            ApplicationScreeningInfo screeningInfo = user.getActiveApplication().getApplicationScreeningInfo();
 
             // the user has no assigned screening info
             if(screeningInfo == null){
                 screeningInfo = new ApplicationScreeningInfo();
-                screeningInfo.setMapLocation(user.getApplication().getLocation().getMapLocation());
-                screeningInfo.setApplication(user.getApplication());
+                screeningInfo.setMapLocation(user.getActiveApplication().getLocation().getMapLocation());
+                screeningInfo.setApplication(user.getActiveApplication());
             }
 
             Date groupTime = Date.from(
@@ -77,16 +77,34 @@ public class ApplicationScreeningService {
             );
 
             User user = userRepository.findOne(dto.getId());
-            ApplicationScreeningInfo screeningInfo = user.getApplication().getApplicationScreeningInfo();
+            ApplicationScreeningInfo screeningInfo = user.getActiveApplication().getApplicationScreeningInfo();
 
             if(!personalTime.equals(screeningInfo.getScreeningPersonalTime())) {
                 screeningInfo.setScreeningPersonalTime(personalTime);
-                emailService.sendScreeningTimesAssigned(user, screeningInfo);
             }
 
             appScrRepo.saveAndFlush(screeningInfo);
         }
 
+    }
+
+    public void sendMails(List<Integer> ids){
+        for(Integer id : ids){
+            User user = userRepository.findOne(id);
+
+            if(user.getActiveApplication().getApplicationScreeningInfo().getScreeningGroupTime() == null ||
+                    user.getActiveApplication().getApplicationScreeningInfo().getScreeningPersonalTime() == null ||
+                    user.getActiveApplication().getApplicationScreeningInfo().getScheduleSignedBack() != null){
+
+                log.warn("Failed to send screening times email to user {}, missing info: {}",
+                        id, user.getActiveApplication().getApplicationScreeningInfo());
+
+                continue;
+
+            }
+
+            emailService.sendScreeningTimesAssigned(user, user.getActiveApplication().getApplicationScreeningInfo());
+        }
     }
 
     /**
@@ -115,11 +133,11 @@ public class ApplicationScreeningService {
         User user = userRepository.findOne(id);
 
 
-        if(user.getApplication() == null || user.getApplication().getApplicationScreeningInfo() == null){
+        if(user.getActiveApplication() == null || user.getActiveApplication().getApplicationScreeningInfo() == null){
             return null;
         }
 
-        return transformScreeningInfo(user.getApplication());
+        return transformScreeningInfo(user.getActiveApplication());
 
     }
 
