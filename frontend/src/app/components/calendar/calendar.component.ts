@@ -159,8 +159,10 @@ export class CalendarComponent implements OnInit {
             this.loading = true;
 
             const candidatesWithAssignedSchedules = this.candidates.filter(candidate => {
-                return candidate.groupTime && candidate.personalTime;
+                return candidate.send && candidate.groupTime && candidate.personalTime;
             });
+
+            console.log(candidatesWithAssignedSchedules);
 
             this.screeningService.sendScreeningInviteEmails(candidatesWithAssignedSchedules)
                 .subscribe(

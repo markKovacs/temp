@@ -1,6 +1,9 @@
 package com.codecool.appsystem.admin.service;
 
-import com.codecool.appsystem.admin.model.*;
+import com.codecool.appsystem.admin.model.ApplicationScreeningInfo;
+import com.codecool.appsystem.admin.model.Email;
+import com.codecool.appsystem.admin.model.Location;
+import com.codecool.appsystem.admin.model.User;
 import com.codecool.appsystem.admin.repository.EmailTemplateRepository;
 import com.codecool.appsystem.admin.repository.LocationRepository;
 import com.codecool.appsystem.admin.repository.UserRepository;
@@ -12,7 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,9 +85,22 @@ public class EmailService {
 
         Location location = locationRepository.findOne(user.getLocationId());
 
+
+
+
         // times will be 2017.01.01 11:00
-        String groupTime = new SimpleDateFormat("yyyy.MM.dd. H:mm").format(screeningInfo.getScreeningGroupTime());
-        String personalTime = new SimpleDateFormat("yyyy.MM.dd. H:mm").format(screeningInfo.getScreeningPersonalTime());
+        //new SimpleDateFormat("yyyy.MM.dd. H:mm").format(screeningInfo.getScreeningGroupTime());
+        String groupTime = screeningInfo.getScreeningGroupTime()
+                .toInstant()
+                .atZone(ZoneId.of("Europe/Budapest"))
+                .format(DateTimeFormatter.ofPattern("yyyy.MM.dd. H:mm"));
+
+
+        String personalTime = screeningInfo.getScreeningPersonalTime()
+                .toInstant()
+                .atZone(ZoneId.of("Europe/Budapest"))
+                .format(DateTimeFormatter.ofPattern("yyyy.MM.dd. H:mm"));
+
 
 
         Map<String, String> context = new HashMap<>();

@@ -9,4 +9,6 @@ export class ScreeningInfo {
     gender: string;
     finalResult: boolean;
 
+    send = true;
+
 }

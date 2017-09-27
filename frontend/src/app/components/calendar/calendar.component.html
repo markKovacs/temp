@@ -86,15 +86,17 @@
         <div class="panel-body">
             The screening notification email will be sent only to those candidates
             whose <strong>Group Time</strong> and <strong>Personal Time</strong> schedules are present.
+            And you've checked the checkbox before their names.
             <br>
             If both or at least one of the schedules are missing, no email will be sent to those candidates.
             <div *ngIf="controlListVisible">
                 <br>
                 <br>
-                The following people will receive an email with the assigned schedules when you click <strong>Send Emails</strong>.
+                If checked, the following people will receive an email with the assigned schedules when you click <strong>Send Emails</strong>.
                 <br>
                 <ol>
                     <li *ngFor="let candidate of getCandidatesWithValidSchedules()">
+                        <input type="checkbox" [(ngModel)]="candidate.send">&nbsp;
                         <strong>{{candidate.name}} (ID {{candidate.id}})</strong> /
                         GT
                         <strong>{{candidate.groupTime | date: 'yyyy.MM.dd. HH:mm'}}</strong> /

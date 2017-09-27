@@ -98,6 +98,7 @@ public class ApplicationScreeningService {
     }
 
     public void sendMails(List<Integer> ids){
+
         for(Integer id : ids){
             User user = userRepository.findOne(id);
 
