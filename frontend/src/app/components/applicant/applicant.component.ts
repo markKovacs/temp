@@ -6,6 +6,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {User} from "../../_models/user.model";
 import {Application} from "../../_models/application";
 import {isNullOrUndefined} from "util";
+import {ApplicantService} from "../../_services/applicants.service";
 
 @Component({
     moduleId: module.id,
@@ -20,6 +21,7 @@ export class ApplicantComponent {
 
     constructor(private sanitizer: DomSanitizer,
                 private route: ActivatedRoute,
+                private applicantService: ApplicantService,
                 private client: HttpClient,
                 private router: Router,
                 private eventsManager: GlobalEventsManager) {
@@ -73,6 +75,13 @@ export class ApplicantComponent {
         return 'unable to calculate age';
     }
 
+    disabled(){
+        if(this.application && this.application.active === true){
+            return '';
+        }
+        return 'disabled';
+    }
+
     set(appl: Application){
         this.application = appl;
     }
@@ -86,5 +95,19 @@ export class ApplicantComponent {
             return "btn-success";
         }
         return "btn-info";
+    }
+
+    resetApplication(){
+        const confirmDialog = confirm('Are you sure? The applicant will need to restart the whole process.');
+
+        if(confirmDialog){
+            this.applicantService.terminate(this.user.id).subscribe(
+                (data: any) => {
+                    alert('Application closed');
+                    window.location.reload();
+                }
+            )
+        }
+
     }
 }

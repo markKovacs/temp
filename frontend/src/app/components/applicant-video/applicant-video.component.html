@@ -18,11 +18,11 @@
         </div>
 
         <br>
-        <button class="btn btn-danger btn-block btn-xs" (click)="saveComment()">Save Comment</button>
+        <button class="btn btn-danger btn-block btn-xs" (click)="saveComment()" *ngIf="enabled">Save Comment</button>
 
         <div class="row form">
 
-            <div class="form-group">
+            <div class="form-group" *ngIf="enabled">
                 <div class="col-sm-2">
                     <h4 *ngIf="testResult.passed === undefined">
                         <a (click)="gradeMotivation(true)" class="text-success">

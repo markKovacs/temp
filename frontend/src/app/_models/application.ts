@@ -15,5 +15,6 @@ export class Application {
 
     screeningSteps: UserScreeningDisplayModel[];
 
+    active: boolean;
     finalResult: boolean;
 }

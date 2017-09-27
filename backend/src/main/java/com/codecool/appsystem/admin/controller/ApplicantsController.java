@@ -36,4 +36,10 @@ public class ApplicantsController {
         detailsService.saveDates(id, data);
         return true;
     }
+
+    @RequestMapping(value = "/{id}/terminate", method = RequestMethod.GET)
+    public boolean terminateApplication(@PathVariable("id") Integer id) {
+        detailsService.terminate(id);
+        return true;
+    }
 }

@@ -21,11 +21,13 @@
                         <i class="fa fa-calendar" aria-hidden="true"></i> {{calculateage(user.dateOfBirth)}} years old<br>
                         <i class="fa fa-retweet" aria-hidden="true"></i> applied {{user.timesApplied}} times<br>
                         <i class="fa fa-play-circle" aria-hidden="true"></i> process started at {{application.processStartedAt | date: 'yyyy.MM.dd. HH:mm'}} <br>
-                        <i class="fa fa-comment" aria-hidden="true" *ngIf="application.comment"></i> {{application.comment}}
+                        <i class="fa fa-comment" aria-hidden="true" *ngIf="application.comment"></i> <span class="text-danger"> {{application.comment}}</span>
 
                         <br>
 
-                        <applicant-test *ngFor="let result of application.testResults.reverse()" [testResult]="result"></applicant-test>
+                        <div *ngIf="application.testResults">
+                            <applicant-test *ngFor="let result of application.testResults.reverse()" [testResult]="result"></applicant-test>
+                        </div>
 
                         <br>
 
@@ -33,6 +35,7 @@
                             <span class="time-well">Group Time</span>
                             <p-calendar class="pull-right"
                                         [(ngModel)]="application.screeningGroupTime"
+                                        [disabled]="!application.active"
                                         showTime="showTime"
                                         dateFormat="yy.mm.dd."
                                         hourFormat="24">
@@ -43,13 +46,14 @@
                             <span class="time-well">Personal Time</span>
                             <p-calendar class="pull-right"
                                         [(ngModel)]="application.screeningPersonalTime"
+                                        [disabled]="!application.active"
                                         showTime="showTime"
                                         dateFormat="yy.mm.dd."
                                         hourFormat="24">
                             </p-calendar>
                         </div>
 
-                        <a (click)="save()" class="btn btn-danger btn-xs btn-block">Save Group & Personal Time</a> <br>
+                        <a (click)="save()" class="btn btn-danger btn-xs btn-block {{disabled()}}">Save Group & Personal Time</a> <br>
 
                         <div class="well clearfix">
                             <span class="time-well">Applications</span>
@@ -63,6 +67,9 @@
                             </span>
                         </div>
 
+                        <div class="well clearfix">
+                            <a (click)="resetApplication()" class="btn btn-danger btn-xs btn-block {{disabled()}}"><i class="fa fa-ban"></i>&nbsp;Terminate application</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,7 +81,7 @@
 
                         <div *ngFor="let result of application.testResults">
                             <div *ngIf="result.isMotivation">
-                                <applicant-video [testResult]="result" [id]="user.id"></applicant-video>
+                                <applicant-video [testResult]="result" [id]="user.id" [enabled]="application.active"></applicant-video>
                             </div>
                         </div>
 

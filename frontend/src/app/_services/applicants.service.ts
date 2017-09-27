@@ -17,5 +17,9 @@ export class ApplicantService {
         return this.client.get('/api/applicants/' + id);
     }
 
+    public terminate(id: number) {
+        return this.client.get('/api/applicants/' + id + '/terminate');
+    }
+
 }
 

@@ -16,6 +16,7 @@ export class ApplicantVideoComponent implements OnInit {
 
     @Input() testResult: Results;
     id: number;
+    @Input() enabled: boolean;
 
     constructor(private sanitizer: DomSanitizer,
                 private client: HttpClient,

@@ -2,10 +2,12 @@ package com.codecool.appsystem.admin.service;
 
 import com.codecool.appsystem.admin.model.*;
 import com.codecool.appsystem.admin.model.dto.*;
+import com.codecool.appsystem.admin.repository.ApplicationRepository;
 import com.codecool.appsystem.admin.repository.ApplicationScreeningInfoRepository;
 import com.codecool.appsystem.admin.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -24,6 +26,9 @@ public class ApplicantDetailsService {
 
     @Autowired
     private ApplicationScreeningInfoRepository appScrInfoRepo;
+
+    @Autowired
+    private ApplicationRepository applicationRepository;
 
     @Autowired
     private EmailService emailService;
@@ -50,7 +55,7 @@ public class ApplicantDetailsService {
         return result;
     }
 
-    public boolean saveDates(Integer id, Map<String, Long> data) {
+    public void saveDates(Integer id, Map<String, Long> data) {
 
         User user = userRepo.findOne(id);
 
@@ -86,9 +91,33 @@ public class ApplicantDetailsService {
             emailService.sendScreeningTimesAssigned(user, appScrInf);
         }
 
-        return true;
     }
 
+    public void terminate(Integer id){
+
+        User user = userRepo.findOne(id);
+
+        if(user != null){
+
+            Application application = user.getActiveApplication();
+
+            if(application != null){
+                application.setActive(false);
+
+                application.setComment(
+                        "Terminated by admin: " +
+                                SecurityContextHolder.getContext().getAuthentication().getName() +
+                                ", on: " + new Date());
+
+                application.setFinalResult(false);
+
+                applicationRepository.saveAndFlush(application);
+
+            }
+
+        }
+
+    }
 
     private ApplicationInfoDTO getApplicationInfo(Application application){
 
@@ -101,6 +130,7 @@ public class ApplicantDetailsService {
                 .processStartedAt(application.getProcessStartedAt())
                 .testResults(transform(application.getTestResults()))
                 .finalResult(application.getFinalResult())
+                .active(application.getActive())
                 .build();
 
         if(application.getApplicationScreeningInfo() != null){

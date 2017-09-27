@@ -26,6 +26,7 @@ public class ApplicationInfoDTO {
     // screening evaluation info
     private List<ApplicantsScreeningStepDTO> screeningSteps;
 
+    private Boolean active;
     // and the final result
     private Boolean finalResult;
 
