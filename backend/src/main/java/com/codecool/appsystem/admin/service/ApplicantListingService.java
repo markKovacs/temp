@@ -88,7 +88,8 @@ public class ApplicantListingService {
 
         List<ApplicantsScreeningStep> screeningSteps = application.getScreeningSteps();
 
-        if(screeningInfo != null && screeningInfo.getScheduleSignedBack() == null){
+        if(screeningInfo != null && screeningInfo.getScheduleSignedBack() == null &&
+                (screeningInfo.getScreeningGroupTime() != null || screeningInfo.getScreeningPersonalTime() != null)){
             return "Screening times assigned";
         }
 
