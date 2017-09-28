@@ -26,7 +26,7 @@
                         <br>
 
                         <div *ngIf="application.testResults">
-                            <applicant-test *ngFor="let result of application.testResults.reverse()" [testResult]="result"></applicant-test>
+                            <applicant-test *ngFor="let result of application.testResults" [testResult]="result"></applicant-test>
                         </div>
 
                         <br>
@@ -57,7 +57,7 @@
 
                         <div class="well clearfix">
                             <span class="time-well">Applications</span>
-                            <span *ngFor="let appl of user.applications.reverse(); let idx = index; trackBy: trackByFn;">
+                            <span *ngFor="let appl of user.applications; let idx = index; trackBy: trackByFn;">
                                 <a (click)="set(appl)" class="btn {{getClass(appl)}} btn-xs btn-block spaced" *ngIf="appl.processStartedAt">
                                     # {{idx + 1}}, started at: {{appl.processStartedAt | date: 'yyyy.MM.dd. HH:mm'}}
                                 </a>
