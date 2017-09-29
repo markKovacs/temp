@@ -1,5 +1,5 @@
 import {Results} from "./results.model";
-import {UserScreeningDisplayModel} from "./user-screening-display.model";
+import {UserScreeningDisplayModel} from "./screening/user-screening-display.model";
 
 export class Application {
 

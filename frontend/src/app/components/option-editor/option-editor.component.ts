@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from "@angular/core";
-import {Option} from "../../_models/option.model";
+import {Option} from "../../_models/survey/option.model";
 
 @Component({
     moduleId: module.id,

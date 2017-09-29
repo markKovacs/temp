@@ -2,7 +2,8 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
-import {Location, ScreeningStep, Criteria} from "../../_models/index";
+import {Location, ScreeningStep} from "../../_models/index";
+import {Criteria} from "../../_models/screening/criteria";
 
 @Component({
     moduleId: module.id,
@@ -16,23 +17,20 @@ export class EditScreeningComponent {
     public isFetchingSteps: boolean = false;
     public changeHappened: boolean = false;
     public isPosting: boolean = false;
-    public postList: any[] = [];
 
-    constructor(
-        private client: HttpClient,
-        private router: Router,
-        private eventsManager: GlobalEventsManager)
-    {
+    constructor(private client: HttpClient,
+                private router: Router,
+                private eventsManager: GlobalEventsManager) {
         this.eventsManager.showNavBar(true);
         this.getLocation();
         this.getScreening();
     }
 
-    getLocation(){
+    getLocation() {
         this.location = JSON.parse(localStorage.getItem("chosenLocation"));
     }
 
-    getScreening(){
+    getScreening() {
         this.isFetchingSteps = true;
         this.client.get("/api/editscreening?location=" + this.location.id).subscribe(
             (screeningSteps: ScreeningStep[]) => {
@@ -44,11 +42,11 @@ export class EditScreeningComponent {
         )
     }
 
-    handleChange(){
+    handleChange() {
         this.changeHappened = true;
     }
 
-    postUpdate(){
+    postUpdate() {
         this.changeHappened = false;
         console.log("should post this", this.screeningSteps);
         this.client.post("/api/editscreening", this.screeningSteps).subscribe(
@@ -58,43 +56,32 @@ export class EditScreeningComponent {
         )
     }
 
-    allowPost(){
-      let allowed = true;
-      for (let step of this.screeningSteps) {
-          if (step.name == "") { allowed = false; }
-          for (let criteria of step.criterias) {
-              if (criteria.name == "") { allowed = false; }
-          }
-      }
-      return allowed;
-    }
-
-    addStep(){
-        this.screeningSteps.push(new ScreeningStep(this.location.id));
+    addStep() {
+        this.screeningSteps.push(new ScreeningStep(this.location));
         this.handleChange();
     }
 
-    addCriteria(step){
-        step.criterias.push(new Criteria());
+    addCriteria(step: ScreeningStep) {
+        step.criteria.push(new Criteria());
         this.handleChange();
     }
 
-    deleteStep(step){
+    deleteStep(step: ScreeningStep) {
         step.enabled = false;
-        step.criterias = step.criterias.map((entry) => {
+        step.criteria = step.criteria.map((entry) => {
             let updated = Object.assign({}, entry);
             updated.enabled = false;
             return updated;
-        })
+        });
         this.handleChange();
     }
 
-    deleteCriteria(criteria){
+    deleteCriteria(criteria: Criteria) {
         criteria.enabled = false;
         this.handleChange();
     }
 
-    evaluateScreenings(){
+    evaluateScreenings() {
         this.router.navigate(['evaluatescreenings']);
     }
 

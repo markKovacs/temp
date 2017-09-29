@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {Survey} from "../../_models/survey.model";
+import {Survey} from "../../_models/survey/survey.model";
 import {QuestionService} from "../../_services/question.service";
-import {Question} from "../../_models/question.model";
-import {Option} from "../../_models/option.model";
+import {Question} from "../../_models/survey/question.model";
+import {Option} from "../../_models/survey/option.model";
 
 
 @Component({

@@ -4,23 +4,23 @@
         data?</h3>
 </div>
 <div class="row">
+    <!-- ##### sidebar to select the step ##### -->
     <div class="col-xs-3">
         <div>
             <h2>
                 {{ user.name }}&nbsp;<small>{{ user.age }}</small>
             </h2>
             <div *ngFor="let step of screeningSteps">
-                <a (click)="getApplicantsStep(step)"><h3
-                        class="{{ isActiveStep(step) }}"
-                >
-                    {{ step.name }}
-                </h3>
+                <a (click)="getApplicantsStep(step)">
+                    <h3 class="{{ isActiveStep(step) }}">{{ step.name }}</h3>
                 </a>
             </div>
         </div>
     </div>
+
+    <!-- ##### main area ##### -->
     <div class="col-xs-9">
-        <div *ngIf="toEvaluate">
+        <div *ngIf="userScreeningStep">
             <div class="col-xs-8">
                 <h3>Step</h3>
                 <div class="form-inline">
@@ -32,16 +32,16 @@
                                 type="number"
                                 min=0
                                 max=10
-                                [(ngModel)]="toEvaluate.screeningStep.points"/>
+                                [(ngModel)]="userScreeningStep.screeningStep.points"/>
                     </div>
                     <div class="form-group inline-headers pull-right">
-                        <button (click)="setStepStatus('yes')" class="btn btn-success" style="width: 5em">
+                        <button (click)="userScreeningStep.screeningStep.status = 'yes'" class="btn btn-success" style="width: 5em">
                                 <i class="fa fa-check {{isActiveStepStatus('yes')}}" aria-hidden="true">&nbsp;Yes</i>
                         </button>
-                        <button (click)="setStepStatus('maybe')" class="btn btn-success" style="width: 6em">
+                        <button (click)="userScreeningStep.screeningStep.status = 'maybe'" class="btn btn-success" style="width: 6em">
                                 <i class="fa fa-question {{isActiveStepStatus('maybe')}}" aria-hidden="true">&nbsp;Maybe</i>
                         </button>
-                        <button (click)="setStepStatus('no')" class="btn btn-success" style="width: 5em;">
+                        <button (click)="userScreeningStep.screeningStep.status = 'no'" class="btn btn-success" style="width: 5em;">
                                 <i class="fa fa-ban {{isActiveStepStatus('no')}}" aria-hidden="true">&nbsp;No</i>
                         </button>
                     </div>
@@ -50,23 +50,23 @@
                         <textarea
                                 class="form-control"
                                 placeholder="Evaluation"
-                                [(ngModel)]="toEvaluate.screeningStep.comment"
+                                [(ngModel)]="userScreeningStep.screeningStep.comment"
                                 rows="10"
                         >
                         </textarea>
 
                 <br />
                 <div class="form-group">
-                    <button class="form-control btn btn-success" (click)="postUpdate()">Save {{chosenStep.name}}
+                    <button class="form-control btn btn-success" (click)="save()">Save {{chosenStep.name}}
                     </button>
                 </div>
             </div>
             <div class="col-xs-4 pull-right">
                 <h3>Criteria</h3>
-                <blockquote *ngFor="let criteria of toEvaluate.screeningStep.criterias">
+                <blockquote *ngFor="let criteria of userScreeningStep.screeningStep.criteria">
                     <div>
                         <div class="form-group">
-                            <label for="critPoints">{{ getNameForCriteria(toEvaluate.screeningStep, criteria) }}</label>
+                            <label for="critPoints">{{ criteria.criteria.name }}</label>
                             <input
                                     id="critPoints"
                                     class="form-control"
@@ -76,15 +76,15 @@
                                     [(ngModel)]="criteria.points"/>
                         </div>
                         <div class="form-group">
-                            <button (click)="setCriteriaStatus(criteria, 'yes')"
+                            <button (click)="criteria.status = 'yes'"
                                     class="btn btn-success">
                                 <i class="fa fa-check {{isActiveCriteriaStatus(criteria, 'yes')}}" aria-hidden="true"></i>
                             </button>
-                            <button (click)="setCriteriaStatus(criteria, 'maybe')"
+                            <button (click)="criteria.status = 'maybe'"
                                     class="btn btn-success">
                                 <i class="fa fa-question {{isActiveCriteriaStatus(criteria, 'maybe')}}" aria-hidden="true"></i>
                             </button>
-                            <button (click)="setCriteriaStatus(criteria, 'no')"
+                            <button (click)="criteria.status = 'no'"
                                     class="btn btn-success">
                                 <i class="fa fa-ban {{isActiveCriteriaStatus(criteria, 'no')}}" aria-hidden="true"></i>
                             </button>

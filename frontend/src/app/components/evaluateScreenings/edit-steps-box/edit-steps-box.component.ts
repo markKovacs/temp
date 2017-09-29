@@ -12,7 +12,6 @@ import {GlobalEventsManager} from "../../../global.eventsmanager";
 export class EditStepsBoxComponent {
 
     constructor(
-        private client: HttpClient,
         private router: Router,
         private eventsManager: GlobalEventsManager)
     {

@@ -1,5 +1,6 @@
 package com.codecool.appsystem.admin.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class ApplicantsScreeningStep {
     @Column(name = "id", length = 40)
     private String id = UUID.randomUUID().toString();
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "application_id", referencedColumnName = "id")
     private Application application;
@@ -33,11 +35,24 @@ public class ApplicantsScreeningStep {
     private String status;
 
     @OneToMany(mappedBy = "applicantsScreeningStepId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<ApplicantsScreeningStepCriteria> criterias = new ArrayList<>();
+    private List<ApplicantsScreeningStepCriteria> criteria = new ArrayList<>();
 
     public ApplicantsScreeningStep(ScreeningStep step, Application application){
         this.step = step;
         this.application = application;
     }
 
+    @Override
+    public String toString() {
+        return "ApplicantsScreeningStep{" +
+                "id='" + id + '\'' +
+                ", application=" + application.getId() +
+                ", step=" + step +
+                ", interviewer='" + interviewer + '\'' +
+                ", points=" + points +
+                ", comment='" + comment + '\'' +
+                ", status='" + status + '\'' +
+                ", criteria=" + criteria.size() +
+                '}';
+    }
 }

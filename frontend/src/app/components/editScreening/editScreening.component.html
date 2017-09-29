@@ -1,99 +1,99 @@
 <div class="container">
 
-  <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 card-container">
-    <div class="card">
-      <div *ngIf="changeHappened" class="editor-header">
-        <div *ngIf="!isPosting" class="editor-info">Don't forget to save your changes!</div>
-        <div *ngIf="isPosting" class="editor-info">Loading...</div>
-        <div *ngIf="!isPosting">
-          <button
-            class="save-button"
-            (click)="postUpdate()">
-            Save changes
-          </button>
+    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 card-container">
+        <div class="card">
+            <div *ngIf="changeHappened" class="editor-header">
+                <div *ngIf="!isPosting" class="editor-info">Don't forget to save your changes!</div>
+                <div *ngIf="isPosting" class="editor-info">Loading...</div>
+                <div *ngIf="!isPosting">
+                    <button
+                            class="save-button"
+                            (click)="postUpdate()">
+                        Save changes
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="!changeHappened" class="editor-header">
+                <!-- Placeholder -->
+            </div>
+
+            <div *ngIf="isFetchingSteps" class="screening-step-container">
+                <div *ngIf="!loaded" class="loading-icon-container">
+                    <i class="material-icons md-40 loading-icon">autorenew</i>
+                </div>
+            </div>
+
+            <div *ngFor="let screeningStep of screeningSteps | filterEnabled" class="screening-step-container">
+
+                <div class="step-container">
+                    <input
+                            class="screening-step-title"
+                            [(ngModel)]="screeningStep.name"
+                            (ngModelChange)="handleChange()"
+                            placeholder="--- Name is required! ---"/>
+
+                    <button
+                            (click)="deleteStep(screeningStep)">
+                        <i class="material-icons md-14 white-icon">delete_sweep</i>
+                    </button>
+                </div>
+
+                <div *ngFor="let criteria of screeningStep.criterias | filterEnabled" class="criteria-container">
+
+                    <input
+                            [(ngModel)]="criteria.name"
+                            (ngModelChange)="handleChange()"
+                            placeholder="Name is required!"/>
+
+                    <button
+                            (click)="deleteCriteria(criteria)">
+                        <i class="material-icons md-14 red-icon">backspace</i>
+                    </button>
+
+                </div>
+
+                <button
+                        class="new-criteria-button"
+                        (click)="addCriteria(screeningStep)">
+                    <i class="material-icons md-14">add_circle</i>
+                    Add new criteria
+                </button>
+
+            </div>
+            <div class="screening-step-container">
+                <button
+                        class="new-step-button"
+                        (click)="addStep()">
+                    <i class="material-icons md-14">add_circle</i>
+                    Add new step
+                </button>
+            </div>
+
         </div>
-      </div>
-      <div *ngIf="!changeHappened" class="editor-header">
-        <!-- Placeholder -->
-      </div>
-
-      <div *ngIf="isFetchingSteps" class="screening-step-container">
-        <div *ngIf="!loaded" class="loading-icon-container">
-          <i class="material-icons md-40 loading-icon">autorenew</i>
-        </div>
-      </div>
-
-      <div *ngFor="let screeningStep of screeningSteps | filterEnabled" class="screening-step-container">
-
-        <div class="step-container">
-          <input
-            class="screening-step-title"
-            [(ngModel)]="screeningStep.name"
-            (ngModelChange)="handleChange()"
-            placeholder="--- Name is required! ---"/>
-
-          <button
-            (click)="deleteStep(screeningStep)">
-            <i class="material-icons md-14 white-icon">delete_sweep</i>
-          </button>
-        </div>
-
-        <div *ngFor="let criteria of screeningStep.criterias | filterEnabled" class="criteria-container">
-
-          <input
-            [(ngModel)]="criteria.name"
-            (ngModelChange)="handleChange()"
-            placeholder="Name is required!"/>
-
-          <button
-            (click)="deleteCriteria(criteria)">
-            <i class="material-icons md-14 red-icon">backspace</i>
-          </button>
-
-        </div>
-
-        <button
-          class="new-criteria-button"
-          (click)="addCriteria(screeningStep)">
-          <i class="material-icons md-14">add_circle</i>
-          Add new criteria
-        </button>
-
-      </div>
-      <div class="screening-step-container">
-        <button
-          class="new-step-button"
-          (click)="addStep()">
-          <i class="material-icons md-14">add_circle</i>
-          Add new step
-        </button>
-      </div>
-
     </div>
-  </div>
 
-  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 card-container">
-    <div class="card tutorial">
-      <h2>Edit screening</h2>
-      <p>
-        - You can add, edit and delete the
-        steps and their criterias.
-      </p>
-      <p>
-        - Your modification will only affect
-        the screening of <span>Budapest</span>.
-      </p>
-      <p>
-        - On the evalutaion sheet, you can set
-        points and add comments to all the
-        steps and criterias defined here.
-      </p>
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 card-container">
+        <div class="card tutorial">
+            <h2>Edit screening</h2>
+            <p>
+                - You can add, edit and delete the
+                steps and their criterias.
+            </p>
+            <p>
+                - Your modification will only affect
+                the screening of <span>Budapest</span>.
+            </p>
+            <p>
+                - On the evalutaion sheet, you can set
+                points and add comments to all the
+                steps and criterias defined here.
+            </p>
+        </div>
+        <div class="router-button-container">
+            <button (click)="evaluateScreenings()" class="router-button">
+                Evaluate screenings
+            </button>
+        </div>
     </div>
-    <div class="router-button-container">
-      <button (click)="evaluateScreenings()" class="router-button">
-        Evaluate screenings
-      </button>
-    </div>
-  </div>
 
 </div>

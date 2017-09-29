@@ -3,6 +3,7 @@ package com.codecool.appsystem.admin.controller;
 import com.codecool.appsystem.admin.model.ApplicantsScreeningStep;
 import com.codecool.appsystem.admin.model.ScreeningGrade;
 import com.codecool.appsystem.admin.model.ScreeningStep;
+import com.codecool.appsystem.admin.model.dto.ApplicantsScreeningStepDTO;
 import com.codecool.appsystem.admin.model.dto.ScreeningStepEvaluationDTO;
 import com.codecool.appsystem.admin.service.ScreeningEditService;
 import com.codecool.appsystem.admin.service.ScreeningEvalService;
@@ -31,7 +32,7 @@ public class ScreeningStepsController {
     }
 
     @RequestMapping(value = "/api/evalscreening", method = RequestMethod.POST)
-    public boolean saveEvaluation(@RequestBody ApplicantsScreeningStep data){
+    public boolean saveEvaluation(@RequestBody ApplicantsScreeningStepDTO data){
         screeningEditService.saveEvaluation(data);
         return true;
     }

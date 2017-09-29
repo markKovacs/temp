@@ -96,7 +96,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">{{user.givenName}}'s Motivations & Interviewer Comments</div>
                     <div class="panel-body">
-                        <applicant-screening *ngIf="application.screeningSteps && application.screeningSteps.length > 0" [user]="user"></applicant-screening>
+                        <applicant-screening *ngIf="application.screeningSteps && application.screeningSteps.length > 0" [user]="user" [application]="application"></applicant-screening>
                     </div>
                 </div>
             </div>

@@ -134,6 +134,7 @@ public class ApplicationScreeningService {
                                 signedBack.equals(applicationScreeningInfo.getScheduleSignedBack()))
                 .map(ApplicationScreeningInfo::getApplication)
                 .map(this::transformScreeningInfo)
+                .sorted((o1, o2) -> o1.getPersonalTime().compareTo(o2.getPersonalTime()))
                 .collect(Collectors.toList());
 
     }

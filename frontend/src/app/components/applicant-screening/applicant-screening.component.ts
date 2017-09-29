@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {GlobalEventsManager} from '../../global.eventsmanager';
 import {User} from '../../_models/index';
 import {HttpClient} from '../../_httpclient/httpclient';
+import {Application} from "../../_models/application";
 
 @Component({
     moduleId: module.id,
@@ -13,6 +14,8 @@ import {HttpClient} from '../../_httpclient/httpclient';
 export class ApplicantScreeningComponent {
 
     @Input() user: User;
+    @Input() application: Application;
+
     messages: any [] = [];
 
     constructor(private client: HttpClient,

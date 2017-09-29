@@ -185,8 +185,7 @@ public class ApplicantDetailsService {
                         .interviewer(step.getInterviewer())
                         .points(step.getPoints())
                         .status(step.getStatus())
-                        .stepName(step.getStep().getName())
-                        .criterias(processCriterias(step.getCriterias()))
+                        .criteria(processCriterias(step.getCriteria()))
                         .build())
                 .collect(Collectors.toList());
 
@@ -195,11 +194,11 @@ public class ApplicantDetailsService {
     private List<CriteriaDTO> processCriterias(List<ApplicantsScreeningStepCriteria> criterias){
         List<CriteriaDTO> result = new ArrayList<>();
         for(ApplicantsScreeningStepCriteria crit : criterias){
-            result.add(CriteriaDTO.builder()
+            result.add(
+                CriteriaDTO.builder()
                     .comment(crit.getComment())
                     .points(crit.getPoints())
                     .status(crit.getStatus())
-                    .criteriaName(crit.getCriteria().getName())
                     .build()
             );
         }

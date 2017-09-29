@@ -1,12 +1,14 @@
 package com.codecool.appsystem.admin.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Data
 @Entity
+@ToString(exclude = "criteria")
 public class ApplicantsScreeningStepCriteria {
 
     @Id

@@ -1,9 +1,8 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {GlobalEventsManager} from "../../../global.eventsmanager";
-import {HttpClient} from "../../../_httpclient/httpclient";
-import {ScreeningInfo} from "../../../_models/index";
-import {Message} from 'primeng/primeng';
+import {ScreeningInfo, ScreeningStep} from "../../../_models/index";
+import {ScreeningService} from "../../../_services/screening.service";
 
 @Component({
     moduleId: module.id,
@@ -12,19 +11,20 @@ import {Message} from 'primeng/primeng';
 })
 export class EvaluateUserComponent {
 
-    public user: ScreeningInfo;
-    public messages: Message[] = [];
+    user: ScreeningInfo;
+    screeningSteps: ScreeningStep[] = [];
 
     constructor(
-        private client: HttpClient,
+        private screeningService: ScreeningService,
         private route: ActivatedRoute,
-        private eventsManager: GlobalEventsManager)
-    {
+        private eventsManager: GlobalEventsManager
+    ) {
+
         this.eventsManager.showNavBar(true);
 
         this.route.params.subscribe(
             (params) => {
-                this.getUser(params.id).subscribe(
+                this.screeningService.getUser(params.id).subscribe(
                     (user: ScreeningInfo) => {
                         this.user = user;
                     },
@@ -33,10 +33,11 @@ export class EvaluateUserComponent {
             }
         );
 
-    }
+        this.screeningService.findScreeningSteps().subscribe(
+            (steps: ScreeningStep[]) => this.screeningSteps = steps,
+            (error) => error
+        );
 
-    getUser(id: number) {
-        return this.client.get('/api/screening/' + id);
     }
 
 }

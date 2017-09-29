@@ -3,6 +3,7 @@ import {HttpClient} from '../_httpclient/httpclient';
 import {Observable} from 'rxjs/Observable';
 import {ScreeningInfo} from '../_models/screeninginfo.model';
 import {PostResponse} from '../_models/post-response.model';
+import {ApplicantsScreeningStep} from "../_models/screening/applicants-screening-step";
 
 @Injectable()
 export class ScreeningService {
@@ -15,6 +16,28 @@ export class ScreeningService {
 
     findAssignmentCandidates(): Observable<ScreeningInfo[]> {
         return this.http.get('/api/screening/assignmentcandidates' + '?location=' + JSON.parse(localStorage.getItem('chosenLocation')).id);
+    }
+
+    findEvaluationCandidates() {
+        const location = JSON.parse(localStorage.getItem("chosenLocation"));
+        return this.http.get('/api/screening/list?location=' + location.id + '&signedback=true');
+    }
+
+    findScreeningSteps() {
+        const location = JSON.parse(localStorage.getItem("chosenLocation"));
+        return this.http.get('/api/screeningsteps?location=' + location.id);
+    }
+
+    getStepForUser(userId: number, stepId: string){
+        return this.http.get('/api/evalscreening/' + userId + '?step=' + stepId);
+    }
+
+    getUser(id: number) {
+        return this.http.get('/api/screening/' + id);
+    }
+
+    saveEvaluationForStep(applicantsScreeningStep: ApplicantsScreeningStep){
+        return this.http.post('/api/evalscreening', applicantsScreeningStep);
     }
 
     saveGroupTimes(candidates: ScreeningInfo[]): Observable<PostResponse> {

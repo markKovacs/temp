@@ -2,8 +2,13 @@ package com.codecool.appsystem.admin.service;
 
 import com.codecool.appsystem.admin.config.security.AuthenticatedUser;
 import com.codecool.appsystem.admin.model.*;
+import com.codecool.appsystem.admin.model.dto.ApplicantsScreeningStepDTO;
+import com.codecool.appsystem.admin.model.dto.CriteriaDTO;
 import com.codecool.appsystem.admin.model.dto.ScreeningStepEvaluationDTO;
-import com.codecool.appsystem.admin.repository.*;
+import com.codecool.appsystem.admin.repository.ApplicantsScreeningStepCriteriaRepository;
+import com.codecool.appsystem.admin.repository.ApplicantsScreeningStepRepository;
+import com.codecool.appsystem.admin.repository.ScreeningStepRepository;
+import com.codecool.appsystem.admin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -69,7 +74,7 @@ public class ScreeningEditService {
 
                 screeningStepCriteria = screeningStepCriteriaRepository.saveAndFlush(screeningStepCriteria);
 
-                applicantsScreeningStep.getCriterias().add(screeningStepCriteria);
+                applicantsScreeningStep.getCriteria().add(screeningStepCriteria);
             }
 
         }
@@ -83,9 +88,26 @@ public class ScreeningEditService {
     }
 
 
-    public void saveEvaluation(ApplicantsScreeningStep step){
+    public void saveEvaluation(ApplicantsScreeningStepDTO data){
+
+        ApplicantsScreeningStep step = applicantsScreeningStepRepository.findOne(data.getId());
         step.setInterviewer(((AuthenticatedUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName());
-        applicantsScreeningStepRepository.save(step);
+
+        step.setPoints(data.getPoints());
+        step.setComment(data.getComment());
+        step.setStatus(data.getStatus());
+
+        for(ApplicantsScreeningStepCriteria crit : step.getCriteria()){
+            for(CriteriaDTO dto : data.getCriteria()){
+                if(crit.getId().equals(dto.getId())){
+                    crit.setPoints(dto.getPoints());
+                    crit.setComment(dto.getComment());
+                    crit.setStatus(dto.getStatus());
+                }
+            }
+        }
+
+        applicantsScreeningStepRepository.saveAndFlush(step);
     }
 
 }

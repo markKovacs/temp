@@ -14,22 +14,22 @@ public class ScreeningController {
     @Autowired
     private ApplicationScreeningService screeningService;
 
-    @RequestMapping("/api/screening/list")
+    @RequestMapping(value = "/api/screening/list", method = RequestMethod.GET)
     public List<ScreeningDTO> getScreeningInfo(@RequestParam String location, @RequestParam("signedback") Boolean signedBack){
         return screeningService.find(location, signedBack);
     }
 
-    @RequestMapping("/api/screening/{id}")
+    @RequestMapping(value = "/api/screening/{id}", method = RequestMethod.GET)
     public ScreeningDTO getScreeningInfo(@PathVariable("id") Integer id){
         return screeningService.findOne(id);
     }
 
-    @RequestMapping("/api/screening/candidates")
+    @RequestMapping(value = "/api/screening/candidates", method = RequestMethod.GET)
     public List<ScreeningDTO> getScreeningCandidates(@RequestParam String location){
         return screeningService.getCandidates(location);
     }
 
-    @RequestMapping("/api/screening/assignmentcandidates")
+    @RequestMapping(value = "/api/screening/assignmentcandidates", method = RequestMethod.GET)
     public List<ScreeningDTO> getScreeningAssignmentCandidates(@RequestParam String location){
         return screeningService.getAssignmentCandidates(location);
     }

@@ -19,7 +19,6 @@ import java.util.UUID;
 @Table(name = "applications")
 @AllArgsConstructor
 @Builder
-@ToString
 public class Application {
 
     @Id
@@ -27,6 +26,7 @@ public class Application {
     @Column(length = 40)
     private String id = UUID.randomUUID().toString();
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "applicant_id", referencedColumnName = "id")
     private User user;
@@ -58,4 +58,23 @@ public class Application {
     @OrderBy("started")
     private List<TestResult> testResults = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "Application{" +
+                "id='" + id + '\'' +
+                ", user=" + user.getId() +
+                ", location=" + location +
+                ", applicationScreeningInfo=" + applicationScreeningInfo +
+                ", courseId=" + courseId +
+                ", processStartedAt=" + processStartedAt +
+                ", finalResult=" + finalResult +
+                ", active=" + active +
+                ", utmSource='" + utmSource + '\'' +
+                ", utmMedium='" + utmMedium + '\'' +
+                ", utmCampaign='" + utmCampaign + '\'' +
+                ", comment='" + comment + '\'' +
+                ", screeningSteps=" + screeningSteps.size() +
+                ", testResults=" + testResults.size() +
+                '}';
+    }
 }

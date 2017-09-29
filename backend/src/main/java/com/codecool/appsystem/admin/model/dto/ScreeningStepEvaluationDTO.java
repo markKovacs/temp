@@ -11,8 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ScreeningStepEvaluationDTO {
-
+    // UserScreeningStep in ts
     private String name;
     private Integer age;
+
     private ApplicantsScreeningStep screeningStep;
 }

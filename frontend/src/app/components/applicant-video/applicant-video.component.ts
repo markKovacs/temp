@@ -81,7 +81,6 @@ export class ApplicantVideoComponent implements OnInit {
     // }
 
     parseTestResultAnswer(): string {
-        console.log(this.testResult.answer);
         const re = 'https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)';
         const url = this.testResult.answer.match(re);
         if (url) {
