@@ -7,8 +7,6 @@
             <th>Signed Back</th>
             <th></th>
         </tr>
-        <!--[style.background-color] = "!user.scheduleSignedBack ? '#d9534f' : '#5cb85c'"
-        [style.color] = "!user.scheduleSignedBack ? '#fff' : '#fff'">-->
         <tr *ngFor="let user of users"
             class="{{getRowClass(user)}}">
             <td>
@@ -34,8 +32,11 @@
                 <p *ngIf="user.scheduleSignedBack === true">
                     Coming
                 </p>
-                <p *ngIf="!user.scheduleSignedBack">
+                <p *ngIf="user.groupTime && user.personalTime && !user.scheduleSignedBack">
                     Not Signed Back
+                </p>
+                <p *ngIf="(!user.groupTime || !user.personalTime) && user.scheduleSignedBack">
+                    -
                 </p>
             </td>
             <td>

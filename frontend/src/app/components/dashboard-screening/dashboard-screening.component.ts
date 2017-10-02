@@ -51,11 +51,11 @@ export class DashboardScreeningComponent {
 
     getRowClass(user: ScreeningInfo){
         if(user.scheduleSignedBack){
-            return "bg-success";
+            return "signedback";
         } else if(user.groupTime && user.personalTime && !user.scheduleSignedBack){
-            return "bg-danger"
+            return "notsignedback"
         }
-        return "bg-info";
+        return "withoutdates";
     }
 
 }

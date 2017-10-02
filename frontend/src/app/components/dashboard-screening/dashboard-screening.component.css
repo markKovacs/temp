@@ -7,3 +7,15 @@ p {
     padding-bottom: 0;
     padding-top: 0;
 }
+
+.signedback {
+    background-color: #5cb85c;
+}
+
+.notsignedback {
+    background-color: #d9534f;
+}
+
+.withoutdates {
+    background-color: #4a9ed9;
+}
