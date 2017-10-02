@@ -3,6 +3,7 @@ import {ScreeningService} from "../../_services/screening.service";
 import {ScreeningInfo} from "../../_models/screeninginfo.model";
 import {Router} from "@angular/router";
 import {GlobalEventsManager} from "../../global.eventsmanager";
+import {isNullOrUndefined} from "util";
 
 @Component({
     moduleId: module.id,
@@ -46,6 +47,15 @@ export class DashboardScreeningComponent {
             },
             error => console.log(error)
         );
+    }
+
+    getRowClass(user: ScreeningInfo){
+        if(user.scheduleSignedBack){
+            return "bg-success";
+        } else if(user.groupTime && user.personalTime && !user.scheduleSignedBack){
+            return "bg-danger"
+        }
+        return "bg-info";
     }
 
 }

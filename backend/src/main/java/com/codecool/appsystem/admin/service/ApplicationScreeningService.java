@@ -6,7 +6,9 @@ import com.codecool.appsystem.admin.model.TestResult;
 import com.codecool.appsystem.admin.model.User;
 import com.codecool.appsystem.admin.model.dto.ScreeningDTO;
 import com.codecool.appsystem.admin.model.dto.ScreeningTimeAssingmentDTO;
-import com.codecool.appsystem.admin.repository.*;
+import com.codecool.appsystem.admin.repository.ApplicationRepository;
+import com.codecool.appsystem.admin.repository.ApplicationScreeningInfoRepository;
+import com.codecool.appsystem.admin.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -158,6 +160,18 @@ public class ApplicationScreeningService {
                 .stream()
                 .filter(this::isScreeningCandidate)
                 .map(this::createCandidate)
+                .sorted((o1, o2) -> {
+                    if(o1.getGroupTime() == null && o2.getGroupTime() == null){
+                        return o1.getName().compareTo(o2.getName());
+                    }
+                    if(o1.getGroupTime() == null){
+                        return 1;
+                    }
+                    if(o2.getGroupTime() == null){
+                        return -1;
+                    }
+                    return o1.getGroupTime().compareTo(o2.getGroupTime());
+                })
                 .collect(Collectors.toList());
 
     }
