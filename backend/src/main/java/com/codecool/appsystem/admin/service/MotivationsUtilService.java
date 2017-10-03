@@ -18,6 +18,8 @@ import java.util.regex.Pattern;
 @Slf4j
 public class MotivationsUtilService {
 
+    @Autowired
+    private LocationRepository locationRepository;
 
     @Autowired
     private TestResultRepository testResultRepository;
@@ -35,7 +37,9 @@ public class MotivationsUtilService {
 
         List<MotivationDTO> motivation = new ArrayList<>();
 
-        Test motivationTest = testRepo.findByMotivationVideoAndLocationId(true, id);
+        Location location = locationRepository.findOne(id);
+
+        Test motivationTest = testRepo.findByMotivationVideoIsTrueAndLocationAndEnabledIsTrue(location);
 
         if(motivationTest == null){
             log.warn("No motivation test found for location: {}", id);

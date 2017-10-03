@@ -1,5 +1,6 @@
 package com.codecool.appsystem.admin.repository;
 
+import com.codecool.appsystem.admin.model.Location;
 import com.codecool.appsystem.admin.model.Test;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,5 +12,5 @@ public interface TestRepository extends JpaRepository<Test, String> {
 
     List<Test> findByLocationIdOrderByOrderInBundleAsc(String locationId);
 
-    Test findByMotivationVideoAndLocationId(Boolean bool,String id);
+    Test findByMotivationVideoIsTrueAndLocationAndEnabledIsTrue(Location location);
 }

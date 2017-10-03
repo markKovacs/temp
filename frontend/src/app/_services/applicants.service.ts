@@ -21,5 +21,8 @@ export class ApplicantService {
         return this.client.get('/api/applicants/' + id + '/terminate');
     }
 
+    public delete(id: number) {
+        return this.client.get('/api/applicants/' + id + '/delete');
+    }
 }
 

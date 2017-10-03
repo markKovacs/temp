@@ -6,6 +6,7 @@
              (onRowClick)="handleRowClick($event)"
              (onRowExpand)="handleRowExpand($event)"
              [paginator]="true"
+             [rowsPerPageOptions]="[10,20,50]"
              [rows]="10">
 
     <p-column expander="true"

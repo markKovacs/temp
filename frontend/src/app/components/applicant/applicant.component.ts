@@ -104,6 +104,20 @@ export class ApplicantComponent {
             this.applicantService.terminate(this.user.id).subscribe(
                 (data: any) => {
                     alert('Application closed');
+                    this.router.navigate(['/applicants']);
+                }
+            )
+        }
+
+    }
+
+    deleteUser(){
+        const confirmDialog = confirm('Are you sure? The user will be wiped our from the system.');
+
+        if(confirmDialog){
+            this.applicantService.delete(this.user.id).subscribe(
+                (data: any) => {
+                    alert('User removed');
                     window.location.reload();
                 }
             )

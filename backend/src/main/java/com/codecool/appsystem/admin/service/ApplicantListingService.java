@@ -27,6 +27,7 @@ public class ApplicantListingService {
         if(Boolean.TRUE.equals(all)){
             return userRepository.findByLocationId(locationId)
                     .stream()
+                    .filter(user -> user.getEmail().contains("@"))
                     .map(this::transform)
                     .collect(Collectors.toList());
         }
@@ -36,6 +37,7 @@ public class ApplicantListingService {
         return applications
                 .stream()
                 .filter(application -> !Boolean.FALSE.equals(application.getFinalResult()))
+                .filter(application -> !CollectionUtils.isEmpty(application.getTestResults()))
                 .map(Application::getUser)
                 .map(this::transform)
                 .collect(Collectors.toList());
