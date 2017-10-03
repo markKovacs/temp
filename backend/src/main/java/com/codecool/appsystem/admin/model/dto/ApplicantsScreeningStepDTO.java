@@ -15,6 +15,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApplicantsScreeningStepDTO {
 
+    private String name;
     private String id;
     private String interviewer;
     private Integer points;

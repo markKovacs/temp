@@ -1,60 +1,72 @@
 <div *ngIf="application">
 
-        <div *ngIf="!application.finalResult" class="well">
-            <p><strong>Decide on the final result</strong></p>
-            <a (click)="setFinalResult(true)" class="btn btn-success btn-xs final-btn"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Accept the applicant</a>
-            <a (click)="setFinalResult(false)" class="btn btn-danger btn-xs final-btn"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;Decline</a>
+    <div *ngIf="!application.finalResult" class="well">
+        <p><strong>Decide on the final result</strong></p>
+        <a (click)="setFinalResult(true)" class="btn btn-success btn-xs final-btn"><i class="fa fa-check"
+                                                                                      aria-hidden="true"></i>&nbsp;Accept
+            the applicant</a>
+        <a (click)="setFinalResult(false)" class="btn btn-danger btn-xs final-btn"><i class="fa fa-times"
+                                                                                      aria-hidden="true"></i>&nbsp;Decline</a>
+    </div>
+
+
+    <div class="panel {{ getClass(step) }}" *ngFor="let step of application.screeningSteps">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ step.name }}&nbsp;
+
+                <i class="fa fa-check" aria-hidden="true" *ngIf="step.status === 'yes'"></i>
+                <i class="fa fa-question" aria-hidden="true" *ngIf="step.status === 'maybe'"></i>
+                <i class="fa fa-ban" aria-hidden="true" *ngIf="step.status === 'no'"></i>
+
+            </h3>
         </div>
+        <div class="panel-body" style="padding-left: 30px; padding-right: 30px" >
 
-
-        <div class="panel {{ getClass(step) }}" *ngFor="let step of application.screeningSteps">
-            <div class="panel-heading">
-                <h3 class="panel-title">{{ step.stepName }}&nbsp;
-
-                        <i class="fa fa-check" aria-hidden="true" *ngIf="step.status === 'yes'"></i>
-                        <i class="fa fa-question" aria-hidden="true" *ngIf="step.status === 'maybe'"></i>
-                        <i class="fa fa-ban" aria-hidden="true" *ngIf="step.status === 'no'"></i>
-                    
-                </h3>
+            <div class="row">
+                <h4 *ngIf="step.points">
+                    POINTS<small>&nbsp;{{ step.points }}</small>
+                </h4>
+                <h4>
+                    INTERVIEWER
+                    <br/>
+                    <small>{{ step.interviewer }}</small>
+                </h4>
+                <h4>
+                    COMMENT
+                    <br/>
+                    <p style="text-align: justify; font-size: 0.8em">{{ step.comment }}</p>
+                </h4>
             </div>
-            <div class="panel-body">
 
-                <div class="col-sm-3">
-                    <h4 *ngIf="step.points">
-                        <small>POINTS</small>&nbsp;{{ step.points }}
-                    </h4>
-                    <h4>
-                        <small>COMMENT</small><br />{{ step.comment }}
-                    </h4>
-                    <h4>
-                        <small>INTERVIEWER</small><br />{{ step.interviewer }}
-                    </h4>
-                </div>
-
-                <div class="col-sm-3 panel {{ getClass(crit) }}" *ngFor="let crit of step.criterias">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">{{ crit.criteriaName }}&nbsp;
-                            <small>
-                                <i class="fa fa-check" aria-hidden="true" *ngIf="crit.status === 'yes'">&nbsp;Yes</i>
-                                <i class="fa fa-question" aria-hidden="true" *ngIf="crit.status === 'maybe'">&nbsp;Maybe</i>
-                                <i class="fa fa-ban" aria-hidden="true"
-                                   *ngIf="crit.status === 'no'">&nbsp;No</i>
-                            </small>
-                        </h4>
-                    </div>
-                    <div class="panel-body" style="min-height: 250px">
-                        <h5>
-                            <small>POINTS</small>&nbsp;{{ crit.points }}
-                        </h5>
-                        <h5>
-                            <small>COMMENT</small><br />{{ crit.comment }}
-                        </h5>
-                        <h5>
-                            <small>STATUS</small>&nbsp;{{ crit.status }}
-                        </h5>
+            <div class="row">
+                <div class="col-sm-4" *ngFor="let crit of step.criteria">
+                    <div class="panel {{ getClass(crit) }}" *ngIf="crit.points || crit.comment">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">{{ crit.name }}&nbsp;
+                                <small>
+                                    <i class="fa fa-check" aria-hidden="true"
+                                       *ngIf="crit.status === 'yes'">&nbsp;Yes</i>
+                                    <i class="fa fa-question" aria-hidden="true"
+                                       *ngIf="crit.status === 'maybe'">&nbsp;Maybe</i>
+                                    <i class="fa fa-ban" aria-hidden="true"
+                                       *ngIf="crit.status === 'no'">&nbsp;No</i>
+                                </small>
+                            </h4>
+                        </div>
+                        <div class="panel-body">
+                            <h5 *ngIf="crit.points">
+                                POINTS:&nbsp;<b>{{ crit.points }}</b>
+                            </h5>
+                            <h5 *ngIf="crit.comment">
+                                COMMENT
+                                <br/>
+                                <small>{{ crit.comment }}</small>
+                            </h5>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
 </div>

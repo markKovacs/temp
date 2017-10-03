@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CriteriaDTO {
 
+    private String name;
     private String id;
     private String applicantsScreeningStepId;
     private Integer points;

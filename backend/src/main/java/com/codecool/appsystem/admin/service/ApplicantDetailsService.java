@@ -181,6 +181,7 @@ public class ApplicantDetailsService {
         return steps
                 .stream()
                 .map(step -> ApplicantsScreeningStepDTO.builder()
+                        .name(step.getStep().getName())
                         .comment(step.getComment())
                         .interviewer(step.getInterviewer())
                         .points(step.getPoints())
@@ -196,6 +197,7 @@ public class ApplicantDetailsService {
         for(ApplicantsScreeningStepCriteria crit : criterias){
             result.add(
                 CriteriaDTO.builder()
+                        .name(crit.getCriteria().getName())
                     .comment(crit.getComment())
                     .points(crit.getPoints())
                     .status(crit.getStatus())
