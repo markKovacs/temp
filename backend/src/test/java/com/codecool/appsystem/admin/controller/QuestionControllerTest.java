@@ -104,7 +104,7 @@ public class QuestionControllerTest {
 
     @Test
     public void getQuestionByLocation() throws Exception {
-        when(testRepository.findByLocationIdOrderByOrderInBundleAsc("BUD")).thenReturn(mockTests);
+        when(testRepository.findByLocationIdAndEnabledIsTrueOrderByOrderInBundleAsc("BUD")).thenReturn(mockTests);
         when(questionService.createQuestionsFromLocationId(mockTests)).thenReturn(mockQuestions);
         when(questionService.createQuestionDTO(mockTest, mockQuestion)).thenReturn(mockTestDTOs.get(0));
 
@@ -116,7 +116,7 @@ public class QuestionControllerTest {
                 .andExpect(jsonPath("$[0].id", is("1")))
                 .andExpect(jsonPath("$[0].locationId", is("BUD")));
 
-        verify(testRepository, times(1)).findByLocationIdOrderByOrderInBundleAsc("BUD");
+        verify(testRepository, times(1)).findByLocationIdAndEnabledIsTrueOrderByOrderInBundleAsc("BUD");
         verifyNoMoreInteractions(testRepository);
 
         verify(questionService, times(1)).createQuestionsFromLocationId(mockTests);

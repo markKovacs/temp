@@ -16,7 +16,9 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -82,6 +84,8 @@ public class ApplicationScreeningService {
                 continue;
             }
 
+            log.debug("Saving personal times: {}", data);
+
             // truncate all our saved dates to hh:mm
             Date personalTime = Date.from(
                     Instant.ofEpochMilli(dto.getTime().getTime()).truncatedTo(ChronoUnit.MINUTES)
@@ -131,12 +135,11 @@ public class ApplicationScreeningService {
         return findScreeningInfo(locationId)
                 .stream()
                 .filter(Objects::nonNull)
-                .filter(applicationScreeningInfo ->
-                        signedBack == null ||
-                                signedBack.equals(applicationScreeningInfo.getScheduleSignedBack()))
+                .filter(screeningInfo -> signedBack == null ||
+                        signedBack.equals(screeningInfo.getScheduleSignedBack()))
                 .map(ApplicationScreeningInfo::getApplication)
                 .map(this::transformScreeningInfo)
-                .sorted((o1, o2) -> o1.getPersonalTime().compareTo(o2.getPersonalTime()))
+                .sorted(Comparator.comparing(ScreeningDTO::getGroupTime))
                 .collect(Collectors.toList());
 
     }
@@ -198,7 +201,17 @@ public class ApplicationScreeningService {
             return false;
         }
 
-        return application.getFinalResult() == null && Boolean.TRUE.equals(last.getPassed());
+        boolean testCriteria = application.getFinalResult() == null && Boolean.TRUE.equals(last.getPassed());
+
+        if(!testCriteria){
+            return false;
+        }
+
+        return !LocalDate.now()
+                .atTime(22, 59, 0)
+                .toInstant(ZoneOffset.UTC)
+                .isAfter(application.getApplicationScreeningInfo().getScreeningGroupTime().toInstant());
+
 
     }
 

@@ -40,7 +40,7 @@ public class QuestionController {
     public List<TestDTO> getQuestionByLocation(@PathVariable("location") String locationId) throws IOException {
 
         List<TestDTO> result = new ArrayList<>();
-        List<Test> testsByLocation = testRepository.findByLocationIdOrderByOrderInBundleAsc(locationId);
+        List<Test> testsByLocation = testRepository.findByLocationIdAndEnabledIsTrueOrderByOrderInBundleAsc(locationId);
         List<Question> questions = questionService.createQuestionsFromLocationId(testsByLocation);
 
         for (int i = 0; i < testsByLocation.size(); i++) {

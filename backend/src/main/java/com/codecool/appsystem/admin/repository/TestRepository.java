@@ -10,7 +10,7 @@ public interface TestRepository extends JpaRepository<Test, String> {
 
     List<Test> findByLocationId(String locationId);
 
-    List<Test> findByLocationIdOrderByOrderInBundleAsc(String locationId);
+    List<Test> findByLocationIdAndEnabledIsTrueOrderByOrderInBundleAsc(String locationId);
 
     Test findByMotivationVideoIsTrueAndLocationAndEnabledIsTrue(Location location);
 }

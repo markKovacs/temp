@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -81,7 +82,9 @@ public class QuestionService {
 
 
         for (Test test : testsByLocation) {
-            questions.add(mapper.readValue(test.getFormAsJson(), Question.class));
+            if(!StringUtils.isEmpty(test.getFormAsJson())) {
+                questions.add(mapper.readValue(test.getFormAsJson(), Question.class));
+            }
         }
 
         return addCorrectAnswerToQuestions(questions);
