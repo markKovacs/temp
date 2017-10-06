@@ -12,4 +12,6 @@ export class Applicant {
     user: User = new User();
     phoneNumber: string;
 
+    finalResult: boolean;
+
 }

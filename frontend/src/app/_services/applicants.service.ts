@@ -17,6 +17,10 @@ export class ApplicantService {
         return this.client.get('/api/applicants/' + id);
     }
 
+    public getFinished(): Observable<Applicant[]> {
+        return this.client.get('/api/applicants/finished');
+    }
+
     public terminate(id: number) {
         return this.client.get('/api/applicants/' + id + '/terminate');
     }

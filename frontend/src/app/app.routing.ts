@@ -13,6 +13,7 @@ import {
 import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from './guards/index';
 import {ApplicantsComponent} from './components/applicants/applicants.component';
+import {FinalResultPageComponent} from "./components/final-result/final-result.component";
 
 const appRoutes: Routes = [
     // routes - all for logged in user only
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
     {path: 'evaluateuser/:id', component: EvaluateUserComponent, canActivate: [AuthGuard]},
     {path: 'surveygenerator', component: SurveyGeneratorComponent, canActivate: [AuthGuard]},
     {path: 'edittemplate', component: TemplateEditorComponent, canActivate: [AuthGuard]},
+    {path: 'final-result', component: FinalResultPageComponent, canActivate: [AuthGuard]},
 
     // redirects to auth0 login
     {path: 'login', component: StartComponent},

@@ -1,0 +1,16 @@
+<div style="margin-top: 100px"></div>
+<div class="row" *ngFor="let applicant of data">
+    <div class="col-md-4 col-md-offset-2">
+        <div class="well clearfix">
+            <p>{{applicant.name}}</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="well clearfix">
+            <p-inputSwitch
+                    [(ngModel)]="applicant.finalResult"
+                    onLabel="Yes" offLabel="No"
+            ></p-inputSwitch>
+        </div>
+    </div>
+</div>

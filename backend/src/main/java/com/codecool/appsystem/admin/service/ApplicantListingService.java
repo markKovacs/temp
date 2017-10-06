@@ -36,12 +36,21 @@ public class ApplicantListingService {
 
         return applications
                 .stream()
-                .filter(application -> !Boolean.FALSE.equals(application.getFinalResult()))
-                .filter(application -> !CollectionUtils.isEmpty(application.getTestResults()))
+                .filter(application -> application.getFinalResult() == null && !CollectionUtils.isEmpty(application.getTestResults()))
                 .map(Application::getUser)
                 .map(this::transform)
                 .collect(Collectors.toList());
 
+    }
+
+    public List<ApplicantInfoDTO> getFinished(){
+        List<Application> applications = applicationRepository.findByFinalResultIsTrueAndFinalResultSentIsNull();
+
+        return applications
+                .stream()
+                .map(Application::getUser)
+                .map(this::transform)
+                .collect(Collectors.toList());
     }
 
     private ApplicantInfoDTO transform(User user){

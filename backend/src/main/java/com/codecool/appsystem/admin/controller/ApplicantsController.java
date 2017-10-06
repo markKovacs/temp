@@ -34,6 +34,11 @@ public class ApplicantsController {
         return detailsService.provideInfo(id);
     }
 
+    @RequestMapping(value = "/finished", method = RequestMethod.GET)
+    public List<ApplicantInfoDTO> getFinishedApplicants() {
+        return applicantListingService.getFinished();
+    }
+
     @RequestMapping(value = "/{id}/savedate", method = RequestMethod.POST)
     public boolean saveDate(
             @PathVariable("id") Integer id, @RequestBody Map<String, Long> data) {

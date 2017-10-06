@@ -56,6 +56,10 @@ export class NavBarComponent {
         this.router.navigate(['applicants'])
     }
 
+    getFinalResults() {
+        this.router.navigate(['final-result'])
+    }
+
     getSurvey() {
         this.router.navigate(['surveygenerator'])
     }

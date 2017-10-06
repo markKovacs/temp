@@ -19,3 +19,4 @@ export * from './evaluateScreenings/evaluateScreenings.component';
 export * from './evaluateScreenings/evaluate-user/evaluate-user.component';
 export * from './applicants-table/applicants-table.component';
 export * from './tinymce/tinymce.component';
+export * from './final-result/final-result.component';
