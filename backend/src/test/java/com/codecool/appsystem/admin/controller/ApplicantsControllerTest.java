@@ -50,7 +50,7 @@ public class ApplicantsControllerTest extends MockData{
     public void setup() {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(applicantsController).build();
-        this.applicantInfoDTO = new ApplicantInfoDTO(100,"name", "BUD", "English", 1, false, new Date(), "email@gmail.com", "36707776655");
+        this.applicantInfoDTO = new ApplicantInfoDTO(100,"name", "BUD", "English", 1, false, new Date(), "email@gmail.com", "36707776655", null);
 
         this.mockApplicantInfosDTO.add(applicantInfoDTO);
 

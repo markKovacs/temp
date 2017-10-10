@@ -7,10 +7,10 @@ import {UsersScreeningStep} from "../../_models/index";
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'final-result.component.html',
-    styleUrls: ['final-result.component.css']
+    templateUrl: './marketing-data.component.html',
+    styleUrls: ['./marketing-data.component.css']
 })
-export class FinalResultPageComponent {
+export class MarketingDataPageComponent {
 
     data: Applicant[];
 
@@ -41,23 +41,23 @@ export class FinalResultPageComponent {
 
     private postResults() {
 
+        const postData = [];
+
         for (let appl of this.data) {
             if(!isNullOrUndefined(appl.finalResult)) {
-                let data = {
+                postData.push({
                     id: appl.id,
-                    accepted: appl.finalResult
-                };
-
-                this.applicantService.setFinished(data).subscribe(
-                    (data: any) => {
-                        appl.finalResultSent = true;
-                    },
-                    error2 => console.log(error2)
-                )
+                    result: appl.finalResult
+                });
             }
         }
 
+        this.applicantService.setFinished(postData).subscribe(
+            (data: any) => {},
+            error2 => console.log(error2)
+        )
+
     }
 
-}
 
+}

@@ -66,6 +66,8 @@ import {UserService} from './_services/user.service';
 import {EmailTemplateService} from './_services/email-template.service';
 import {ListboxModule} from 'primeng/primeng';
 import {InputSwitchModule} from 'primeng/primeng';
+import {MarketingDataPageComponent} from "./components/marketing-data/marketing-data.component";
+import {PersonalDataPageComponent} from "./components/personal-data/personal-data.component";
 
 
 
@@ -119,7 +121,9 @@ import {InputSwitchModule} from 'primeng/primeng';
         AlertComponent,
         ApplicantsTableComponent,
         TinyMceComponent,
-        FinalResultPageComponent
+        FinalResultPageComponent,
+        MarketingDataPageComponent,
+        PersonalDataPageComponent
     ],
     providers: [
         AuthGuard,

@@ -48,6 +48,18 @@ public class ScreeningEditService {
         repository.save(data);
     }
 
+    public List<ScreeningStepEvaluationDTO> getSteps(Integer id){
+
+        Application application = userRepository.findOne(id).getActiveApplication();
+
+        return application.getScreeningSteps().stream()
+                .map(step -> ScreeningStepEvaluationDTO.builder()
+                        .screeningStep(step)
+                        .build())
+                .collect(Collectors.toList());
+
+    }
+
     public ScreeningStepEvaluationDTO findForApplicant(Integer id, String stepId){
 
         Application application = userRepository.findOne(id).getActiveApplication();

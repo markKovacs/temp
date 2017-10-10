@@ -1,10 +1,12 @@
 package com.codecool.appsystem.admin.controller;
 
+import com.codecool.appsystem.admin.model.PersonalData;
 import com.codecool.appsystem.admin.model.dto.ApplicantDetailsDTO;
 import com.codecool.appsystem.admin.model.dto.ApplicantInfoDTO;
 import com.codecool.appsystem.admin.service.ApplicantAdminService;
 import com.codecool.appsystem.admin.service.ApplicantDetailsService;
 import com.codecool.appsystem.admin.service.ApplicantListingService;
+import com.codecool.appsystem.admin.service.PersonalDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,9 @@ public class ApplicantsController {
     @Autowired
     private ApplicantAdminService applicantAdminService;
 
+    @Autowired
+    private PersonalDataService personalDataService;
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<ApplicantInfoDTO> getAllApplicants(@RequestParam("location") String locationId, @RequestParam(value = "all", required = false) Boolean all) {
         return applicantListingService.getApplicationData(locationId, all);
@@ -37,6 +42,16 @@ public class ApplicantsController {
     @RequestMapping(value = "/finished", method = RequestMethod.GET)
     public List<ApplicantInfoDTO> getFinishedApplicants() {
         return applicantListingService.getFinished();
+    }
+
+    @RequestMapping(value = "/hired", method = RequestMethod.GET)
+    public List<ApplicantInfoDTO> getHiredApplicants() {
+        return applicantListingService.getHired();
+    }
+
+    @RequestMapping(value = "/personaldata", method = RequestMethod.GET)
+    public List<PersonalData> personalData() {
+        return personalDataService.list();
     }
 
     @RequestMapping(value = "/{id}/savedate", method = RequestMethod.POST)

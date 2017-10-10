@@ -60,6 +60,14 @@ export class NavBarComponent {
         this.router.navigate(['final-result'])
     }
 
+    getPersonalData() {
+        this.router.navigate(['personal-data'])
+    }
+
+    getMarketing() {
+        this.router.navigate(['marketing-data'])
+    }
+
     getSurvey() {
         this.router.navigate(['surveygenerator'])
     }

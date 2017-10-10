@@ -1,15 +1,5 @@
 <div *ngIf="application">
-
-    <div *ngIf="!application.finalResult" class="well">
-        <p><strong>Decide on the final result</strong></p>
-        <a (click)="setFinalResult(true)" class="btn btn-success btn-xs final-btn"><i class="fa fa-check"
-                                                                                      aria-hidden="true"></i>&nbsp;Accept
-            the applicant</a>
-        <a (click)="setFinalResult(false)" class="btn btn-danger btn-xs final-btn"><i class="fa fa-times"
-                                                                                      aria-hidden="true"></i>&nbsp;Decline</a>
-    </div>
-
-
+    
     <div class="panel {{ getClass(step) }}" *ngFor="let step of application.screeningSteps">
         <div class="panel-heading">
             <h3 class="panel-title">{{ step.name }}&nbsp;

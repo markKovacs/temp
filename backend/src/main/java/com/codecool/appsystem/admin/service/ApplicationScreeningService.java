@@ -245,7 +245,7 @@ public class ApplicationScreeningService {
     private List<ApplicationScreeningInfo> findScreeningInfo(String locationId) {
 
         List<Application> applicationsByLocation =
-                appRepository.findByLocationIdAndActiveIsTrue(locationId);
+                appRepository.findByLocationIdAndActiveIsTrueAndFinalResultIsNull(locationId);
 
         return applicationsByLocation
                 .stream()

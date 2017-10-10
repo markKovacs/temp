@@ -9,8 +9,10 @@ public interface ApplicationRepository extends JpaRepository<Application, String
 
     List<Application> findByLocationId(String locationId);
 
-    List<Application> findByLocationIdAndActiveIsTrue(String locationId);
+    List<Application> findByLocationIdAndActiveIsTrueAndFinalResultIsNull(String locationId);
 
-    List<Application> findByFinalResultIsTrueAndFinalResultSentIsNull();
+    List<Application> findByFinalResultIsNullAndFinalResultSentIsNull();
+
+    List<Application> findByFinalResultIsTrueAndCourseIdIsNull();
 
 }

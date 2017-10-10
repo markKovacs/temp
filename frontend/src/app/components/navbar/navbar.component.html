@@ -30,9 +30,21 @@
             </div>
             <ul class="nav navbar-nav navbar-right" *ngIf="hasLocation()">
                 <li><a (click)="getApplicants()" id="navbar-applicants">All Applicants</a></li>
-                <li><a (click)="getCalendar()" id="navbar-calendar">Calendar</a></li>
-                <li><a (click)="getScreening()" id="navbar-screenings">Screenings</a></li>
-                <li><a (click)="getFinalResults()" id="navbar-final-results">Final results</a></li>
+
+                <li>
+                    <div class="nav navbar-nav navbar-left btn-group" dropdown>
+                        <p dropdownToggle class="navbar-text">
+                            <a>Screenings<span class="caret"></span></a>
+                        </p>
+                        <ul *dropdownMenu class="dropdown-menu" role="menu">
+                            <li><a (click)="getCalendar()" id="navbar-calendar" class="dropdown-item" role="menuitem">Calendar</a></li>
+                            <li><a (click)="getScreening()" id="navbar-screenings" class="dropdown-item" role="menuitem">Screenings</a></li>
+                            <li><a (click)="getFinalResults()" id="navbar-final-results" class="dropdown-item" role="menuitem">Final results</a></li>
+                            <li><a (click)="getPersonalData()" id="navbar-personal-data" class="dropdown-item" role="menuitem">Next course</a></li>
+                        </ul>
+                    </div>
+                </li>
+
                 <li>
                     <div class="nav navbar-nav navbar-left btn-group" dropdown>
                         <p dropdownToggle class="navbar-text">
@@ -44,6 +56,9 @@
                         </ul>
                     </div>
                 </li>
+
+                <li><a (click)="getMarketing()" id="navbar-marketing" class="dropdown-item" role="menuitem">Marketing</a></li>
+
                 <li><a (click)="logout()">Logout</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->

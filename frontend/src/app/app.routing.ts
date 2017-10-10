@@ -14,6 +14,8 @@ import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from './guards/index';
 import {ApplicantsComponent} from './components/applicants/applicants.component';
 import {FinalResultPageComponent} from "./components/final-result/final-result.component";
+import {MarketingDataPageComponent} from "./components/marketing-data/marketing-data.component";
+import {PersonalDataPageComponent} from "./components/personal-data/personal-data.component";
 
 const appRoutes: Routes = [
     // routes - all for logged in user only
@@ -27,6 +29,8 @@ const appRoutes: Routes = [
     {path: 'surveygenerator', component: SurveyGeneratorComponent, canActivate: [AuthGuard]},
     {path: 'edittemplate', component: TemplateEditorComponent, canActivate: [AuthGuard]},
     {path: 'final-result', component: FinalResultPageComponent, canActivate: [AuthGuard]},
+    {path: 'marketing-data', component: MarketingDataPageComponent, canActivate: [AuthGuard]},
+    {path: 'personal-data', component: PersonalDataPageComponent, canActivate: [AuthGuard]},
 
     // redirects to auth0 login
     {path: 'login', component: StartComponent},
