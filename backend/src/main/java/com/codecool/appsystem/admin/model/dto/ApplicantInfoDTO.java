@@ -20,4 +20,5 @@ public class ApplicantInfoDTO extends RestResponseDTO {
     private Date processStartedAt;
     private String email;
     private String phoneNumber;
+    private Boolean finalResultSent;
 }

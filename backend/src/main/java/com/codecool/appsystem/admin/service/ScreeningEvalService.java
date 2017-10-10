@@ -34,6 +34,8 @@ public class ScreeningEvalService {
             emailService.sendResultN(application.getUser());
         }
 
+        application.setFinalResultSent(true);
+
         applicationRepository.save(application);
     }
 }

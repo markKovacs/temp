@@ -1,0 +1,71 @@
+<div style="margin-top: 100px"></div>
+<div class="container">
+    <br/>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Accepted applications: {{hired ? hired.length: ''}}</div>
+        <div class="panel-body">
+            <div *ngFor="let applicant of hired">
+                <div class="row">
+                    <div class="col-md-1">
+                        <i class="fa fa-user {{getUserIconClass(applicant)}}" (click)="navigateToProfile(applicant.id)" aria-hidden="true"></i>&nbsp;
+                    </div>
+                    <div class="col-md-2">
+                        <span (click)="navigateToProfile(applicant.id)">{{applicant.name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="panel panel-default">
+        <div class="panel-heading">Submitted personal data</div>
+        <div class="panel-body">
+
+            <p-dataTable [value]="data"
+                         selectionMode="single"
+                         [paginator]="true"
+                         [responsive]="true"
+                         [rowsPerPageOptions]="[10,20,50]"
+                         [rows]="20">
+
+                <p-column field="name"
+                          header="Name"
+                          [sortable]="true"
+                          [filter]="true"
+                          filterMatchMode="contains"></p-column>
+
+                <p-column field="maidenName"
+                          header="Maiden name"></p-column>
+
+                <p-column field="address"
+                          header="Address"
+                          ></p-column>
+
+                <p-column field="placeOfBirth"
+                          header="Place of birth"
+                          ></p-column>
+
+                <p-column field="birthDate"
+                          header="Birth Date"
+                          >
+                    <ng-template let-pdata="rowData" pTemplate="body">
+                        {{ pdata.birthDate | date : 'yyyy.MM.dd.' }}
+                    </ng-template>
+                </p-column>
+
+                <p-column field="idDocumentType"
+                          header="Doc"
+                ></p-column>
+
+                <p-column field="idNumber"
+                          header="#"
+                ></p-column>
+
+            </p-dataTable>
+            <br />
+
+        </div>
+    </div>
+
+</div>

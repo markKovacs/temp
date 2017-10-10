@@ -51,6 +51,8 @@ public class Application {
     private String utmCampaign;
     private String comment;
 
+    private Boolean finalResultSent;
+
     @OneToMany(mappedBy = "application")
     private List<ApplicantsScreeningStep> screeningSteps = new ArrayList<>();
 

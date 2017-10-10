@@ -1,6 +1,5 @@
 package com.codecool.appsystem.admin.controller;
 
-import com.codecool.appsystem.admin.model.ApplicantsScreeningStep;
 import com.codecool.appsystem.admin.model.ScreeningGrade;
 import com.codecool.appsystem.admin.model.ScreeningStep;
 import com.codecool.appsystem.admin.model.dto.ApplicantsScreeningStepDTO;
@@ -27,8 +26,13 @@ public class ScreeningStepsController {
     }
 
     @RequestMapping(value = "/api/evalscreening/{applicantId}", method = RequestMethod.GET)
-    public ScreeningStepEvaluationDTO findForApplicant(@PathVariable("applicantId") Integer id, @RequestParam("step") String stepId){
+    public ScreeningStepEvaluationDTO findForApplicant(@PathVariable("applicantId") Integer id, @RequestParam(value = "step", required = false) String stepId){
         return screeningEditService.findForApplicant(id, stepId);
+    }
+
+    @RequestMapping(value = "/api/screening/getsteps/{applicantId}", method = RequestMethod.GET)
+    public List<ScreeningStepEvaluationDTO> findForApplicant(@PathVariable("applicantId") Integer id){
+        return screeningEditService.getSteps(id);
     }
 
     @RequestMapping(value = "/api/evalscreening", method = RequestMethod.POST)

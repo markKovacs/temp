@@ -49,6 +49,15 @@ public class ApplicantDetailsService {
             result.getApplications().add(getApplicationInfo(app));
         }
 
+        result.getApplications().sort((o1, o2) ->
+        {
+            if(o1.getProcessStartedAt() == null){
+                return 1;
+            }
+            return o1.getProcessStartedAt().compareTo(o2.getProcessStartedAt());
+        });
+
+
         return result;
     }
 

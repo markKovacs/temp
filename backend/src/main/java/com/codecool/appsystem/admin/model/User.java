@@ -56,7 +56,7 @@ public class User {
     private Boolean isBlacklisted;
 
     @OneToMany(mappedBy = "user")
-    @OrderBy("processStartedAt desc")
+    @OrderBy("processStartedAt desc NULLS LAST")
     private List<Application> applications = new ArrayList<>();
 
     @Column(length = 80)

@@ -32,16 +32,36 @@ public class ApplicantListingService {
                     .collect(Collectors.toList());
         }
 
-        List<Application> applications = applicationRepository.findByLocationIdAndActiveIsTrue(locationId);
+        List<Application> applications = applicationRepository.findByLocationIdAndActiveIsTrueAndFinalResultIsNull(locationId);
 
         return applications
                 .stream()
-                .filter(application -> !Boolean.FALSE.equals(application.getFinalResult()))
-                .filter(application -> !CollectionUtils.isEmpty(application.getTestResults()))
+                .filter(application -> application.getFinalResult() == null && !CollectionUtils.isEmpty(application.getTestResults()))
                 .map(Application::getUser)
                 .map(this::transform)
                 .collect(Collectors.toList());
 
+    }
+
+    public List<ApplicantInfoDTO> getFinished(){
+        List<Application> applications = applicationRepository.findByFinalResultIsNullAndFinalResultSentIsNull();
+
+        return applications
+                .stream()
+                .filter(application -> !CollectionUtils.isEmpty(application.getScreeningSteps()) && !Boolean.TRUE.equals(application.getFinalResultSent()))
+                .map(Application::getUser)
+                .map(this::transform)
+                .collect(Collectors.toList());
+    }
+
+    public List<ApplicantInfoDTO> getHired(){
+        List<Application> applications = applicationRepository.findByFinalResultIsTrueAndCourseIdIsNull();
+
+        return applications
+                .stream()
+                .map(Application::getUser)
+                .map(this::transform)
+                .collect(Collectors.toList());
     }
 
     private ApplicantInfoDTO transform(User user){
@@ -56,6 +76,7 @@ public class ApplicantListingService {
                 .processStartedAt(getProcesssStartedAt(user))
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
+                .finalResultSent(user.getActiveApplication().getFinalResultSent())
                 .build();
 
     }

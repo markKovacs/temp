@@ -32,6 +32,11 @@ export class ScreeningService {
         return this.http.get('/api/evalscreening/' + userId + '?step=' + stepId);
     }
 
+    getStepsForUser(id: number){
+        return this.http.get('/api/screening/getsteps/' + id);
+    }
+
+
     getUser(id: number) {
         return this.http.get('/api/screening/' + id);
     }

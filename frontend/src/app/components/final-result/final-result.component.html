@@ -1,0 +1,73 @@
+<div style="margin-top: 100px"></div>
+<div class="container">
+    <br/>
+    <div class="panel panel-default">
+        <div class="panel-heading">Applicants waiting for final result</div>
+        <div class="panel-body">
+            <div *ngFor="let applicant of data">
+                <div class="row">
+                    <div class="col-md-1">
+                        <input type="checkbox" [(ngModel)]="applicant.send">&nbsp;
+                        <i class="fa fa-user" aria-hidden="true"></i>&nbsp;
+                    </div>
+                    <div class="col-md-2">
+                        <span>{{applicant.name}}</span>
+                    </div>
+                    <div class="col-md-1">
+                        <p-inputSwitch
+                                [(ngModel)]="applicant.finalResult"
+                                onLabel="Yes" offLabel="No"
+                        ></p-inputSwitch>
+                    </div>
+                    <div class="col-md-8">
+                        <i class="fa fa-question" aria-hidden="true" (click)="fetchDetails(applicant)"></i>&nbsp;
+                        <div *ngFor="let step of applicant.details" style="padding-top: 1em">
+                            <div class="row">
+                                <span class="text-capitalize"><b>{{step.screeningStep.step.name}}</b></span><br/>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div *ngFor="let crit of step.screeningStep.criteria">
+                                        <span *ngIf="crit.points || crit.points === 0">{{crit.criteria.name}}:&nbsp;{{crit.points}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <span class="text-justify">{{step.screeningStep.comment}}</span><br/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <span class="pull-right"><i>{{step.screeningStep.interviewer}}</i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Send result to</div>
+        <div class="panel-body">
+            <div *ngFor="let applicant of data">
+                <div class="row" *ngIf="applicant.send">
+                    <div class="col-md-1">
+                        <i class="fa fa-user" aria-hidden="true"></i>&nbsp;
+                    </div>
+                    <div class="col-md-2">
+                        <span>{{applicant.name}}</span>
+                    </div>
+                    <div class="col-md-1">
+                        <i class="fa fa-ban text-danger" aria-hidden="true" *ngIf="!applicant.finalResult"></i>
+                        <i class="fa fa-check text-success" aria-hidden="true" *ngIf="applicant.finalResult"></i>
+                        <i class="fa fa-envelope-o text-success" aria-hidden="true" *ngIf="applicant.finalResultSent"></i>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <button class="btn btn-success" style="margin-bottom: 1em" (click)="saveResult()">Send result emails</button>
+
+</div>

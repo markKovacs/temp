@@ -3,6 +3,7 @@ import {HttpClient} from '../_httpclient/httpclient';
 import {Observable} from 'rxjs/Observable';
 import {Applicant} from '../_models/applicant.model';
 import {User} from '../_models/user.model';
+import {PersonalData} from "../_models/personal-data";
 
 @Injectable()
 export class ApplicantService {
@@ -15,6 +16,22 @@ export class ApplicantService {
 
     public getApplicantDetailsById(id: number): Observable<User> {
         return this.client.get('/api/applicants/' + id);
+    }
+
+    public getFinished(): Observable<Applicant[]> {
+        return this.client.get('/api/applicants/finished');
+    }
+
+    public getHired(): Observable<Applicant[]> {
+        return this.client.get('/api/applicants/hired');
+    }
+
+    public getPersonalData(): Observable<PersonalData[]> {
+        return this.client.get('/api/applicants/personaldata');
+    }
+
+    public setFinished(data: any) {
+        return this.client.post('/api/setfinalresult', data);
     }
 
     public terminate(id: number) {

@@ -47,12 +47,12 @@ import {
     TemplateEditorComponent,
     SurveyBaseDataComponent,
     ApplicantsTableComponent,
+    FinalResultPageComponent,
     TinyMceComponent
 } from './components/index';
 import {AuthGuard} from './guards/index';
 import {ScreeningService} from "./_services/screening.service";
 import {DateFormatPipe, MomentModule} from "angular2-moment";
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import {ApplicantScreeningComponent} from "./components/applicant-screening/applicant-screening.component";
@@ -65,6 +65,10 @@ import {ApplicantService} from './_services/applicants.service';
 import {UserService} from './_services/user.service';
 import {EmailTemplateService} from './_services/email-template.service';
 import {ListboxModule} from 'primeng/primeng';
+import {InputSwitchModule} from 'primeng/primeng';
+import {MarketingDataPageComponent} from "./components/marketing-data/marketing-data.component";
+import {PersonalDataPageComponent} from "./components/personal-data/personal-data.component";
+
 
 
 @NgModule({
@@ -84,10 +88,10 @@ import {ListboxModule} from 'primeng/primeng';
         MomentModule,
         GrowlModule,
         DragDropModule,
-        FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
         CarouselModule.forRoot(),
         BsDropdownModule.forRoot(),
-        ListboxModule
+        ListboxModule,
+        InputSwitchModule
     ],
     declarations: [
         AppComponent,
@@ -117,6 +121,9 @@ import {ListboxModule} from 'primeng/primeng';
         AlertComponent,
         ApplicantsTableComponent,
         TinyMceComponent,
+        FinalResultPageComponent,
+        MarketingDataPageComponent,
+        PersonalDataPageComponent
     ],
     providers: [
         AuthGuard,
