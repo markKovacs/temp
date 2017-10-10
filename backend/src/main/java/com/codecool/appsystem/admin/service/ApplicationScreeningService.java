@@ -207,7 +207,7 @@ public class ApplicationScreeningService {
             return false;
         }
 
-        // if not time is given, display it
+        // if time is not given, display it
         if(application.getApplicationScreeningInfo().getScreeningGroupTime() == null){
             return true;
         }
