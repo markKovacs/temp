@@ -27,10 +27,6 @@
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/froala-editor/js/froala_editor.pkgd.min.js",
-        "../node_modules/froala-editor/js/plugins/code_view.min.js",
-        "../node_modules/froala-editor/js/plugins/code_beautifier.min.js",
-        "../node_modules/froala-editor/js/plugins/fullscreen.min.js",
         "../node_modules/tinymce/tinymce.js",
         "../node_modules/tinymce/themes/modern/theme.js",
         "../node_modules/tinymce/plugins/link/plugin.js",
