@@ -52,7 +52,7 @@ import {
 } from './components/index';
 import {AuthGuard} from './guards/index';
 import {ScreeningService} from "./_services/screening.service";
-import {DateFormatPipe, MomentModule} from "angular2-moment";
+
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import {ApplicantScreeningComponent} from "./components/applicant-screening/applicant-screening.component";
@@ -85,7 +85,7 @@ import {PersonalDataPageComponent} from "./components/personal-data/personal-dat
         SharedModule,
         PickListModule,
         CalendarModule,
-        MomentModule,
+
         GrowlModule,
         DragDropModule,
         CarouselModule.forRoot(),
@@ -131,7 +131,7 @@ import {PersonalDataPageComponent} from "./components/personal-data/personal-dat
         HttpClient,
         LocationTestService,
         QuestionService,
-        DateFormatPipe,
+
         DatePipe,
         ScreeningService,
         AlertService,
