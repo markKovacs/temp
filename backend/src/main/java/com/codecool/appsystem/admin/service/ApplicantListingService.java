@@ -76,7 +76,7 @@ public class ApplicantListingService {
                 .processStartedAt(getProcesssStartedAt(user))
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
-                .finalResultSent(user.getActiveApplication().getFinalResultSent())
+                .finalResultSent(user.getActiveApplication() == null ? null : user.getActiveApplication().getFinalResultSent())
                 .build();
 
     }
