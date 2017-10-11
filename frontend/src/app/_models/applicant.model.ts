@@ -13,8 +13,8 @@ export class Applicant {
     user: User = new User();
     phoneNumber: string;
 
-    finalResult: boolean;
-    finalResultSent:boolean;
+    finalResult: boolean = true;
+    finalResultSent: boolean;
 
     // locally used
     send = false;

@@ -16,6 +16,7 @@
                     <div class="col-md-1">
                         <p-inputSwitch
                                 [(ngModel)]="applicant.finalResult"
+                                (onChange)="handleChange($event, applicant)"
                                 onLabel="Yes" offLabel="No"
                         ></p-inputSwitch>
                     </div>
