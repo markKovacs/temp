@@ -4,6 +4,7 @@ import { ScreeningStep, UsersScreeningStep } from "../../../_models/index";
 import { ScreeningInfo } from "../../../_models/screeninginfo.model";
 import { AlertService } from "../../../_services/alert.service";
 import { ScreeningService } from "../../../_services/screening.service";
+import {Router} from "@angular/router";
 
 @Component({
     moduleId: module.id,
@@ -23,7 +24,8 @@ export class EvaluateStepsComponent {
     constructor(
         private eventsManager: GlobalEventsManager,
         private alertService: AlertService,
-        private screeningService: ScreeningService
+        private screeningService: ScreeningService,
+        private route: Router
     )
     {
         this.eventsManager.showNavBar(true);
@@ -62,4 +64,8 @@ export class EvaluateStepsComponent {
         return "text-info";
     }
 
+    saveAndRedirect() {
+        this.save();
+        this.route.navigate(['evaluate']);
+    }
 }
