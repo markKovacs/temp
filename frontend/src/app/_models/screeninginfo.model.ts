@@ -9,6 +9,8 @@ export class ScreeningInfo {
     gender: string;
     finalResult: boolean;
 
+    afterTwoDays:boolean;
+
     send = true;
 
 }
