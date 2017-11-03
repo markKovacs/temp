@@ -37,4 +37,7 @@ public class ApplicationScreeningInfo {
 
     private String mapLocation;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateOfSend;
+
 }
