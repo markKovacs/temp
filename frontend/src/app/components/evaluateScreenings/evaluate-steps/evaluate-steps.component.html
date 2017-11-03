@@ -57,8 +57,9 @@
 
                 <br />
                 <div class="form-group">
-                    <button class="form-control btn btn-success" (click)="save()">Save {{chosenStep.name}}
+                    <button class="btn btn-success" (click)="save()">Save {{chosenStep.name}}
                     </button>
+                    <button class="btn btn-success empty" (click)="saveAndRedirect()" >Save and jump to screenings</button>
                 </div>
             </div>
             <div class="col-xs-4 pull-right">
