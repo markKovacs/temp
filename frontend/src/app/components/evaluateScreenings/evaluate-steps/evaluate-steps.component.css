@@ -161,3 +161,11 @@ button:focus {
     display: inline-block;
     vertical-align: baseline;
 }
+.btn {
+    width: 48%;
+}
+.empty {
+    margin-left: 3%;
+    background-color: #fff;
+    color: #398439;
+}
