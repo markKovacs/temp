@@ -232,6 +232,7 @@ public class ApplicationScreeningService {
                 .id(application.getUser().getId())
                 .name(application.getUser().getFullName())
                 .age(LocalDate.now().getYear() - application.getUser().getBirthDate())
+                .afterTwoDays(checkIsAfterTwoDays(application.getApplicationScreeningInfo().getDateOfSend()))
                 .build();
         if(application.getApplicationScreeningInfo() != null){
             result.setGroupTime(application.getApplicationScreeningInfo().getScreeningGroupTime());
@@ -270,5 +271,10 @@ public class ApplicationScreeningService {
 
     }
 
+    private Boolean checkIsAfterTwoDays(Date dateOfSend){
+        LocalDate localDateOfSend = dateOfSend.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate today = LocalDate.now();
+        return ChronoUnit.DAYS.between(localDateOfSend,today) >= 2;
+    }
 
 }
