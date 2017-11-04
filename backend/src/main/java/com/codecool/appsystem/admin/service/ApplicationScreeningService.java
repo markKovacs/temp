@@ -16,6 +16,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
@@ -118,7 +119,7 @@ public class ApplicationScreeningService {
                 continue;
 
             }
-
+            user.getActiveApplication().getApplicationScreeningInfo().setDateOfSend(new Date());
             emailService.sendScreeningTimesAssigned(user, user.getActiveApplication().getApplicationScreeningInfo());
         }
     }
@@ -231,8 +232,8 @@ public class ApplicationScreeningService {
                 .id(application.getUser().getId())
                 .name(application.getUser().getFullName())
                 .age(LocalDate.now().getYear() - application.getUser().getBirthDate())
+                .afterTwoDays(checkIsAfterTwoDays(application.getApplicationScreeningInfo().getDateOfSend()))
                 .build();
-
         if(application.getApplicationScreeningInfo() != null){
             result.setGroupTime(application.getApplicationScreeningInfo().getScreeningGroupTime());
             result.setPersonalTime(application.getApplicationScreeningInfo().getScreeningPersonalTime());
@@ -268,6 +269,12 @@ public class ApplicationScreeningService {
                 .finalResult(application.getFinalResult())
                 .build();
 
+    }
+
+    private Boolean checkIsAfterTwoDays(Date dateOfSend){
+        LocalDate localDateOfSend = dateOfSend.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate today = LocalDate.now();
+        return ChronoUnit.DAYS.between(localDateOfSend,today) >= 2;
     }
 
 }

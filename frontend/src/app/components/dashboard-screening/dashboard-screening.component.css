@@ -19,3 +19,7 @@ p {
 .withoutdates {
     background-color: #4a9ed9;
 }
+
+.expired {
+    background-color: red;
+}

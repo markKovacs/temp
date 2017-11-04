@@ -155,7 +155,8 @@ CREATE TABLE online_app_system.applicants_screening_step (
   interviewer    VARCHAR(255),
   points         INTEGER,
   comment        TEXT,
-  status         VARCHAR(255)
+  status         VARCHAR(255),
+  date_of_send   TIMESTAMP
 );
 
 CREATE TABLE online_app_system.applicants_screening_step_criteria (

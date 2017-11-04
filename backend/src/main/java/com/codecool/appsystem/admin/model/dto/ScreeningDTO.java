@@ -23,4 +23,6 @@ public class ScreeningDTO extends RestResponseDTO{
     private String gender;
     private Boolean finalResult;
 
+    private Boolean afterTwoDays;
+
 }
