@@ -55,18 +55,26 @@
                 <div class="ui-grid-row">
                     <span class="applicant-name">{{applicant.user.givenName}} {{applicant.user.familyName}}</span>
                 </div>
-                <div class="ui-grid-row">
+                <div class="ui-grid-row" *ngIf="applicant.user.applications[0].active">
+                    <!--user.applications[0].active-->
 
-                    <div class="ui-grid-col-5">
-                        <p><b>Process Started at </b> {{applicant.user.processStartedAt | date: 'yyyy.MM.dd. HH:mm'}}</p>
-                        <span><b>Group Time:</b> {{applicant.user.screeningGroupTime | date: 'yyyy.MM.dd. HH:mm'}}</span><br />
-                        <span><b>Personal Time:</b> {{applicant.user.screeningPersonalTime | date: 'yyyy.MM.dd. HH:mm'}}</span>
+                    <div class="ui-grid-col-5" >
+                        <p><b>Process Started at </b> {{applicant.user.applications[0].processStartedAt | date: 'yyyy.MM.dd. HH:mm'}}</p>
+                        <span><b>Group Time:</b> {{applicant.user.applications[0].screeningGroupTime | date: 'yyyy.MM.dd. HH:mm'}}</span><br />
+                        <span><b>Personal Time:</b> {{applicant.user.applications[0].screeningPersonalTime | date: 'yyyy.MM.dd. HH:mm'}}</span>
                         <br /><br />
-                        <span><b>Screening Steps:</b> {{applicant.user.screeningSteps}}</span><br />
-                        <span><b>Screening Info:</b> {{applicant.user.screeningInfo}}</span>
+                        <span><b>Screening Details:</b> <a [attr.href]="'applicants/' + applicant.id">applicant page</a></span><br />
                         <br /><br />
-                        <p><b>Final Result:</b> {{applicant.user.finalResult}}</p>
-                        <p><b>Comment:</b> {{applicant.user.comment}}</p>
+                        <p>
+                            <b>Final Result:</b>
+                            <span *ngIf="applicant.user.finalResult">{{applicant.user.finalResult}}</span>
+                            <span *ngIf="!applicant.user.finalResult">No final result yet</span>
+                        </p>
+                        <p>
+                            <b>Comment:</b>
+                            <span *ngIf="applicant.user.comment">{{applicant.user.comment}}</span>
+                            <span *ngIf="!applicant.user.comment">No comment for this user</span>
+                        </p>
                     </div>
                     <div class="ui-grid-col-7">
                         <table class="table table-striped">
@@ -78,7 +86,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let testResult of applicant.user.testResults.reverse()">
+                                <tr *ngFor="let testResult of applicant.user.applications[0].testResults">
                                     <td>{{testResult.name}}</td>
                                     <td>
                                         <i *ngIf="testResult.passed" class="fa fa-check" aria-hidden="true"></i>
@@ -90,6 +98,7 @@
                         </table>
                     </div>
                 </div>
+                <div class="ui-grid-row"><h4>No active application</h4></div>
             </div>
         </div>
     </ng-template>
