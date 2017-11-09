@@ -2,7 +2,7 @@ import {Results} from "./results.model";
 import {UserScreeningDisplayModel} from "./screening/user-screening-display.model";
 
 export class Application {
-
+    id: string;
     comment: string;
     processStartedAt: number;
 
