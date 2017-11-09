@@ -12,6 +12,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApplicationInfoDTO {
 
+    private String id;
     private String comment;
     private Date processStartedAt;
 
