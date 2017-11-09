@@ -123,6 +123,7 @@ public class ApplicantDetailsService {
         }
 
         ApplicationInfoDTO dto = ApplicationInfoDTO.builder()
+                .id(application.getId())
                 .comment(application.getComment())
                 .processStartedAt(application.getProcessStartedAt())
                 .testResults(transform(application.getTestResults()))
