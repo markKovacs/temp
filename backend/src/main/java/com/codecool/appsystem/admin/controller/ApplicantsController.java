@@ -67,6 +67,13 @@ public class ApplicantsController {
         return true;
     }
 
+    @RequestMapping(value = "/{userId}/restore/{applicationId}", method = RequestMethod.GET)
+    public boolean restoreApplication(@PathVariable("userId") Integer userID,
+                                      @PathVariable("applicationId") String applicationId){
+        detailsService.restoreApplication(userID, applicationId);
+        return true;
+    }
+
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public boolean deleteApplicantFromSystem(@PathVariable("id") Integer id){
         applicantAdminService.delete(id);
