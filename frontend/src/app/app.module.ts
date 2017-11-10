@@ -68,6 +68,7 @@ import {ListboxModule} from 'primeng/primeng';
 import {InputSwitchModule} from 'primeng/primeng';
 import {MarketingDataPageComponent} from "./components/marketing-data/marketing-data.component";
 import {PersonalDataPageComponent} from "./components/personal-data/personal-data.component";
+import {TestResultService} from "./_services/testResult.service";
 
 
 
@@ -137,7 +138,8 @@ import {PersonalDataPageComponent} from "./components/personal-data/personal-dat
         AlertService,
         ApplicantService,
         UserService,
-        EmailTemplateService
+        EmailTemplateService,
+        TestResultService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent]
