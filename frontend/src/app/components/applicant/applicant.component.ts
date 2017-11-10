@@ -127,7 +127,6 @@ export class ApplicantComponent {
 
     restoreApplication() {
         const confirmDialog = confirm('Are you sure? The applicant will be active again');
-        // todo add service logic to active application again
         if (confirmDialog){
             if (this.checkThereIsActiveApplication()){
                 alert('Sorry but other application is active');
