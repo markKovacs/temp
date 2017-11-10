@@ -272,6 +272,9 @@ public class ApplicationScreeningService {
     }
 
     private Boolean checkIsAfterTwoDays(Date dateOfSend){
+        if(dateOfSend == null){
+            return false;
+        }
         LocalDate localDateOfSend = dateOfSend.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate today = LocalDate.now();
         return ChronoUnit.DAYS.between(localDateOfSend,today) >= 2;
