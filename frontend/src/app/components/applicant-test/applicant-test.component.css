@@ -39,3 +39,11 @@
     border: 1px solid #dff0d8;
     border-radius: 5px;
 }
+i {
+    float: right;
+    margin: 3px 5px 0 0;
+}
+
+i:hover {
+    cursor: pointer;
+}
