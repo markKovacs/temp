@@ -35,6 +35,7 @@
                 </p>
                 <p *ngIf="user.groupTime && user.personalTime && !user.scheduleSignedBack">
                     Not Signed Back
+                    <i class="fa fa-check" aria-hidden="true" (click)="sendBack(user.id)"></i>
                 </p>
                 <p *ngIf="(!user.groupTime || !user.personalTime) && user.scheduleSignedBack">
                     -
