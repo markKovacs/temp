@@ -38,7 +38,7 @@
                     </button>
                 </div>
 
-                <div *ngFor="let criteria of screeningStep.criterias | filterEnabled" class="criteria-container">
+                <div *ngFor="let criteria of screeningStep.criteria | filterEnabled" class="criteria-container">
 
                     <input
                             [(ngModel)]="criteria.name"
