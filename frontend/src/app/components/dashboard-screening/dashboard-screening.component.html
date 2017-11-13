@@ -8,10 +8,10 @@
             <th></th>
         </tr>
         <tr *ngFor="let user of users"
-            class="{{getRowClass(user)}}"
-            [class.expired]="user.afterTwoDays">
+            class="{{getRowClass(user)}}">
             <td>
                 {{ user.name }}
+                <i *ngIf="user.afterTwoDays" class="fa fa-exclamation" aria-hidden="true"></i>
             </td>
             <td>
                 <p *ngIf="user.groupTime">
