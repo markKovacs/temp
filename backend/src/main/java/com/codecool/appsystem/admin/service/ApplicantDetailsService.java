@@ -208,24 +208,23 @@ public class ApplicantDetailsService {
         return result;
     }
 
-    public void restoreApplication(Integer userID, String applicationId) {
-        User user = userRepo.findOne(userID);
+    public void restoreApplication(String applicationId) {
 
-        if (user != null){
-            Application application = user.getApplicationById(applicationId);
+        Application application = applicationRepository.findOne(applicationId);
 
-            if (application != null){
-                application.setFinalResult(null);
+        if (application != null){
 
-                application.setComment(
-                        "Restore by admin: " +
-                                SecurityContextHolder.getContext().getAuthentication().getName() +
-                                ", on: " + new Date());
+            application.setFinalResult(null);
 
-                application.setActive(true);
+            application.setComment(
+                    "Restore by admin: " +
+                            SecurityContextHolder.getContext().getAuthentication().getName() +
+                            ", on: " + new Date());
 
-                applicationRepository.saveAndFlush(application);
+            application.setActive(true);
+
+            applicationRepository.saveAndFlush(application);
             }
         }
-    }
+
 }
