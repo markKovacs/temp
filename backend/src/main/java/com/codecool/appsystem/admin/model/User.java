@@ -79,15 +79,5 @@ public class User {
         return null;
 
     }
-
-    public Application getApplicationById(String applicationId) {
-
-        for (Application app: applications){
-            if (app.getId().equals(applicationId)){
-                return app;
-            }
-        }
-        return null;
-    }
 }
 
