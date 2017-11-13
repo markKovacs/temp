@@ -67,10 +67,9 @@ public class ApplicantsController {
         return true;
     }
 
-    @RequestMapping(value = "/{userId}/restore/{applicationId}", method = RequestMethod.GET)
-    public boolean restoreApplication(@PathVariable("userId") Integer userID,
-                                      @PathVariable("applicationId") String applicationId){
-        detailsService.restoreApplication(userID, applicationId);
+    @RequestMapping(value = "/restore/{applicationId}", method = RequestMethod.GET)
+    public boolean restoreApplication(@PathVariable("applicationId") String applicationId){
+        detailsService.restoreApplication(applicationId);
         return true;
     }
 
