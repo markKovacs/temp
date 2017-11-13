@@ -119,7 +119,11 @@ public class ApplicationScreeningService {
                 continue;
 
             }
-            user.getActiveApplication().getApplicationScreeningInfo().setDateOfSend(new Date());
+            ApplicationScreeningInfo applicationScreeningInfo = user.getActiveApplication().getApplicationScreeningInfo();
+            if (applicationScreeningInfo != null) {
+                applicationScreeningInfo.setDateOfSend(new Date());
+                appScrRepo.saveAndFlush(applicationScreeningInfo);
+            }
             emailService.sendScreeningTimesAssigned(user, user.getActiveApplication().getApplicationScreeningInfo());
         }
     }
