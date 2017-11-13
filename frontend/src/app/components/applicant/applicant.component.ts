@@ -131,7 +131,7 @@ export class ApplicantComponent {
             if (this.checkThereIsActiveApplication()){
                 alert('Sorry but other application is active');
             }else {
-                this.applicantService.restore(this.user.id, this.application.id)
+                this.applicantService.restore(this.application.id)
                     .subscribe(
                         (success: boolean) => {
                             if (success){
