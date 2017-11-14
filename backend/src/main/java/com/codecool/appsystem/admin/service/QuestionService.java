@@ -57,10 +57,11 @@ public class QuestionService {
 
         for (QuestionContent questionContent : question.getQuestions()) {
 
+            List<TestAnswer> existingAnswers = testAnswerRepository.findByQuestionIdOrderByCorrectAnswerAsc(questionContent.getId());
+            testAnswerRepository.delete(existingAnswers);
+
             for (QuestionOption questionOption : questionContent.getOptions()) {
 
-                List<TestAnswer> existingAnswers = testAnswerRepository.findByQuestionIdOrderByCorrectAnswerAsc(questionContent.getId());
-                testAnswerRepository.delete(existingAnswers);
 
                 if (questionOption.getIsCorrect()) {
                     TestAnswer testAnswer = new TestAnswer();

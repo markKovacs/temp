@@ -19,10 +19,6 @@ export class QuestionEditorComponent implements OnInit{
         this.question.options.push(new Option());
     }
 
-    deleteQuestion(): void{
-        this.question = null;
-    }
-
     ngOnInit(): void {
     }
 

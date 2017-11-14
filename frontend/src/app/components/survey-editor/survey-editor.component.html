@@ -22,6 +22,9 @@
 
         <carousel [noWrap]="true" [interval]="false" [(activeSlide)]="activeSlideIndex">
             <slide *ngFor="let question of survey.questions; let i = index">
+                <span>
+                    <i class="fa fa-trash-o text-danger" aria-hidden="true" (click)="deleteQuestion(question)"></i>
+                </span>
                 <question-editor
                         [question]="question"
                         [motivation]="motivation"
@@ -39,7 +42,7 @@
         {{message}}
     </div>
 
-    <!--<button class="btn btn-primary" (click)="postSurvey()">SAVE SURVEY</button>-->
+    <button class="btn btn-primary" (click)="postSurvey()">SAVE SURVEY</button>
 
 </div>
 
