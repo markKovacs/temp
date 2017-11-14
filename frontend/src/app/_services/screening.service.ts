@@ -67,4 +67,7 @@ export class ScreeningService {
         return this.http.post('/api/screening/sendmails', dataToSend);
     }
 
+    confirmSendBack(userId: Number) {
+        return this.http.post('/api/screening/confirmSendBack', userId);
+    }
 }

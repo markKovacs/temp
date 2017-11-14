@@ -53,4 +53,10 @@ public class ScreeningController {
 
     }
 
+    @RequestMapping(value = "/api/screening/confirmSendBack", method = RequestMethod.POST)
+    public boolean confirmSendBack(@RequestBody Integer userId){
+        screeningService.confirmSendBack(userId);
+        return true;
+    }
+
 }

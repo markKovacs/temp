@@ -123,6 +123,7 @@ public class ApplicantDetailsService {
         }
 
         ApplicationInfoDTO dto = ApplicationInfoDTO.builder()
+                .id(application.getId())
                 .comment(application.getComment())
                 .processStartedAt(application.getProcessStartedAt())
                 .testResults(transform(application.getTestResults()))
@@ -206,5 +207,24 @@ public class ApplicantDetailsService {
         }
         return result;
     }
+
+    public void restoreApplication(String applicationId) {
+
+        Application application = applicationRepository.findOne(applicationId);
+
+        if (application != null){
+
+            application.setFinalResult(null);
+
+            application.setComment(
+                    "Restore by admin: " +
+                            SecurityContextHolder.getContext().getAuthentication().getName() +
+                            ", on: " + new Date());
+
+            application.setActive(true);
+
+            applicationRepository.saveAndFlush(application);
+            }
+        }
 
 }

@@ -41,5 +41,9 @@ export class ApplicantService {
     public delete(id: number) {
         return this.client.get('/api/applicants/' + id + '/delete');
     }
+
+    public restore(applicationId: string) {
+        return this.client.get('/api/applicants/restore/' + applicationId)
+    }
 }
 
