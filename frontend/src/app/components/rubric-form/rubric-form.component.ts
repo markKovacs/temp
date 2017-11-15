@@ -32,7 +32,7 @@ export class RubricFormComponent implements OnInit {
         let rubric = new Rubric();
         rubric.criteriaId = this.criteriaId;
         rubric.id = 0;
-        rubric.order = this.rubrics.length + 1;
+        rubric.order = this.calculateNewOrderNumber();
         this.rubrics.push(rubric);
     }
 
@@ -58,7 +58,6 @@ export class RubricFormComponent implements OnInit {
 
     saveRubrics() {
         if (this.checkInputsAreValid()){
-            alert(this.rubrics[0].criteriaId);
             this.rubricService.saveRubrics(this.rubrics).subscribe(
                 (data: boolean) => {
                     alert("save success");
@@ -82,5 +81,9 @@ export class RubricFormComponent implements OnInit {
         }
         this.error = false;
         return true;
+    }
+
+    private calculateNewOrderNumber(): number{
+        return this.rubrics[this.rubrics.length - 1].order + 1;
     }
 }
