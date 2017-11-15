@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Results} from '../../_models/results.model';
+import {TestResultService} from "../../_services/testResult.service";
 
 @Component({
     moduleId: module.id,
@@ -11,6 +12,9 @@ export class ApplicantTestComponent implements OnInit {
 
     @Input() testResult: Results;
     x = '5';
+
+    constructor(private testResultService: TestResultService){
+    }
 
     ngOnInit(): void {
     }
@@ -26,5 +30,16 @@ export class ApplicantTestComponent implements OnInit {
 
     getRoundedValue(no: number){
         return Math.round(no);
+    }
+
+    deleteTestResult() {
+        const confirmDialog = confirm('Are you sure to delete this test result?');
+        if (confirmDialog){
+            this.testResultService.removeTestResult(this.testResult.id)
+                .subscribe( (success:boolean) => {
+                    alert('Test Result Deleted');
+                    window.location.reload();
+                })
+        }
     }
 }

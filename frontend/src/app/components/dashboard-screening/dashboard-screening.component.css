@@ -23,3 +23,9 @@ p {
 .expired {
     background-color: red;
 }
+i {
+    float: right;
+}
+i:hover {
+    cursor: pointer;
+}

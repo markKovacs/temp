@@ -58,4 +58,12 @@ export class DashboardScreeningComponent {
         return "withoutdates";
     }
 
+    sendBack(userId: Number) {
+        this.screeningService.confirmSendBack(userId).subscribe(
+            (data: Boolean)  => {
+                window.location.reload();
+            }
+        )
+
+    }
 }

@@ -119,7 +119,11 @@ public class ApplicationScreeningService {
                 continue;
 
             }
-            user.getActiveApplication().getApplicationScreeningInfo().setDateOfSend(new Date());
+            ApplicationScreeningInfo applicationScreeningInfo = user.getActiveApplication().getApplicationScreeningInfo();
+            if (applicationScreeningInfo != null) {
+                applicationScreeningInfo.setDateOfSend(new Date());
+                appScrRepo.saveAndFlush(applicationScreeningInfo);
+            }
             emailService.sendScreeningTimesAssigned(user, user.getActiveApplication().getApplicationScreeningInfo());
         }
     }
@@ -280,4 +284,19 @@ public class ApplicationScreeningService {
         return ChronoUnit.DAYS.between(localDateOfSend,today) >= 2;
     }
 
+    public void confirmSendBack(Integer userId) {
+        User user = userRepository.findOne(userId);
+
+        if(user != null){
+
+            Application application = user.getActiveApplication();
+
+            if (application != null){
+
+                ApplicationScreeningInfo applicationScreeningInfo = application.getApplicationScreeningInfo();
+                applicationScreeningInfo.setScheduleSignedBack(true);
+                appScrRepo.saveAndFlush(applicationScreeningInfo);
+            }
+        }
+    }
 }

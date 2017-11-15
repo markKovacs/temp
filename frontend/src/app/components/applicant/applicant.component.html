@@ -68,7 +68,8 @@
                         </div>
 
                         <div class="well clearfix">
-                            <a (click)="resetApplication()" class="btn btn-danger btn-xs btn-block {{disabled()}}"><i class="fa fa-ban"></i>&nbsp;Terminate application</a>
+                            <a *ngIf="application.active" (click)="resetApplication()" class="btn btn-danger btn-xs btn-block "><i class="fa fa-ban"></i>&nbsp;Terminate application</a>
+                            <a *ngIf="!application.active" (click)="restoreApplication()" class="btn btn-success btn-xs btn-block "><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;Restore application</a>
                         </div>
 
                         <div class="well clearfix">

@@ -70,6 +70,7 @@ import {MarketingDataPageComponent} from "./components/marketing-data/marketing-
 import {PersonalDataPageComponent} from "./components/personal-data/personal-data.component";
 import { RubricFormComponent } from './components/rubric-form/rubric-form.component';
 import {RubricService} from "./_services/rubric.service";
+import {TestResultService} from "./_services/testResult.service";
 
 
 
@@ -141,7 +142,8 @@ import {RubricService} from "./_services/rubric.service";
         ApplicantService,
         UserService,
         EmailTemplateService,
-        RubricService
+        RubricService,
+        TestResultService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent]

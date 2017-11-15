@@ -124,4 +124,32 @@ export class ApplicantComponent {
         }
 
     }
+
+    restoreApplication() {
+        const confirmDialog = confirm('Are you sure? The applicant will be active again');
+        if (confirmDialog){
+            if (this.checkThereIsActiveApplication()){
+                alert('Sorry but other application is active');
+            }else {
+                this.applicantService.restore(this.application.id)
+                    .subscribe(
+                        (success: boolean) => {
+                            if (success){
+                                alert('Application restored');
+                                window.location.reload();
+                            }
+                        });
+            }
+        }
+    }
+
+    private checkThereIsActiveApplication(): boolean{
+        let haveActiveApplication = false;
+        this.user.applications.forEach(application =>{
+            if(application.active){
+                haveActiveApplication = true;
+            }
+        });
+        return haveActiveApplication;
+    }
 }

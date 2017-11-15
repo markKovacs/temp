@@ -22,37 +22,43 @@ export class SurveyEditorComponent {
 
     activeSlideIndex = 0;
 
-    constructor(private questionService: QuestionService){}
+    constructor(private questionService: QuestionService) {
+    }
 
-    postSurvey(): void{
+    postSurvey(): void {
         let count = 0;
 
-        for (let question of this.survey.questions) {
-            for (let option of question.options){
-                if (option.isCorrect){
-                    count++;
+        if (!this.survey.motivationVideo) {
+
+            for (let question of this.survey.questions) {
+                for (let option of question.options) {
+                    if (option.isCorrect) {
+                        count++;
+                    }
                 }
+                if (count > 0) {
+                    this.validate = true;
+                } else {
+                    this.validate = false;
+                    this.message = "Questions must have one correct answer!";
+                    break;
+                }
+                count = 0;
             }
-            if (count > 0){
-                this.validate = true;
-            } else {
-                this.validate = false;
-                this.message = "Questions must have one correct answer!";
-                break;
-            }
-            count = 0;
         }
         if (this.validate) {
             this.questionService.postSurvey(this.survey)
                 .subscribe(
-                    error => console.log(error),
-                    () => console.log('POST - /api/question/save')
+                    (data) => {
+                        window.location.reload()
+                    },
+                    error => console.log(error)
                 );
-        this.survey = null;
+            this.survey = null;
         }
     }
 
-    newQuestion(): void{
+    newQuestion(): void {
 
         if (!this.survey.motivationVideo) {
             this.survey.questions.push(new Question());
@@ -60,7 +66,11 @@ export class SurveyEditorComponent {
 
     }
 
-    asText(i: any){
+    deleteQuestion(question: Question): void{
+        this.survey.questions = this.survey.questions.filter(obj => obj !== question);
+    }
+
+    asText(i: any) {
         return i + 1 + '';
     }
 

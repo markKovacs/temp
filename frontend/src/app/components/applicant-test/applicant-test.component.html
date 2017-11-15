@@ -1,11 +1,13 @@
 <div *ngIf="testResult">
-
-    <div class="progress" style="margin-bottom: 5px;">
-        <div class="progress-bar {{getPanelClass()}}"
-             role="progressbar"
-             aria-valuemin="0" aria-valuemax="100" [style.width]="testResult.percent + '%'"
-             [attr.aria-valuenow]="testResult.percent">
-             {{testResult.name}} &#9642; {{getRoundedValue(testResult.percent)}}% &#9642; {{ testResult.points }} point(s)
+    <div class="row">
+        <div class="progress" style="margin-bottom: 5px;">
+            <div class="progress-bar {{getPanelClass()}} col-xs-9"
+                 role="progressbar"
+                 aria-valuemin="0" aria-valuemax="100" [style.width]="testResult.percent + '%'"
+                 [attr.aria-valuenow]="testResult.percent">
+                 {{testResult.name}} &#9642; {{getRoundedValue(testResult.percent)}}% &#9642; {{ testResult.points }} point(s)
+                <i (click)="deleteTestResult()" class="fa fa-times" aria-hidden="true"></i>
+            </div>
         </div>
     </div>
 
