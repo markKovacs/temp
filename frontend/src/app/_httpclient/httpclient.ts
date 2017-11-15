@@ -22,6 +22,11 @@ export class HttpClient {
         return this.wrap(this._http.post(url, data, requestOptions).map((response: Response) => response.json()));
     }
 
+    delete(url: string, requestOptions: RequestOptions = new RequestOptions({headers: this.headers})){
+        this.enrich();
+        return this.wrap(this._http.delete(url, requestOptions).map((response: Response) => response.json()))
+    }
+
     private enrich(): void {
         const token = localStorage.getItem("adminAuthToken") == 'null' ? undefined : localStorage.getItem("adminAuthToken");
         this.headers.set('Authorization', 'Bearer ' + token);
