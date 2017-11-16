@@ -67,14 +67,10 @@
                 <blockquote *ngFor="let criteria of userScreeningStep.screeningStep.criteria">
                     <div>
                         <div class="form-group">
-                            <label for="critPoints">{{ criteria.criteria.name }}</label>
-                            <input
-                                    id="critPoints"
-                                    class="form-control"
-                                    type="number"
-                                    min=0
-                                    max=10
-                                    [(ngModel)]="criteria.points"/>
+                            <label for="selectedRubric">{{ criteria.criteria.name }}</label>
+                            <select class="form-control" id="selectedRubric" [(ngModel)]="criteria.points">
+                                <option *ngFor="let rubric of criteria.criteria.rubrics" [value]="rubric.id">{{rubric.text}}</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <button (click)="criteria.status = 'yes'"
