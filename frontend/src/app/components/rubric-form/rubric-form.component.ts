@@ -22,7 +22,6 @@ export class RubricFormComponent implements OnInit {
   getRubrics(){
       this.rubricService.getRubrics(this.criteriaId).subscribe(
           (data: Rubric[]) => {
-              console.log(data);
               this.rubrics = data;
           }
       )
@@ -84,6 +83,9 @@ export class RubricFormComponent implements OnInit {
     }
 
     private calculateNewOrderNumber(): number{
-        return this.rubrics[this.rubrics.length - 1].order + 1;
+        if (this.rubrics.length > 0){
+            return this.rubrics[this.rubrics.length - 1].order + 1;
+        }
+        return 1;
     }
 }
