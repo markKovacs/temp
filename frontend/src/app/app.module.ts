@@ -68,6 +68,8 @@ import {ListboxModule} from 'primeng/primeng';
 import {InputSwitchModule} from 'primeng/primeng';
 import {MarketingDataPageComponent} from "./components/marketing-data/marketing-data.component";
 import {PersonalDataPageComponent} from "./components/personal-data/personal-data.component";
+import { RubricFormComponent } from './components/rubric-form/rubric-form.component';
+import {RubricService} from "./_services/rubric.service";
 import {TestResultService} from "./_services/testResult.service";
 
 
@@ -124,7 +126,8 @@ import {TestResultService} from "./_services/testResult.service";
         TinyMceComponent,
         FinalResultPageComponent,
         MarketingDataPageComponent,
-        PersonalDataPageComponent
+        PersonalDataPageComponent,
+        RubricFormComponent
     ],
     providers: [
         AuthGuard,
@@ -139,6 +142,7 @@ import {TestResultService} from "./_services/testResult.service";
         ApplicantService,
         UserService,
         EmailTemplateService,
+        RubricService,
         TestResultService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
