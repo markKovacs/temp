@@ -69,13 +69,6 @@
 			<version>0.7.0</version>
 		</dependency>
 
-		<!-- logging to AWS -->
-		<dependency>
-			<groupId>com.intapp.platform</groupId>
-			<artifactId>cloudwatch-logging-spring-boot-starter</artifactId>
-			<version></version>
-		</dependency>
-
 	</dependencies>
 
 	<build>
