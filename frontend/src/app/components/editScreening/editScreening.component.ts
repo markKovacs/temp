@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Output, EventEmitter} from '@angular/core';
 import {Router} from '@angular/router';
 import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
@@ -17,6 +17,8 @@ export class EditScreeningComponent {
     public isFetchingSteps: boolean = false;
     public changeHappened: boolean = false;
     public isPosting: boolean = false;
+    public expand : boolean = false;
+    public expandId: string;
 
     constructor(private client: HttpClient,
                 private router: Router,
@@ -86,4 +88,13 @@ export class EditScreeningComponent {
         this.router.navigate(['evaluatescreenings']);
     }
 
+    expandRubrics(criteriaId: string) {
+        if (criteriaId != this.expandId){
+            this.expand = true;
+            this.expandId = criteriaId;
+        }else {
+            this.expand = false;
+            this.expandId = null;
+        }
+    }
 }

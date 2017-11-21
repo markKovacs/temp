@@ -37,19 +37,21 @@
                         <i class="material-icons md-14 white-icon">delete_sweep</i>
                     </button>
                 </div>
-
                 <div *ngFor="let criteria of screeningStep.criteria" class="criteria-container">
-
                     <input
                             [(ngModel)]="criteria.name"
                             (ngModelChange)="handleChange()"
                             placeholder="Name is required!"/>
 
+                    <button (click)="expandRubrics(criteria.id)">
+                        rubric
+                    </button>
+
                     <button
                             (click)="deleteCriteria(criteria)">
                         <i class="material-icons md-14 red-icon">backspace</i>
                     </button>
-
+                    <app-rubric-form *ngIf="expand && expandId == criteria.id" [criteriaId]="criteria.id" ></app-rubric-form>
                 </div>
 
                 <button

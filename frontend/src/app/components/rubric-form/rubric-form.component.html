@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="alert alert-danger" *ngIf="error"> All text fields are required</div>
+    <button (click)="saveRubrics()" class="save">save</button>
+    <div *ngFor="let rubric of rubrics" class="rubric-container">
+
+        <input required #text="ngModel"
+                [(ngModel)]="rubric.text"
+                placeholder="Name is required!"/>
+
+        <button
+                (click)="deleteRubric(rubric)">
+            <i class="material-icons md-14 red-icon">backspace</i>
+        </button>
+    </div>
+
+    <button
+            class="new-rubric-button"
+            (click)="addNewRubric()"
+    >
+        <i class="material-icons md-14">add_circle</i>
+        Add new rubric
+    </button>
+
+</div>
