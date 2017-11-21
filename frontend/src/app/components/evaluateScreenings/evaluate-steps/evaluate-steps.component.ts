@@ -42,6 +42,19 @@ export class EvaluateStepsComponent {
 
     }
 
+    average(){
+        let count = 0;
+        let sum = 0;
+        for(const crit of this.userScreeningStep.screeningStep.criteria){
+            if(crit.points){
+                count = count + 1;
+                // workaround because of crit.points sometimes arriving as string.
+                sum =  sum + parseInt(crit.points.toString());
+            }
+        }
+        this.userScreeningStep.screeningStep.average = sum / count;
+    }
+
     save(){
         this.screeningService.saveEvaluationForStep(this.userScreeningStep.screeningStep).subscribe(
             (data: any) => this.alertService.showAlert('success', 'Save completed', ''),

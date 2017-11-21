@@ -1,13 +1,13 @@
 <div class="container">
 
-    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 card-container">
-        <div class="card">
+    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+        <div class="row">
             <div *ngIf="changeHappened" class="editor-header">
                 <div *ngIf="!isPosting" class="editor-info">Don't forget to save your changes!</div>
                 <div *ngIf="isPosting" class="editor-info">Loading...</div>
                 <div *ngIf="!isPosting">
                     <button
-                            class="save-button"
+                            class="btn btn-success"
                             (click)="postUpdate()">
                         Save changes
                     </button>
@@ -23,55 +23,93 @@
                 </div>
             </div>
 
-            <div *ngFor="let screeningStep of screeningSteps" class="screening-step-container">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
 
-                <div class="step-container">
-                    <input
-                            class="screening-step-title"
-                            [(ngModel)]="screeningStep.name"
-                            (ngModelChange)="handleChange()"
-                            placeholder="--- Name is required! ---"/>
-
-                    <button
-                            (click)="deleteStep(screeningStep)">
-                        <i class="material-icons md-14 white-icon">delete_sweep</i>
-                    </button>
+                <div class="row" *ngFor="let screeningStep of screeningSteps">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="stepname" class="col-sm-4 control-label">Step name</label>
+                                        <div class="col-md-8">
+                                            <input
+                                                    name="stepname"
+                                                    id="stepname"
+                                                    type="text"
+                                                    class="form-control"
+                                                    [(ngModel)]="screeningStep.name"
+                                                    (ngModelChange)="handleChange()"
+                                                    placeholder="--- Name is required! ---"/>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-1">
+                                <button
+                                        class="btn btn-danger"
+                                        (click)="deleteStep(screeningStep)">
+                                    <i class="material-icons md-14 white-icon">delete_sweep</i>
+                                </button>
+                            </div>
+                            <div class="col-md-3">
+                                <button
+                                        class="btn btn-success"
+                                        (click)="addCriteria(screeningStep)">
+                                    <i class="material-icons md-14">add_circle</i>
+                                    Add new criteria
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row" *ngFor="let criteria of screeningStep.criteria">
+                            <div class="bg-warning">
+                                <div class="col-md-7 col-md-offset-2">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="criterianame" class="col-sm-6 control-label">Criteria name</label>
+                                            <div class="col-md-6">
+                                                <input
+                                                        name="criterianame"
+                                                        id="criterianame"
+                                                        class="form-control"
+                                                        type="text"
+                                                        [(ngModel)]="criteria.name"
+                                                        (ngModelChange)="handleChange()"
+                                                        placeholder="Name is required!"/>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-md-1">
+                                    <button
+                                            class="btn btn-danger"
+                                            (click)="deleteCriteria(criteria, screeningStep)">
+                                        <i class="material-icons md-14 white-icon">backspace</i>
+                                    </button>
+                                </div>
+                                <div class="col-md-2">
+                                    <app-rubric-form *ngIf="criteria.id" [criteria]="criteria"></app-rubric-form>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
                 </div>
-                <div *ngFor="let criteria of screeningStep.criteria" class="criteria-container">
-                    <input
-                            [(ngModel)]="criteria.name"
-                            (ngModelChange)="handleChange()"
-                            placeholder="Name is required!"/>
-
-                    <button (click)="expandRubrics(criteria.id)">
-                        rubric
-                    </button>
-
-                    <button
-                            (click)="deleteCriteria(criteria)">
-                        <i class="material-icons md-14 red-icon">backspace</i>
-                    </button>
-                    <app-rubric-form *ngIf="expand && expandId == criteria.id" [criteriaId]="criteria.id" ></app-rubric-form>
-                </div>
-
-                <button
-                        class="new-criteria-button"
-                        (click)="addCriteria(screeningStep)">
-                    <i class="material-icons md-14">add_circle</i>
-                    Add new criteria
-                </button>
-
             </div>
-            <div class="screening-step-container">
+        </div>
+        <div class="row">
+            <div class="col-md-8">
                 <button
-                        class="new-step-button"
+                        class="btn btn-primary"
                         (click)="addStep()">
                     <i class="material-icons md-14">add_circle</i>
                     Add new step
                 </button>
             </div>
-
         </div>
+        <br />
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 card-container">

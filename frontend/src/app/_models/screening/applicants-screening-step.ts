@@ -13,4 +13,5 @@ export class ApplicantsScreeningStep {
     status: string;
     criteria: ApplicantsScreeningStepCriteria[];
 
+    average = 0;
 }

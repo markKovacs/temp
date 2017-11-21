@@ -13,10 +13,9 @@ import {
   CalendarModule,
   GrowlModule,
   DragDropModule,
-  Message
+    DialogModule
 } from 'primeng/primeng';
 import {SharedModule} from 'primeng/primeng';
-import {DomSanitizer} from '@angular/platform-browser';
 import { DatePipe } from '@angular/common';
 import {GlobalEventsManager} from './global.eventsmanager';
 import {HttpClient} from './_httpclient/httpclient';
@@ -94,7 +93,8 @@ import {TestResultService} from "./_services/testResult.service";
         CarouselModule.forRoot(),
         BsDropdownModule.forRoot(),
         ListboxModule,
-        InputSwitchModule
+        InputSwitchModule,
+        DialogModule
     ],
     declarations: [
         AppComponent,
