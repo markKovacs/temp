@@ -1,24 +1,50 @@
-<div class="container">
-    <div class="alert alert-danger" *ngIf="error"> All text fields are required</div>
-    <button (click)="saveRubrics()" class="save">save</button>
-    <div *ngFor="let rubric of rubrics" class="rubric-container">
+<button class="btn btn-primary" (click)="displayDialog()">Rubrics</button>
 
-        <input required #text="ngModel"
-                [(ngModel)]="rubric.text"
-                placeholder="Name is required!"/>
+<p-dialog [(visible)]="display && criteria" [width]="800" (onHide)="onHide()">
+    <p-header>
+        Rubrics for {{criteria.name}}
+    </p-header>
 
-        <button
-                (click)="deleteRubric(rubric)">
-            <i class="material-icons md-14 red-icon">backspace</i>
-        </button>
+    <div class="row" style="margin-bottom: 5px;" *ngFor="let rubric of rubrics">
+        <div class="col-md-12">
+            <form class="form-inline">
+                <div class="form-group col-sm-2">
+                    <input class="form-control" style="width: 100%" type="number" required name="no" id="no"
+                           [(ngModel)]="rubric.order"/>
+                </div>
+                <div class="form-group col-sm-9">
+                    <input class="form-control"
+                           style="width: 100%"
+                           required name="text" id="text"
+                           [(ngModel)]="rubric.text"
+                           placeholder="Name is required!"/>
+                </div>
+                <div class="col-md-1">
+                    <button
+                            class="btn btn-danger"
+                            (click)="deleteRubric(rubric)">
+                        <i class="material-icons md-14 white-icon">backspace</i>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
     </div>
 
-    <button
-            class="new-rubric-button"
-            (click)="addNewRubric()"
-    >
-        <i class="material-icons md-14">add_circle</i>
-        Add new rubric
-    </button>
+    <div class="row">
+        <div class="col-md-12">
+            <button
+                    class="btn btn-success"
+                    (click)="addNewRubric()">
+                <i class="material-icons md-14">add_circle</i>
+                Add new rubric
+            </button>
+        </div>
+    </div>
 
-</div>
+    <p-footer>
+        <button (click)="saveRubrics()" class="btn btn-success">Save</button>
+    </p-footer>
+
+</p-dialog>

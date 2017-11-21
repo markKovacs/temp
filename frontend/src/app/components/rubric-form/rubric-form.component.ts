@@ -1,79 +1,76 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {RubricService} from "../../_services/rubric.service";
 import {Rubric} from "../../_models/screening/rubric";
+import {Criteria} from "../../_models/screening/criteria";
 
 @Component({
-  selector: 'app-rubric-form',
-  templateUrl: './rubric-form.component.html',
-  styleUrls: ['./rubric-form.component.css']
+    selector: 'app-rubric-form',
+    templateUrl: './rubric-form.component.html',
+    styleUrls: ['./rubric-form.component.css']
 })
-export class RubricFormComponent implements OnInit {
+export class RubricFormComponent {
 
-  @Input('criteriaId') criteriaId : string;
-  rubrics: Rubric[];
-  error: boolean;
+    @Input('criteria') criteria: Criteria;
+    rubrics: Rubric[] = [];
+    error: boolean;
 
-  constructor( private rubricService: RubricService) { }
+    danishScale = [-3,0,2,4,7,10,12];
 
-  ngOnInit() {
-      this.getRubrics()
-  }
+    display = false;
 
-  getRubrics(){
-      this.rubricService.getRubrics(this.criteriaId).subscribe(
-          (data: Rubric[]) => {
-              this.rubrics = data;
-          }
-      )
-  }
+    constructor(private rubricService: RubricService) {
+    }
+
+    displayDialog(){
+        this.display = !this.display;
+        this.getRubrics()
+    }
+
+    onHide(){
+        this.display = false;
+    }
+
+    getRubrics() {
+        if(this.criteria && this.criteria.id) {
+            this.rubricService.getRubrics(this.criteria.id).subscribe(
+                (data: Rubric[]) => {
+                    this.rubrics = data;
+                }
+            )
+        }
+    }
 
     addNewRubric() {
         let rubric = new Rubric();
-        rubric.criteriaId = this.criteriaId;
+        rubric.criteriaId = this.criteria.id;
         rubric.id = 0;
         rubric.order = this.calculateNewOrderNumber();
         this.rubrics.push(rubric);
     }
 
     deleteRubric(rubric: Rubric) {
-        const dialogBox = confirm('Are you sure to remove this rubric');
-
-        if (dialogBox) {
-            let index = this.rubrics.indexOf(rubric);
-            if (rubric.id) {
-                this.rubricService.deleteRubric(rubric).subscribe(
-                    (data: boolean) => {
-                        this.rubrics.splice(index, 1);
-                    }
-                )
-            }else {
-                this.rubrics.splice(index, 1);
-            }
-
-        }
-
+        this.rubrics = this.rubrics.filter(r => r !== rubric);
     }
 
 
     saveRubrics() {
-        if (this.checkInputsAreValid()){
+        if (this.checkInputsAreValid()) {
             this.rubricService.saveRubrics(this.rubrics).subscribe(
                 (data: boolean) => {
-                    alert("save success");
-                    this.getRubrics();
+                    alert("Saved successfully");
                 },
                 (error: any) => {
-                console.log(error)
-            }
+                    console.log(error)
+                }
             );
         }
 
     }
 
-    checkInputsAreValid(){
+    checkInputsAreValid() {
 
         for (let rubric of this.rubrics) {
-            if (!rubric.text || (rubric.text.length === 0 || !rubric.text.trim())){
+            if (!rubric.text || (rubric.text.length === 0 || !rubric.text.trim())) {
                 this.error = true;
                 return false;
             }
@@ -82,10 +79,7 @@ export class RubricFormComponent implements OnInit {
         return true;
     }
 
-    private calculateNewOrderNumber(): number{
-        if (this.rubrics.length > 0){
-            return this.rubrics[this.rubrics.length - 1].order + 1;
-        }
-        return 1;
+    private calculateNewOrderNumber(): number {
+        return this.danishScale[this.rubrics.length];
     }
 }

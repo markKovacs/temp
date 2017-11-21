@@ -17,8 +17,6 @@ export class EditScreeningComponent {
     public isFetchingSteps: boolean = false;
     public changeHappened: boolean = false;
     public isPosting: boolean = false;
-    public expand : boolean = false;
-    public expandId: string;
 
     constructor(private client: HttpClient,
                 private router: Router,
@@ -52,9 +50,11 @@ export class EditScreeningComponent {
         this.changeHappened = false;
         console.log("should post this", this.screeningSteps);
         this.client.post("/api/editscreening", this.screeningSteps).subscribe(
-            (response: any) => this.getScreening(),
-            (error) => console.log(error),
-            () => console.log("Response arrived")
+            (response: any) => {
+                window.location.reload();
+            },
+                    (error) => console.log(error),
+                    () => console.log("Response arrived")
         )
     }
 
@@ -69,17 +69,12 @@ export class EditScreeningComponent {
     }
 
     deleteStep(step: ScreeningStep) {
-        step.enabled = false;
-        step.criteria = step.criteria.map((entry) => {
-            let updated = Object.assign({}, entry);
-            updated.enabled = false;
-            return updated;
-        });
+        this.screeningSteps = this.screeningSteps.filter(st => st !== step);
         this.handleChange();
     }
 
-    deleteCriteria(criteria: Criteria) {
-        criteria.enabled = false;
+    deleteCriteria(criteria: Criteria, step: ScreeningStep) {
+        step.criteria = step.criteria.filter(crit => crit !== criteria);
         this.handleChange();
     }
 
@@ -87,13 +82,4 @@ export class EditScreeningComponent {
         this.router.navigate(['evaluatescreenings']);
     }
 
-    expandRubrics(criteriaId: string) {
-        if (criteriaId != this.expandId){
-            this.expand = true;
-            this.expandId = criteriaId;
-        }else {
-            this.expand = false;
-            this.expandId = null;
-        }
-    }
 }
