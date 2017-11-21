@@ -82,6 +82,9 @@ export class ApplicantVideoComponent implements OnInit {
 
     parseTestResultAnswer(): string {
         const re = 'https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)';
+        if(!this.testResult.answer || this.testResult.answer === ''){
+            return '';
+        }
         const url = this.testResult.answer.match(re);
         if (url) {
             const htmlUrl = '<a href="' + url[0] + '" target="_blank">' + url[0] + '</a>';

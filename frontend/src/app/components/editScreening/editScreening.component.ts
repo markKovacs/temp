@@ -62,6 +62,7 @@ export class EditScreeningComponent {
     }
 
     addCriteria(step: ScreeningStep) {
+        console.log(step);
         step.criteria.push(new Criteria());
         this.handleChange();
     }
