@@ -16,6 +16,7 @@ export class CalendarComponent implements OnInit {
 
     calendarLocalization: any; // used for primeNG calendar to start the weeks with Mondays by default its Sundays
     candidates: ScreeningInfo[] = [];
+    candidatesWithTime: ScreeningInfo[] = [];
     date: Date;
     loading = false;
     groupTimeSaveBtnDisabled = true;
