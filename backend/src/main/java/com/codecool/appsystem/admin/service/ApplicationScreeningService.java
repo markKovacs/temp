@@ -227,8 +227,8 @@ public class ApplicationScreeningService {
 
     private boolean isScreeningAssignmentCandidate(Application application){
         return application.getApplicationScreeningInfo() != null
-                && (application.getApplicationScreeningInfo().getScreeningGroupTime() != null
-                || application.getApplicationScreeningInfo().getScreeningPersonalTime() != null)
+                && (application.getApplicationScreeningInfo().getScreeningGroupTime() == null
+                || application.getApplicationScreeningInfo().getScreeningPersonalTime() == null)
                 && !Boolean.TRUE.equals(application.getApplicationScreeningInfo().getScheduleSignedBack());
     }
 
