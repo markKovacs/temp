@@ -1,0 +1,14 @@
+java \
+    -Dlogging.config=file:/opt/appsystem/logback-prd.xml \
+    -Xms500m \
+    -Xmx1g \
+    -Dspring.datasource.url=jdbc:postgresql://${DBHOST}:${DBPORT}/${DBNAME}\
+    -Dspring.datasource.username=${DBUSERNAME} \
+    -Dspring.datasource.password=${DBPASSWORD} \
+    -Dserver.redirecturl.basepath=${SERVER_BACKEND_REDIRECT_BASEPATH} \
+    -Dserver.frontend.basepath=${SERVER_FRONTEND_BASEPATH} \
+    -Dserver.appsystem.basepath=${SERVER_APPSYSTEM_BASEPATH}
+    -Dmailgun.adapter.send.url=${MAILGUN_URL} \
+    -Dmailgun.adapter.api.key=${MAILGUN_KEY} \
+    -Djwt.secret=${JWT_SECRET} \
+-jar app.jar
