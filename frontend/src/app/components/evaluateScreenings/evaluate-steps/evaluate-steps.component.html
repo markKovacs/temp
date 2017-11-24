@@ -69,7 +69,7 @@
                             <label for="selectedRubric">{{ criteria.criteria.name }}</label>
                             <select class="form-control" id="selectedRubric" [(ngModel)]="criteria.points" (change)="average()">
                                 <option *ngFor="let rubric of criteria.criteria.rubrics" [value]="rubric.order">
-                                    {{rubric.order}}&nbsp;-&nbsp;{{rubric.text}}
+                                    {{rubric.text}}
                                 </option>
                             </select>
                         </div>
