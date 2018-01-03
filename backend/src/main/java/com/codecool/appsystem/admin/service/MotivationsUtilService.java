@@ -86,6 +86,7 @@ public class MotivationsUtilService {
     public void gradeMotivation(MotivationGrade motivationGrade){
 
         TestResult actualTestResult = testResultRepository.getOne(motivationGrade.getTestResultId());
+
         actualTestResult.setComment(motivationGrade.getComment());
         actualTestResult.setPassed(motivationGrade.getPassed());
 
@@ -96,17 +97,17 @@ public class MotivationsUtilService {
 
             ApplicationScreeningInfo screeningInfo = new ApplicationScreeningInfo();
             screeningInfo.setApplication(application);
+            actualTestResult.setPending(false);
 
             screeningInfo.setMapLocation(application.getLocation().getMapLocation());
 
-
             applicationScreeningInfoRepository.saveAndFlush(screeningInfo);
-
 
             emailService.sendMotivationSuccess(user);
 
             // failed
         } else if (Boolean.FALSE.equals(motivationGrade.getPassed())){
+            actualTestResult.setPending(false);
             emailService.sendMotivationFailed(user);
         }
 
