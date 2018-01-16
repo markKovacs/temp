@@ -14,35 +14,23 @@
     </div>
 
     <div class="panel panel-default" *ngIf="selectedTemplate">
-        <div class="panel-heading" *ngIf="!selectedTemplate.master">Editing <b>{{selectedTemplate.name}}</b> Template</div>
-        <div class="panel-heading" *ngIf="selectedTemplate.master">Viewing <b>{{selectedTemplate.name}}</b> Template (ask the admins in case you want to edit this template)</div>
+        <div class="panel-heading">Editing <b>{{selectedTemplate.name}}</b> Template</div>
         <div class="panel-body">
 
-            <div *ngIf="!selectedTemplate.master">
-                <button class="btn btn-success" (click)="saveTemplate(selectedTemplate)">
+            <button class="btn btn-success" (click)="saveTemplate(selectedTemplate)">
                 <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Save
-                </button>
-                <button class="btn btn-primary" (click)="openPreviewWindow(selectedTemplate.template)">
+            </button>
+            <button class="btn btn-primary" (click)="openPreviewWindow(selectedTemplate.template)">
                 <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;Preview
-                </button>
-            </div>
+            </button>
 
-            <br />
+            <br/>
 
             <app-tinymce class="editor"
-                         *ngIf="!selectedTemplate.master"
                          [elementId]="'editor'"
                          (onEditorKeyup)="keyupHandlerFunction($event)"
                          [initialHtml]="selectedTemplate.template">
             </app-tinymce>
-
-            <div *ngIf="selectedTemplate.master">
-                <textarea
-                    rows="40"
-                    [(ngModel)]="selectedTemplate.template"
-                    disabled>
-                </textarea>
-            </div>
 
         </div>
     </div>
