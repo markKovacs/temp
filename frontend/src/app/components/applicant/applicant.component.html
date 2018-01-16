@@ -82,7 +82,7 @@
 
             <div class="col-md-8">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{user.givenName}}'s Motivations & Interviewer Comments</div>
+                    <div class="panel-heading">{{user.givenName}}'s Motivations</div>
                     <div class="panel-body">
 
                         <div *ngFor="let result of application.testResults">
@@ -100,7 +100,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{user.givenName}}'s Motivations & Interviewer Comments</div>
+                    <div class="panel-heading">{{user.givenName}}'s Screening info & Comments</div>
                     <div class="panel-body">
                         <applicant-screening *ngIf="application.screeningSteps && application.screeningSteps.length > 0" [user]="user" [application]="application"></applicant-screening>
                     </div>
