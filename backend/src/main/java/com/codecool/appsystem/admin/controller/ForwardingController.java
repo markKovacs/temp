@@ -17,7 +17,8 @@ public class ForwardingController {
             "/evaluateuser/{id:\\w+}",
             "/surveygenerator",
             "/edittemplate",
-            "/dashboard"
+            "/dashboard",
+            "/personal-data"
     })
     public String index() {
         return "forward:/index.html";

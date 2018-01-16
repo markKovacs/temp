@@ -12,11 +12,13 @@ import {Router} from "@angular/router";
     templateUrl: './personal-data.component.html',
     styleUrls: ['./personal-data.component.css']
 })
-export class PersonalDataPageComponent implements OnInit {
+export class PersonalDataPageComponent {
 
     data: PersonalData[];
 
     hired: Applicant[];
+
+    courseId: string;
 
     constructor(
         private applicantService: ApplicantService,
@@ -52,8 +54,20 @@ export class PersonalDataPageComponent implements OnInit {
 
     }
 
-    ngOnInit(): void {
+    contractSigned(id: number){
+        this.applicantService.contractSigned(id, this.courseId).subscribe(
+            (data: any) => {
+                this.data = this.data.filter(value => value.id !== id);
+            }
+        )
+    }
 
+    rejected(id: number){
+        this.applicantService.rejected(id).subscribe(
+            (data: any) => {
+                console.log("rejected");
+            }
+        )
     }
 
     getUserIconClass(applicant: Applicant){

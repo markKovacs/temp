@@ -6,5 +6,6 @@ export class Template {
     template: string;
     model: string;
     master: boolean;
+    templateOrder: number;
 
 }

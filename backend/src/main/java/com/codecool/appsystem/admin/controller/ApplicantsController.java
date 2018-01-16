@@ -54,6 +54,16 @@ public class ApplicantsController {
         return personalDataService.list();
     }
 
+    @RequestMapping(value = "/contractsigned/{id}", method = RequestMethod.GET)
+    public boolean contractSigned(@PathVariable("id") Integer id, @RequestParam("courseId") String courseId) {
+        return personalDataService.setContractSigned(id, courseId);
+    }
+
+    @RequestMapping(value = "/rejected/{id}", method = RequestMethod.GET)
+    public boolean rejected(@PathVariable("id") Integer id) {
+        return personalDataService.setRejected(id);
+    }
+
     @RequestMapping(value = "/{id}/savedate", method = RequestMethod.POST)
     public boolean saveDate(
             @PathVariable("id") Integer id, @RequestBody Map<String, Long> data) {

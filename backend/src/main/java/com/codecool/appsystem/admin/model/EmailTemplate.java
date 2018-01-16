@@ -35,5 +35,5 @@ public class EmailTemplate {
 
     private Boolean master;
 
-    private int order;
+    private int templateOrder;
 }

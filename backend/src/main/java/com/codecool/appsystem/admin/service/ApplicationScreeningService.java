@@ -212,10 +212,15 @@ public class ApplicationScreeningService {
             return false;
         }
 
+        if(application.getApplicationScreeningInfo() == null){
+            return false;
+        }
+
         // if time is not given, display it
         if(application.getApplicationScreeningInfo().getScreeningGroupTime() == null){
             return true;
         }
+
 
         return !LocalDate.now()
                 .atTime(22, 59, 0)

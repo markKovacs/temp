@@ -43,6 +43,7 @@ public class ApplicantDetailsService {
                 .phoneNumber(user.getPhoneNumber())
                 .timesApplied(user.getApplications().size())
                 .applications(new ArrayList<>())
+                .courseId(user.getCourseId())
                 .build();
 
         for(Application app : user.getApplications()){

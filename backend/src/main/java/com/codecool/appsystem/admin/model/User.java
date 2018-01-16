@@ -62,6 +62,8 @@ public class User {
     @Column(length = 80)
     private String userHash;
 
+    private String courseId;
+
     public String getFullName() {
         if (!StringUtils.isEmpty(middleName)) {
             return givenName + " " + middleName + " " + familyName;

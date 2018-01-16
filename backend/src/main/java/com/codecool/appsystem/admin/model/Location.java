@@ -30,19 +30,14 @@ public class Location {
     @JsonIgnore
     private String courseType;
 
-    @JsonIgnore
     private String mapLocation;
 
-    @JsonIgnore
     private String emailAddress;
 
-    @JsonIgnore
     private String subjectPrefix;
 
-    @JsonIgnore
     private String nextCourseStart;
 
-    @JsonIgnore
     private String address;
 
     @OneToMany(mappedBy = "location")

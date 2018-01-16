@@ -25,8 +25,14 @@ export class TemplateEditorComponent {
 
     constructor(private client: HttpClient,
                 private emailTemplateService: EmailTemplateService) {
-        this.location = JSON.parse(localStorage.getItem('chosenLocation'));
-        this.getTemplates();
+        const locId = JSON.parse(localStorage.getItem('chosenLocation')).id;
+        this.client.get('/api/locations/' + locId).subscribe(
+            data => {
+                this.location = data;
+                this.getTemplates();
+            }
+        );
+
     }
 
     getTemplates(): void {
@@ -38,6 +44,9 @@ export class TemplateEditorComponent {
                         template.model = (template.model == null) ? {} : JSON.parse(template.model);
                     }
                     this.masterTemplate = this.templates.filter(element => element.master)[0];
+                    this.templates.sort((a, b) =>  {
+                        return b.templateOrder - a.templateOrder
+                    })
                 });
     }
 
@@ -56,6 +65,12 @@ export class TemplateEditorComponent {
                     }
                 }
             );
+    }
+
+    saveLocation(){
+        this.client.post('/api/locations', this.location).subscribe(
+            data => alert("Location data saved")
+        )
     }
 
     selectTemplate(template) {

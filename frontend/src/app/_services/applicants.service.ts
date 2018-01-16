@@ -45,5 +45,13 @@ export class ApplicantService {
     public restore(applicationId: string) {
         return this.client.get('/api/applicants/restore/' + applicationId)
     }
+
+    public contractSigned(id: number, courseId: string){
+        return this.client.get('/api/applicants/contractsigned/' + id + "?courseId=" + courseId)
+    }
+
+    public rejected(id: number){
+        return this.client.get('/api/applicants/rejected/' + id)
+    }
 }
 

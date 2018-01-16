@@ -14,4 +14,6 @@ export class User {
 
     applications: Application[] = [];
 
+    courseId: string;
+
 }

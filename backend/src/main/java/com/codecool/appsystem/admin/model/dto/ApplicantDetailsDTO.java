@@ -22,6 +22,9 @@ public class ApplicantDetailsDTO {
     private Integer timesApplied;
     private String location;
 
+    private boolean finalResult;
+    private String courseId;
+
     // info about applications
     // the first one is always the most recent one
     private List<ApplicationInfoDTO> applications = new ArrayList<>();
