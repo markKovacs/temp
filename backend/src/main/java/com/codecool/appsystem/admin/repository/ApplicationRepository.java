@@ -13,6 +13,6 @@ public interface ApplicationRepository extends JpaRepository<Application, String
 
     List<Application> findByFinalResultIsNullAndFinalResultSentIsNull();
 
-    List<Application> findByFinalResultIsTrueAndCourseIdIsNull();
+    List<Application> findByFinalResultIsTrueAndActiveIsTrue();
 
 }

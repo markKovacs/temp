@@ -55,7 +55,7 @@ public class ApplicantListingService {
     }
 
     public List<ApplicantInfoDTO> getHired(){
-        List<Application> applications = applicationRepository.findByFinalResultIsTrueAndCourseIdIsNull();
+        List<Application> applications = applicationRepository.findByFinalResultIsTrueAndActiveIsTrue();
 
         return applications
                 .stream()
