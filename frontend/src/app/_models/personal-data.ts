@@ -13,4 +13,6 @@ export class PersonalData {
 
     idDocumentType: string;
     idNumber: string;
+
+    filled = false;
 }

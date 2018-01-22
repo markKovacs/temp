@@ -1,9 +1,6 @@
 import {Component} from "@angular/core";
-import {ApplicantService} from "../../_services/applicants.service";
-import {Applicant} from "../../_models/applicant.model";
-import {isNullOrUndefined} from "util";
-import {ScreeningService} from "../../_services/screening.service";
-import {UsersScreeningStep} from "../../_models/index";
+import {StatDataService} from "../../_services/statdata.service";
+import {CompositeStatDataModel, ScreeningStatDataModel, TestsStatData} from "../../_models/composite-stat-data.model";
 
 @Component({
     moduleId: module.id,
@@ -12,52 +9,116 @@ import {UsersScreeningStep} from "../../_models/index";
 })
 export class MarketingDataPageComponent {
 
-    data: Applicant[];
+    data: CompositeStatDataModel;
+    testDisplayData: TestsStatData[];
+    screeningStatData: ScreeningStatDataModel[];
 
-    constructor(
-        private applicantService: ApplicantService,
-        private screeningService: ScreeningService
-    ) {
-        this.applicantService.getFinished()
-            .subscribe(
-            (data: Applicant[]) => this.data = data,
+    today = new Date();
+
+    fromDateTest: Date;
+    toDateTest: Date;
+
+    fromDateScr: Date;
+    toDateScr: Date;
+
+    testCountsStarted = {};
+    testCountSuccess = {};
+
+    scrCounts = {};
+
+    en = {
+        firstDayOfWeek: 1,
+        dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        dayNamesMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+        monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        today: 'Today',
+        clear: 'Clear'
+    };
+
+    constructor(private statDataService: StatDataService) {
+        this.toDateTest = new Date();
+        const location = JSON.parse(localStorage.getItem('chosenLocation')).id;
+        this.statDataService.getStatistics(location).subscribe(
+            (data: CompositeStatDataModel) => {
+                this.data = data;
+                this.testDisplayData = data.testsStatData;
+                this.screeningStatData = data.screeningsStatData;
+                this.countTest(this.testDisplayData);
+                this.countScr(this.screeningStatData);
+            },
             error2 => console.log(error2)
         )
     }
 
-    saveResult(){
-        const confirmDialog = confirm('Are you sure?');
-        if(confirmDialog){
-            this.postResults();
-        }
+    filterDateTest() {
+        this.testDisplayData = this.testDisplayData.filter(
+            value => new Date(value.day).getTime() > this.fromDateTest.getTime()
+                && new Date(value.day).getTime() < this.toDateTest.getTime());
+
+        this.countTest(this.testDisplayData);
+
     }
 
-    fetchDetails(applicant: Applicant){
-        this.screeningService.getStepsForUser(applicant.id).subscribe(
-            (data: UsersScreeningStep) => applicant.details = data,
-            error2 => console.log(error2)
-        )
+    filterDateScr() {
+        this.screeningStatData = this.screeningStatData.filter(
+            value => new Date(value.day).getTime() > this.fromDateScr.getTime()
+                && new Date(value.day).getTime() < this.toDateScr.getTime());
+
+        this.countScr(this.screeningStatData);
+
     }
 
-    private postResults() {
 
-        const postData = [];
+    countTest(array){
 
-        for (let appl of this.data) {
-            if(!isNullOrUndefined(appl.finalResult)) {
-                postData.push({
-                    id: appl.id,
-                    result: appl.finalResult
-                });
+        this.testCountsStarted = {};
+        this.testCountSuccess = {};
+
+        array.forEach(value => {
+            if (this.testCountsStarted[value.test] === undefined) {
+                this.testCountsStarted[value.test] = 0;
             }
-        }
+            if (this.testCountSuccess[value.test] === undefined) {
+                this.testCountSuccess[value.test] = 0;
+            }
+            this.testCountsStarted[value.test] += value.countStarted;
+            this.testCountSuccess[value.test] += value.countSuccess;
 
-        this.applicantService.setFinished(postData).subscribe(
-            (data: any) => {},
-            error2 => console.log(error2)
-        )
-
+        });
     }
 
+    countScr(array){
+
+        this.scrCounts = {
+            "Invited": 0,
+            "Signed back": 0,
+            "Screening": 0,
+            "Final result: Y": 0,
+            "Final result: N": 0
+        };
+
+        array.forEach(value => {
+            this.scrCounts["Invited"] += value.countInvited;
+            this.scrCounts["Signed back"] += value.countScheduleSignedBack;
+            this.scrCounts["Screening"] += value.countBeenToScreening;
+            this.scrCounts["Final result: Y"] += value.countFinalResultY;
+            this.scrCounts["Final result: N"] += value.countFinalResultN;
+
+        });
+    }
+
+    resetTest(){
+        this.fromDateTest = null;
+        this.testDisplayData = this.data.testsStatData;
+        this.countTest(this.testDisplayData);
+    }
+
+    resetScr(){
+        this.fromDateScr = null;
+        this.screeningStatData = this.data.screeningsStatData;
+        this.countScr(this.screeningStatData);
+    }
 
 }

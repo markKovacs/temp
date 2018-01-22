@@ -11,6 +11,9 @@ import {TestResultService} from "../../_services/testResult.service";
 export class ApplicantTestComponent implements OnInit {
 
     @Input() testResult: Results;
+    @Input() index: number;
+    @Input() size: number;
+
     x = '5';
 
     constructor(private testResultService: TestResultService){
