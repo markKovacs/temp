@@ -2,9 +2,9 @@
 <div class="container">
     <br/>
 
-    <div class="row">
+    <div class="row" *ngIf="data">
         <div class="col-md-6">
-            <div *ngIf="data">
+            <div>
                 Active application for the location: {{data.activeApplicationsData.active}}<br/>
                 Inactive application for the location: {{data.activeApplicationsData.inactive}}
             </div>
@@ -38,7 +38,7 @@
     <div class="row">
 
     </div>
-    <div class="row">
+    <div class="row" *ngIf="data">
         <div class="col-md-3">
             From:
             <p-calendar [(ngModel)]="fromDateTest" dateFormat="yy.mm.dd" [maxDate]="toDateTest" [locale]="en"></p-calendar>
@@ -68,7 +68,7 @@
 
         </div>
         <div class="col-md-9">
-            <p-dataTable *ngIf="data"
+            <p-dataTable
                          [value]="testDisplayData"
                          [paginator]="true"
                          [rowsPerPageOptions]="[10,20,50]"
@@ -100,7 +100,7 @@
 
     <br /><br />
 
-    <div class="row">
+    <div class="row" *ngIf="data">
         <div class="col-md-3">
             From:
             <p-calendar [(ngModel)]="fromDateScr" dateFormat="yy.mm.dd" [maxDate]="toDateScr" [locale]="en"></p-calendar>
@@ -112,7 +112,7 @@
             <button class="btn btn-default" (click)="resetScr()">Reset</button>
 
             <br />
-            Started:
+            <p *ngIf="inQueue">In queue: {{inQueue.total}}</p>
             <ul>
                 <li *ngFor="let key of scrCounts | keys">
                     {{key}} : {{scrCounts[key]}}
@@ -124,37 +124,37 @@
 
         </div>
         <div class="col-md-9">
-        <p-dataTable *ngIf="data"
-                     [value]="data.screeningsStatData"
+        <p-dataTable
+                     [value]="screeningStatData"
                      [paginator]="true"
                      [rowsPerPageOptions]="[10,20,50]"
                      [rows]="10">
 
             <p-column field="day"
                       header="Day"
+                      [sortable]="true"
             >
                 <ng-template pTemplate="body" let-rowdata="rowData">
-                    {{ rowdata.day | date: 'yyyy.MM.dd'}}
+                    <p *ngIf="rowdata.day">
+                        {{ rowdata.day | date: 'yyyy.MM.dd'}}
+                    </p>
+                    <p *ngIf="!rowdata.day">In queue</p>
                 </ng-template>
             </p-column>
 
-            <p-column field="countInvited"
-                      header="Invited"
+            <p-column field="total"
+                      header="Total"
             ></p-column>
 
-            <p-column field="countScheduleSignedBack"
+            <p-column field="scheduleSignedBack"
                       header="Signed back"
             ></p-column>
 
-            <p-column field="countBeenToScreening"
-                      header="Screening"
-            ></p-column>
-
-            <p-column field="countFinalResultY"
+            <p-column field="finalResultY"
                       header="Y"
             ></p-column>
 
-            <p-column field="countFinalResultN"
+            <p-column field="finalResultN"
                       header="N"
             ></p-column>
 

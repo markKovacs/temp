@@ -1,6 +1,5 @@
 package com.codecool.appsystem.admin.service;
 
-import com.codecool.appsystem.admin.model.dto.ScreeningsStatDataDTO;
 import com.codecool.appsystem.admin.model.dto.TestsStatDataDTO;
 import com.codecool.appsystem.admin.model.stat.*;
 import com.codecool.appsystem.admin.repository.stat.*;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class StatisticsService {
@@ -40,49 +38,8 @@ public class StatisticsService {
         return monthlyScreeningsDataRepository.findByLocation(location);
     }
 
-    public Collection<ScreeningsStatDataDTO> getScreeningData(String location) {
-        List<ScreeningsData> screeningsData = screeningsDataRepository.findByLocationId(location);
-
-        Map<ScreeningsStatDataDTOKey, ScreeningsStatDataDTO> result = new HashMap<>();
-
-        screeningsData
-                .forEach(data -> {
-
-                    Long day = data.getDay().toInstant().truncatedTo(ChronoUnit.DAYS).toEpochMilli();
-                    //String day = data.getDay().toInstant().truncatedTo(ChronoUnit.DAYS).toString().split("T")[0];
-
-                    ScreeningsStatDataDTOKey key = new ScreeningsStatDataDTOKey(day, data.getLocationId());
-
-                    if (!result.containsKey(key)) {
-                        result.put(key, new ScreeningsStatDataDTO(day, data.getLocationId()));
-                    }
-
-                    ScreeningsStatDataDTO dto = result.get(key);
-
-                    if (data.getScreening().equals("invited")) {
-                        dto.setCountInvited(dto.getCountInvited() + 1);
-                    }
-                    if (Boolean.TRUE.equals(data.getScheduleSignedBack())) {
-                        dto.setCountScheduleSignedBack(dto.getCountScheduleSignedBack() + 1);
-                    }
-                    if (data.getScreening().equals("pending")) {
-                        dto.setCountBeenToScreening(dto.getCountBeenToScreening() + 1);
-                    }
-                    if (Boolean.TRUE.equals(data.getFinalResult())) {
-                        dto.setCountFinalResultY(dto.getCountFinalResultY() + 1);
-                    }
-
-                    if (Boolean.FALSE.equals(data.getFinalResult())) {
-                        dto.setCountFinalResultN(dto.getCountFinalResultN() + 1);
-                    }
-
-                });
-
-        return result.values()
-                .stream()
-                .sorted(Comparator.comparing(ScreeningsStatDataDTO::getDay).reversed())
-                .collect(Collectors.toList());
-
+    public Collection<ScreeningsData> getScreeningData(String location) {
+        return screeningsDataRepository.findByLocationId(location);
     }
 
     public Collection<TestsStatDataDTO> getTestsStat(String location) {

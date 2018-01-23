@@ -2,6 +2,7 @@ package com.codecool.appsystem.admin.model.dto;
 
 import com.codecool.appsystem.admin.model.stat.ActiveApplicationsData;
 import com.codecool.appsystem.admin.model.stat.MonthlyScreeningsData;
+import com.codecool.appsystem.admin.model.stat.ScreeningsData;
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,7 +19,7 @@ public class CompositeStatDTO {
 
     private List<MonthlyScreeningsData> monthlyScreeningsData;
 
-    private Collection<ScreeningsStatDataDTO> screeningsStatData;
+    private Collection<ScreeningsData> screeningsStatData;
 
     private Collection<TestsStatDataDTO> testsStatData;
 

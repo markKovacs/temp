@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {StatDataService} from "../../_services/statdata.service";
 import {CompositeStatDataModel, ScreeningStatDataModel, TestsStatData} from "../../_models/composite-stat-data.model";
+import {isNullOrUndefined} from "util";
 
 @Component({
     moduleId: module.id,
@@ -12,6 +13,8 @@ export class MarketingDataPageComponent {
     data: CompositeStatDataModel;
     testDisplayData: TestsStatData[];
     screeningStatData: ScreeningStatDataModel[];
+
+    inQueue: ScreeningStatDataModel;
 
     today = new Date();
 
@@ -39,12 +42,14 @@ export class MarketingDataPageComponent {
 
     constructor(private statDataService: StatDataService) {
         this.toDateTest = new Date();
+        this.toDateScr = new Date();
         const location = JSON.parse(localStorage.getItem('chosenLocation')).id;
         this.statDataService.getStatistics(location).subscribe(
             (data: CompositeStatDataModel) => {
                 this.data = data;
                 this.testDisplayData = data.testsStatData;
-                this.screeningStatData = data.screeningsStatData;
+                this.screeningStatData = data.screeningsStatData.filter(value => !isNullOrUndefined(value.day));
+                this.inQueue = data.screeningsStatData.filter(value => isNullOrUndefined(value.day))[0];
                 this.countTest(this.testDisplayData);
                 this.countScr(this.screeningStatData);
             },
@@ -92,19 +97,17 @@ export class MarketingDataPageComponent {
     countScr(array){
 
         this.scrCounts = {
-            "Invited": 0,
+            "Total": 0,
             "Signed back": 0,
-            "Screening": 0,
             "Final result: Y": 0,
             "Final result: N": 0
         };
 
         array.forEach(value => {
-            this.scrCounts["Invited"] += value.countInvited;
-            this.scrCounts["Signed back"] += value.countScheduleSignedBack;
-            this.scrCounts["Screening"] += value.countBeenToScreening;
-            this.scrCounts["Final result: Y"] += value.countFinalResultY;
-            this.scrCounts["Final result: N"] += value.countFinalResultN;
+            this.scrCounts["Total"] += value.total;
+            this.scrCounts["Signed back"] += value.scheduleSignedBack;
+            this.scrCounts["Final result: Y"] += value.finalResultY;
+            this.scrCounts["Final result: N"] += value.finalResultN;
 
         });
     }

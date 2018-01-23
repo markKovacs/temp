@@ -28,11 +28,10 @@ export class ScreeningStatDataModel {
 
     day: number;
     location: string;
-    countInvited: number;
-    countScheduleSignedBack: number;
-    countBeenToScreening: number;
-    countFinalResultY: number;
-    countFinalResultN: number;
+    total: number;
+    scheduleSignedBack: number;
+    finalResultY: number;
+    finalResultN: number;
 
 }
 

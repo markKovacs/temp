@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "v_screening_data_by_date_and_location")
+@Table(name = "v_screenings_by_date_and_location")
 public class ScreeningsData {
 
     @Id
@@ -17,10 +17,15 @@ public class ScreeningsData {
     private Date day;
 
     private String locationId;
-    private String screening;
-    private Integer count;
-    private Boolean scheduleSignedBack;
-    private Boolean finalResult;
+
+    private Integer total;
+    private Integer scheduleSignedBack;
+
+    @Column(name = "final_result_y")
+    private Integer finalResultY;
+
+    @Column(name = "final_result_n")
+    private Integer finalResultN;
 
 
 }
