@@ -6,7 +6,7 @@
                  aria-valuemin="0" aria-valuemax="100" [style.width]="testResult.percent + '%'"
                  [attr.aria-valuenow]="testResult.percent">
                  {{testResult.name}} &#9642; {{getRoundedValue(testResult.percent)}}% &#9642; {{ testResult.points }} point(s)
-                <i (click)="deleteTestResult()" class="fa fa-times" aria-hidden="true"></i>
+                <i *ngIf="index === size-1" (click)="deleteTestResult()" class="fa fa-times" aria-hidden="true"></i>
             </div>
         </div>
     </div>

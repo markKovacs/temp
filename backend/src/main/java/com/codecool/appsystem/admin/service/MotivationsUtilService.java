@@ -88,7 +88,9 @@ public class MotivationsUtilService {
         TestResult actualTestResult = testResultRepository.getOne(motivationGrade.getTestResultId());
 
         actualTestResult.setComment(motivationGrade.getComment());
-        actualTestResult.setPassed(motivationGrade.getPassed());
+        if(motivationGrade.getPassed() != null){
+            actualTestResult.setPassed(motivationGrade.getPassed());
+        }
 
         Application application = actualTestResult.getApplication();
         User user = application.getUser();

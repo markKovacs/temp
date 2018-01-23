@@ -39,11 +39,16 @@
                         <ul *dropdownMenu class="dropdown-menu" role="menu">
                             <li><a (click)="getCalendar()" id="navbar-calendar" class="dropdown-item" role="menuitem">Calendar</a></li>
                             <li><a (click)="getScreening()" id="navbar-screenings" class="dropdown-item" role="menuitem">Screenings</a></li>
-                            <li><a (click)="getFinalResults()" id="navbar-final-results" class="dropdown-item" role="menuitem">Final results</a></li>
-                            <li><a (click)="getPersonalData()" id="navbar-personal-data" class="dropdown-item" role="menuitem">Next course</a></li>
+                            <li><a (click)="getFinalResults()" id="navbar-final-results" class="dropdown-item" role="menuitem">Send Final results</a></li>
+
                         </ul>
                     </div>
                 </li>
+
+
+                <li><a (click)="getPersonalData()" id="navbar-personal-data" class="dropdown-item" role="menuitem">Next course</a></li>
+
+                <li><a (click)="getMarketing()" id="navbar-marketing" class="dropdown-item" role="menuitem">Stats</a></li>
 
                 <li>
                     <div class="nav navbar-nav navbar-left btn-group" dropdown>
@@ -56,8 +61,6 @@
                         </ul>
                     </div>
                 </li>
-
-                <li><a (click)="getMarketing()" id="navbar-marketing" class="dropdown-item" role="menuitem">Marketing</a></li>
 
                 <li><a (click)="logout()">Logout</a></li>
             </ul>

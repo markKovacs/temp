@@ -2,23 +2,8 @@
 <div class="container">
     <br/>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">Accepted applications: {{hired ? hired.length: ''}}</div>
-        <div class="panel-body">
-            <div *ngFor="let applicant of hired">
-                <div class="row">
-                    <div class="col-md-1">
-                        <i class="fa fa-user {{getUserIconClass(applicant)}}" (click)="navigateToProfile(applicant.id)" aria-hidden="true"></i>&nbsp;
-                    </div>
-                    <div class="col-md-2">
-                        <span (click)="navigateToProfile(applicant.id)">{{applicant.name}}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-        <div class="panel panel-default">
+    <div class="panel panel-default">
         <div class="panel-heading">
             Submitted personal data
             <input class="pull-right" [(ngModel)]="courseId" placeholder="Course ID / MBL Start">
@@ -28,50 +13,62 @@
             <p-dataTable [value]="data"
                          [paginator]="true"
                          [responsive]="true"
-                         [rowsPerPageOptions]="[10,20,50]"
-                         [rows]="20">
+                         [editable]="true"
+                         [rowsPerPageOptions]="[20,50,100]"
+                         (onEditComplete)="onEditComplete($event)"
+                         [rows]="50">
 
                 <p-column field="name"
                           header="Name"
+                          [editable]="true"
                           [sortable]="true"
                           [filter]="true"
                           filterMatchMode="contains"></p-column>
 
                 <p-column field="maidenName"
+                          [editable]="true"
                           header="Maiden name"></p-column>
 
                 <p-column field="mothersName"
+                          [editable]="true"
                           header="Mother's Name"></p-column>
 
                 <p-column field="address"
+                          [editable]="true"
                           header="Address"
-                          ></p-column>
+                ></p-column>
 
                 <p-column field="placeOfBirth"
+                          [editable]="true"
                           header="Place of birth"
-                          ></p-column>
+                ></p-column>
 
                 <p-column field="birthDate"
+                          [editable]="true"
                           header="Birth Date"
-                          >
+                >
                     <ng-template let-pdata="rowData" pTemplate="body">
                         {{ pdata.birthDate | date : 'yyyy.MM.dd.' }}
                     </ng-template>
+
                 </p-column>
 
                 <p-column field="idDocumentType"
                           header="Doc"
+                          [editable]="true"
                 ></p-column>
 
                 <p-column field="idNumber"
+                          [editable]="true"
                           header="#"
                 ></p-column>
 
                 <p-column field="birthDate"
+                          [editable]="true"
                           header="Contract signed"
                 >
                     <ng-template let-pdata="rowData" pTemplate="body">
-                        <button class="btn btn-success" (click)="contractSigned(pdata.id)">
+                        <button class="btn btn-success" *ngIf="pdata.filled" (click)="contractSigned(pdata.id)">
                             <i class="fa fa-check" aria-hidden="true"></i>
                         </button>&nbsp;
                         <button class="btn btn-danger" (click)="rejected(pdata.id)">
@@ -81,7 +78,7 @@
                 </p-column>
 
             </p-dataTable>
-            <br />
+            <br/>
 
         </div>
     </div>

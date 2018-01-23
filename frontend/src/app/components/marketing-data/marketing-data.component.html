@@ -2,30 +2,164 @@
 <div class="container">
     <br/>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">Accepted applicants for the next course</div>
-        <div class="panel-body">
+    <div class="row" *ngIf="data">
+        <div class="col-md-6">
+            <div>
+                Active application for the location: {{data.activeApplicationsData.active}}<br/>
+                Inactive application for the location: {{data.activeApplicationsData.inactive}}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <p-dataTable *ngIf="data"
+                         [value]="data.monthlyScreeningsData"
+                         [paginator]="true"
+                         [rowsPerPageOptions]="[10,20,50]"
+                         [rows]="10">
 
+                <p-column field="month"
+                          header="month"
+                          [sortable]="true"
+                ></p-column>
+
+                <p-column field="finalResultY"
+                          header="Final Result Y"
+                ></p-column>
+
+                <p-column field="finalResultN"
+                          header="Final Result N"
+                ></p-column>
+
+            </p-dataTable>
         </div>
     </div>
 
     <br />
 
-    <div class="panel panel-default">
-        <div class="panel-heading">UTM info</div>
-        <div class="panel-body">
+    <div class="row">
 
+    </div>
+    <div class="row" *ngIf="data">
+        <div class="col-md-3">
+            From:
+            <p-calendar [(ngModel)]="fromDateTest" dateFormat="yy.mm.dd" [maxDate]="toDateTest" [locale]="en"></p-calendar>
+            <br />
+            To:
+            <p-calendar [(ngModel)]="toDateTest" dateFormat="yy.mm.dd" [maxDate]="today" [locale]="en"></p-calendar>
+
+            <button class="btn btn-success" (click)="filterDateTest()">Filter</button>
+            <button class="btn btn-default" (click)="resetTest()">Reset</button>
+
+            <br />
+            Started:
+            <ul>
+                <li *ngFor="let key of testCountsStarted | keys">
+                    {{key}} : {{testCountsStarted[key]}}
+                </li>
+            </ul>
+            <br />
+            Success:
+            <ul>
+                <li *ngFor="let key of testCountSuccess | keys">
+                    {{key}} : {{testCountSuccess[key]}}
+                </li>
+            </ul>
+
+
+
+        </div>
+        <div class="col-md-9">
+            <p-dataTable
+                         [value]="testDisplayData"
+                         [paginator]="true"
+                         [rowsPerPageOptions]="[10,20,50]"
+                         [rows]="10">
+
+                <p-column field="day"
+                          header="Day"
+                >
+                    <ng-template pTemplate="body" let-rowdata="rowData">
+                        {{ rowdata.day | date: 'yyyy.MM.dd'}}
+                    </ng-template>
+                </p-column>
+
+                <p-column field="test"
+                          header="Test name"
+                ></p-column>
+
+                <p-column field="countStarted"
+                          header="Started"
+                ></p-column>
+
+                <p-column field="countSuccess"
+                          header="Success"
+                ></p-column>
+
+            </p-dataTable>
         </div>
     </div>
 
-    <br/>
+    <br /><br />
 
-    <div class="panel panel-default">
-        <div class="panel-heading"></div>
-        <div class="panel-body">
+    <div class="row" *ngIf="data">
+        <div class="col-md-3">
+            From:
+            <p-calendar [(ngModel)]="fromDateScr" dateFormat="yy.mm.dd" [maxDate]="toDateScr" [locale]="en"></p-calendar>
+            <br />
+            To:
+            <p-calendar [(ngModel)]="toDateScr" dateFormat="yy.mm.dd" [maxDate]="today" [locale]="en"></p-calendar>
 
+            <button class="btn btn-success" (click)="filterDateScr()">Filter</button>
+            <button class="btn btn-default" (click)="resetScr()">Reset</button>
+
+            <br />
+            <p *ngIf="inQueue">In queue: {{inQueue.total}}</p>
+            <ul>
+                <li *ngFor="let key of scrCounts | keys">
+                    {{key}} : {{scrCounts[key]}}
+                </li>
+            </ul>
+            <br />
+
+
+
+        </div>
+        <div class="col-md-9">
+        <p-dataTable
+                     [value]="screeningStatData"
+                     [paginator]="true"
+                     [rowsPerPageOptions]="[10,20,50]"
+                     [rows]="10">
+
+            <p-column field="day"
+                      header="Day"
+                      [sortable]="true"
+            >
+                <ng-template pTemplate="body" let-rowdata="rowData">
+                    <p *ngIf="rowdata.day">
+                        {{ rowdata.day | date: 'yyyy.MM.dd'}}
+                    </p>
+                    <p *ngIf="!rowdata.day">In queue</p>
+                </ng-template>
+            </p-column>
+
+            <p-column field="total"
+                      header="Total"
+            ></p-column>
+
+            <p-column field="scheduleSignedBack"
+                      header="Signed back"
+            ></p-column>
+
+            <p-column field="finalResultY"
+                      header="Y"
+            ></p-column>
+
+            <p-column field="finalResultN"
+                      header="N"
+            ></p-column>
+
+        </p-dataTable>
         </div>
     </div>
 
-    <br/>
 </div>

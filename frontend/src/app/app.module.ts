@@ -70,6 +70,8 @@ import {PersonalDataPageComponent} from "./components/personal-data/personal-dat
 import { RubricFormComponent } from './components/rubric-form/rubric-form.component';
 import {RubricService} from "./_services/rubric.service";
 import {TestResultService} from "./_services/testResult.service";
+import {StatDataService} from "./_services/statdata.service";
+import {KeysPipe} from "./_pipes/map-to-iterable.pipe";
 
 
 
@@ -127,7 +129,8 @@ import {TestResultService} from "./_services/testResult.service";
         FinalResultPageComponent,
         MarketingDataPageComponent,
         PersonalDataPageComponent,
-        RubricFormComponent
+        RubricFormComponent,
+        KeysPipe
     ],
     providers: [
         AuthGuard,
@@ -143,7 +146,9 @@ import {TestResultService} from "./_services/testResult.service";
         UserService,
         EmailTemplateService,
         RubricService,
-        TestResultService
+        TestResultService,
+
+        StatDataService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent]

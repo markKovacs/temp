@@ -15,46 +15,27 @@ import {Router} from "@angular/router";
 export class PersonalDataPageComponent {
 
     data: PersonalData[];
-
-    hired: Applicant[];
-
     courseId: string;
 
-    constructor(
-        private applicantService: ApplicantService,
-        private router: Router
-    ) {
+    constructor(private applicantService: ApplicantService,
+                private router: Router) {
         this.applicantService.getPersonalData()
             .subscribe(
-            (data: PersonalData[]) => {
-                this.data = data;
-                for(let d of this.data){
-                    d.birthDate = new Date(d.birthDate);
-                }
-                this.applicantService.getHired()
-                    .subscribe(
-                        (data: Applicant[]) => {this.hired = data;
+                (data: PersonalData[]) => {
+                    this.data = data;
+                    for (let d of this.data) {
+                        if(d.birthDate) {
+                            d.birthDate = new Date(d.birthDate);
+                            d.filled = true;
+                        }
 
-                            for(let pdata of this.data){
-                                for(let appl of this.hired){
-                                    if(pdata.id === appl.id){
-                                        appl.hasPersonalData = true;
-                                    }
-                                }
-                            }
-
-                        },
-                        error2 => console.log(error2)
-                    )
-            },
-                    error2 => console.log(error2)
-        );
-
-
-
+                    }
+                },
+                error2 => console.log(error2)
+            );
     }
 
-    contractSigned(id: number){
+    contractSigned(id: number) {
         this.applicantService.contractSigned(id, this.courseId).subscribe(
             (data: any) => {
                 this.data = this.data.filter(value => value.id !== id);
@@ -62,7 +43,7 @@ export class PersonalDataPageComponent {
         )
     }
 
-    rejected(id: number){
+    rejected(id: number) {
         this.applicantService.rejected(id).subscribe(
             (data: any) => {
                 console.log("rejected");
@@ -70,16 +51,20 @@ export class PersonalDataPageComponent {
         )
     }
 
-    getUserIconClass(applicant: Applicant){
-        if(applicant.hasPersonalData){
+    getUserIconClass(filled: boolean) {
+        if (filled) {
             return "text-success";
         }
         return "text-danger";
     }
 
 
-    navigateToProfile(id: number){
+    navigateToProfile(id: number) {
         this.router.navigate(['/applicants/' + id]);
     }
 
+
+    onEditComplete (event) {
+        console.log(event.data);
+    };
 }

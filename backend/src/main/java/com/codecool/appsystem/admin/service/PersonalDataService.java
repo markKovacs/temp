@@ -30,7 +30,7 @@ public class PersonalDataService {
 
         List<PersonalData> list = personalDataRepository.findAll();
 
-        return list.stream()
+        list = list.stream()
                 .filter(personalData -> {
 
                     User user = userRepository.findOne(personalData.getId());
@@ -45,6 +45,34 @@ public class PersonalDataService {
                 })
                 .collect(Collectors.toList());
 
+        list.addAll(addFake(list));
+
+        return list;
+
+
+
+    }
+
+    private List<PersonalData> addFake(List<PersonalData> original){
+        List<Application> applications = applicationRepository.findByFinalResultIsTrueAndActiveIsTrue();
+
+        return applications
+                .stream()
+                .filter(application -> {
+                    for(PersonalData pd : original){
+                        if(pd.getId().equals(application.getUser().getId())){
+                            return false;
+                        }
+                    }
+                    return true;
+                })
+                .map(application -> {
+                    PersonalData pd = new PersonalData();
+                    pd.setName(application.getUser().getFullName());
+                    pd.setId(application.getUser().getId());
+                    return pd;
+                })
+                .collect(Collectors.toList());
     }
 
     public boolean setContractSigned(Integer id, String courseId){
