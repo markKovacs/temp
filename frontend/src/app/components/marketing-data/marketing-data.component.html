@@ -1,70 +1,89 @@
 <div style="margin-top: 100px"></div>
 <div class="container">
     <br/>
-
+    <h1>Real-time statistics for the location</h1>
+    <br />
     <div class="row" *ngIf="data">
         <div class="col-md-6">
             <div>
-                Active application for the location: {{data.activeApplicationsData.active}}<br/>
-                Inactive application for the location: {{data.activeApplicationsData.inactive}}
+                <h3>Total applications so far</h3>
+                <h4>Active: {{data.activeApplicationsData.active}}</h4>
+                <h4>Inactive: {{data.activeApplicationsData.inactive}}</h4>
             </div>
         </div>
         <div class="col-md-6">
+            <h3>Monthly sceenings</h3>
             <p-dataTable *ngIf="data"
                          [value]="data.monthlyScreeningsData"
                          [paginator]="true"
-                         [rowsPerPageOptions]="[10,20,50]"
-                         [rows]="10">
+                         [rows]="5">
 
                 <p-column field="month"
-                          header="month"
+                          header="Month"
                           [sortable]="true"
                 ></p-column>
 
                 <p-column field="finalResultY"
-                          header="Final Result Y"
+                          header="Hired"
                 ></p-column>
 
                 <p-column field="finalResultN"
-                          header="Final Result N"
+                          header="Rejected"
                 ></p-column>
 
             </p-dataTable>
         </div>
     </div>
 
+    <hr />
+    <br />
     <br />
 
-    <div class="row">
+    <h3>Aggregated test results by process started date and test</h3>
 
-    </div>
     <div class="row" *ngIf="data">
         <div class="col-md-3">
-            From:
-            <p-calendar [(ngModel)]="fromDateTest" dateFormat="yy.mm.dd" [maxDate]="toDateTest" [locale]="en"></p-calendar>
             <br />
-            To:
-            <p-calendar [(ngModel)]="toDateTest" dateFormat="yy.mm.dd" [maxDate]="today" [locale]="en"></p-calendar>
+            <div class="form-horizontal" style="margin-left: 0.5em;">
+                <div class="form-group">
+                    <label for="fromdateinput" class="col-sm-2 control-label">From</label>
+                    <div class="col-sm-10">
+                        <p-calendar [(ngModel)]="fromDateTest" id="fromdateinput" dateFormat="yy.mm.dd" [maxDate]="toDateTest" [locale]="en" [styleClass]="form-control"></p-calendar>
+                    </div>
+                </div>
 
-            <button class="btn btn-success" (click)="filterDateTest()">Filter</button>
-            <button class="btn btn-default" (click)="resetTest()">Reset</button>
+                <div class="form-group">
+                    <label for="todateinput" class="col-sm-2 control-label">To</label>
+                    <div class="col-sm-10">
+                        <p-calendar [(ngModel)]="toDateTest" id="todateinput" dateFormat="yy.mm.dd" [maxDate]="today" [locale]="en" [styleClass]="form-control"></p-calendar>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button class="btn btn-success" (click)="filterDateTest()">Filter</button>
+                        <button class="btn btn-warning" (click)="resetTest()">Reset</button>
+                    </div>
+                </div>
+
+            </div>
 
             <br />
-            Started:
-            <ul>
-                <li *ngFor="let key of testCountsStarted | keys">
-                    {{key}} : {{testCountsStarted[key]}}
-                </li>
-            </ul>
-            <br />
-            Success:
-            <ul>
-                <li *ngFor="let key of testCountSuccess | keys">
-                    {{key}} : {{testCountSuccess[key]}}
-                </li>
-            </ul>
+            <h3>Sum<small> for the selected period</small></h3>
 
-
+            <div class="row">
+                <div class="col-md-5 col-md-offset-7">
+                    <u><h4><small>Started&nbsp;/&nbsp;Success</small></h4></u>
+                </div>
+            </div>
+            <div class="row" *ngFor="let key of testCountsStarted | keys">
+                <div class="col-md-7">
+                    <h4>{{key}}</h4>
+                </div>
+                <div class="col-md-5 text-center">
+                    <h4><small>{{testCountsStarted[key]}}&nbsp;/&nbsp;{{testCountSuccess[key]}}</small></h4>
+                </div>
+            </div>
 
         </div>
         <div class="col-md-9">
@@ -97,30 +116,52 @@
             </p-dataTable>
         </div>
     </div>
-
+    <hr />
     <br /><br />
+
+    <h3>Screenings statistics for each screening day</h3>
 
     <div class="row" *ngIf="data">
         <div class="col-md-3">
-            From:
-            <p-calendar [(ngModel)]="fromDateScr" dateFormat="yy.mm.dd" [maxDate]="toDateScr" [locale]="en"></p-calendar>
             <br />
-            To:
-            <p-calendar [(ngModel)]="toDateScr" dateFormat="yy.mm.dd" [maxDate]="today" [locale]="en"></p-calendar>
+            <div class="form-horizontal" style="margin-left: 0.5em;">
+                <div class="form-group">
+                    <label for="fromdatescrinput" class="col-sm-2 control-label">From</label>
+                    <div class="col-sm-10">
+                        <p-calendar [(ngModel)]="fromDateScr" id="fromdatescrinput"  dateFormat="yy.mm.dd" [maxDate]="toDateScr" [locale]="en" [styleClass]="form-control"></p-calendar>
+                    </div>
+                </div>
 
-            <button class="btn btn-success" (click)="filterDateScr()">Filter</button>
-            <button class="btn btn-default" (click)="resetScr()">Reset</button>
+                <div class="form-group">
+                    <label for="todatescrinput" class="col-sm-2 control-label">To</label>
+                    <div class="col-sm-10">
+                        <p-calendar [(ngModel)]="toDateScr" id="todatescrinput" dateFormat="yy.mm.dd" [maxDate]="today" [locale]="en" [styleClass]="form-control"></p-calendar>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button class="btn btn-success" (click)="filterDateScr()">Filter</button>
+                        <button class="btn btn-warning" (click)="resetScr()">Reset</button>
+                    </div>
+                </div>
+
+            </div>
 
             <br />
-            <p *ngIf="inQueue">In queue: {{inQueue.total}}</p>
-            <ul>
-                <li *ngFor="let key of scrCounts | keys">
-                    {{key}} : {{scrCounts[key]}}
-                </li>
-            </ul>
+            <h3 *ngIf="inQueue">In queue: {{inQueue.total}}</h3>
+            <h3><small> for the selected period</small></h3>
+
             <br />
 
-
+            <div class="row" *ngFor="let key of scrCounts | keys">
+                <div class="col-md-7">
+                    <h4>{{key}}</h4>
+                </div>
+                <div class="col-md-5 text-center">
+                    <h4><small>{{scrCounts[key]}}</small></h4>
+                </div>
+            </div>
 
         </div>
         <div class="col-md-9">
@@ -143,7 +184,7 @@
             </p-column>
 
             <p-column field="total"
-                      header="Total"
+                      header="Invited"
             ></p-column>
 
             <p-column field="scheduleSignedBack"
@@ -151,15 +192,16 @@
             ></p-column>
 
             <p-column field="finalResultY"
-                      header="Y"
+                      header="Hired"
             ></p-column>
 
             <p-column field="finalResultN"
-                      header="N"
+                      header="Rejected"
             ></p-column>
 
         </p-dataTable>
         </div>
     </div>
+    <br />
 
 </div>

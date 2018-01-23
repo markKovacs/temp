@@ -74,7 +74,6 @@ import {StatDataService} from "./_services/statdata.service";
 import {KeysPipe} from "./_pipes/map-to-iterable.pipe";
 
 
-
 @NgModule({
     imports: [
         BrowserModule,

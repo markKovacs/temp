@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {StatDataService} from "../../_services/statdata.service";
 import {CompositeStatDataModel, ScreeningStatDataModel, TestsStatData} from "../../_models/composite-stat-data.model";
 import {isNullOrUndefined} from "util";
+import D3Funnel from 'd3-funnel';
 
 @Component({
     moduleId: module.id,
@@ -58,6 +59,7 @@ export class MarketingDataPageComponent {
     }
 
     filterDateTest() {
+        this.testDisplayData = this.data.testsStatData;
         this.testDisplayData = this.testDisplayData.filter(
             value => new Date(value.day).getTime() > this.fromDateTest.getTime()
                 && new Date(value.day).getTime() < this.toDateTest.getTime());
@@ -67,6 +69,7 @@ export class MarketingDataPageComponent {
     }
 
     filterDateScr() {
+        this.screeningStatData = this.data.screeningsStatData.filter(value => !isNullOrUndefined(value.day));
         this.screeningStatData = this.screeningStatData.filter(
             value => new Date(value.day).getTime() > this.fromDateScr.getTime()
                 && new Date(value.day).getTime() < this.toDateScr.getTime());
@@ -92,6 +95,7 @@ export class MarketingDataPageComponent {
             this.testCountSuccess[value.test] += value.countSuccess;
 
         });
+
     }
 
     countScr(array){
