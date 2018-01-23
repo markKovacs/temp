@@ -164,9 +164,10 @@ public class ApplicationScreeningService {
 
     public List<ScreeningDTO> getCandidates(String locationId) {
 
-        return appRepository.findByLocationId(locationId)
+        return appRepository.findByLocationIdAndActiveIsTrueAndProcessStartedAtIsNotNull(locationId)
                 .stream()
                 .filter(this::isScreeningCandidate)
+                .sorted(Comparator.comparing(Application::getProcessStartedAt))
                 .map(this::createCandidate)
                 .sorted((o1, o2) -> {
                     if(o1.getGroupTime() == null && o2.getGroupTime() == null){
@@ -244,6 +245,7 @@ public class ApplicationScreeningService {
                 .name(application.getUser().getFullName())
                 .age(LocalDate.now().getYear() - application.getUser().getBirthDate())
                 .afterTwoDays(checkIsAfterTwoDays(application.getApplicationScreeningInfo().getDateOfSend()))
+                .processStartedAt(application.getProcessStartedAt())
                 .build();
         if(application.getApplicationScreeningInfo() != null){
             result.setGroupTime(application.getApplicationScreeningInfo().getScreeningGroupTime());

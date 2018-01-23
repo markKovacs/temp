@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -67,11 +68,14 @@ public class MotivationsUtilService {
 
                         userMotivation.setIsVideo(checkMotivationText(testResult.getSavedAnswers()));
                         userMotivation.setName(u.getFullName());
+                        userMotivation.setProcessStartedAt(application.getProcessStartedAt());
 
                         motivation.add(userMotivation);
                     }
                 }
         }
+
+        motivation.sort(Comparator.comparing(MotivationDTO::getProcessStartedAt));
 
         return motivation;
 

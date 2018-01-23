@@ -11,6 +11,8 @@ public interface ApplicationRepository extends JpaRepository<Application, String
 
     List<Application> findByLocationIdAndActiveIsTrueAndFinalResultIsNull(String locationId);
 
+    List<Application> findByLocationIdAndActiveIsTrueAndProcessStartedAtIsNotNull(String locationId);
+
     List<Application> findByFinalResultIsNullAndFinalResultSentIsNull();
 
     List<Application> findByFinalResultIsTrueAndActiveIsTrue();

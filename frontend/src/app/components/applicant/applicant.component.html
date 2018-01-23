@@ -26,7 +26,7 @@
                         <br>
 
                         <div *ngIf="application.testResults">
-                            <applicant-test *ngFor="let result of application.testResults; let idx=index" [testResult]="result" [index]="idx", [size]="application.testResults.length"></applicant-test>
+                            <applicant-test *ngFor="let result of application.testResults; let idx=index" [testResult]="result" [idx]="idx" [size]="application.testResults.length"></applicant-test>
                         </div>
 
                         <br>
