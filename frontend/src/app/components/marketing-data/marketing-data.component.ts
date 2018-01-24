@@ -2,7 +2,6 @@ import {Component} from "@angular/core";
 import {StatDataService} from "../../_services/statdata.service";
 import {CompositeStatDataModel, ScreeningStatDataModel, TestsStatData} from "../../_models/composite-stat-data.model";
 import {isNullOrUndefined} from "util";
-import D3Funnel from 'd3-funnel';
 
 @Component({
     moduleId: module.id,
