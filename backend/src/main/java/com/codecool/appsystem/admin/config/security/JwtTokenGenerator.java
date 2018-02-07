@@ -2,8 +2,6 @@ package com.codecool.appsystem.admin.config.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -13,8 +11,6 @@ import java.nio.charset.Charset;
 
 @Component
 public class JwtTokenGenerator {
-
-    private static final Logger log = LoggerFactory.getLogger(JwtTokenGenerator.class);
 
     @Value("${jwt.secret}")
     private String jwtSecretKey;
