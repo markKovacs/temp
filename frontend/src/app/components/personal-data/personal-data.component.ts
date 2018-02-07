@@ -17,6 +17,8 @@ export class PersonalDataPageComponent {
     data: PersonalData[];
     courseId: string;
 
+    loading = true;
+
     constructor(private applicantService: ApplicantService,
                 private router: Router) {
         this.applicantService.getPersonalData()
@@ -30,6 +32,7 @@ export class PersonalDataPageComponent {
                         }
 
                     }
+                    this.loading = false;
                 },
                 error2 => console.log(error2)
             );

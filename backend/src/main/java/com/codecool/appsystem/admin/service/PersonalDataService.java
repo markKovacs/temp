@@ -3,6 +3,7 @@ package com.codecool.appsystem.admin.service;
 import com.codecool.appsystem.admin.model.Application;
 import com.codecool.appsystem.admin.model.PersonalData;
 import com.codecool.appsystem.admin.model.User;
+import com.codecool.appsystem.admin.model.dto.PersonalDataDTO;
 import com.codecool.appsystem.admin.repository.ApplicationRepository;
 import com.codecool.appsystem.admin.repository.PersonalDataRepository;
 import com.codecool.appsystem.admin.repository.UserRepository;
@@ -26,11 +27,10 @@ public class PersonalDataService {
     @Autowired
     private ApplicationRepository applicationRepository;
 
-    public List<PersonalData> list() {
+    public List<PersonalDataDTO> list() {
 
-        List<PersonalData> list = personalDataRepository.findAll();
-
-        list = list.stream()
+        List<PersonalData> original = personalDataRepository.findAll();
+        List<PersonalDataDTO> list = original.stream()
                 .filter(personalData -> {
 
                     User user = userRepository.findOne(personalData.getId());
@@ -43,6 +43,13 @@ public class PersonalDataService {
                             && !Boolean.TRUE.equals(user.getContractSigned());
 
                 })
+                .map(PersonalDataDTO::fromEntity)
+                .map(personalData -> {
+                    User user = userRepository.findOne(personalData.getId());
+                    Application application = user.getActiveApplication();
+                    personalData.setScreeningDate(application.getApplicationScreeningInfo().getScreeningGroupTime());
+                    return personalData;
+                })
                 .collect(Collectors.toList());
 
         list.addAll(addFake(list));
@@ -53,13 +60,13 @@ public class PersonalDataService {
 
     }
 
-    private List<PersonalData> addFake(List<PersonalData> original){
+    private List<PersonalDataDTO> addFake(List<PersonalDataDTO> original){
         List<Application> applications = applicationRepository.findByFinalResultIsTrueAndActiveIsTrue();
 
         return applications
                 .stream()
                 .filter(application -> {
-                    for(PersonalData pd : original){
+                    for(PersonalDataDTO pd : original){
                         if(pd.getId().equals(application.getUser().getId())){
                             return false;
                         }
@@ -67,9 +74,10 @@ public class PersonalDataService {
                     return true;
                 })
                 .map(application -> {
-                    PersonalData pd = new PersonalData();
+                    PersonalDataDTO pd = new PersonalDataDTO();
                     pd.setName(application.getUser().getFullName());
                     pd.setId(application.getUser().getId());
+                    pd.setScreeningDate(application.getApplicationScreeningInfo().getScreeningGroupTime());
                     return pd;
                 })
                 .collect(Collectors.toList());

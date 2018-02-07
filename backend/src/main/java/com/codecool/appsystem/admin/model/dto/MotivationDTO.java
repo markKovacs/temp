@@ -15,5 +15,6 @@ public class MotivationDTO extends RestResponseDTO {
     private String name;
     private Boolean isVideo;
     private Date processStartedAt;
+    private Boolean hasComment;
 
 }

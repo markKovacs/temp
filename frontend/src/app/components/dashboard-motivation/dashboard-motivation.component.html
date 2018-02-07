@@ -2,11 +2,18 @@
 
     <table class="table table-striped table-bordered" *ngIf="usersWithVideo && usersWithVideo.length > 0">
         <tr>
-            <th colspan="2">Applicant Name</th>
-
+            <th colspan="1">Applicant Name</th>
+            <th colspan="1">Process started at</th>
+            <th colspan="1"></th>
         </tr>
         <tr *ngFor="let user of usersWithVideo">
-            <td class="col-md-9">{{ user.name }}</td>
+            <td class="col-md-4">
+                <i *ngIf="user.hasComment" class="fas fa-comments">&nbsp;</i>
+                {{ user.name }}
+            </td>
+            <td class="col-md-4">
+                {{ user.processStartedAt | date : 'yyyy.MM.dd.' }}
+            </td>
             <td class="col-md-3">
                 <button class="btn btn-success btn-xs pull-right btn-block"
                         (click)="getApplicant(user.id)">

@@ -96,7 +96,7 @@ export class NavBarComponent {
     }
 
     logout() {
-        localStorage.removeItem("authToken");
+        localStorage.removeItem("adminAuthToken");
         this.globalEventsManager.showNavBar(false);
     }
 

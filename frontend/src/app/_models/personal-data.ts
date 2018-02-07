@@ -15,4 +15,6 @@ export class PersonalData {
     idNumber: string;
 
     filled = false;
+
+    screeningDate: Date;
 }

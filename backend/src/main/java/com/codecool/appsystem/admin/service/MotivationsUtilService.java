@@ -69,6 +69,7 @@ public class MotivationsUtilService {
                         userMotivation.setIsVideo(checkMotivationText(testResult.getSavedAnswers()));
                         userMotivation.setName(u.getFullName());
                         userMotivation.setProcessStartedAt(application.getProcessStartedAt());
+                        userMotivation.setHasComment(!StringUtils.isEmpty(testResult.getComment()));
 
                         motivation.add(userMotivation);
                     }
@@ -92,9 +93,6 @@ public class MotivationsUtilService {
         TestResult actualTestResult = testResultRepository.getOne(motivationGrade.getTestResultId());
 
         actualTestResult.setComment(motivationGrade.getComment());
-        if(motivationGrade.getPassed() != null){
-            actualTestResult.setPassed(motivationGrade.getPassed());
-        }
 
         Application application = actualTestResult.getApplication();
         User user = application.getUser();
@@ -105,6 +103,8 @@ public class MotivationsUtilService {
             screeningInfo.setApplication(application);
             actualTestResult.setPending(false);
 
+            actualTestResult.setPassed(motivationGrade.getPassed());
+
             screeningInfo.setMapLocation(application.getLocation().getMapLocation());
 
             applicationScreeningInfoRepository.saveAndFlush(screeningInfo);
@@ -113,6 +113,7 @@ public class MotivationsUtilService {
 
             // failed
         } else if (Boolean.FALSE.equals(motivationGrade.getPassed())){
+            actualTestResult.setPassed(motivationGrade.getPassed());
             actualTestResult.setPending(false);
             emailService.sendMotivationFailed(user);
         }

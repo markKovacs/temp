@@ -1,8 +1,8 @@
 package com.codecool.appsystem.admin.controller;
 
-import com.codecool.appsystem.admin.model.PersonalData;
 import com.codecool.appsystem.admin.model.dto.ApplicantDetailsDTO;
 import com.codecool.appsystem.admin.model.dto.ApplicantInfoDTO;
+import com.codecool.appsystem.admin.model.dto.PersonalDataDTO;
 import com.codecool.appsystem.admin.service.ApplicantAdminService;
 import com.codecool.appsystem.admin.service.ApplicantDetailsService;
 import com.codecool.appsystem.admin.service.ApplicantListingService;
@@ -50,7 +50,7 @@ public class ApplicantsController {
     }
 
     @RequestMapping(value = "/personaldata", method = RequestMethod.GET)
-    public List<PersonalData> personalData() {
+    public List<PersonalDataDTO> personalData() {
         return personalDataService.list();
     }
 

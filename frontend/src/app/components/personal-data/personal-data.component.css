@@ -1,3 +1,7 @@
 .red {
     color: darkred;
 }
+
+.container {
+    width: 95% !important;
+}
