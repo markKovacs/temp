@@ -88,7 +88,6 @@ import {KeysPipe} from "./_pipes/map-to-iterable.pipe";
         SharedModule,
         PickListModule,
         CalendarModule,
-
         GrowlModule,
         DragDropModule,
         CarouselModule.forRoot(),

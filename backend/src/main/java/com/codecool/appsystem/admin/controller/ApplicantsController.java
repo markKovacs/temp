@@ -1,12 +1,10 @@
 package com.codecool.appsystem.admin.controller;
 
+import com.codecool.appsystem.admin.model.Email;
 import com.codecool.appsystem.admin.model.dto.ApplicantDetailsDTO;
 import com.codecool.appsystem.admin.model.dto.ApplicantInfoDTO;
 import com.codecool.appsystem.admin.model.dto.PersonalDataDTO;
-import com.codecool.appsystem.admin.service.ApplicantAdminService;
-import com.codecool.appsystem.admin.service.ApplicantDetailsService;
-import com.codecool.appsystem.admin.service.ApplicantListingService;
-import com.codecool.appsystem.admin.service.PersonalDataService;
+import com.codecool.appsystem.admin.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +26,9 @@ public class ApplicantsController {
 
     @Autowired
     private PersonalDataService personalDataService;
+
+    @Autowired
+    private EmailService emailService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<ApplicantInfoDTO> getAllApplicants(@RequestParam("location") String locationId, @RequestParam(value = "all", required = false) Boolean all) {
@@ -81,6 +82,11 @@ public class ApplicantsController {
     public boolean restoreApplication(@PathVariable("applicationId") String applicationId){
         detailsService.restoreApplication(applicationId);
         return true;
+    }
+
+    @RequestMapping(value = "/{id}/emails", method = RequestMethod.GET)
+    public List<Email> sentEmails(@PathVariable("id") Integer id){
+        return emailService.findByAddressee(id);
     }
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)

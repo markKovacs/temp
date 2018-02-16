@@ -2,11 +2,12 @@ import {Component} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {GlobalEventsManager} from "../../global.eventsmanager";
 import {HttpClient} from "../../_httpclient/httpclient";
-import {DomSanitizer} from '@angular/platform-browser';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {User} from "../../_models/user.model";
 import {Application} from "../../_models/application";
 import {isNullOrUndefined} from "util";
 import {ApplicantService} from "../../_services/applicants.service";
+import {Email} from "../../_models/email.model";
 
 @Component({
     moduleId: module.id,
@@ -18,6 +19,9 @@ export class ApplicantComponent {
     public user: User;
 
     application: Application;
+
+    emailBody: any;
+    displayEmail: boolean = false;
 
     constructor(private sanitizer: DomSanitizer,
                 private route: ActivatedRoute,
@@ -39,6 +43,13 @@ export class ApplicantComponent {
                             if(this.application.screeningPersonalTime) {
                                 this.application.screeningPersonalTime = new Date(user.applications[0].screeningPersonalTime);
                             }
+
+                            this.client.get('/api/applicants/' + this.user.id + '/emails').subscribe(
+                                (emails: Email[]) => {
+                                    this.user.emails = emails;
+                                },
+                                (error:any) => console.log(error)
+                            )
                         }
                     },
                     (error) => console.log(error)
@@ -141,6 +152,14 @@ export class ApplicantComponent {
                         });
             }
         }
+    }
+
+    openBody(email: Email){
+        // this is for disabling links in the preview
+        let body = email.html.replace('<head>', '<head><style>table a { pointer-events: none; }</style>');
+        body = body.replace('https://codecool.hu/wp-content/themes/codecool_v2/assets/img/logo-large.png', '');
+        this.emailBody = this.sanitizer.bypassSecurityTrustHtml(body);
+        this.displayEmail = true;
     }
 
     private checkThereIsActiveApplication(): boolean{

@@ -1,4 +1,5 @@
 import {Application} from "./application";
+import {Email} from "./email.model";
 
 export class User {
 
@@ -15,5 +16,7 @@ export class User {
     applications: Application[] = [];
 
     courseId: string;
+
+    emails: Email[] = [];
 
 }

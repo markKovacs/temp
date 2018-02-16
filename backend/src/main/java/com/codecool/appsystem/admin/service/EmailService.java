@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -53,6 +54,11 @@ public class EmailService {
 
     @Value("${application.expiry.days:7}")
     private Integer days;
+
+    public List<Email> findByAddressee(Integer id){
+        String email = userRepository.findOne(id).getEmail();
+        return emailSenderRestTemplate.getForObject(mailgunAdapterUrl + "/info?email=" + email, List.class);
+    }
 
     public void sendMotivationSuccess(User user) {
 
@@ -184,7 +190,7 @@ public class EmailService {
             log.trace("Sending to URL: {}", mailgunAdapterUrl);
             log.trace("Email body: {}", email);
 
-            response = emailSenderRestTemplate.postForEntity(mailgunAdapterUrl, email, String.class);
+            response = emailSenderRestTemplate.postForEntity(mailgunAdapterUrl + "/send", email, String.class);
 
             log.trace("Response: {}", response.toString());
 
