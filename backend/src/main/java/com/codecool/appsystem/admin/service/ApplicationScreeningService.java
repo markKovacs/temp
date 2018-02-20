@@ -191,6 +191,7 @@ public class ApplicationScreeningService {
                 .stream()
                 .filter(this::isScreeningAssignmentCandidate)
                 .map(this::createCandidate)
+                .sorted(Comparator.comparing(ScreeningDTO::getGroupTime))
                 .collect(Collectors.toList());
 
     }
