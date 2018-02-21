@@ -57,7 +57,7 @@ public class Application {
     private List<ApplicantsScreeningStep> screeningSteps = new ArrayList<>();
 
     @OneToMany(mappedBy = "application")
-    @OrderBy("started")
+    @OrderBy("finished")
     private List<TestResult> testResults = new ArrayList<>();
 
     @Override

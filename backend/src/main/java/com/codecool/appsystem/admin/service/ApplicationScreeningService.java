@@ -190,8 +190,8 @@ public class ApplicationScreeningService {
         return appRepository.findByLocationId(locationId)
                 .stream()
                 .filter(this::isScreeningAssignmentCandidate)
+                .sorted(Comparator.comparing(Application::getProcessStartedAt))
                 .map(this::createCandidate)
-                .sorted(Comparator.comparing(ScreeningDTO::getGroupTime))
                 .collect(Collectors.toList());
 
     }
